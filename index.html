@@ -4747,7 +4747,247 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     let TEST_MODE_ENABLED = true;
     let TEST_MODE_OVERRIDE_EMAIL = "carlosssb1016@gmail.com";
 
+    const DEFAULT_EMPLOYEES = [
+  {
+    "id": "emp-305710273",
+    "cedula": "3-0571-0273",
+    "nombre": "Alejandro Campos Ureña",
+    "puesto": "Bodeguero",
+    "departamento": "Bodega",
+    "correo": "alejandro.campos@dhcastrosantos.com",
+    "salarioMensual": 427000.0,
+    "cuentaIban": "CR0501520200102000001",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-305220353",
+    "cedula": "3-0522-0353",
+    "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON",
+    "puesto": "Agente de ventas",
+    "departamento": "Ventas",
+    "correo": "brayhan.jimenez@dhcastrosantos.com",
+    "salarioMensual": 427000.0,
+    "cuentaIban": "CR0501520200102000002",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-304660972",
+    "cedula": "3-0466-0972",
+    "nombre": "BRYAN BONILLA PIEDRA",
+    "puesto": "Chofer repartidor",
+    "departamento": "Distribución",
+    "correo": "bryan.bonilla@dhcastrosantos.com",
+    "salarioMensual": 427000.0,
+    "cuentaIban": "CR0501520200102000003",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-304680699",
+    "cedula": "3-0468-0699",
+    "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ",
+    "puesto": "Auxiliar de reparto",
+    "departamento": "Distribución",
+    "correo": "gabriel.chaves@dhcastrosantos.com",
+    "salarioMensual": 405800.0,
+    "cuentaIban": "CR0501520200102000004",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-108240018",
+    "cedula": "1-0824-0018",
+    "nombre": "GERVER CAMPOS BLANCO",
+    "puesto": "Chofer repartidor",
+    "departamento": "Distribución",
+    "correo": "gerver.campos@dhcastrosantos.com",
+    "salarioMensual": 427000.0,
+    "cuentaIban": "CR0501520200102000005",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-305190296",
+    "cedula": "3-0519-0296",
+    "nombre": "HEBER SANTIAGO NARANJO CAMPOS",
+    "puesto": "Auxiliar de reparto",
+    "departamento": "Distribución",
+    "correo": "heber.naranjo@dhcastrosantos.com",
+    "salarioMensual": 427000.0,
+    "cuentaIban": "CR0501520200102000006",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-305090511",
+    "cedula": "3-0509-0511",
+    "nombre": "JEREMY JOSEPH FALLAS CHAVES",
+    "puesto": "Chofer repartidor",
+    "departamento": "Distribución",
+    "correo": "jeremy.fallas@dhcastrosantos.com",
+    "salarioMensual": 427000.0,
+    "cuentaIban": "CR0501520200102000007",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-305460367",
+    "cedula": "3-0546-0367",
+    "nombre": "JONATHAN VEGA JIMENEZ",
+    "puesto": "Bodeguero",
+    "departamento": "Bodega",
+    "correo": "jonathan.vega@dhcastrosantos.com",
+    "salarioMensual": 427000.0,
+    "cuentaIban": "CR0501520200102000008",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-304610479",
+    "cedula": "3-0461-0479",
+    "nombre": "JOSE FELIPE UREÑA PRADO",
+    "puesto": "Bodeguero",
+    "departamento": "Bodega",
+    "correo": "felipe.urena@dhcastrosantos.com",
+    "salarioMensual": 427000.0,
+    "cuentaIban": "CR0501520200102000009",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-304970937",
+    "cedula": "3-0497-0937",
+    "nombre": "KENNETH GUILLERMO CHAVES GODINEZ",
+    "puesto": "Chofer repartidor",
+    "departamento": "Distribución",
+    "correo": "kenneth.chaves@dhcastrosantos.com",
+    "salarioMensual": 427000.0,
+    "cuentaIban": "CR0501520200102000010",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-304800696",
+    "cedula": "3-0480-0696",
+    "nombre": "KENNETH JOSUE FALLAS CORDERO",
+    "puesto": "Chofer repartidor",
+    "departamento": "Distribución",
+    "correo": "kenneth.fallas@dhcastrosantos.com",
+    "salarioMensual": 427000.0,
+    "cuentaIban": "CR0501520200102000011",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-115420265",
+    "cedula": "1-1542-0265",
+    "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL",
+    "puesto": "Agente de ventas",
+    "departamento": "Ventas",
+    "correo": "marco.piedra@dhcastrosantos.com",
+    "salarioMensual": 419755.8,
+    "cuentaIban": "CR0501520200102000012",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-304870899",
+    "cedula": "3-0487-0899",
+    "nombre": "MINOR ARLEY MARIN FALLAS",
+    "puesto": "Agente de ventas",
+    "departamento": "Ventas",
+    "correo": "minor.marin@dhcastrosantos.com",
+    "salarioMensual": 419755.8,
+    "cuentaIban": "CR0501520200102000013",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  },
+  {
+    "id": "emp-117310655",
+    "cedula": "1-1731-0655",
+    "nombre": "Victor Julio Castro Carrera",
+    "puesto": "Agente de ventas",
+    "departamento": "Ventas",
+    "correo": "victor.castro@dhcastrosantos.com",
+    "salarioMensual": 419755.8,
+    "cuentaIban": "CR0501520200102000014",
+    "fechaIngreso": "2026-01-01",
+    "feriadosLaborados": 0,
+    "horasExtraQuincena": 0,
+    "diasDisfrutados": 0,
+    "estado": "activo",
+    "fechaSalida": null
+  }
+];
+
     let storedEmployees = JSON.parse(localStorage.getItem("hc_employees")) || [];
+    // Auto-merge: Asegurar que los 14 colaboradores oficiales de la empresa estén siempre presentes
+    const empCedMap = new Set(storedEmployees.map(e => e.cedula ? e.cedula.replace(/\D/g, "") : ""));
+    const empNomMap = new Set(storedEmployees.map(e => e.nombre ? e.nombre.toUpperCase().trim() : ""));
+    DEFAULT_EMPLOYEES.forEach(defEmp => {
+      const defCed = defEmp.cedula ? defEmp.cedula.replace(/\D/g, "") : "";
+      const defNom = defEmp.nombre ? defEmp.nombre.toUpperCase().trim() : "";
+      if ((!defCed || !empCedMap.has(defCed)) && (!defNom || !empNomMap.has(defNom))) {
+        storedEmployees.push(defEmp);
+        if (defCed) empCedMap.add(defCed);
+        if (defNom) empNomMap.add(defNom);
+      }
+    });
+    localStorage.setItem("hc_employees", JSON.stringify(storedEmployees));
     let employees = storedEmployees;
     employees.forEach(e => {
       if (typeof e.feriadosLaborados === "undefined") e.feriadosLaborados = 0;
@@ -5293,19 +5533,511 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
     
     // =========================================================================
-    // CONTROL DE SALARIOS LÍQUIDOS 2026
+    // CONTROL DE SALARIOS LÍQUIDOS 2026 & HISTORIAL DE PLANILLA OFICIAL
     // =========================================================================
-    const DEFAULT_SALARIOS_2026 = [];
+    const DEFAULT_SALARIOS_2026 = [
+  {
+    "nombre": "Alejandro Campos Ureña",
+    "puesto": "Bodeguero",
+    "cedula": "3-0571-0273",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": null,
+    "enero_iiq": null,
+    "febrero_iq": null,
+    "febrero_iiq": null,
+    "marzo_iq": null,
+    "marzo_iiq": null,
+    "abril_iq": null,
+    "abril_iiq": null,
+    "mayo_iq": null,
+    "mayo_iiq": 190377.95,
+    "junio_iq": 190377.95,
+    "junio_iiq": 190377.95,
+    "julio_iq": 190377.95,
+    "julio_iiq": 190377.95,
+    "agosto_iq": null,
+    "agosto_iiq": null,
+    "setiembre_iq": null,
+    "setiembre_iiq": null,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": null,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON",
+    "puesto": "Agente de ventas",
+    "cedula": "3-0522-0353",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 189932.1,
+    "enero_iiq": 189932.1,
+    "febrero_iq": 190377.95,
+    "febrero_iiq": null,
+    "marzo_iq": 190377.95,
+    "marzo_iiq": 190377.95,
+    "abril_iq": null,
+    "abril_iiq": 190377.95,
+    "mayo_iq": 203069.81,
+    "mayo_iiq": 190377.95,
+    "junio_iq": 190377.95,
+    "junio_iiq": 190377.95,
+    "julio_iq": 190377.95,
+    "julio_iiq": 190377.95,
+    "agosto_iq": 190377.95,
+    "agosto_iiq": 190377.95,
+    "setiembre_iq": 215761.67,
+    "setiembre_iiq": 190377.95,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 190377.95,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "BRYAN BONILLA PIEDRA",
+    "puesto": "Chofer repartidor",
+    "cedula": "3-0466-0972",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 189932.1,
+    "enero_iiq": 189932.1,
+    "febrero_iq": 190377.95,
+    "febrero_iiq": null,
+    "marzo_iq": 190377.95,
+    "marzo_iiq": 190377.95,
+    "abril_iq": null,
+    "abril_iiq": 190377.95,
+    "mayo_iq": 203069.81,
+    "mayo_iiq": 190377.95,
+    "junio_iq": 190377.95,
+    "junio_iiq": 190377.95,
+    "julio_iq": 190377.95,
+    "julio_iiq": 190377.95,
+    "agosto_iq": 190377.95,
+    "agosto_iiq": 190377.95,
+    "setiembre_iq": 215761.67,
+    "setiembre_iiq": 190377.95,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 190377.95,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ",
+    "puesto": "Auxiliar de reparto",
+    "cedula": "3-0468-0699",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 180569.25,
+    "enero_iiq": 180569.25,
+    "febrero_iq": 180925.93,
+    "febrero_iiq": null,
+    "marzo_iq": 180925.93,
+    "marzo_iiq": 180925.93,
+    "abril_iq": null,
+    "abril_iiq": 180925.93,
+    "mayo_iq": 192987.65,
+    "mayo_iiq": 180925.93,
+    "junio_iq": 180925.93,
+    "junio_iiq": 180925.93,
+    "julio_iq": 180925.93,
+    "julio_iiq": 180925.93,
+    "agosto_iq": null,
+    "agosto_iiq": 180925.93,
+    "setiembre_iq": 205049.37,
+    "setiembre_iiq": 180925.93,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 180925.93,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "GERVER CAMPOS BLANCO",
+    "puesto": "Chofer repartidor",
+    "cedula": "1-0824-0018",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 189932.1,
+    "enero_iiq": 189932.1,
+    "febrero_iq": 190377.95,
+    "febrero_iiq": null,
+    "marzo_iq": 190377.95,
+    "marzo_iiq": 190377.95,
+    "abril_iq": null,
+    "abril_iiq": 190377.95,
+    "mayo_iq": 203069.81,
+    "mayo_iiq": 190377.95,
+    "junio_iq": 190377.95,
+    "junio_iiq": 190377.95,
+    "julio_iq": 190377.95,
+    "julio_iiq": 190377.95,
+    "agosto_iq": 190377.95,
+    "agosto_iiq": 190377.95,
+    "setiembre_iq": 215761.67,
+    "setiembre_iiq": 190377.95,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 190377.95,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "HEBER SANTIAGO NARANJO CAMPOS",
+    "puesto": "Auxiliar de reparto",
+    "cedula": "3-0519-0296",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 189932.1,
+    "enero_iiq": 189932.1,
+    "febrero_iq": 190377.95,
+    "febrero_iiq": null,
+    "marzo_iq": 190377.95,
+    "marzo_iiq": 190377.95,
+    "abril_iq": null,
+    "abril_iiq": 190377.95,
+    "mayo_iq": 203069.81,
+    "mayo_iiq": 190377.95,
+    "junio_iq": 190377.95,
+    "junio_iiq": 190377.95,
+    "julio_iq": 190377.95,
+    "julio_iiq": 190377.95,
+    "agosto_iq": 190377.95,
+    "agosto_iiq": 190377.95,
+    "setiembre_iq": 215761.67,
+    "setiembre_iiq": 190377.95,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 190377.95,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "JEREMY JOSEPH FALLAS CHAVES",
+    "puesto": "Chofer repartidor",
+    "cedula": "3-0509-0511",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 189932.1,
+    "enero_iiq": 189932.1,
+    "febrero_iq": 190377.95,
+    "febrero_iiq": null,
+    "marzo_iq": 190377.95,
+    "marzo_iiq": 190377.95,
+    "abril_iq": null,
+    "abril_iiq": 190377.95,
+    "mayo_iq": 203069.81,
+    "mayo_iiq": 190377.95,
+    "junio_iq": 190377.95,
+    "junio_iiq": 190377.95,
+    "julio_iq": 190377.95,
+    "julio_iiq": 190377.95,
+    "agosto_iq": 164994.22,
+    "agosto_iiq": null,
+    "setiembre_iq": null,
+    "setiembre_iiq": null,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": null,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "JONATHAN VEGA JIMENEZ",
+    "puesto": "Bodeguero",
+    "cedula": "3-0546-0367",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 189932.1,
+    "enero_iiq": 189932.1,
+    "febrero_iq": 190377.95,
+    "febrero_iiq": null,
+    "marzo_iq": 190377.95,
+    "marzo_iiq": 190377.95,
+    "abril_iq": null,
+    "abril_iiq": 190377.95,
+    "mayo_iq": 203069.81,
+    "mayo_iiq": 190377.95,
+    "junio_iq": 190377.95,
+    "junio_iiq": 190377.95,
+    "julio_iq": 190377.95,
+    "julio_iiq": 190377.95,
+    "agosto_iq": 190377.95,
+    "agosto_iiq": 190377.95,
+    "setiembre_iq": 215761.67,
+    "setiembre_iiq": 190377.95,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 190377.95,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "JOSE FELIPE UREÑA PRADO",
+    "puesto": "Bodeguero",
+    "cedula": "3-0461-0479",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 189932.1,
+    "enero_iiq": 189932.1,
+    "febrero_iq": 190377.95,
+    "febrero_iiq": null,
+    "marzo_iq": 190377.95,
+    "marzo_iiq": 190377.95,
+    "abril_iq": null,
+    "abril_iiq": 190377.95,
+    "mayo_iq": 203069.81,
+    "mayo_iiq": 190377.95,
+    "junio_iq": 190377.95,
+    "junio_iiq": 190377.95,
+    "julio_iq": 190377.95,
+    "julio_iiq": 190377.95,
+    "agosto_iq": 190377.95,
+    "agosto_iiq": 190377.95,
+    "setiembre_iq": 215761.67,
+    "setiembre_iiq": 190377.95,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 190377.95,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "KENNETH GUILLERMO CHAVES GODINEZ",
+    "puesto": "Chofer repartidor",
+    "cedula": "3-0497-0937",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": null,
+    "enero_iiq": null,
+    "febrero_iq": null,
+    "febrero_iiq": null,
+    "marzo_iq": null,
+    "marzo_iiq": null,
+    "abril_iq": null,
+    "abril_iiq": null,
+    "mayo_iq": null,
+    "mayo_iiq": null,
+    "junio_iq": null,
+    "junio_iiq": null,
+    "julio_iq": null,
+    "julio_iiq": null,
+    "agosto_iq": null,
+    "agosto_iiq": null,
+    "setiembre_iq": 126918.63,
+    "setiembre_iiq": 190377.95,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 190377.95,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "KENNETH JOSUE FALLAS CORDERO",
+    "puesto": "Chofer repartidor",
+    "cedula": "3-0480-0696",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 189932.1,
+    "enero_iiq": 189932.1,
+    "febrero_iq": 190377.95,
+    "febrero_iiq": null,
+    "marzo_iq": 190377.95,
+    "marzo_iiq": 190377.95,
+    "abril_iq": null,
+    "abril_iiq": 190377.95,
+    "mayo_iq": 203069.81,
+    "mayo_iiq": 190377.95,
+    "junio_iq": 190377.95,
+    "junio_iiq": 190377.95,
+    "julio_iq": 190377.95,
+    "julio_iiq": 190377.95,
+    "agosto_iq": 190377.95,
+    "agosto_iiq": 190377.95,
+    "setiembre_iq": 215761.67,
+    "setiembre_iiq": 190377.95,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 190377.95,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL",
+    "puesto": "Agente de ventas",
+    "cedula": "1-1542-0265",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 187148.12,
+    "enero_iiq": 187148.12,
+    "febrero_iq": 187148.12,
+    "febrero_iiq": null,
+    "marzo_iq": 187148.12,
+    "marzo_iiq": 187148.12,
+    "abril_iq": null,
+    "abril_iiq": 187148.12,
+    "mayo_iq": 194542.23,
+    "mayo_iiq": 180550.36,
+    "junio_iq": 180550.36,
+    "junio_iiq": 180550.36,
+    "julio_iq": 180550.36,
+    "julio_iiq": 180550.36,
+    "agosto_iq": 180550.36,
+    "agosto_iiq": 180550.36,
+    "setiembre_iq": 205503.45,
+    "setiembre_iiq": 180550.36,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 180550.36,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "MINOR ARLEY MARIN FALLAS",
+    "puesto": "Agente de ventas",
+    "cedula": "3-0487-0899",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 187148.12,
+    "enero_iiq": 187148.12,
+    "febrero_iq": 187148.12,
+    "febrero_iiq": null,
+    "marzo_iq": 187148.12,
+    "marzo_iiq": 187148.12,
+    "abril_iq": null,
+    "abril_iiq": 187148.12,
+    "mayo_iq": 199624.66,
+    "mayo_iiq": 187148.12,
+    "junio_iq": 187148.12,
+    "junio_iiq": 187148.12,
+    "julio_iq": 187148.12,
+    "julio_iiq": 187148.12,
+    "agosto_iq": 187148.12,
+    "agosto_iiq": 187148.12,
+    "setiembre_iq": 212101.2,
+    "setiembre_iiq": 187148.12,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 187148.12,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  },
+  {
+    "nombre": "Victor Julio Castro Carrera",
+    "puesto": "Agente de ventas",
+    "cedula": "1-1731-0655",
+    "diciembre_ant_iq": null,
+    "diciembre_ant_iiq": null,
+    "enero_iq": 187148.12,
+    "enero_iiq": 187148.12,
+    "febrero_iq": 187148.12,
+    "febrero_iiq": null,
+    "marzo_iq": 187148.12,
+    "marzo_iiq": 187148.12,
+    "abril_iq": null,
+    "abril_iiq": 187148.12,
+    "mayo_iq": 187148.12,
+    "mayo_iiq": 187148.12,
+    "junio_iq": 187148.12,
+    "junio_iiq": 187148.12,
+    "julio_iq": 187148.12,
+    "julio_iiq": 187148.12,
+    "agosto_iq": 187148.12,
+    "agosto_iiq": 187148.12,
+    "setiembre_iq": 212101.2,
+    "setiembre_iiq": 187148.12,
+    "octubre_iq": null,
+    "octubre_iiq": null,
+    "noviembre_iq": 187148.12,
+    "noviembre_iiq": null,
+    "diciembre_iq": null,
+    "diciembre_iiq": null
+  }
+];
+
+    const DEFAULT_PAYROLL_HISTORY = [{"id": "pay-abril_iiq-305220353", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-abril_iiq-304660972", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-abril_iiq-304610479", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-abril_iiq-304680699", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-abril_iiq-108240018", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-abril_iiq-305090511", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-abril_iiq-305460367", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-abril_iiq-304800696", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-abril_iiq-115420265", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-abril_iiq-304870899", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-abril_iiq-305190296", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-abril_iiq-117310655", "periodo": "II Quincena Abril 2026", "fechaPago": "2026-04-30", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-agosto_iiq-305220353", "periodo": "II Quincena Agosto 2026", "fechaPago": "2026-08-30", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iiq-304660972", "periodo": "II Quincena Agosto 2026", "fechaPago": "2026-08-30", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iiq-304610479", "periodo": "II Quincena Agosto 2026", "fechaPago": "2026-08-30", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iiq-304680699", "periodo": "II Quincena Agosto 2026", "fechaPago": "2026-08-30", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-agosto_iiq-108240018", "periodo": "II Quincena Agosto 2026", "fechaPago": "2026-08-30", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iiq-305460367", "periodo": "II Quincena Agosto 2026", "fechaPago": "2026-08-30", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iiq-304800696", "periodo": "II Quincena Agosto 2026", "fechaPago": "2026-08-30", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iiq-304870899", "periodo": "II Quincena Agosto 2026", "fechaPago": "2026-08-30", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-agosto_iiq-305190296", "periodo": "II Quincena Agosto 2026", "fechaPago": "2026-08-30", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iiq-117310655", "periodo": "II Quincena Agosto 2026", "fechaPago": "2026-08-30", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-enero_iiq-305220353", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iiq-304660972", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iiq-304610479", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iiq-304680699", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202500.0, "totalDevengado": 202500.0, "ccssObrero": 21930.75, "otrosRebajosMonto": 0, "totalDeducciones": 21930.75, "salarioNeto": 180569.25}, {"id": "pay-enero_iiq-108240018", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iiq-305090511", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iiq-305460367", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iiq-304800696", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iiq-115420265", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-enero_iiq-304870899", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-enero_iiq-305190296", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iiq-117310655", "periodo": "II Quincena ENERO 2026", "fechaPago": "2026-01-30", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-julio_iiq-305710273", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "3-0571-0273", "nombre": "Alejandro Campos Ureña", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iiq-305220353", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iiq-304660972", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iiq-304610479", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iiq-304680699", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-julio_iiq-108240018", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iiq-305090511", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iiq-305460367", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iiq-304800696", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iiq-304870899", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-julio_iiq-305190296", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iiq-117310655", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-junio_iiq-305710273", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "3-0571-0273", "nombre": "Alejandro Campos Ureña", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iiq-305220353", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iiq-304660972", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iiq-304610479", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iiq-304680699", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-junio_iiq-108240018", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iiq-305090511", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iiq-305460367", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iiq-304800696", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iiq-304870899", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-junio_iiq-305190296", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iiq-117310655", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-marzo_iiq-305220353", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iiq-304660972", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iiq-304610479", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iiq-304680699", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-marzo_iiq-108240018", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iiq-305090511", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iiq-305460367", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iiq-304800696", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iiq-115420265", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-marzo_iiq-304870899", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-marzo_iiq-305190296", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iiq-117310655", "periodo": "II Quincena Marzo 2026", "fechaPago": "2026-03-30", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-mayo_iiq-305710273", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "3-0571-0273", "nombre": "Alejandro Campos Ureña", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-mayo_iiq-305220353", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-mayo_iiq-304660972", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-mayo_iiq-304610479", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-mayo_iiq-304680699", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-mayo_iiq-108240018", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-mayo_iiq-305090511", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-mayo_iiq-305460367", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-mayo_iiq-304800696", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-mayo_iiq-304870899", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-mayo_iiq-305190296", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-mayo_iiq-117310655", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-setiembre_iiq-305220353", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-setiembre_iiq-304660972", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-setiembre_iiq-304610479", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-setiembre_iiq-304680699", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-setiembre_iiq-108240018", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-setiembre_iiq-305460367", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-setiembre_iiq-304970937", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "3-0497-0937", "nombre": "KENNETH GUILLERMO CHAVES GODINEZ", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-setiembre_iiq-304800696", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-setiembre_iiq-115420265", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 6597.76, "totalDeducciones": 29327.53, "salarioNeto": 180550.36}, {"id": "pay-setiembre_iiq-304870899", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-setiembre_iiq-305190296", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-setiembre_iiq-117310655", "periodo": "II Quincena Setiembre 2026", "fechaPago": "2026-09-30", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-agosto_iq-305220353", "periodo": "I Quincena Agosto 2026", "fechaPago": "2026-08-15", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iq-304660972", "periodo": "I Quincena Agosto 2026", "fechaPago": "2026-08-15", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iq-304610479", "periodo": "I Quincena Agosto 2026", "fechaPago": "2026-08-15", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iq-108240018", "periodo": "I Quincena Agosto 2026", "fechaPago": "2026-08-15", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iq-305090511", "periodo": "I Quincena Agosto 2026", "fechaPago": "2026-08-15", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 185033.33, "totalDevengado": 185033.33, "ccssObrero": 20039.11, "otrosRebajosMonto": 0, "totalDeducciones": 20039.11, "salarioNeto": 164994.22}, {"id": "pay-agosto_iq-305460367", "periodo": "I Quincena Agosto 2026", "fechaPago": "2026-08-15", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iq-304800696", "periodo": "I Quincena Agosto 2026", "fechaPago": "2026-08-15", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iq-304870899", "periodo": "I Quincena Agosto 2026", "fechaPago": "2026-08-15", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-agosto_iq-305190296", "periodo": "I Quincena Agosto 2026", "fechaPago": "2026-08-15", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-agosto_iq-117310655", "periodo": "I Quincena Agosto 2026", "fechaPago": "2026-08-15", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-enero_iq-304660972", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iq-304610479", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iq-304680699", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202500.0, "totalDevengado": 202500.0, "ccssObrero": 21930.75, "otrosRebajosMonto": 0, "totalDeducciones": 21930.75, "salarioNeto": 180569.25}, {"id": "pay-enero_iq-108240018", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iq-305090511", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iq-305460367", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iq-304800696", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iq-115420265", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-enero_iq-304870899", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-enero_iq-305190296", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-enero_iq-117310655", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-enero_iq-305220353", "periodo": "I Quincena ENERO 2026", "fechaPago": "2026-01-15", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213000.0, "totalDevengado": 213000.0, "ccssObrero": 23067.9, "otrosRebajosMonto": 0, "totalDeducciones": 23067.9, "salarioNeto": 189932.1}, {"id": "pay-febrero_iq-305220353", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-febrero_iq-304660972", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-febrero_iq-304610479", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-febrero_iq-304680699", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-febrero_iq-108240018", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-febrero_iq-305090511", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-febrero_iq-305460367", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-febrero_iq-304800696", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-febrero_iq-115420265", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-febrero_iq-304870899", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-febrero_iq-305190296", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-febrero_iq-117310655", "periodo": "I Quincena FEBRERO 2026", "fechaPago": "2026-02-15", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-julio_iq-305710273", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "3-0571-0273", "nombre": "Alejandro Campos Ureña", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iq-305220353", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iq-304660972", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iq-304610479", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iq-304680699", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-julio_iq-108240018", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iq-305090511", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iq-305460367", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iq-304800696", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iq-304870899", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-julio_iq-305190296", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-julio_iq-117310655", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-junio_iq-305710273", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "3-0571-0273", "nombre": "Alejandro Campos Ureña", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iq-305220353", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iq-304660972", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iq-304610479", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iq-304680699", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-junio_iq-108240018", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iq-305090511", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iq-305460367", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iq-304800696", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iq-304870899", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-junio_iq-305190296", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-junio_iq-117310655", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-marzo_iq-305220353", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iq-304660972", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iq-304610479", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iq-304680699", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-marzo_iq-108240018", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iq-305090511", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iq-305460367", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iq-304800696", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iq-115420265", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-marzo_iq-304870899", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-marzo_iq-305190296", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-marzo_iq-117310655", "periodo": "I Quincena Marzo 2026", "fechaPago": "2026-03-15", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-mayo_iq-305220353", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 24663.51, "otrosRebajosMonto": 0, "totalDeducciones": 24663.51, "salarioNeto": 203069.81}, {"id": "pay-mayo_iq-304660972", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 24663.51, "otrosRebajosMonto": 0, "totalDeducciones": 24663.51, "salarioNeto": 203069.81}, {"id": "pay-mayo_iq-304610479", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 24663.51, "otrosRebajosMonto": 0, "totalDeducciones": 24663.51, "salarioNeto": 203069.81}, {"id": "pay-mayo_iq-304680699", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 23439.0, "otrosRebajosMonto": 0, "totalDeducciones": 23439.0, "salarioNeto": 192987.65}, {"id": "pay-mayo_iq-108240018", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 24663.51, "otrosRebajosMonto": 0, "totalDeducciones": 24663.51, "salarioNeto": 203069.81}, {"id": "pay-mayo_iq-305090511", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "3-0509-0511", "nombre": "JEREMY JOSEPH FALLAS CHAVES", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 24663.51, "otrosRebajosMonto": 0, "totalDeducciones": 24663.51, "salarioNeto": 203069.81}, {"id": "pay-mayo_iq-305460367", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 24663.51, "otrosRebajosMonto": 0, "totalDeducciones": 24663.51, "salarioNeto": 203069.81}, {"id": "pay-mayo_iq-304800696", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 24663.51, "otrosRebajosMonto": 0, "totalDeducciones": 24663.51, "salarioNeto": 203069.81}, {"id": "pay-mayo_iq-304870899", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 24245.09, "otrosRebajosMonto": 0, "totalDeducciones": 24245.09, "salarioNeto": 199624.66}, {"id": "pay-mayo_iq-305190296", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 24663.51, "otrosRebajosMonto": 0, "totalDeducciones": 24663.51, "salarioNeto": 203069.81}, {"id": "pay-mayo_iq-117310655", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-noviembre_iq-305220353", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-noviembre_iq-304660972", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-noviembre_iq-304610479", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-noviembre_iq-304680699", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 21974.07, "otrosRebajosMonto": 0, "totalDeducciones": 21974.07, "salarioNeto": 180925.93}, {"id": "pay-noviembre_iq-108240018", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-noviembre_iq-305460367", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-noviembre_iq-304970937", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "3-0497-0937", "nombre": "KENNETH GUILLERMO CHAVES GODINEZ", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-noviembre_iq-304800696", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-noviembre_iq-115420265", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 6597.76, "totalDeducciones": 29327.53, "salarioNeto": 180550.36}, {"id": "pay-noviembre_iq-304870899", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-noviembre_iq-305190296", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 23122.05, "otrosRebajosMonto": 0, "totalDeducciones": 23122.05, "salarioNeto": 190377.95}, {"id": "pay-noviembre_iq-117310655", "periodo": "I Quincena Noviembre 2026", "fechaPago": "2026-11-15", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 0, "totalDeducciones": 22729.77, "salarioNeto": 187148.12}, {"id": "pay-setiembre_iq-305220353", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "3-0522-0353", "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 26204.98, "otrosRebajosMonto": 0, "totalDeducciones": 26204.98, "salarioNeto": 215761.67}, {"id": "pay-setiembre_iq-304660972", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "3-0466-0972", "nombre": "BRYAN BONILLA PIEDRA", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 26204.98, "otrosRebajosMonto": 0, "totalDeducciones": 26204.98, "salarioNeto": 215761.67}, {"id": "pay-setiembre_iq-304610479", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "3-0461-0479", "nombre": "JOSE FELIPE UREÑA PRADO", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 26204.98, "otrosRebajosMonto": 0, "totalDeducciones": 26204.98, "salarioNeto": 215761.67}, {"id": "pay-setiembre_iq-304680699", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "3-0468-0699", "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 202900.0, "totalDevengado": 202900.0, "ccssObrero": 24903.94, "otrosRebajosMonto": 0, "totalDeducciones": 24903.94, "salarioNeto": 205049.37}, {"id": "pay-setiembre_iq-108240018", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "1-0824-0018", "nombre": "GERVER CAMPOS BLANCO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 26204.98, "otrosRebajosMonto": 0, "totalDeducciones": 26204.98, "salarioNeto": 215761.67}, {"id": "pay-setiembre_iq-305460367", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "3-0546-0367", "nombre": "JONATHAN VEGA JIMENEZ", "puesto": "Bodeguero", "departamento": "Bodega", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 26204.98, "otrosRebajosMonto": 0, "totalDeducciones": 26204.98, "salarioNeto": 215761.67}, {"id": "pay-setiembre_iq-304970937", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "3-0497-0937", "nombre": "KENNETH GUILLERMO CHAVES GODINEZ", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 15414.69, "otrosRebajosMonto": 0, "totalDeducciones": 15414.69, "salarioNeto": 126918.63}, {"id": "pay-setiembre_iq-304800696", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "3-0480-0696", "nombre": "KENNETH JOSUE FALLAS CORDERO", "puesto": "Chofer repartidor", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 26204.98, "otrosRebajosMonto": 0, "totalDeducciones": 26204.98, "salarioNeto": 215761.67}, {"id": "pay-setiembre_iq-304870899", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "3-0487-0899", "nombre": "MINOR ARLEY MARIN FALLAS", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 25760.41, "otrosRebajosMonto": 0, "totalDeducciones": 25760.41, "salarioNeto": 212101.2}, {"id": "pay-setiembre_iq-305190296", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "3-0519-0296", "nombre": "HEBER SANTIAGO NARANJO CAMPOS", "puesto": "Auxiliar de reparto", "departamento": "Distribución", "salarioQuincenal": 213500.0, "totalDevengado": 213500.0, "ccssObrero": 26204.98, "otrosRebajosMonto": 0, "totalDeducciones": 26204.98, "salarioNeto": 215761.67}, {"id": "pay-setiembre_iq-117310655", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "1-1731-0655", "nombre": "Victor Julio Castro Carrera", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 25760.41, "otrosRebajosMonto": 0, "totalDeducciones": 25760.41, "salarioNeto": 212101.2}, {"id": "pay-julio_iq-115420265", "periodo": "I Quincena Julio 2026", "fechaPago": "2026-07-15", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 6597.76, "totalDeducciones": 29327.53, "salarioNeto": 180550.36}, {"id": "pay-agosto_iiq-115420265", "periodo": "II Quincena Agosto 2026", "fechaPago": "2026-08-30", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 6597.76, "totalDeducciones": 29327.53, "salarioNeto": 180550.36}, {"id": "pay-julio_iiq-115420265", "periodo": "II Quincena Julio 2026", "fechaPago": "2026-07-30", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 6597.76, "totalDeducciones": 29327.53, "salarioNeto": 180550.36}, {"id": "pay-junio_iiq-115420265", "periodo": "II Quincena Junio 2026", "fechaPago": "2026-06-30", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 6597.76, "totalDeducciones": 29327.53, "salarioNeto": 180550.36}, {"id": "pay-mayo_iiq-115420265", "periodo": "II Quincena Mayo 2026", "fechaPago": "2026-05-30", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 6597.76, "totalDeducciones": 29327.53, "salarioNeto": 180550.36}, {"id": "pay-agosto_iq-115420265", "periodo": "I Quincena Agosto 2026", "fechaPago": "2026-08-15", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 6597.76, "totalDeducciones": 29327.53, "salarioNeto": 180550.36}, {"id": "pay-junio_iq-115420265", "periodo": "I Quincena Junio 2026", "fechaPago": "2026-06-15", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 6597.76, "totalDeducciones": 29327.53, "salarioNeto": 180550.36}, {"id": "pay-mayo_iq-115420265", "periodo": "I Quincena Mayo 2026", "fechaPago": "2026-05-15", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 22729.77, "otrosRebajosMonto": 6597.76, "totalDeducciones": 29327.53, "salarioNeto": 194542.23}, {"id": "pay-setiembre_iq-115420265", "periodo": "I Quincena Setiembre 2026", "fechaPago": "2026-09-15", "cedula": "1-1542-0265", "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL", "puesto": "Agente de ventas", "departamento": "Ventas", "salarioQuincenal": 209877.9, "totalDevengado": 209877.9, "ccssObrero": 25760.41, "otrosRebajosMonto": 6597.76, "totalDeducciones": 32358.17, "salarioNeto": 205503.45}];
+
+        function getPayrollHistoryData() {
+      let storedList = [];
+      const stored = localStorage.getItem("hc_payroll_history");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) storedList = parsed;
+        } catch(e){}
+      }
+
+      const combined = [...DEFAULT_PAYROLL_HISTORY];
+      const seen = new Set();
+      
+      const cleanKey = (p) => {
+        const ced = String(p.cedula || "").replace(/\D/g, "");
+        const per = String(p.periodo || "").toLowerCase().replace(/\s+/g, " ").trim();
+        return `${ced}_${per}`;
+      };
+
+      combined.forEach(p => seen.add(cleanKey(p)));
+
+      // Agregar registros adicionales que el usuario haya generado localmente
+      storedList.forEach(p => {
+        const k = cleanKey(p);
+        if (!seen.has(k)) {
+          combined.push(p);
+          seen.add(k);
+        }
+      });
+
+      return combined;
+    }
 
     function getControlSalariosData() {
+      let storedList = [];
       const stored = localStorage.getItem("hc_salarios_2026");
       if (stored) {
         try { 
-          const list = JSON.parse(stored);
-          if (Array.isArray(list)) return list;
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) storedList = parsed;
         } catch(e){}
       }
-      return [];
+
+      const map = new Map();
+      DEFAULT_SALARIOS_2026.forEach(s => {
+        const k = (s.cedula ? s.cedula.replace(/\D/g, "") : "") || s.nombre.toUpperCase().trim();
+        map.set(k, { ...s });
+      });
+
+      storedList.forEach(s => {
+        const k = (s.cedula ? s.cedula.replace(/\D/g, "") : "") || (s.nombre ? s.nombre.toUpperCase().trim() : "");
+        if (map.has(k)) {
+          const base = map.get(k);
+          Object.keys(s).forEach(field => {
+            if (s[field] !== null && s[field] !== undefined && s[field] !== "") {
+              base[field] = s[field];
+            }
+          });
+        } else if (k) {
+          map.set(k, s);
+        }
+      });
+
+      return Array.from(map.values());
     }
 
     function handleUploadExcelSalarios(event) {
@@ -5341,8 +6073,31 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           }
 
           if (headerRowIdx === -1) {
-            headerRowIdx = 0; // fallback
+            headerRowIdx = 0;
           }
+
+          const headerRow = jsonData[headerRowIdx] || [];
+          const keys = [
+            "diciembre_ant_iq", "diciembre_ant_iiq",
+            "enero_iq", "enero_iiq", "febrero_iq", "febrero_iiq", "marzo_iq", "marzo_iiq",
+            "abril_iq", "abril_iiq", "mayo_iq", "mayo_iiq", "junio_iq", "junio_iiq",
+            "julio_iq", "julio_iiq", "agosto_iq", "agosto_iiq", "setiembre_iq", "setiembre_iiq",
+            "octubre_iq", "octubre_iiq", "noviembre_iq", "noviembre_iiq", "diciembre_iq", "diciembre_iiq"
+          ];
+
+          const cleanNum = (val) => {
+            if (val === null || val === undefined || val === "") return null;
+            if (typeof val === "number") return val;
+            const s = String(val).replace(/[^0-9.,]/g, "").replace(",", ".");
+            const num = parseFloat(s);
+            return isNaN(num) ? null : num;
+          };
+
+          // Detectar formato de 28 columnas (con Diciembre Anterior) vs 12 o 26 columnas desde Enero
+          const isFullFormat = headerRow.length >= 26 && (
+            String(headerRow[2] || "").toUpperCase().includes("DIC") ||
+            String(headerRow[2] || "").toUpperCase().includes("ANT")
+          );
 
           const parsedList = [];
           for (let r = headerRowIdx + 1; r < jsonData.length; r++) {
@@ -5351,39 +6106,39 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             const nom = String(row[0]).trim();
             if (!nom || nom.toUpperCase().includes("TOTAL")) continue;
 
-            const puesto = row[1] ? String(row[1]).trim() : "Bodeguero";
-            
-            // Función auxiliar para limpiar moneda
-            const cleanNum = (val) => {
-              if (val === null || val === undefined || val === "") return null;
-              if (typeof val === "number") return val;
-              const s = String(val).replace(/[^0-9.,]/g, "").replace(",", ".");
-              const num = parseFloat(s);
-              return isNaN(num) ? null : num;
+            const puesto = row[1] ? String(row[1]).trim() : "Agente de ventas";
+            const rowObj = {
+              nombre: nom.toUpperCase(),
+              puesto: puesto
             };
 
-            parsedList.push({
-              nombre: nom.toUpperCase(),
-              puesto: puesto,
-              enero_iq: cleanNum(row[2]),
-              enero_iiq: cleanNum(row[3]),
-              febrero_iq: cleanNum(row[4]),
-              febrero_iiq: cleanNum(row[5]),
-              marzo_iq: cleanNum(row[6]),
-              marzo_iiq: cleanNum(row[7]),
-              abril_iq: cleanNum(row[8]),
-              abril_iiq: cleanNum(row[9]),
-              mayo_iq: cleanNum(row[10]),
-              mayo_iiq: cleanNum(row[11])
-            });
+            if (isFullFormat) {
+              keys.forEach((k, ki) => {
+                rowObj[k] = cleanNum(row[2 + ki]);
+              });
+            } else {
+              rowObj.diciembre_ant_iq = null;
+              rowObj.diciembre_ant_iiq = null;
+              const subKeys = [
+                "enero_iq", "enero_iiq", "febrero_iq", "febrero_iiq", "marzo_iq", "marzo_iiq",
+                "abril_iq", "abril_iiq", "mayo_iq", "mayo_iiq", "junio_iq", "junio_iiq",
+                "julio_iq", "julio_iiq", "agosto_iq", "agosto_iiq", "setiembre_iq", "setiembre_iiq",
+                "octubre_iq", "octubre_iiq", "noviembre_iq", "noviembre_iiq", "diciembre_iq", "diciembre_iiq"
+              ];
+              subKeys.forEach((k, ki) => {
+                rowObj[k] = cleanNum(row[2 + ki]);
+              });
+            }
+
+            parsedList.push(rowObj);
           }
 
           if (parsedList.length > 0) {
             localStorage.setItem("hc_salarios_2026", JSON.stringify(parsedList));
             openModalControlSalarios();
             renderAguinaldoModule();
-            showToast("¡Excel procesado con éxito! " + parsedList.length + " filas cargadas.");
-            if (sheetsApiUrl) {
+            showToast("¡Excel procesado con éxito! " + parsedList.length + " colaboradores cargados.");
+            if (typeof sheetsApiUrl !== "undefined" && sheetsApiUrl) {
               syncAllToSheets();
             }
           } else {
@@ -5401,6 +6156,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const data = getControlSalariosData();
       const tbody = document.getElementById("ctl-table-body");
       const tfoot = document.getElementById("ctl-table-foot");
+      if (!tbody || !tfoot) return;
       document.getElementById("ctl-total-emps").textContent = data.length;
       tbody.innerHTML = "";
 
@@ -5419,76 +6175,36 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       data.forEach(row => {
         let rowTotal = 0;
         const tr = document.createElement("tr");
-        tr.className = "hover:bg-slate-50 transition";
-        tr.innerHTML = `
-          <td class="px-2.5 sm:px-3 py-2 sm:py-2.5 whitespace-nowrap">
-            <div class="font-bold text-slate-900 text-xs sm:text-sm leading-tight">${emp.nombre}</div>
-            <div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 truncate max-w-[180px] lg:max-w-none" title="${emp.puesto} · ${emp.correo}">${emp.puesto} · ${emp.correo}</div>
-          </td>
-          <td class="px-2.5 sm:px-3 py-2 sm:py-2.5 text-right font-mono whitespace-nowrap text-slate-800 font-medium text-xs sm:text-sm">${formatCRC(baseQuincenal)}</td>
-          <td class="px-2.5 sm:px-3 py-2 sm:py-2.5 text-right font-mono whitespace-nowrap text-xs sm:text-sm ${montoExtra > 0 ? 'text-purple-600 font-bold' : 'text-slate-400'}">
-            ${montoExtra > 0 ? `+${formatCRC(montoExtra)} (${emp.horasExtraQuincena}h)` : '₡0,00'}
-          </td>
-          <td class="px-2 sm:px-2.5 py-2 sm:py-2.5 text-center whitespace-nowrap bg-amber-50/20">
-            <div class="inline-flex items-center border border-slate-200 rounded-lg overflow-hidden bg-white shadow-2xs">
-              <button onclick="adjustEmployeeHoliday('${emp.id}', -1)" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold transition text-xs">−</button>
-              <span class="px-2 py-0.5 font-mono font-bold text-[11px] ${diasFeriados > 0 ? 'text-amber-900 bg-amber-100' : 'text-slate-500'}">
-                ${diasFeriados} d
-              </span>
-              <button onclick="adjustEmployeeHoliday('${emp.id}', 1)" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold transition text-xs">+</button>
-            </div>
-            ${montoFeriados > 0 ? `<div class="text-[10px] font-mono font-bold text-amber-800 mt-0.5">+${formatCRC(montoFeriados)}</div>` : ''}
-          </td>
-          <td class="px-2.5 sm:px-3 py-2 sm:py-2.5 text-right font-mono font-bold text-slate-900 whitespace-nowrap text-xs sm:text-sm">${formatCRC(totalDevengado)}</td>
-          <td class="px-2.5 sm:px-3 py-2 sm:py-2.5 text-right font-mono whitespace-nowrap text-xs">
-            <div class="text-rose-600 text-xs font-semibold">-${formatCRC(ccss)} <span class="text-[10px] text-slate-400 font-sans">CCSS</span></div>
-            ${totalOtrosRebajos > 0 ? `
-              <div class="text-rose-700 font-bold text-xs mt-0.5">-${formatCRC(totalOtrosRebajos)} <span class="text-[10px] text-slate-500 font-sans">(${rebInfo.count} rebajo${rebInfo.count > 1 ? 's' : ''})</span></div>
-              <div class="text-[10px] text-slate-500 font-sans border-t border-rose-100 pt-0.5 font-semibold">Total: -${formatCRC(totalDeducciones)}</div>
-            ` : ''}
-            <button onclick="openModalEmployeeRebajos('${emp.id}')" class="mt-1 px-2 py-0.5 rounded text-[10px] font-bold ${totalOtrosRebajos > 0 ? 'bg-rose-100 hover:bg-rose-200 text-rose-800 border-rose-300' : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300'} border inline-flex items-center gap-1 shadow-2xs transition" title="Gestionar préstamos, embargos o rebajos para ${emp.nombre}">
-              <span>✂️</span> <span>+ Rebajo</span>
-              ${rebInfo.count > 0 ? `<span class="bg-rose-600 text-white rounded-full px-1.5 text-[9px] font-black">${rebInfo.count}</span>` : ''}
-            </button>
-          </td>
-          <td class="px-2.5 sm:px-3 py-2 sm:py-2.5 text-right font-mono font-black text-slate-950 bg-slate-50/80 text-xs sm:text-sm whitespace-nowrap">${formatCRC(neto)}</td>
-          <td class="px-2 sm:px-2.5 py-2 sm:py-2.5 text-center whitespace-nowrap">
-            ${emp.emailSent 
-              ? `<span class="bg-emerald-100 text-emerald-800 text-[10px] sm:text-[11px] px-2 py-0.5 rounded-full font-semibold">✓ Enviado Gmail</span>` 
-              : `<span class="bg-amber-100 text-amber-800 text-[10px] sm:text-[11px] px-2 py-0.5 rounded-full font-semibold">Pendiente</span>`}
-          </td>
-          <td class="px-2 py-2 text-center align-middle whitespace-nowrap">
-            <!-- Botones Organizados Verticalmente para Ahorro Máximo de Ancho de Pantalla -->
-            <div class="flex flex-col gap-1 w-28 mx-auto">
-              ${isSalaryGeneratedForPeriod(emp.id, currentPeriod) ? `
-                <button onclick="generateEmployeeSalary('${emp.id}')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1 px-2 rounded-md text-[11px] transition shadow-xs flex items-center justify-center gap-1 leading-tight" title="Salario ya registrado en el historial. Clic para recalcular.">
-                  <span>✓</span> <span>Generado</span>
-                </button>
-              ` : `
-                <button onclick="generateEmployeeSalary('${emp.id}')" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-1 px-2 rounded-md text-[11px] transition shadow-xs flex items-center justify-center gap-1 leading-tight" title="Generar salario y registrar pago de esta quincena">
-                  <span>💰</span> <span>Generar</span>
-                </button>
-              `}
-              <button onclick="previewQuincenaVoucher('${emp.id}')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-1 px-2 rounded-md text-[11px] transition shadow-xs flex items-center justify-center gap-1 leading-tight" title="Ver comprobante oficial de pago">
-                <span>📄</span> <span>Recibo</span>
-              </button>
-              <button onclick="sendVoucherByGmail('${emp.id}')" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold py-1 px-2 rounded-md text-[11px] transition shadow-xs flex items-center justify-center gap-1 leading-tight" title="Enviar comprobante a ${emp.correo} por Gmail">
-                <span>✉️</span> <span>Enviar Gmail</span>
-              </button>
-            </div>
-          </td>
+        tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
+        let rowCells = `
+          <td class="px-3 py-2 font-bold text-slate-900 whitespace-nowrap bg-white sticky left-0 z-10">${row.nombre}</td>
+          <td class="px-3 py-2 text-slate-600 whitespace-nowrap">${row.puesto || ''}</td>
         `;
+        keys.forEach(k => {
+          const val = Number(row[k]) || 0;
+          if (val > 0) {
+            rowTotal += val;
+            columnTotals[k] = (columnTotals[k] || 0) + val;
+            rowCells += `<td class="px-2 py-2 text-right font-mono text-slate-800 whitespace-nowrap">${formatCRC(val)}</td>`;
+          } else {
+            rowCells += `<td class="px-2 py-2 text-center text-slate-300 font-mono">-</td>`;
+          }
+        });
+        grandTotal += rowTotal;
+        rowCells += `<td class="px-3 py-2 text-right font-mono font-bold text-emerald-700 bg-emerald-50/50 whitespace-nowrap">${formatCRC(rowTotal)}</td>`;
+        tr.innerHTML = rowCells;
         tbody.appendChild(tr);
       });
 
       // Pie con totales
       let footHtml = `
         <tr>
-          <td class="px-3 py-2.5 font-black text-slate-900 uppercase">TOTALES</td>
-          <td class="px-3 py-2.5 text-slate-500 font-semibold">${data.length} personas</td>
+          <td class="px-3 py-2.5 font-black text-slate-900 uppercase sticky left-0 bg-slate-100 z-10">TOTALES</td>
+          <td class="px-3 py-2.5 text-slate-600 font-semibold">${data.length} colaboradores</td>
       `;
       keys.forEach(k => {
-        footHtml += `<td class="px-2 py-2.5 text-right font-mono font-bold text-slate-900 whitespace-nowrap">${formatCRC(columnTotals[k])}</td>`;
+        const colSum = columnTotals[k] || 0;
+        footHtml += `<td class="px-2 py-2.5 text-right font-mono font-bold text-slate-900 whitespace-nowrap">${colSum > 0 ? formatCRC(colSum) : '-'}</td>`;
       });
       footHtml += `<td class="px-3 py-2.5 text-right font-mono font-black text-emerald-800 bg-emerald-100/60 whitespace-nowrap">${formatCRC(grandTotal)}</td></tr>`;
       tfoot.innerHTML = footHtml;
@@ -6787,22 +7503,25 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
               ? `<span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-semibold">✓ Enviado Gmail</span>` 
               : `<span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-semibold">Pendiente</span>`}
           </td>
-          <td class="px-4 py-3.5 text-center space-x-1.5 whitespace-nowrap">
-            ${isSalaryGeneratedForPeriod(emp.id, currentPeriod) ? `
-              <button onclick="generateEmployeeSalary('${emp.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition shadow-xs inline-flex items-center gap-1" title="Salario ya registrado en el historial de pagos. Haga clic si desea recalcular y actualizar.">
-                <span>✓</span> <span>Generado</span>
+          <td class="px-2 py-2 text-center align-middle whitespace-nowrap">
+            <!-- Botones Organizados Verticalmente para Ahorro Máximo de Ancho de Pantalla -->
+            <div class="flex flex-col gap-1 w-28 mx-auto">
+              ${isSalaryGeneratedForPeriod(emp.id, currentPeriod) ? `
+                <button onclick="generateEmployeeSalary('${emp.id}')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1 px-2 rounded-md text-[11px] transition shadow-xs flex items-center justify-center gap-1 leading-tight" title="Salario ya registrado en el historial de pagos. Haga clic si desea recalcular y actualizar.">
+                  <span>✓</span> <span>Generado</span>
+                </button>
+              ` : `
+                <button onclick="generateEmployeeSalary('${emp.id}')" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-1 px-2 rounded-md text-[11px] transition shadow-xs flex items-center justify-center gap-1 leading-tight" title="Generar salario y registrar pago de esta quincena en el historial">
+                  <span>💰</span> <span>Generar</span>
+                </button>
+              `}
+              <button onclick="previewQuincenaVoucher('${emp.id}')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-1 px-2 rounded-md text-[11px] transition shadow-xs flex items-center justify-center gap-1 leading-tight" title="Ver comprobante oficial de pago">
+                <span>📄</span> <span>Recibo</span>
               </button>
-            ` : `
-              <button onclick="generateEmployeeSalary('${emp.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition shadow-xs inline-flex items-center gap-1" title="Generar salario y registrar pago de esta quincena en el historial">
-                <span>💰</span> <span>Generar Salario</span>
+              <button onclick="sendVoucherByGmail('${emp.id}')" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold py-1 px-2 rounded-md text-[11px] transition shadow-xs flex items-center justify-center gap-1 leading-tight" title="Enviar comprobante a ${emp.correo} por Gmail">
+                <span>✉️</span> <span>Enviar Gmail</span>
               </button>
-            `}
-            <button onclick="previewQuincenaVoucher('${emp.id}')" class="bg-slate-900 hover:bg-slate-800 text-white font-semibold px-2.5 py-1 rounded-lg text-xs transition shadow-sm">
-              📄 Recibo
-            </button>
-            <button onclick="sendVoucherByGmail('${emp.id}')" class="bg-rose-600 hover:bg-rose-700 text-white font-semibold px-2.5 py-1 rounded-lg text-xs transition shadow-sm" title="Enviar a ${emp.correo} por Gmail">
-              ✉️ Enviar Gmail
-            </button>
+            </div>
           </td>
         `;
         tbody.appendChild(tr);
@@ -7787,13 +8506,23 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
     // Función Centralizada de Cálculo de Aguinaldo conforme al Historial de Pagos
     function getAguinaldoCalculation(emp, mode = "real") {
-      const salControl = getControlSalariosData().find(s => 
-        s.nombre === (emp.alias || emp.nombre.split(" ")[0].toUpperCase()) ||
-        s.nombre.toUpperCase() === emp.nombre.toUpperCase()
-      );
+            const empCedClean = emp.cedula ? emp.cedula.replace(/\D/g, "") : "";
+      const empNomUpper = emp.nombre ? emp.nombre.toUpperCase().trim() : "";
+      const empAlias = emp.alias ? emp.alias.toUpperCase().trim() : "";
 
-      const closedPayrolls = (JSON.parse(localStorage.getItem("hc_payroll_history")) || [])
-        .filter(p => p.cedula === emp.cedula || p.nombre === emp.nombre);
+      const salControl = getControlSalariosData().find(s => {
+        const sCedClean = s.cedula ? s.cedula.replace(/\D/g, "") : "";
+        if (empCedClean && sCedClean && empCedClean === sCedClean) return true;
+        const sNomUpper = s.nombre ? s.nombre.toUpperCase().trim() : "";
+        return sNomUpper === empNomUpper || sNomUpper === empAlias || (empAlias && sNomUpper.includes(empAlias));
+      });
+
+      const closedPayrolls = getPayrollHistoryData().filter(p => {
+        const pCedClean = p.cedula ? p.cedula.replace(/\D/g, "") : "";
+        if (empCedClean && pCedClean && empCedClean === pCedClean) return true;
+        const pNomUpper = p.nombre ? p.nombre.toUpperCase().trim() : "";
+        return pNomUpper === empNomUpper || (empAlias && pNomUpper.includes(empAlias));
+      });
 
       // Los 12 meses legales oficiales de Costa Rica (1 Dic a 30 Nov - I Q Dic a II Q Nov)
       const AGUINALDO_12_MESES = [
@@ -7826,15 +8555,16 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
           const closed = closedPayrolls.find(cp => {
             if (!cp.periodo) return false;
+            const normPeriod = cp.periodo.toLowerCase().replace(/\s+/g, " ").trim();
             // 1. Coincidencia directa por mapa de quincenas oficiales
             if (QUINCENA_MAP[cp.periodo] && QUINCENA_MAP[cp.periodo] === qKey) return true;
-            // 2. Coincidencia por mes y quincena específica (I Quincena vs II Quincena de forma estricta)
-            const p = cp.periodo.toLowerCase();
-            if (!p.includes(m.mes.toLowerCase())) return false;
+            if (QUINCENA_MAP[normPeriod] && QUINCENA_MAP[normPeriod] === qKey) return true;
+            // 2. Coincidencia por mes y quincena específica
+            if (!normPeriod.includes(m.mes.toLowerCase())) return false;
             if (qIdx === 0) {
-              return /\b(i|1|1ra|1era)\b/i.test(cp.periodo) && !/\b(ii|2|2da)\b/i.test(cp.periodo);
+              return /\b(i|1|1ra|1era)\b/i.test(normPeriod) && !/\b(ii|2|2da)\b/i.test(normPeriod);
             } else {
-              return /\b(ii|2|2da)\b/i.test(cp.periodo);
+              return /\b(ii|2|2da)\b/i.test(normPeriod);
             }
           });
 
