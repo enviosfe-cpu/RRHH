@@ -1259,11 +1259,11 @@
 
             <p class="text-xs text-slate-500">Despacho oficial Gmail: <strong>dhcastrosantos@gmail.com</strong></p>
 
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-100 text-rose-800 border border-rose-300 shadow-sm">
+            <span id="badge-modo-envio" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-sm">
 
-              <span class="w-2 h-2 rounded-full bg-rose-500" aria-hidden="true"></span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true"></span>
 
-              <svg class="ico" data-i="flask" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2v7.31L4 20a1 1 0 0 0 .9 1.5h14.2A1 1 0 0 0 20 20l-6-10.69V2"/><path d="M8.5 2h7"/></svg> Modo Pruebas Activo: Redirigido a <strong>carlosssb1016@gmail.com</strong>
+              <svg class="ico" data-i="check-circle" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Modo Producción: Envío Directo a Colaboradores
 
             </span>
 
@@ -2141,21 +2141,21 @@
 
 
 
-        <!-- Banner Informativo de Modo de Pruebas -->
+        <!-- Estado de Modo de Despacho Oficial (Producción) -->
 
-        <div class="bg-rose-50 border-2 border-dashed border-rose-300 rounded-xl p-3.5 mb-2 flex items-center justify-between flex-wrap gap-2">
+        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 mb-2 flex items-center justify-between flex-wrap gap-2">
 
           <div class="flex items-center gap-2.5">
 
-            <span class="text-xl"><svg class="ico" data-i="flask" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2v7.31L4 20a1 1 0 0 0 .9 1.5h14.2A1 1 0 0 0 20 20l-6-10.69V2"/><path d="M8.5 2h7"/></svg></span>
+            <span class="text-xl text-emerald-600"><svg class="ico" data-i="check-circle" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
 
             <div>
 
-              <h4 class="text-xs font-bold text-rose-900 uppercase tracking-wide">Modo de Pruebas de Correo Activado</h4>
+              <h4 class="text-xs font-bold text-emerald-900 uppercase tracking-wide">Modo Producción Activo (Despacho Oficial)</h4>
 
-              <p class="text-xs text-rose-700">
+              <p class="text-xs text-emerald-700">
 
-                Independientemente del correo que tenga registrado cada vendedor o colaborador, todos los comprobantes (quincenas, masivos y aguinaldo) son redirigidos automáticamente a: <strong class="underline font-mono">carlosssb1016@gmail.com</strong>
+                Los comprobantes de pago (quincenas, masivos, aguinaldo y resoluciones) se envían de forma directa y oficial al correo registrado de cada colaborador.
 
               </p>
 
@@ -2163,9 +2163,9 @@
 
           </div>
 
-          <span class="px-2.5 py-1 bg-rose-200 text-rose-900 rounded font-mono font-bold text-xs border border-rose-300">
+          <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded font-bold text-xs border border-emerald-300">
 
-            TEST_MODE = true
+            PRODUCCIÓN
 
           </span>
 
@@ -2203,29 +2203,29 @@
 
 
 
-            <!-- Prueba de Envío de Correo por Gmail -->
+            <!-- Diagnóstico de Envío de Correo por Gmail -->
 
-            <div class="mt-3 p-3 bg-rose-50 rounded-lg border border-rose-200 space-y-2">
+            <div class="mt-3 p-3 bg-slate-100 rounded-lg border border-slate-200 space-y-2">
 
-              <h4 class="text-xs font-bold text-rose-900 flex items-center gap-1.5">
+              <h4 class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
 
-                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 6L2 7"/></svg> Prueba de Envío Real con Gmail:
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 6L2 7"/></svg> Diagnóstico de Envío con Gmail:
 
               </h4>
 
               <div class="flex gap-2">
 
-                <input type="email" id="test-email-input" placeholder="Escribe tu correo (ej: micorreo@gmail.com)" class="flex-1 border border-rose-300 rounded-lg p-2 text-xs bg-white focus:ring-2 focus:ring-rose-500">
+                <input type="email" id="test-email-input" placeholder="Escribe un correo para diagnóstico (ej: micorreo@gmail.com)" class="flex-1 border border-slate-300 rounded-lg p-2 text-xs bg-white focus:ring-2 focus:ring-slate-500">
 
-                <button type="button" onclick="sendTestGmail()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1">
+                <button type="button" onclick="sendTestGmail()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1">
 
-                  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Enviar Prueba Gmail
+                  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Enviar Diagnóstico
 
                 </button>
 
               </div>
 
-              <p class="text-[11px] text-rose-700">El correo llegará con el remitente de tu cuenta autorizada y el formato oficial de Hermanos Castro del Sur S.A.</p>
+              <p class="text-[11px] text-slate-500">Envía un correo de verificación para comprobar que la conexión con Gmail está activa y operativa.</p>
 
             </div>
 
@@ -4742,10 +4742,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     }
 
     // =================================================================
-    // 🧪 PARÁMETRO DE MODO DE PRUEBAS / REDIRECCIÓN DE CORREOS
+    // ✉️ PARÁMETRO DE MODO DE ENVÍO DE CORREOS (PRODUCCIÓN ACTIVA)
     // =================================================================
-    let TEST_MODE_ENABLED = true;
-    let TEST_MODE_OVERRIDE_EMAIL = "carlosssb1016@gmail.com";
+    let TEST_MODE_ENABLED = false;
+    let TEST_MODE_OVERRIDE_EMAIL = "";
 
     const DEFAULT_EMPLOYEES = [
   {
@@ -4988,16 +4988,29 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
     });
 
-    // Asegurar que los 14 colaboradores oficiales de la empresa estén siempre presentes
-    DEFAULT_EMPLOYEES.forEach(defEmp => {
-      const k = cleanCedHelper(defEmp.cedula) || cleanNomHelper(defEmp.nombre);
-      if (k && !uniqueEmpMap.has(k)) {
-        uniqueEmpMap.set(k, defEmp);
-      }
-    });
+    // Solo cargar los DEFAULT_EMPLOYEES iniciales si el almacenamiento local está totalmente vacío
+    if (storedEmployees.length === 0) {
+      DEFAULT_EMPLOYEES.forEach(defEmp => {
+        const k = cleanCedHelper(defEmp.cedula) || cleanNomHelper(defEmp.nombre);
+        if (k && !uniqueEmpMap.has(k)) {
+          uniqueEmpMap.set(k, defEmp);
+        }
+      });
+      storedEmployees = Array.from(uniqueEmpMap.values());
+      localStorage.setItem("hc_employees", JSON.stringify(storedEmployees));
+    } else {
+      storedEmployees = Array.from(uniqueEmpMap.values());
+      localStorage.setItem("hc_employees", JSON.stringify(storedEmployees));
+    }
 
-    storedEmployees = Array.from(uniqueEmpMap.values());
-    localStorage.setItem("hc_employees", JSON.stringify(storedEmployees));
+    // Limpieza de seguridad: Si Marco tiene en caché el registro erróneo de II Quincena Octubre 2026, depurarlo
+    try {
+      let cachedHist = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
+      if (cachedHist.some(h => (h.nombre && h.nombre.includes("MARCO")) && h.periodo === "II Quincena Octubre 2026")) {
+        cachedHist = cachedHist.filter(h => !( (h.nombre && h.nombre.includes("MARCO")) && h.periodo === "II Quincena Octubre 2026" ));
+        localStorage.setItem("hc_payroll_history", JSON.stringify(cachedHist));
+      }
+    } catch(e) {}
 
     let employees = storedEmployees;
     employees.forEach(e => {
@@ -5265,6 +5278,89 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       const history = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
       return history.some(h => (h.cedula === emp.cedula || h.nombre === emp.nombre) && h.periodo === period);
+    }
+
+    // Gestionar clic en botón de Salario Generado (permite anular/deshacer o recalcular)
+    async function handleGeneratedSalaryClick(empId) {
+      const emp = employees.find(e => e.id === empId);
+      if (!emp) return;
+
+      const action = await uiConfirm(
+        `El salario de ${emp.nombre} ya fue generado para la ${currentPeriod}.\n\n¿Desea anular/deshacer la generación (devolver estado a Pendiente) o recalcular el cálculo actual?`,
+        {
+          title: "Salario Generado - " + emp.nombre,
+          confirmText: "Deshacer Generación (Volver a Pendiente)",
+          cancelText: "Recalcular y Actualizar",
+          danger: true
+        }
+      );
+
+      if (action) {
+        unmarkSalaryGenerated(empId, currentPeriod);
+      } else {
+        generateEmployeeSalary(empId);
+      }
+    }
+
+    // Deshacer/anular la generación de salario de un colaborador para un período
+    function unmarkSalaryGenerated(empId, period) {
+      const emp = employees.find(e => e.id === empId);
+      if (!emp) return;
+
+      // 1. Quitar del historial de nómina local
+      let history = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
+      history = history.filter(h => !( (h.cedula === emp.cedula || h.nombre === emp.nombre) && h.periodo === period ));
+      localStorage.setItem("hc_payroll_history", JSON.stringify(history));
+
+      // 2. Limpiar columna en Control de Salarios Líquidos 2026
+      const qKey = QUINCENA_MAP[period];
+      if (qKey) {
+        let salData = getControlSalariosData();
+        let salRow = salData.find(s => s.nombre === (emp.alias || emp.nombre.split(" ")[0].toUpperCase()) || s.nombre === emp.nombre);
+        if (salRow) {
+          salRow[qKey] = 0;
+          localStorage.setItem("hc_salarios_2026", JSON.stringify(salData));
+        }
+      }
+
+      emp.emailSent = false;
+      saveData();
+      renderPayrollTable();
+      renderAguinaldoModule();
+      showToast(`Salario de ${emp.nombre} para ${period} devuelto a estado Pendiente.`);
+
+      // Sincronizar actualización a Google Sheets
+      if (sheetsApiUrl) {
+        syncAllToSheets();
+      }
+    }
+
+    // Eliminar permanentemente un colaborador de la nómina y de la base de datos
+    async function deleteEmployee(empId) {
+      const emp = employees.find(e => e.id === empId);
+      if (!emp) return;
+
+      const confirmed = await uiConfirm(
+        `¿Está seguro de que desea eliminar permanentemente a ${emp.nombre} (${emp.puesto}) de la nómina?\n\nEsta acción actualizará la lista oficial y se sincronizará con Google Sheets.`,
+        {
+          title: "Eliminar Colaborador",
+          confirmText: "Eliminar Definitivamente",
+          cancelText: "Cancelar",
+          danger: true
+        }
+      );
+
+      if (!confirmed) return;
+
+      employees = employees.filter(e => e.id !== empId);
+      saveData();
+      renderEmployeesTable();
+      renderPayrollTable();
+      showToast(`Colaborador ${emp.nombre} eliminado.`);
+
+      if (sheetsApiUrl) {
+        syncAllToSheets();
+      }
     }
 
     // Generar salario individual por colaborador y almacenar en el historial
@@ -6875,6 +6971,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         try {
           await postToAppsScript(sheetsApiUrl, {
             action: "sendGmailVoucher",
+            testMode: TEST_MODE_ENABLED,
             voucher: voucherData
           });
         } catch (e) {}
@@ -6942,6 +7039,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         try {
           await postToAppsScript(sheetsApiUrl, {
             action: "sendAllGmailVouchers",
+            testMode: TEST_MODE_ENABLED,
             vouchers: vouchers
           });
         } catch (e) {}
@@ -6984,6 +7082,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         try {
           await postToAppsScript(sheetsApiUrl, {
             action: "sendAguinaldoGmail",
+            testMode: TEST_MODE_ENABLED,
             aguinaldo: aguinaldoData
           });
         } catch (e) {}
@@ -7245,14 +7344,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
                 };
               });
 
-              // Si había algún colaborador creado localmente que aún no esté en Google Sheets, conservarlo
-              const localUnsynced = oldEmployees.filter(o => {
-                const oCed = String(o.cedula || "").trim().toLowerCase();
-                const oNom = String(o.nombre || "").trim().toLowerCase();
-                return (!oCed || !sheetCedulas.has(oCed)) && (!oNom || !sheetNombres.has(oNom));
-              });
-
-              employees = [...mappedEmployees, ...localUnsynced];
+              // La hoja de cálculo es la fuente de verdad absoluta de colaboradores (respeta eliminaciones)
+              employees = mappedEmployees;
               localStorage.setItem("hc_employees", JSON.stringify(employees));
             } else if (oldEmployees.length === 0) {
               employees = [];
@@ -7478,6 +7571,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
                 🟢 Reactivar
               </button>
             `}
+            <span class="text-slate-300">|</span>
+            <button onclick="deleteEmployee('${emp.id}')" class="text-slate-400 hover:text-rose-600 font-semibold text-xs hover:underline" title="Eliminar definitivamente este colaborador">
+              🗑️ Eliminar
+            </button>
           </td>
         `;
         tbody.appendChild(tr);
@@ -7577,7 +7674,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             <!-- Botones Organizados Verticalmente para Ahorro Máximo de Ancho de Pantalla -->
             <div class="flex flex-col gap-1 w-28 mx-auto">
               ${isSalaryGeneratedForPeriod(emp.id, currentPeriod) ? `
-                <button onclick="generateEmployeeSalary('${emp.id}')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1 px-2 rounded-md text-[11px] transition shadow-xs flex items-center justify-center gap-1 leading-tight" title="Salario ya registrado en el historial de pagos. Haga clic si desea recalcular y actualizar.">
+                <button onclick="handleGeneratedSalaryClick('${emp.id}')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1 px-2 rounded-md text-[11px] transition shadow-xs flex items-center justify-center gap-1 leading-tight" title="Salario ya registrado en el historial. Haga clic para anular/deshacer o recalcular.">
                   <span>✓</span> <span>Generado</span>
                 </button>
               ` : `
@@ -8256,6 +8353,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         // Enviar al Script Principal Privado de RRHH
         await postToAppsScript(sheetsApiUrl, {
           action: "resolveVacation",
+          testMode: TEST_MODE_ENABLED,
           vacation: vacData
         });
 
@@ -8369,7 +8467,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             <div><span class="font-bold text-slate-700">Cédula:</span> <span class="font-mono">${vac.cedula}</span></div>
             <div><span class="font-bold text-slate-700">Departamento:</span> ${vac.departamento}</div>
             <div><span class="font-bold text-slate-700">Puesto:</span> ${vac.puesto || 'Colaborador'}</div>
-            <div class="sm:col-span-2"><span class="font-bold text-slate-700">Correo Electrónico:</span> <span class="font-mono text-purple-700 font-bold">${vac.correo || '<em class="text-slate-400 font-normal">Sin correo registrado (Se redirige a carlosssb1016@gmail.com en pruebas)</em>'}</span></div>
+            <div class="sm:col-span-2"><span class="font-bold text-slate-700">Correo Electrónico:</span> <span class="font-mono text-purple-700 font-bold">${vac.correo || '<em class="text-amber-600 font-normal">Sin correo registrado</em>'}</span></div>
           </div>
         </div>
 
