@@ -1507,76 +1507,72 @@
 
         <div class="space-y-4">
 
-          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
 
-            <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+            <div>
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                  <svg class="ico text-indigo-600" viewBox="0 0 24 24" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> QR de Formulario Genérico
+                </h3>
+                <span class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded-full border border-indigo-200 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span> Escaneo Rápido
+                </span>
+              </div>
 
-              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> QR de Formulario Genérico
+              <p class="text-xs text-slate-500 mt-1.5">
+                Los colaboradores escanean este código para ingresar su solicitud con nombre, cédula y fechas. <strong>No requiere clave ni usuario.</strong>
+              </p>
+            </div>
 
-            </h3>
+            <!-- Contenedor Interactivo de QR con Transición Fluida de Zoom -->
+            <div class="mt-3.5 flex flex-col items-center">
+              <div onclick="openQrVacacionesModal()" 
+                   role="button" 
+                   tabindex="0"
+                   onkeydown="if(event.key==='Enter'||event.key===' ')openQrVacacionesModal()"
+                   title="Haz clic para ampliar el código QR"
+                   class="group relative w-full flex flex-col items-center justify-center py-4 px-3 bg-gradient-to-b from-slate-50 to-indigo-50/40 rounded-xl border-2 border-dashed border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50/70 cursor-pointer shadow-xs hover:shadow-md transition-all duration-300 ease-out">
+                
+                <div class="relative bg-white p-2.5 rounded-xl border border-slate-200 shadow-sm group-hover:shadow-md group-hover:scale-105 transition-all duration-300">
+                  <img src="qr Vacaciones.png" 
+                       onerror="this.src='qr_vacaciones.png'"
+                       alt="Código QR para Solicitud de Vacaciones" 
+                       class="w-36 h-36 object-contain select-none" />
+                  
+                  <!-- Badge flotante de zoom -->
+                  <div class="absolute inset-0 bg-indigo-950/15 opacity-0 group-hover:opacity-100 rounded-xl flex items-center justify-center transition-opacity duration-300 backdrop-blur-[1px]">
+                    <span class="bg-indigo-700 text-white p-2 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
 
-            <p class="text-xs text-slate-500 mt-1">
+                <div class="mt-2.5 flex items-center gap-1.5 text-xs font-semibold text-indigo-700 group-hover:text-indigo-900 transition-colors">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                  </svg>
+                  <span>Toca para ampliar en pantalla completa</span>
+                </div>
+                <span class="text-[10px] text-slate-500 mt-0.5">Permite escanear cómodamente desde cualquier teléfono</span>
+              </div>
 
-              Los colaboradores escanean este código para ingresar su solicitud con nombre, cédula y fechas. <strong>No requiere clave ni usuario.</strong>
-
-            </p>
-
-            <div class="flex flex-col items-center justify-center py-4 bg-slate-50 rounded-lg border border-dashed border-slate-300 mt-3">
-
-              <svg class="w-32 h-32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-                <rect width="100" height="100" fill="white" rx="8"/>
-
-                <rect x="10" y="10" width="24" height="24" fill="#0f172a" rx="2"/>
-
-                <rect x="14" y="14" width="16" height="16" fill="white" rx="1"/>
-
-                <rect x="18" y="18" width="8" height="8" fill="#0f172a"/>
-
-
-
-                <rect x="66" y="10" width="24" height="24" fill="#0f172a" rx="2"/>
-
-                <rect x="70" y="14" width="16" height="16" fill="white" rx="1"/>
-
-                <rect x="74" y="18" width="8" height="8" fill="#0f172a"/>
-
-
-
-                <rect x="10" y="66" width="24" height="24" fill="#0f172a" rx="2"/>
-
-                <rect x="14" y="70" width="16" height="16" fill="white" rx="1"/>
-
-                <rect x="18" y="74" width="8" height="8" fill="#0f172a"/>
-
-
-
-                <rect x="42" y="12" width="6" height="6" fill="#0f172a"/>
-
-                <rect x="52" y="16" width="6" height="6" fill="#0f172a"/>
-
-                <rect x="42" y="24" width="6" height="6" fill="#0f172a"/>
-
-                <rect x="14" y="44" width="6" height="6" fill="#0f172a"/>
-
-                <rect x="24" y="44" width="6" height="6" fill="#0f172a"/>
-
-                <rect x="44" y="44" width="12" height="12" fill="#d97706" rx="2"/>
-
-                <rect x="64" y="44" width="6" height="6" fill="#0f172a"/>
-
-                <rect x="76" y="44" width="6" height="6" fill="#0f172a"/>
-
-                <rect x="44" y="66" width="6" height="6" fill="#0f172a"/>
-
-                <rect x="54" y="74" width="6" height="6" fill="#0f172a"/>
-
-                <rect x="66" y="66" width="6" height="6" fill="#0f172a"/>
-
-                <rect x="78" y="76" width="12" height="12" fill="#0f172a"/>
-
-              </svg>
-
+              <!-- Botones de Utilidad Rápida -->
+              <div class="grid grid-cols-2 gap-2 w-full mt-2.5">
+                <button type="button" 
+                        onclick="openQrVacacionesModal()" 
+                        class="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium rounded-lg border border-slate-200 shadow-2xs hover:border-slate-300 transition flex items-center justify-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
+                  Ampliar QR
+                </button>
+                <button type="button" 
+                        onclick="printQrVacaciones()" 
+                        class="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium rounded-lg border border-slate-200 shadow-2xs hover:border-slate-300 transition flex items-center justify-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+                  Imprimir QR
+                </button>
+              </div>
             </div>
 
           </div>
@@ -4381,6 +4377,63 @@
 
   <div id="sr-live" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 
+    <!-- Modal QR Vacaciones Ampliado con Transición Fluida -->
+  <div id="modal-qr-vacaciones" role="dialog" aria-modal="true" aria-labelledby="modal-qr-vacaciones-title" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto transition-opacity duration-300 opacity-0">
+    <div id="modal-qr-vacaciones-content" class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden m-auto border border-slate-200 transform transition-all duration-300 scale-95 opacity-0 flex flex-col">
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white px-5 py-3.5 flex justify-between items-center text-xs">
+        <div class="flex items-center gap-2.5">
+          <span class="p-1.5 bg-indigo-500/30 rounded-lg border border-indigo-400/30 text-indigo-300">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+          </span>
+          <div>
+            <h4 id="modal-qr-vacaciones-title" class="font-bold text-sm tracking-wide text-white">QR de Solicitud de Vacaciones</h4>
+            <p class="text-[11px] text-indigo-200 font-normal">Autoservicio • Hermanos Castro Santos</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeQrVacacionesModal()" class="text-slate-400 hover:text-white hover:bg-white/10 p-1.5 rounded-lg transition" title="Cerrar (Esc)">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Cuerpo del Modal -->
+      <div class="p-6 flex flex-col items-center justify-center bg-gradient-to-b from-indigo-50/20 to-white text-center">
+        <div class="relative bg-white p-4 rounded-2xl shadow-xl border border-indigo-100 inline-block transform hover:scale-[1.02] transition-transform duration-300">
+          <img src="qr Vacaciones.png" 
+               onerror="this.src='qr_vacaciones.png'" 
+               alt="QR Vacaciones Ampliado" 
+               class="w-64 h-64 sm:w-80 sm:h-80 object-contain select-none mx-auto" />
+        </div>
+
+        <div class="mt-4 max-w-xs">
+          <h5 class="font-bold text-slate-800 text-sm">Escanea con la cámara de tu celular</h5>
+          <p class="text-xs text-slate-500 mt-1">Apunta la cámara para ingresar la solicitud directamente con nombre, cédula y fechas sin contraseña.</p>
+        </div>
+
+        <!-- Acciones -->
+        <div class="mt-5 flex flex-wrap items-center justify-center gap-2 w-full">
+          <button type="button" 
+                  onclick="printQrVacaciones()" 
+                  class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold text-xs shadow-sm hover:shadow transition flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+            Imprimir QR
+          </button>
+          <a href="qr Vacaciones.png" 
+             download="QR_Solicitud_Vacaciones_HCS.png"
+             class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold text-xs border border-slate-300 shadow-2xs transition flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+            Descargar
+          </a>
+          <button type="button" 
+                  onclick="closeQrVacacionesModal()" 
+                  class="px-4 py-2 bg-white hover:bg-slate-50 text-slate-600 rounded-xl font-semibold text-xs border border-slate-200 shadow-2xs transition">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="toast" aria-hidden="true" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden z-50 border border-slate-700 transition no-print"></div>
 
 
@@ -4390,6 +4443,142 @@
   <script>
 
     // Funciones del Modal de Aviso Legal y Derechos de Autor
+    // ==================== MODAL QR VACACIONES INTERACTIVO ====================
+    function openQrVacacionesModal() {
+      const m = document.getElementById("modal-qr-vacaciones");
+      const c = document.getElementById("modal-qr-vacaciones-content");
+      if (!m || !c) return;
+      m.classList.remove("hidden");
+      requestAnimationFrame(() => {
+        m.classList.remove("opacity-0");
+        m.classList.add("opacity-100");
+        c.classList.remove("scale-95", "opacity-0");
+        c.classList.add("scale-100", "opacity-100");
+      });
+    }
+
+    function closeQrVacacionesModal() {
+      const m = document.getElementById("modal-qr-vacaciones");
+      const c = document.getElementById("modal-qr-vacaciones-content");
+      if (!m || !c) return;
+      m.classList.remove("opacity-100");
+      m.classList.add("opacity-0");
+      c.classList.remove("scale-100", "opacity-100");
+      c.classList.add("scale-95", "opacity-0");
+      setTimeout(() => {
+        m.classList.add("hidden");
+      }, 250);
+    }
+
+    function printQrVacaciones() {
+      const printWindow = window.open("", "_blank", "width=720,height=850");
+      if (!printWindow) {
+        window.print();
+        return;
+      }
+      printWindow.document.write(`<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Solicitud de Vacaciones - Hermanos Castro Santos</title>
+  <style>
+    @page { margin: 15mm; size: auto; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 30px;
+      color: #0f172a;
+      background: #ffffff;
+    }
+    .print-card {
+      border: 2px dashed #6366f1;
+      border-radius: 24px;
+      padding: 36px 24px;
+      max-width: 500px;
+      margin: 0 auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    .badge {
+      display: inline-block;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      border: 1px solid #c7d2fe;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 0 0 6px 0;
+      color: #1e1b4b;
+    }
+    h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748b;
+      margin: 0 0 24px 0;
+    }
+    .qr-frame {
+      display: inline-block;
+      padding: 16px;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+      margin-bottom: 22px;
+    }
+    .qr-frame img {
+      width: 290px;
+      height: 290px;
+      object-fit: contain;
+      display: block;
+    }
+    .instruction {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0 0 6px 0;
+    }
+    .subtext {
+      font-size: 12px;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="print-card">
+    <div class="badge">Portal de Autoservicio de Personal</div>
+    <h1>Solicitud de Vacaciones</h1>
+    <h2>Distribuidora Hermanos Castro Santos S.A.</h2>
+    <div class="qr-frame">
+      <img src="qr Vacaciones.png" onerror="this.src='qr_vacaciones.png'" alt="QR de Solicitud de Vacaciones" />
+    </div>
+    <div class="instruction">📷 Apunta con la cámara de tu celular</div>
+    <p class="subtext">
+      Accede directamente al formulario de solicitud.<br>
+      <strong>No requiere usuario ni contraseña.</strong> Indica tu nombre, cédula y fechas deseadas.
+    </p>
+  </div>
+  <script>
+    window.onload = function() {
+      setTimeout(function() {
+        window.print();
+      }, 300);
+    };
+  <\/script>
+</body>
+</html>`);
+      printWindow.document.close();
+    }
+
     function openLegalModal() {
       const m = document.getElementById("modal-legal");
       if (m) m.classList.remove("hidden");
@@ -4583,6 +4772,10 @@
         function onKey(e) {
 
           if (e.key === "Escape") {
+        const mq = document.getElementById("modal-qr-vacaciones");
+        if (mq && !mq.classList.contains("hidden")) {
+          closeQrVacacionesModal();
+        }
 
             e.preventDefault(); e.stopPropagation();
 
@@ -4714,14 +4907,50 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
     let maestroRebajos = JSON.parse(localStorage.getItem("hc_maestro_rebajos")) || DEFAULT_MAESTRO_REBAJOS;
     let employeeRebajos = JSON.parse(localStorage.getItem("hc_employee_rebajos")) || [];
+    employeeRebajos.forEach(r => {
+      if (r.detalle) r.detalle = getCleanRebajoDetalle(r.detalle);
+    });
 
     function saveRebajosData() {
       localStorage.setItem("hc_maestro_rebajos", JSON.stringify(maestroRebajos));
       localStorage.setItem("hc_employee_rebajos", JSON.stringify(employeeRebajos));
     }
 
-    // Obtener todos los rebajos aplicables a un colaborador en el período
+    // Limpiar sufijos manuales de consecutivo (#12, # 12) del detalle base
+    function getCleanRebajoDetalle(detalle) {
+      if (!detalle) return "";
+      return String(detalle).replace(/#\s*\d+\s*$/, "").trim();
+    }
+
+    // Calcular consecutivo automático de cuota para rebajos recurrentes según el período activo
+    function getRebajoConsecutivo(r, period, emp) {
+      if (!r.recurrente) return null;
+      const targetPer = period || (typeof currentPeriod !== "undefined" ? currentPeriod : "II Quincena Octubre 2026");
+      const curIdx = ALL_QUINCENAS.indexOf(targetPer);
+      if (curIdx === -1) return null;
+
+      let startPeriod = r.periodoInicio;
+      let initialCuota = Number(r.cuotaInicial || 1);
+
+      // Si es el embargo judicial histórico de Marco Antonio Piedra Esquivel
+      const detUpper = String(r.detalle || "").toUpperCase();
+      if (detUpper.includes("14-034720") || detUpper.includes("1012-CJ")) {
+        startPeriod = "I Quincena Mayo 2026";
+        initialCuota = 1;
+      } else if (!startPeriod) {
+        startPeriod = (r.periodo && ALL_QUINCENAS.includes(r.periodo)) ? r.periodo : ALL_QUINCENAS[0];
+      }
+
+      const startIdx = ALL_QUINCENAS.indexOf(startPeriod);
+      if (startIdx !== -1 && curIdx >= startIdx) {
+        return (curIdx - startIdx) + initialCuota;
+      }
+      return initialCuota;
+    }
+
+    // Obtener todos los rebajos aplicables a un colaborador en el período (con consecutivo automático)
     function getEmployeeRebajos(empId, period) {
+      const targetPeriod = period || (typeof currentPeriod !== "undefined" ? currentPeriod : "II Quincena Octubre 2026");
       const emp = (typeof employees !== "undefined") ? employees.find(e => e.id === empId || String(e.id) === String(empId)) : null;
       const list = employeeRebajos.filter(r => {
         const matchEmp = (
@@ -4731,10 +4960,22 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         );
         const matchPeriod = (
           r.recurrente === true ||
-          !period ||
-          String(r.periodo || '').trim().toLowerCase() === String(period || '').trim().toLowerCase()
+          !targetPeriod ||
+          String(r.periodo || '').trim().toLowerCase() === String(targetPeriod || '').trim().toLowerCase()
         );
         return matchEmp && matchPeriod;
+      }).map(r => {
+        const baseDetalle = getCleanRebajoDetalle(r.detalle);
+        const consecutivo = getRebajoConsecutivo(r, targetPeriod, emp);
+        const displayDetalle = (consecutivo !== null && consecutivo !== undefined)
+          ? (baseDetalle ? `${baseDetalle} #${consecutivo}` : `Cuota #${consecutivo}`)
+          : baseDetalle;
+        return {
+          ...r,
+          baseDetalle: baseDetalle,
+          consecutivo: consecutivo,
+          detalle: displayDetalle
+        };
       });
       let total = 0;
       list.forEach(r => total += Number(r.monto || 0));
@@ -4770,10 +5011,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "BRAYHAN ARIEL JIMENEZ CALDERON",
     "puesto": "Agente de ventas",
     "departamento": "Ventas",
-    "correo": "brayhan.jimenez@dhcastrosantos.com",
+    "correo": "brayhanj47@gmail.com",
     "salarioMensual": 427000.0,
     "cuentaIban": "CR0501520200102000002",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2017-02-13",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -4786,10 +5027,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "BRYAN BONILLA PIEDRA",
     "puesto": "Chofer repartidor",
     "departamento": "Distribución",
-    "correo": "bryan.bonilla@dhcastrosantos.com",
+    "correo": "bryanbonillapiedra@gmail.com",
     "salarioMensual": 427000.0,
     "cuentaIban": "CR0501520200102000003",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2023-10-23",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -4802,10 +5043,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "GABRIEL ESTEBAN CHAVES GODINEZ",
     "puesto": "Auxiliar de reparto",
     "departamento": "Distribución",
-    "correo": "gabriel.chaves@dhcastrosantos.com",
+    "correo": "gabrieltatu_12@outlook.com",
     "salarioMensual": 405800.0,
     "cuentaIban": "CR0501520200102000004",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2024-10-01",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -4818,10 +5059,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "GERVER CAMPOS BLANCO",
     "puesto": "Chofer repartidor",
     "departamento": "Distribución",
-    "correo": "gerver.campos@dhcastrosantos.com",
+    "correo": "gerver.campos04@gmail.com",
     "salarioMensual": 427000.0,
     "cuentaIban": "CR0501520200102000005",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2015-09-01",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -4834,10 +5075,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "HEBER SANTIAGO NARANJO CAMPOS",
     "puesto": "Auxiliar de reparto",
     "departamento": "Distribución",
-    "correo": "heber.naranjo@dhcastrosantos.com",
+    "correo": "santinc65@gmail.com",
     "salarioMensual": 427000.0,
     "cuentaIban": "CR0501520200102000006",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2024-11-01",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -4866,10 +5107,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "JONATHAN VEGA JIMENEZ",
     "puesto": "Bodeguero",
     "departamento": "Bodega",
-    "correo": "jonathan.vega@dhcastrosantos.com",
+    "correo": "jonavj6@gmail.com",
     "salarioMensual": 427000.0,
     "cuentaIban": "CR0501520200102000008",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2025-05-05",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -4882,10 +5123,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "JOSE FELIPE UREÑA PRADO",
     "puesto": "Bodeguero",
     "departamento": "Bodega",
-    "correo": "felipe.urena@dhcastrosantos.com",
+    "correo": "felipeupra88@hotmail.com",
     "salarioMensual": 427000.0,
     "cuentaIban": "CR0501520200102000009",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2025-01-07",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -4898,10 +5139,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "KENNETH GUILLERMO CHAVES GODINEZ",
     "puesto": "Chofer repartidor",
     "departamento": "Distribución",
-    "correo": "kenneth.chaves@dhcastrosantos.com",
+    "correo": "kchaves@outlook.com",
     "salarioMensual": 427000.0,
     "cuentaIban": "CR0501520200102000010",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2026-09-07",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -4914,10 +5155,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "KENNETH JOSUE FALLAS CORDERO",
     "puesto": "Chofer repartidor",
     "departamento": "Distribución",
-    "correo": "kenneth.fallas@dhcastrosantos.com",
+    "correo": "kennethfc24@gmail.com",
     "salarioMensual": 427000.0,
     "cuentaIban": "CR0501520200102000011",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2024-10-17",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -4930,10 +5171,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "MARCO ANTONIO PIEDRA ESQUIVEL",
     "puesto": "Agente de ventas",
     "departamento": "Ventas",
-    "correo": "marco.piedra@dhcastrosantos.com",
+    "correo": "mpiesquivel21@gmail.com",
     "salarioMensual": 419755.8,
     "cuentaIban": "CR0501520200102000012",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2019-11-14",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -4946,10 +5187,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "MINOR ARLEY MARIN FALLAS",
     "puesto": "Agente de ventas",
     "departamento": "Ventas",
-    "correo": "minor.marin@dhcastrosantos.com",
+    "correo": "mafallasminor@gmail.com",
     "salarioMensual": 419755.8,
     "cuentaIban": "CR0501520200102000013",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2023-03-29",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -4962,10 +5203,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "nombre": "Victor Julio Castro Carrera",
     "puesto": "Agente de ventas",
     "departamento": "Ventas",
-    "correo": "victor.castro@dhcastrosantos.com",
+    "correo": "tulocastro99@gmail.com",
     "salarioMensual": 419755.8,
     "cuentaIban": "CR0501520200102000014",
-    "fechaIngreso": "2026-01-01",
+    "fechaIngreso": "2022-01-03",
     "feriadosLaborados": 0,
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
@@ -5302,6 +5543,138 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
     }
 
+    // =========================================================================
+    // PERSISTENCIA Y REGISTRO DE ESTADO DE ENVÍO A GMAIL POR QUINCENA
+    // =========================================================================
+    function getGmailStatusKey(cedula, period) {
+      const c = String(cedula || "").replace(/\D/g, "");
+      const p = String(period || "").trim().toLowerCase();
+      return `${c}_${p}`;
+    }
+
+    function getGmailStatus(emp, period) {
+      if (!emp) return { sent: false, date: "" };
+      const targetPeriod = period || currentPeriod;
+      const key = getGmailStatusKey(emp.cedula, targetPeriod);
+
+      // 1. Bitácora específica en localStorage
+      try {
+        const log = JSON.parse(localStorage.getItem("hc_gmail_sent_log")) || {};
+        if (log[key] && log[key].sent) {
+          return { sent: true, date: log[key].date || "" };
+        }
+      } catch(e) {}
+
+      // 2. Historial de nómina cerrado (Planilla_Cierres)
+      try {
+        const hist = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
+        const cleanCed = String(emp.cedula || "").replace(/\D/g, "");
+        const v = hist.find(h => {
+          const hCed = String(h.cedula || "").replace(/\D/g, "");
+          return (hCed === cleanCed || (h.nombre && h.nombre.toLowerCase() === emp.nombre.toLowerCase())) && 
+                 String(h.periodo || "").toLowerCase().trim() === String(targetPeriod).toLowerCase().trim();
+        });
+        if (v && v.estadoGmail && String(v.estadoGmail).toLowerCase().includes("enviado")) {
+          const dt = String(v.estadoGmail).replace(/Enviado\s*(Gmail)?:?/i, "").replace(/[()]/g, "").trim();
+          return { sent: true, date: dt };
+        }
+      } catch(e) {}
+
+      // 3. Fallback retrocompatible con emp.emailSent
+      if (emp.emailSent && period === currentPeriod) {
+        return { sent: true, date: "" };
+      }
+
+      return { sent: false, date: "" };
+    }
+
+    function markGmailSent(cedula, period, timestamp) {
+      const key = getGmailStatusKey(cedula, period);
+      const log = JSON.parse(localStorage.getItem("hc_gmail_sent_log")) || {};
+      const nowStr = timestamp || new Date().toLocaleString("es-CR", { dateStyle: "short", timeStyle: "short" });
+      log[key] = { sent: true, date: nowStr };
+      localStorage.setItem("hc_gmail_sent_log", JSON.stringify(log));
+
+      // Actualizar también en el registro de nómina local si existe
+      try {
+        let hist = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
+        const cleanCed = String(cedula || "").replace(/\D/g, "");
+        let updated = false;
+        hist.forEach(h => {
+          const hCed = String(h.cedula || "").replace(/\D/g, "");
+          if (hCed === cleanCed && String(h.periodo || "").toLowerCase().trim() === String(period).toLowerCase().trim()) {
+            h.estadoGmail = "Enviado Gmail: " + nowStr;
+            updated = true;
+          }
+        });
+        if (updated) {
+          localStorage.setItem("hc_payroll_history", JSON.stringify(hist));
+        }
+      } catch(e) {}
+    }
+
+    function unmarkGmailSent(cedula, period) {
+      const key = getGmailStatusKey(cedula, period);
+      try {
+        const log = JSON.parse(localStorage.getItem("hc_gmail_sent_log")) || {};
+        delete log[key];
+        localStorage.setItem("hc_gmail_sent_log", JSON.stringify(log));
+
+        let hist = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
+        const cleanCed = String(cedula || "").replace(/\D/g, "");
+        hist.forEach(h => {
+          const hCed = String(h.cedula || "").replace(/\D/g, "");
+          if (hCed === cleanCed && String(h.periodo || "").toLowerCase().trim() === String(period).toLowerCase().trim()) {
+            delete h.estadoGmail;
+          }
+        });
+        localStorage.setItem("hc_payroll_history", JSON.stringify(hist));
+      } catch(e) {}
+    }
+
+    async function toggleGmailSentStatus(empId) {
+      const emp = employees.find(e => e.id === empId);
+      if (!emp) return;
+
+      const currentStat = getGmailStatus(emp, currentPeriod);
+      if (currentStat.sent) {
+        const confirmChange = await uiConfirm(
+          `El comprobante de ${emp.nombre} para ${currentPeriod} figura como ENVIADO (${currentStat.date || 'registrado'}).\n\n¿Desea cambiar el estado a PENDIENTE?`,
+          {
+            title: "Cambiar Estado Gmail",
+            confirmText: "Cambiar a Pendiente",
+            cancelText: "Mantener Enviado",
+            danger: true
+          }
+        );
+        if (confirmChange) {
+          unmarkGmailSent(emp.cedula, currentPeriod);
+          emp.emailSent = false;
+          saveData();
+          renderPayrollTable();
+          showToast(`Estado Gmail de ${emp.nombre} cambiado a Pendiente.`);
+          if (sheetsApiUrl) syncAllToSheets();
+        }
+      } else {
+        const confirmChange = await uiConfirm(
+          `¿Desea marcar manualmente como ENVIADO el comprobante de ${emp.nombre} para ${currentPeriod}?`,
+          {
+            title: "Marcar como Enviado Gmail",
+            confirmText: "Marcar como Enviado",
+            cancelText: "Cancelar"
+          }
+        );
+        if (confirmChange) {
+          markGmailSent(emp.cedula, currentPeriod);
+          emp.emailSent = true;
+          saveData();
+          renderPayrollTable();
+          showToast(`Estado Gmail de ${emp.nombre} marcado como Enviado.`);
+          if (sheetsApiUrl) syncAllToSheets();
+        }
+      }
+    }
+
     // Deshacer/anular la generación de salario de un colaborador para un período
     function unmarkSalaryGenerated(empId, period) {
       const emp = employees.find(e => e.id === empId);
@@ -5324,6 +5697,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
 
       emp.emailSent = false;
+      unmarkGmailSent(emp.cedula, period);
       saveData();
       renderPayrollTable();
       renderAguinaldoModule();
@@ -6793,6 +7167,12 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     }
 
     window.addEventListener("DOMContentLoaded", () => {
+      const modalQrEl = document.getElementById("modal-qr-vacaciones");
+      if (modalQrEl) {
+        modalQrEl.addEventListener("click", (e) => {
+          if (e.target === modalQrEl) closeQrVacacionesModal();
+        });
+      }
       if (typeof checkAuthSessionOnInit === "function") checkAuthSessionOnInit();
       renderPeriodSelector();
       renderHolidayAlert();
@@ -6978,6 +7358,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
 
       emp.emailSent = true;
+      markGmailSent(emp.cedula, currentPeriod);
       saveData();
       renderPayrollTable();
       if (TEST_MODE_ENABLED) {
@@ -7045,7 +7426,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         } catch (e) {}
       }
 
-      employees.forEach(e => e.emailSent = true);
+      activeEmployees.forEach(e => {
+        e.emailSent = true;
+        markGmailSent(e.cedula, currentPeriod);
+      });
       saveData();
       renderPayrollTable();
       if (TEST_MODE_ENABLED) {
@@ -7666,9 +8050,16 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           </td>
           <td class="px-4 py-3.5 text-right font-mono font-black text-slate-950 bg-slate-50 text-base whitespace-nowrap">${formatCRC(neto)}</td>
           <td class="px-4 py-3.5 text-center whitespace-nowrap">
-            ${emp.emailSent 
-              ? `<span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-semibold">✓ Enviado Gmail</span>` 
-              : `<span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-semibold">Pendiente</span>`}
+            ${(() => {
+              const gmStat = getGmailStatus(emp, currentPeriod);
+              return gmStat.sent
+                ? `<button type="button" onclick="toggleGmailSentStatus('${emp.id}')" class="bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-semibold inline-flex items-center gap-1 shadow-xs transition cursor-pointer" title="Despachado por Gmail: ${gmStat.date || 'Registrado'}. Haga clic para alternar estado.">
+                    <span>✓</span> <span>Enviado Gmail</span>
+                   </button>`
+                : `<button type="button" onclick="toggleGmailSentStatus('${emp.id}')" class="bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs px-2.5 py-1 rounded-full font-semibold inline-flex items-center gap-1 shadow-xs transition cursor-pointer" title="Pendiente de envío para ${currentPeriod}. Haga clic para marcar manualmente si ya lo envió.">
+                    <span>⏳</span> <span>Pendiente</span>
+                   </button>`;
+            })()}
           </td>
           <td class="px-2 py-2 text-center align-middle whitespace-nowrap">
             <!-- Botones Organizados Verticalmente para Ahorro Máximo de Ancho de Pantalla -->
@@ -9512,7 +9903,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         tr.innerHTML = '<td class="px-3 py-2 font-semibold text-slate-900">' +
             '<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-900 mr-1">' + (r.tipoCodigo || 'REBAJO') + '</span>' +
             r.tipoNombre + '</td>' +
-          '<td class="px-3 py-2 text-slate-600">' + (r.detalle || '-') + '</td>' +
+          '<td class="px-3 py-2 text-slate-600">' + 
+            (r.consecutivo ? ('<span class="font-medium text-slate-800">' + (r.baseDetalle || r.detalle) + '</span> <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-800 border border-indigo-200 ml-1">#' + r.consecutivo + '</span>') : (r.detalle || '-')) + 
+          '</td>' +
           '<td class="px-3 py-2 text-center whitespace-nowrap"><span class="px-2 py-0.5 rounded text-[10px] font-bold ' + freqBadge + '">' + freqText + '</span></td>' +
           '<td class="px-3 py-2 text-right font-mono font-bold text-rose-700 whitespace-nowrap">-' + formatCRC(r.monto) + '</td>' +
           '<td class="px-3 py-2 text-center"><button onclick="handleDeleteEmployeeRebajo(\'' + r.id + '\')" class="text-rose-600 hover:text-rose-900 font-bold hover:underline" title="Eliminar rebajo">🗑️</button></td>';
@@ -9537,16 +9930,26 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         return;
       }
 
+      let baseDetalle = detalle;
+      let cuotaInicial = 1;
+      const matchHash = detalle.match(/#\s*(\d+)\s*$/);
+      if (matchHash) {
+        cuotaInicial = parseInt(matchHash[1], 10) || 1;
+        baseDetalle = detalle.replace(/#\s*\d+\s*$/, "").trim();
+      }
+
       const newRebajo = {
         id: "ereb-" + Date.now(),
         employeeId: emp.id,
         cedula: emp.cedula,
         nombre: emp.nombre,
         periodo: currentPeriod,
+        periodoInicio: (frecuencia === "recurrente") ? currentPeriod : null,
+        cuotaInicial: (frecuencia === "recurrente") ? cuotaInicial : null,
         maestroId: maestroId,
         tipoCodigo: maestroItem ? maestroItem.codigo : "REBAJO",
         tipoNombre: maestroItem ? maestroItem.nombre : "Rebajo Autorizado",
-        detalle: detalle,
+        detalle: baseDetalle,
         monto: monto,
         recurrente: (frecuencia === "recurrente"),
         fechaRegistro: new Date().toISOString().split("T")[0]
