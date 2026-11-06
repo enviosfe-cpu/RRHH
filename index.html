@@ -8673,10 +8673,39 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       // Montos
       let total = parseFloat(getXmlTagValue(xmlDoc, "TotalComprobante"));
       let iva = parseFloat(getXmlTagValue(xmlDoc, "TotalImpuesto"));
-      let subtotal = parseFloat(getXmlTagValue(xmlDoc, "TotalVentaNeta"));
+      let subtotalNeto = parseFloat(getXmlTagValue(xmlDoc, "TotalVentaNeta"));
+      let totalVentaBruto = parseFloat(getXmlTagValue(xmlDoc, "TotalVenta"));
+      
+      // Búsqueda exhaustiva de <TotalDescuentos> (oficial Hacienda CR)
+      let descuentoVal = getXmlTagValue(xmlDoc, "TotalDescuentos");
+      if (!descuentoVal && typeof xmlString === "string") {
+        const matchDesc = xmlString.match(/<(?:\w+:)?TotalDescuentos[^>]*>([\d\.\,\-]+)<\/(?:\w+:)?TotalDescuentos>/i);
+        if (matchDesc) descuentoVal = matchDesc[1];
+      }
+      let descuento = parseFloat(descuentoVal);
+      if (isNaN(descuento) || descuento < 0) descuento = 0;
 
+      // Si no viene en cabecera, sumar descuentos de líneas <MontoDescuento>
+      if (descuento === 0) {
+        const lineDescNodes = xmlDoc.getElementsByTagName("MontoDescuento");
+        if (lineDescNodes && lineDescNodes.length > 0) {
+          let sumLineDesc = 0;
+          for (let d = 0; d < lineDescNodes.length; d++) {
+            const val = parseFloat(lineDescNodes[d].textContent.trim());
+            if (!isNaN(val) && val > 0) sumLineDesc += val;
+          }
+          if (sumLineDesc > 0) descuento = sumLineDesc;
+        }
+      }
+
+      // Identidad contable: Si TotalVenta > TotalVentaNeta, la diferencia es el descuento comercial
+      if (descuento === 0 && !isNaN(totalVentaBruto) && !isNaN(subtotalNeto) && totalVentaBruto > subtotalNeto) {
+        descuento = totalVentaBruto - subtotalNeto;
+      }
+
+      let subtotal = subtotalNeto;
       if (isNaN(subtotal) || subtotal <= 0) {
-        subtotal = parseFloat(getXmlTagValue(xmlDoc, "TotalVenta"));
+        subtotal = totalVentaBruto;
       }
       if (isNaN(iva)) iva = 0;
       if (isNaN(total) || total <= 0) {
@@ -8695,6 +8724,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       // Convertir a CRC si viene en otra moneda (ej. USD)
       const subtotalCRC = moneda === "USD" ? subtotal * tipoCambio : subtotal;
+      const descuentoCRC = moneda === "USD" ? descuento * tipoCambio : descuento;
       const ivaCRC = moneda === "USD" ? iva * tipoCambio : iva;
       const totalCRC = moneda === "USD" ? total * tipoCambio : total;
 
@@ -8733,7 +8763,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         subtotal,
         iva,
         total,
+        descuento: Math.abs(descuento),
         subtotalCRC,
+        descuentoCRC: Math.abs(descuentoCRC),
         ivaCRC,
         totalCRC,
         categoria,
@@ -8783,9 +8815,15 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           }
 
           // Verificar si ya existe por clave o consecutivo
-          const exists = gastosList.some(g => (parsed.clave && g.clave === parsed.clave) || (parsed.consecutivo && g.consecutivo === parsed.consecutivo && g.emisorCedula === parsed.emisorCedula));
-          if (exists) {
+          const existingIndex = gastosList.findIndex(g => (parsed.clave && g.clave === parsed.clave) || (parsed.consecutivo && g.consecutivo === parsed.consecutivo && g.emisorCedula === parsed.emisorCedula));
+          if (existingIndex !== -1) {
             duplicadas++;
+            // Enriquecer registro existente con descuento si estaba vacío sin alterar estado de pago
+            const existing = gastosList[existingIndex];
+            if ((existing.descuento === undefined || existing.descuento === 0) && parsed.descuento > 0) {
+              existing.descuento = parsed.descuento;
+              existing.descuentoCRC = parsed.descuentoCRC;
+            }
           } else {
             gastosList.unshift(parsed);
             agregadas++;
@@ -9559,9 +9597,15 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
               noAutorizadas++;
               continue;
             }
-            const exists = gastosList.some(g => (parsed.clave && g.clave === parsed.clave) || (parsed.consecutivo && g.consecutivo === parsed.consecutivo && g.emisorCedula === parsed.emisorCedula));
-            if (exists) {
+            const existingIndex = gastosList.findIndex(g => (parsed.clave && g.clave === parsed.clave) || (parsed.consecutivo && g.consecutivo === parsed.consecutivo && g.emisorCedula === parsed.emisorCedula));
+            if (existingIndex !== -1) {
               duplicadas++;
+              // Enriquecer registro existente con descuento si estaba vacío sin alterar estado de pago
+              const existing = gastosList[existingIndex];
+              if ((existing.descuento === undefined || existing.descuento === 0) && parsed.descuento > 0) {
+                existing.descuento = parsed.descuento;
+                existing.descuentoCRC = parsed.descuentoCRC;
+              }
             } else {
               gastosList.unshift(parsed);
               agregadas++;
@@ -9599,74 +9643,86 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         alert("La librería SheetJS no está lista todavía. Espere un momento e intente de nuevo.");
         return;
       }
-      if (gastosList.length === 0) {
+      
+      // Filtrar SOLO FACTURAS (excluyendo filas independientes de Notas de Crédito)
+      const facturasOnly = gastosList.filter(g => !g.isNotaCredito);
+
+      if (facturasOnly.length === 0) {
         showToast("No hay facturas registradas para exportar", "info");
         return;
       }
 
-      const rows = gastosList.map((g, idx) => {
+      const rows = facturasOnly.map((f, idx) => {
+        // Buscar Nota(s) de Crédito ligadas a esta factura
+        const appliedNcs = gastosList.filter(nc => 
+          nc.isNotaCredito && (nc.facturaAplicadaId === f.id || nc.facturaAplicadaConsecutivo === f.consecutivo)
+        );
+
         let ncConsecutivo = "";
         let ncFecha = "";
-        let ncMonto = 0;
-        let montoAPagar = 0;
-        let estadoFactura = "";
+        let ncSubtotal = "";
+        let ncDescuento = "";
+        let ncIva = "";
+        let ncMonto = "";
+        let totalNc = 0;
+
+        if (appliedNcs.length > 0) {
+          ncConsecutivo = appliedNcs.map(nc => nc.consecutivo).join(", ");
+          ncFecha = appliedNcs.map(nc => (nc.fecha ? nc.fecha.split(" ")[0] : "")).filter(Boolean).join(", ");
+          
+          const subtotalSum = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.subtotalCRC || 0), 0);
+          const descSum = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.descuentoCRC || nc.descuento || 0), 0);
+          const ivaSum = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.ivaCRC || 0), 0);
+          totalNc = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.totalCRC || 0), 0);
+
+          ncSubtotal = subtotalSum;
+          ncDescuento = descSum > 0 ? descSum : 0;
+          ncIva = ivaSum;
+          ncMonto = totalNc;
+        }
+
+        // Subtotal, Descuento e IVA de la Factura
+        const subtotalFactura = Math.abs(f.subtotalCRC || 0);
+        const descuentoFactura = Math.abs(f.descuentoCRC || f.descuento || 0);
+        const ivaFactura = Math.abs(f.ivaCRC || 0);
+        const totalFactura = f.totalCRC || 0;
+
+        // Monto a pagar = Total Factura - Monto de la NC ligada
+        const montoAPagar = Math.max(0, totalFactura - totalNc);
+
+        // Estado de factura: Pagada o No Pagada
+        const estadoFactura = (f.estadoPago === "pagada") ? "Pagada" : "No Pagada";
+
+        // Comprobante: dato ingresado al pagarla (Banco y Comprobante)
         let comprobante = "";
-
-        if (g.isNotaCredito) {
-          // Es una Nota de Crédito
-          ncConsecutivo = g.consecutivo || "";
-          ncFecha = g.fecha ? g.fecha.split(" ")[0] : "";
-          ncMonto = Math.abs(g.totalCRC || 0);
-          montoAPagar = 0;
-          estadoFactura = g.facturaAplicadaConsecutivo 
-            ? `Aplicada a Fac. #${g.facturaAplicadaConsecutivo}` 
-            : "NC Sin aplicar";
-          comprobante = "";
-        } else {
-          // Es Factura o Tiquete
-          const appliedNcs = gastosList.filter(nc => 
-            nc.isNotaCredito && (nc.facturaAplicadaId === g.id || nc.facturaAplicadaConsecutivo === g.consecutivo)
-          );
-
-          if (appliedNcs.length > 0) {
-            ncConsecutivo = appliedNcs.map(nc => nc.consecutivo).join(", ");
-            ncFecha = appliedNcs.map(nc => (nc.fecha ? nc.fecha.split(" ")[0] : "")).filter(Boolean).join(", ");
-            ncMonto = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.totalCRC || 0), 0);
-          } else {
-            ncConsecutivo = "";
-            ncFecha = "";
-            ncMonto = 0;
-          }
-
-          // Monto a pagar = Total Factura - Monto de la NC aplicada
-          montoAPagar = Math.max(0, (g.totalCRC || 0) - ncMonto);
-
-          // Estado de factura: Pagada o No Pagada
-          estadoFactura = (g.estadoPago === "pagada") ? "Pagada" : "No Pagada";
-
-          // Comprobante: dato ingresado al pagarla (Banco y Comprobante)
-          if (g.estadoPago === "pagada") {
-            const bancoStr = g.bancoPago ? g.bancoPago + " " : "";
-            const compStr = g.comprobantePago || "";
-            comprobante = `${bancoStr}#${compStr}`.trim();
-            if (g.fechaPago) {
-              comprobante += ` (${g.fechaPago})`;
-            }
-          } else {
-            comprobante = "";
+        if (f.estadoPago === "pagada") {
+          const bancoStr = f.bancoPago ? f.bancoPago + " " : "";
+          const compStr = f.comprobantePago || "";
+          comprobante = `${bancoStr}#${compStr}`.trim();
+          if (f.fechaPago) {
+            comprobante += ` (${f.fechaPago})`;
           }
         }
 
         return {
           "N°": idx + 1,
-          "Fecha Emisión": g.fecha || "",
-          "Consecutivo": g.consecutivo || "",
-          "Proveedor": g.emisorNombre || "",
-          "Moneda": g.moneda || "CRC",
-          "Total Gasto CRC": g.totalCRC || 0,
+          "Fecha Emisión": f.fecha || "",
+          "Consecutivo": f.consecutivo || "",
+          "Proveedor": f.emisorNombre || "",
+          "Moneda": f.moneda || "CRC",
+          // Desglose Contable Ordenado de la Factura
+          "Subtotal Factura CRC": subtotalFactura,
+          "Descuento Factura CRC": descuentoFactura,
+          "IVA Factura CRC": ivaFactura,
+          "Total Factura CRC": totalFactura,
+          // Desglose Contable Ordenado de la Nota de Crédito Ligada
           "NC consecutivo": ncConsecutivo,
-          "FECHA": ncFecha,
-          "MONTO": ncMonto > 0 ? ncMonto : "",
+          "NC Fecha": ncFecha,
+          "NC Subtotal CRC": ncSubtotal,
+          "NC Descuento CRC": ncDescuento,
+          "NC IVA CRC": ncIva,
+          "MONTO NC": ncMonto,
+          // Liquidación y Estado de Pago CxP
           "Monto a pagar": montoAPagar,
           "Estado de factura": estadoFactura,
           "Comprobante": comprobante
@@ -9676,26 +9732,54 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(rows);
 
-      // Anchos de columna exactos según estructura
+      // Anchos de columna óptimos para las 18 columnas ordenadas
       ws["!cols"] = [
         { wch: 6 },  // N°
         { wch: 18 }, // Fecha Emisión
         { wch: 25 }, // Consecutivo
-        { wch: 36 }, // Proveedor
+        { wch: 38 }, // Proveedor
         { wch: 10 }, // Moneda
-        { wch: 18 }, // Total Gasto CRC
+        { wch: 20 }, // Subtotal Factura CRC
+        { wch: 20 }, // Descuento Factura CRC
+        { wch: 18 }, // IVA Factura CRC
+        { wch: 18 }, // Total Factura CRC
         { wch: 25 }, // NC consecutivo
-        { wch: 14 }, // FECHA
-        { wch: 16 }, // MONTO
+        { wch: 14 }, // NC Fecha
+        { wch: 18 }, // NC Subtotal CRC
+        { wch: 18 }, // NC Descuento CRC
+        { wch: 16 }, // NC IVA CRC
+        { wch: 16 }, // MONTO NC
         { wch: 18 }, // Monto a pagar
         { wch: 18 }, // Estado de factura
-        { wch: 32 }  // Comprobante
+        { wch: 34 }  // Comprobante
       ];
 
       XLSX.utils.book_append_sheet(wb, ws, "Gestion_Proveedores_HCS");
+
+      // Si existen Notas de Crédito sin ligar a ninguna factura, agregar pestaña informativa
+      const unlinkedNcs = gastosList.filter(nc => nc.isNotaCredito && !nc.facturaAplicadaId && !nc.facturaAplicadaConsecutivo);
+      if (unlinkedNcs.length > 0) {
+        const rowsNc = unlinkedNcs.map((nc, idx) => ({
+          "N°": idx + 1,
+          "Fecha Emisión": nc.fecha || "",
+          "Consecutivo NC": nc.consecutivo || "",
+          "Proveedor": nc.emisorNombre || "",
+          "Subtotal NC (CRC)": Math.abs(nc.subtotalCRC || 0),
+          "Descuento NC (CRC)": Math.abs(nc.descuentoCRC || nc.descuento || 0),
+          "IVA NC (CRC)": Math.abs(nc.ivaCRC || 0),
+          "Total NC (CRC)": Math.abs(nc.totalCRC || 0),
+          "Estado": "Pendiente de vincular a una factura"
+        }));
+        const wsNc = XLSX.utils.json_to_sheet(rowsNc);
+        wsNc["!cols"] = [
+          { wch: 6 }, { wch: 18 }, { wch: 25 }, { wch: 38 }, { wch: 18 }, { wch: 18 }, { wch: 16 }, { wch: 18 }, { wch: 32 }
+        ];
+        XLSX.utils.book_append_sheet(wb, wsNc, "NC_Sin_Aplicar");
+      }
+
       const fileName = `Gestion_Proveedores_${new Date().toISOString().split("T")[0]}.xlsx`;
       XLSX.writeFile(wb, fileName);
-      showToast("Reporte Excel de Gestión de Proveedores descargado exitosamente", "success");
+      showToast("Reporte Excel generado con desglose ordenado de subtotales, IVA y descuentos", "success");
     }
 
     function switchTab(tabId) {
