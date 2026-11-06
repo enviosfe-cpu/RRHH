@@ -1086,7 +1086,7 @@
         </button>
 
                 <button type="button" onclick="switchTab('tab-gastos')" id="tab-btn-gastos" class="nav-tab">
-          <svg class="ico" data-i="receipt" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 6v12"/></svg> Gestión de Gastos
+          <svg class="ico" data-i="receipt" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 6v12"/></svg> Gestión de Proveedores
         </button>
 
 <button type="button" onclick="switchTab('tab-sheets')" id="tab-btn-sheets" class="nav-tab">
@@ -2078,8 +2078,8 @@
                 </svg>
               </span>
               <div>
-                <h2 class="text-lg font-bold text-slate-900">Gestión de Gastos y Facturas Electrónicas</h2>
-                <p class="text-xs text-slate-500">Carga manual de XML de Hacienda (v4.3), extracción automática de proveedores, montos, IVA y categorías</p>
+                <h2 class="text-lg font-bold text-slate-900">Gestión de Proveedores</h2>
+                <p class="text-xs text-slate-500">Carga de comprobantes XML de Hacienda (v4.3), proveedores autorizados, facturas e IVA Crédito Fiscal</p>
               </div>
             </div>
           </div>
@@ -2096,49 +2096,49 @@
           </div>
         </div>
 
-        <!-- Tarjetas de Métricas en Tiempo Real -->
+        <!-- Tarjetas de Métricas en Tiempo Real (Cuentas por Pagar) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="bg-gradient-to-br from-slate-50 to-indigo-50/40 p-4 rounded-xl border border-slate-200 shadow-2xs">
             <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
-              <span>Total Gastos (CRC)</span>
-              <span class="text-indigo-600 font-mono text-xs">₡</span>
+              <span>Total Cuentas por Pagar</span>
+              <span class="text-indigo-600 font-mono text-xs font-bold">₡ Total</span>
             </div>
             <div id="stat-gastos-total" class="text-2xl font-black text-slate-900 mt-1 font-mono">₡0,00</div>
-            <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
-              <span>Suma total de facturas registradas</span>
-            </div>
-          </div>
-
-          <div class="bg-gradient-to-br from-slate-50 to-emerald-50/40 p-4 rounded-xl border border-slate-200 shadow-2xs">
-            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
-              <span>IVA Crédito Fiscal</span>
-              <span class="text-emerald-600 font-mono text-xs">D-104</span>
-            </div>
-            <div id="stat-gastos-iva" class="text-2xl font-black text-emerald-800 mt-1 font-mono">₡0,00</div>
-            <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
-              <span>Impuesto deducible reportado</span>
-            </div>
-          </div>
-
-          <div class="bg-gradient-to-br from-slate-50 to-purple-50/40 p-4 rounded-xl border border-slate-200 shadow-2xs">
-            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
-              <span>Facturas Procesadas</span>
-              <span class="text-purple-600 font-mono text-xs">XML</span>
-            </div>
-            <div id="stat-gastos-count" class="text-2xl font-black text-purple-900 mt-1 font-mono">0</div>
-            <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
-              <span>Comprobantes electrónicos únicos</span>
+            <div class="text-[11px] text-slate-500 mt-1 flex items-center gap-1">
+              <span>Total facturas: <strong id="stat-gastos-count" class="text-slate-800">0</strong></span>
             </div>
           </div>
 
           <div class="bg-gradient-to-br from-slate-50 to-amber-50/40 p-4 rounded-xl border border-slate-200 shadow-2xs">
-            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
-              <span>Gastos del Mes Actual</span>
-              <span id="stat-gastos-mes-label" class="text-amber-600 text-[10px] font-bold uppercase">Mes</span>
+            <div class="text-[11px] font-bold text-amber-800 uppercase tracking-wider flex items-center justify-between">
+              <span>Pendiente de Pago (CxP)</span>
+              <span class="text-amber-600 font-mono text-xs font-bold">⏳ Por Pagar</span>
             </div>
-            <div id="stat-gastos-mes-monto" class="text-2xl font-black text-amber-900 mt-1 font-mono">₡0,00</div>
-            <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
-              <span>Período fiscal en curso</span>
+            <div id="stat-gastos-pendiente" class="text-2xl font-black text-amber-900 mt-1 font-mono">₡0,00</div>
+            <div class="text-[11px] text-amber-700 mt-1 flex items-center gap-1">
+              <span id="stat-gastos-pendiente-count">0 facturas por pagar</span>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-slate-50 to-emerald-50/40 p-4 rounded-xl border border-slate-200 shadow-2xs">
+            <div class="text-[11px] font-bold text-emerald-800 uppercase tracking-wider flex items-center justify-between">
+              <span>Facturas Pagadas</span>
+              <span class="text-emerald-600 font-mono text-xs font-bold">✅ Listo</span>
+            </div>
+            <div id="stat-gastos-pagado" class="text-2xl font-black text-emerald-800 mt-1 font-mono">₡0,00</div>
+            <div class="text-[11px] text-emerald-700 mt-1 flex items-center gap-1">
+              <span id="stat-gastos-pagado-count">0 facturas canceladas</span>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-slate-50 to-purple-50/40 p-4 rounded-xl border border-slate-200 shadow-2xs">
+            <div class="text-[11px] font-bold text-purple-800 uppercase tracking-wider flex items-center justify-between">
+              <span>IVA Crédito Fiscal</span>
+              <span class="text-purple-600 font-mono text-xs font-bold">D-104</span>
+            </div>
+            <div id="stat-gastos-iva" class="text-2xl font-black text-purple-900 mt-1 font-mono">₡0,00</div>
+            <div class="text-[11px] text-purple-600 mt-1 flex items-center gap-1">
+              <span>Impuesto deducible reportado</span>
             </div>
           </div>
         </div>
@@ -2259,25 +2259,19 @@
               <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
             </div>
 
-            <select id="filter-gastos-categoria" 
-                    onchange="renderGastosTable()" 
-                    class="px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white shadow-2xs">
-              <option value="">Todas las Categorías</option>
-              <option value="Combustibles y Lubricantes">⛽ Combustibles y Lubricantes</option>
-              <option value="Mantenimiento de Vehículos">🔧 Mantenimiento de Vehículos</option>
-              <option value="Viáticos y Alimentación">🍽️ Viáticos y Alimentación</option>
-              <option value="Suministros y Empaque">📦 Suministros y Empaque</option>
-              <option value="Servicios Públicos">💡 Servicios Públicos (Luz/Agua/Tel)</option>
-              <option value="Alquileres y Bodegaje">🏢 Alquileres y Bodegaje</option>
-              <option value="Servicios Profesionales">💼 Servicios Profesionales / Contables</option>
-              <option value="Mercadería y Compras">🛒 Mercadería y Productos</option>
-              <option value="Otros Gastos Operativos">📁 Otros Gastos Operativos</option>
-            </select>
-
             <select id="filter-gastos-mes" 
                     onchange="renderGastosTable()" 
                     class="px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white shadow-2xs">
               <option value="">Todos los Meses</option>
+            </select>
+
+            <select id="filter-gastos-estado" 
+                    onchange="renderGastosTable()" 
+                    class="px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white shadow-2xs font-semibold">
+              <option value="">Todos los Estados CxP</option>
+              <option value="pendiente">⏳ No Pagadas (Pendientes)</option>
+              <option value="pagada">✅ Facturas Pagadas</option>
+              <option value="nc">🔄 Notas de Crédito</option>
             </select>
           </div>
 
@@ -2296,10 +2290,10 @@
                 <th scope="col" class="px-3.5 py-3 whitespace-nowrap">Fecha</th>
                 <th scope="col" class="px-3.5 py-3 whitespace-nowrap">Consecutivo</th>
                 <th scope="col" class="px-3.5 py-3 whitespace-nowrap">Proveedor / Emisor</th>
-                <th scope="col" class="px-3.5 py-3 whitespace-nowrap">Categoría de Gasto</th>
                 <th scope="col" class="px-3.5 py-3 text-right whitespace-nowrap">Subtotal</th>
                 <th scope="col" class="px-3.5 py-3 text-right whitespace-nowrap">IVA</th>
                 <th scope="col" class="px-3.5 py-3 text-right whitespace-nowrap">Total Factura</th>
+                <th scope="col" class="px-3.5 py-3 text-center whitespace-nowrap">Estado / Pago (CxP)</th>
                 <th scope="col" class="px-3.5 py-3 text-center whitespace-nowrap">Acciones</th>
               </tr>
             </thead>
@@ -4713,6 +4707,86 @@
     </div>
   </div>
 
+  <!-- Modal Registrar Pago de Factura (Cuentas por Pagar) -->
+  <div id="modal-registrar-pago" role="dialog" aria-modal="true" aria-labelledby="modal-pago-title" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden m-auto border border-slate-200 max-h-[92vh] flex flex-col">
+      <div class="bg-slate-900 text-white px-5 py-3.5 flex justify-between items-center text-xs">
+        <div class="flex items-center gap-2">
+          <span class="p-1.5 bg-emerald-500/20 rounded-lg text-emerald-300 font-bold">💳</span>
+          <div>
+            <h4 id="modal-pago-title" class="font-bold text-sm">Registrar Pago de Factura</h4>
+            <p class="text-[11px] text-slate-400">Distribuidora Hermanos Castro del Sur S.A. - Cuentas por Pagar</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeModalRegistrarPago()" class="text-slate-400 hover:text-white p-1 rounded-lg transition" title="Cerrar (Esc)">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="p-5 overflow-y-auto space-y-4 text-xs">
+        <input type="hidden" id="pago-gasto-id" value="" />
+        
+        <!-- Tarjeta Informativa de la Factura -->
+        <div id="pago-factura-resumen" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <!-- Render dinámico del resumen -->
+        </div>
+
+        <!-- Formulario de Pago -->
+        <div class="space-y-3">
+          <div>
+            <label for="pago-banco" class="block font-bold text-slate-700 mb-1">Banco desde el que se efectuó el pago: <span class="text-rose-500">*</span></label>
+            <select id="pago-banco" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 bg-white font-semibold">
+              <option value="BAC San José / Credomatic">BAC San José / Credomatic</option>
+              <option value="Banco Nacional de Costa Rica (BNCR)">Banco Nacional de Costa Rica (BNCR)</option>
+              <option value="Banco de Costa Rica (BCR)">Banco de Costa Rica (BCR)</option>
+              <option value="Banco Popular y de Desarrollo Comunal">Banco Popular y de Desarrollo Comunal</option>
+              <option value="Banco Davivienda">Banco Davivienda</option>
+              <option value="Scotiabank de Costa Rica">Scotiabank de Costa Rica</option>
+              <option value="Banco Promerica">Banco Promerica</option>
+              <option value="Caja Chica / Efectivo">Caja Chica / Efectivo</option>
+              <option value="Otro Banco">Otro Banco</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="pago-comprobante" class="block font-bold text-slate-700 mb-1">Número de Comprobante / Referencia: <span class="text-rose-500">*</span></label>
+            <input type="text" id="pago-comprobante" placeholder="Ej: Transf. #9812450, SINPE Móvil #77412, Cheque #504..." class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 bg-white font-mono" />
+            <p class="text-[10px] text-slate-400 mt-0.5">Ingresa el código o número de confirmación bancaria.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="pago-fecha" class="block font-bold text-slate-700 mb-1">Fecha en que se pagó: <span class="text-rose-500">*</span></label>
+              <input type="date" id="pago-fecha" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 bg-white" />
+            </div>
+            <div>
+              <label for="pago-notas" class="block font-bold text-slate-700 mb-1">Detalle / Nota Opcional:</label>
+              <input type="text" id="pago-notas" placeholder="Ej: Pago parcial, descuento..." class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-emerald-500 bg-white" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bg-slate-50 px-5 py-3 border-t border-slate-200 flex justify-between items-center text-xs">
+        <div>
+          <button type="button" id="btn-marcar-no-pagada" onclick="marcarComoNoPagada()" class="hidden px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl font-bold text-xs transition">
+            Marcar como No Pagada
+          </button>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="closeModalRegistrarPago()" class="px-3.5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-bold text-xs transition">
+            Cancelar
+          </button>
+          <button type="button" onclick="guardarRegistroPago()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs transition shadow-xs flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            Guardar Pago
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal Detalle de Factura Electrónica -->
   <div id="modal-gasto-detalle" role="dialog" aria-modal="true" aria-labelledby="modal-gasto-detalle-title" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
     <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden m-auto border border-slate-200 max-h-[92vh] flex flex-col">
@@ -5132,6 +5206,10 @@
         function onKey(e) {
 
           if (e.key === "Escape") {
+        const mrp = document.getElementById("modal-registrar-pago");
+        if (mrp && !mrp.classList.contains("hidden")) {
+          closeModalRegistrarPago();
+        }
         const mpa = document.getElementById("modal-proveedores-autorizados");
         if (mpa && !mpa.classList.contains("hidden")) {
           closeModalProveedoresAutorizados();
@@ -8661,7 +8739,14 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         categoria,
         lineas,
         rootType: rootName,
-        fileName
+        fileName,
+        estadoPago: isNotaCredito ? "n/a" : "pendiente",
+        bancoPago: "",
+        comprobantePago: "",
+        fechaPago: "",
+        notasPago: "",
+        facturaAplicadaId: "",
+        facturaAplicadaConsecutivo: ""
       };
     }
 
@@ -8735,28 +8820,259 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       if (fileInput) fileInput.value = "";
     }
 
+    
+    // =========================================================================
+    // GESTIÓN DE CUENTAS POR PAGAR (PAGOS Y VINCULACIÓN DE NOTAS DE CRÉDITO)
+    // =========================================================================
+
+    function openModalRegistrarPago(gastoId) {
+      const g = gastosList.find(x => x.id === gastoId);
+      if (!g) return;
+
+      const modal = document.getElementById("modal-registrar-pago");
+      const hiddenId = document.getElementById("pago-gasto-id");
+      const resumenCont = document.getElementById("pago-factura-resumen");
+      const inpBanco = document.getElementById("pago-banco");
+      const inpComp = document.getElementById("pago-comprobante");
+      const inpFecha = document.getElementById("pago-fecha");
+      const inpNotas = document.getElementById("pago-notas");
+      const btnNoPagada = document.getElementById("btn-marcar-no-pagada");
+
+      if (hiddenId) hiddenId.value = g.id;
+
+      // Calcular si tiene Notas de Crédito aplicadas a esta factura
+      const appliedNcs = gastosList.filter(nc => nc.isNotaCredito && (nc.facturaAplicadaId === g.id || nc.facturaAplicadaConsecutivo === g.consecutivo));
+      const totalNcMonto = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.totalCRC || 0), 0);
+      const saldoNeto = Math.max(0, (g.totalCRC || 0) - totalNcMonto);
+
+      let ncInfoHtml = "";
+      if (appliedNcs.length > 0) {
+        ncInfoHtml = `
+          <div class="p-2 bg-purple-50 rounded-lg border border-purple-200 text-purple-900 text-xs">
+            <span class="font-bold">🔄 Notas de Crédito Aplicadas (${appliedNcs.length}):</span>
+            <ul class="list-disc list-inside mt-0.5 space-y-0.5 text-[11px]">
+              ${appliedNcs.map(n => `<li>NC #${n.consecutivo}: -${formatCRC(Math.abs(n.totalCRC || 0))}</li>`).join("")}
+            </ul>
+            <div class="font-bold text-slate-900 mt-1 border-t border-purple-200 pt-1 flex justify-between">
+              <span>Saldo Neto a Liquidar:</span>
+              <span class="text-amber-800 font-mono text-sm">${formatCRC(saldoNeto)}</span>
+            </div>
+          </div>
+        `;
+      }
+
+      if (resumenCont) {
+        resumenCont.innerHTML = `
+          <div class="flex justify-between items-start gap-2">
+            <div>
+              <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Proveedor</span>
+              <strong class="text-sm text-slate-900">${g.emisorNombre}</strong>
+              <div class="text-[11px] text-slate-500 font-mono">Cédula: ${g.emisorCedula}</div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Consecutivo</span>
+              <span class="font-mono font-bold text-indigo-900 text-xs">${g.consecutivo || "N/A"}</span>
+              <div class="text-[10px] text-slate-400">${g.fecha || ""}</div>
+            </div>
+          </div>
+          <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-200 mt-2">
+            <span class="font-bold text-slate-700">Monto Total Factura:</span>
+            <span class="text-base font-black text-slate-900 font-mono">${formatCRC(g.totalCRC || 0)}</span>
+          </div>
+          ${ncInfoHtml}
+        `;
+      }
+
+      if (inpBanco) inpBanco.value = g.bancoPago || "BAC San José / Credomatic";
+      if (inpComp) inpComp.value = g.comprobantePago || "";
+      if (inpFecha) inpFecha.value = g.fechaPago || new Date().toISOString().split("T")[0];
+      if (inpNotas) inpNotas.value = g.notasPago || "";
+
+      if (btnNoPagada) {
+        if (g.estadoPago === "pagada") {
+          btnNoPagada.classList.remove("hidden");
+        } else {
+          btnNoPagada.classList.add("hidden");
+        }
+      }
+
+      if (modal) modal.classList.remove("hidden");
+    }
+
+    function closeModalRegistrarPago() {
+      const modal = document.getElementById("modal-registrar-pago");
+      if (modal) modal.classList.add("hidden");
+    }
+
+    function guardarRegistroPago() {
+      const hiddenId = document.getElementById("pago-gasto-id");
+      const id = hiddenId ? hiddenId.value : "";
+      const g = gastosList.find(x => x.id === id);
+      if (!g) return;
+
+      const inpBanco = document.getElementById("pago-banco");
+      const inpComp = document.getElementById("pago-comprobante");
+      const inpFecha = document.getElementById("pago-fecha");
+      const inpNotas = document.getElementById("pago-notas");
+
+      const banco = inpBanco ? inpBanco.value.trim() : "";
+      const comp = inpComp ? inpComp.value.trim() : "";
+      const fecha = inpFecha ? inpFecha.value : "";
+      const notas = inpNotas ? inpNotas.value.trim() : "";
+
+      if (!comp) {
+        showToast("Debe ingresar el número de comprobante o referencia de pago", "warning");
+        if (inpComp) inpComp.focus();
+        return;
+      }
+
+      g.estadoPago = "pagada";
+      g.bancoPago = banco;
+      g.comprobantePago = comp;
+      g.fechaPago = fecha || new Date().toISOString().split("T")[0];
+      g.notasPago = notas;
+
+      saveGastosToStorage();
+      renderGastosTable();
+      closeModalRegistrarPago();
+      showToast(`Factura ${g.consecutivo} marcada como Pagada (Ref: ${comp})`, "success");
+    }
+
+    async function marcarComoNoPagada() {
+      const hiddenId = document.getElementById("pago-gasto-id");
+      const id = hiddenId ? hiddenId.value : "";
+      const g = gastosList.find(x => x.id === id);
+      if (!g) return;
+
+      const conf = await uiConfirm(
+        `¿Está seguro de que desea marcar la Factura #${g.consecutivo} nuevamente como "NO PAGADA"?\n\nSe revertirá el estado y se borrarán los datos del comprobante registrado.`,
+        {
+          title: "Marcar como No Pagada",
+          confirmText: "Sí, Marcar No Pagada",
+          cancelText: "Cancelar"
+        }
+      );
+      if (!conf) return;
+
+      g.estadoPago = "pendiente";
+      g.bancoPago = "";
+      g.comprobantePago = "";
+      g.fechaPago = "";
+      g.notasPago = "";
+
+      saveGastosToStorage();
+      renderGastosTable();
+      closeModalRegistrarPago();
+      showToast(`Factura #${g.consecutivo} marcada como No Pagada (Pendiente)`, "info");
+    }
+
+    let isVinculandoNc = false;
+    async function vincularNcAFactura(ncId, targetFacturaId, selectEl) {
+      if (isVinculandoNc) return;
+      isVinculandoNc = true;
+
+      try {
+        const nc = gastosList.find(x => x.id === ncId);
+        if (!nc) return;
+
+        const currentFacturaId = nc.facturaAplicadaId || "";
+        const currentFacturaCons = nc.facturaAplicadaConsecutivo || "";
+
+        // CASO 1: Si ya estaba aplicada a una factura y se quiere cambiar a OTRA factura
+        if (currentFacturaId && targetFacturaId && currentFacturaId !== targetFacturaId) {
+          const prevFactura = gastosList.find(x => x.id === currentFacturaId);
+          const prevNombre = prevFactura ? prevFactura.consecutivo : currentFacturaCons;
+          
+          const targetFactura = gastosList.find(x => x.id === targetFacturaId);
+          const targetNombre = targetFactura ? targetFactura.consecutivo : "otra factura";
+
+          const conf = await uiConfirm(
+            `⚠️ ALERTA DE VINCULACIÓN:\n\nEsta Nota de Crédito (${nc.consecutivo || 'NC'}) ya se encuentra aplicada a la Factura #${prevNombre}.\n\n¿Está seguro de que desea retirar la aplicación de esa factura y aplicarla a la Factura #${targetNombre}?`,
+            {
+              title: "Nota de Crédito Ya Aplicada",
+              confirmText: "Sí, Cambiar Factura",
+              cancelText: "Cancelar y Mantener"
+            }
+          );
+
+          if (!conf) {
+            // Restaurar el selector al valor que tenía
+            if (selectEl) selectEl.value = currentFacturaId;
+            return;
+          }
+        }
+
+        // CASO 2: Desvincular de la factura actual
+        if (!targetFacturaId) {
+          if (currentFacturaId) {
+            const confDesvincular = await uiConfirm(
+              `¿Desea desvincular esta Nota de Crédito (${nc.consecutivo}) de la Factura #${currentFacturaCons}?`,
+              {
+                title: "Desvincular Nota de Crédito",
+                confirmText: "Desvincular",
+                cancelText: "Mantener Vinculada"
+              }
+            );
+            if (!confDesvincular) {
+              if (selectEl) selectEl.value = currentFacturaId;
+              return;
+            }
+          }
+          nc.facturaAplicadaId = "";
+          nc.facturaAplicadaConsecutivo = "";
+          saveGastosToStorage();
+          renderGastosTable();
+          showToast(`Nota de Crédito #${nc.consecutivo} desvinculada`, "info");
+          return;
+        }
+
+        // CASO 3: Vincular a la factura seleccionada
+        const targetFactura = gastosList.find(x => x.id === targetFacturaId);
+        if (!targetFactura) return;
+
+        nc.facturaAplicadaId = targetFactura.id;
+        nc.facturaAplicadaConsecutivo = targetFactura.consecutivo;
+        saveGastosToStorage();
+        renderGastosTable();
+        showToast(`Nota de Crédito #${nc.consecutivo} aplicada a Factura #${targetFactura.consecutivo}`, "success");
+      } finally {
+        isVinculandoNc = false;
+      }
+    }
+
     function renderGastosTable() {
       const tbody = document.getElementById("gastos-table-body");
       if (!tbody) return;
 
-      const qSearch = (document.getElementById("filter-gastos-search") ? document.getElementById("filter-gastos-search").value : "").toLowerCase().trim();
-      const qCat = document.getElementById("filter-gastos-categoria") ? document.getElementById("filter-gastos-categoria").value : "";
+      const qSearch = document.getElementById("filter-gastos-search") ? document.getElementById("filter-gastos-search").value.trim().toLowerCase() : "";
       const qMes = document.getElementById("filter-gastos-mes") ? document.getElementById("filter-gastos-mes").value : "";
+      const qEstado = document.getElementById("filter-gastos-estado") ? document.getElementById("filter-gastos-estado").value : "";
 
-      // Actualizar opciones del select de meses
-      updateGastosMonthFilter();
-
+      // Cálculo de Métricas Globales
       let totalCRC = 0;
       let totalIvaCRC = 0;
-      let thisMonthCRC = 0;
-      const now = new Date();
-      const currentYearMonth = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0");
+      let totalPendienteCRC = 0;
+      let totalPagadoCRC = 0;
+      let countPendientes = 0;
+      let countPagadas = 0;
 
       gastosList.forEach(g => {
         totalCRC += (g.totalCRC || 0);
         totalIvaCRC += (g.ivaCRC || 0);
-        if (g.fechaIso && g.fechaIso.startsWith(currentYearMonth)) {
-          thisMonthCRC += (g.totalCRC || 0);
+
+        if (!g.isNotaCredito) {
+          // Si tiene NCs aplicadas a esta factura, deducirlas del saldo
+          const appliedNcs = gastosList.filter(nc => nc.isNotaCredito && (nc.facturaAplicadaId === g.id || nc.facturaAplicadaConsecutivo === g.consecutivo));
+          const totalNcMonto = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.totalCRC || 0), 0);
+          const saldoNeto = Math.max(0, (g.totalCRC || 0) - totalNcMonto);
+
+          if (g.estadoPago === "pagada") {
+            totalPagadoCRC += (g.totalCRC || 0);
+            countPagadas++;
+          } else {
+            totalPendienteCRC += saldoNeto;
+            countPendientes++;
+          }
         }
       });
 
@@ -8764,28 +9080,34 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const statTotal = document.getElementById("stat-gastos-total");
       const statIva = document.getElementById("stat-gastos-iva");
       const statCount = document.getElementById("stat-gastos-count");
-      const statMesMonto = document.getElementById("stat-gastos-mes-monto");
-      const statMesLabel = document.getElementById("stat-gastos-mes-label");
+      const statPendiente = document.getElementById("stat-gastos-pendiente");
+      const statPendienteCount = document.getElementById("stat-gastos-pendiente-count");
+      const statPagado = document.getElementById("stat-gastos-pagado");
+      const statPagadoCount = document.getElementById("stat-gastos-pagado-count");
 
       if (statTotal) statTotal.textContent = formatCRC(totalCRC);
       if (statIva) statIva.textContent = formatCRC(totalIvaCRC);
       if (statCount) statCount.textContent = gastosList.length;
-      if (statMesMonto) statMesMonto.textContent = formatCRC(thisMonthCRC);
-      if (statMesLabel) {
-        const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"];
-        statMesLabel.textContent = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
-      }
+      if (statPendiente) statPendiente.textContent = formatCRC(totalPendienteCRC);
+      if (statPendienteCount) statPendienteCount.textContent = `${countPendientes} factura(s) por pagar`;
+      if (statPagado) statPagado.textContent = formatCRC(totalPagadoCRC);
+      if (statPagadoCount) statPagadoCount.textContent = `${countPagadas} factura(s) canceladas`;
 
       // Filtrado
       const filtered = gastosList.filter(g => {
-        if (qCat && g.categoria !== qCat) return false;
         if (qMes && (!g.fechaIso || !g.fechaIso.startsWith(qMes))) return false;
+        if (qEstado === "pendiente" && (g.isNotaCredito || g.estadoPago === "pagada")) return false;
+        if (qEstado === "pagada" && (g.isNotaCredito || g.estadoPago !== "pagada")) return false;
+        if (qEstado === "nc" && !g.isNotaCredito) return false;
+        
         if (qSearch) {
           const matchProv = (g.emisorNombre || "").toLowerCase().includes(qSearch);
           const matchCed = (g.emisorCedula || "").toLowerCase().includes(qSearch);
           const matchCons = (g.consecutivo || "").toLowerCase().includes(qSearch);
           const matchClave = (g.clave || "").toLowerCase().includes(qSearch);
-          if (!matchProv && !matchCed && !matchCons && !matchClave) return false;
+          const matchBanco = (g.bancoPago || "").toLowerCase().includes(qSearch);
+          const matchComp = (g.comprobantePago || "").toLowerCase().includes(qSearch);
+          if (!matchProv && !matchCed && !matchCons && !matchClave && !matchBanco && !matchComp) return false;
         }
         return true;
       });
@@ -8802,7 +9124,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 <p class="font-semibold text-slate-600">No hay facturas cargadas con los filtros seleccionados</p>
-                <p class="text-xs text-slate-400 mt-1">Arrastra tus archivos XML al recuadro superior para registrarlos.</p>
+                <p class="text-xs text-slate-400 mt-1">Arrastra tus archivos XML al recuadro superior o consulta Gmail.</p>
               </div>
             </td>
           </tr>
@@ -8812,18 +9134,88 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       tbody.innerHTML = filtered.map(g => {
         const isUSD = g.moneda === "USD";
-        const catBadgeColors = {
-          "Combustibles y Lubricantes": "bg-amber-50 text-amber-800 border-amber-200",
-          "Mantenimiento de Vehículos": "bg-blue-50 text-blue-800 border-blue-200",
-          "Viáticos y Alimentación": "bg-rose-50 text-rose-800 border-rose-200",
-          "Suministros y Empaque": "bg-emerald-50 text-emerald-800 border-emerald-200",
-          "Servicios Públicos": "bg-purple-50 text-purple-800 border-purple-200",
-          "Alquileres y Bodegaje": "bg-indigo-50 text-indigo-800 border-indigo-200",
-          "Servicios Profesionales": "bg-cyan-50 text-cyan-800 border-cyan-200",
-          "Mercadería y Compras": "bg-teal-50 text-teal-800 border-teal-200",
-          "Otros Gastos Operativos": "bg-slate-100 text-slate-700 border-slate-200"
-        };
-        const badgeColor = catBadgeColors[g.categoria] || "bg-slate-100 text-slate-700 border-slate-200";
+
+        // Si es Factura o Tiquete, revisar si tiene Notas de Crédito aplicadas
+        let colEstadoPagoHtml = "";
+        let ncNoticeOnFactura = "";
+
+        if (g.isNotaCredito) {
+          // NOTA DE CRÉDITO: selector/recuadro para indicar en qué factura se aplica
+          const facturasMismoEmisor = gastosList.filter(f => !f.isNotaCredito && (f.emisorCedula === g.emisorCedula || normalizeText(f.emisorNombre) === normalizeText(g.emisorNombre)));
+          const facturasCandidatas = facturasMismoEmisor.length > 0 ? facturasMismoEmisor : gastosList.filter(f => !f.isNotaCredito);
+
+          const optionsFacturas = facturasCandidatas.map(f => {
+            const isSel = (g.facturaAplicadaId === f.id || g.facturaAplicadaConsecutivo === f.consecutivo);
+            const fechaCorta = f.fecha ? f.fecha.split(" ")[0] : "";
+            const montoStr = formatCRC(f.totalCRC || 0);
+            return `<option value="${f.id}" ${isSel ? 'selected' : ''}>Fac. ${f.consecutivo} (${montoStr}) - ${fechaCorta}</option>`;
+          }).join("");
+
+          colEstadoPagoHtml = `
+            <div class="flex flex-col items-center justify-center gap-1 w-full max-w-[230px] mx-auto">
+              <select onchange="vincularNcAFactura('${g.id}', this.value, this)" 
+                      class="w-full text-[11px] font-semibold rounded-lg px-2 py-1.5 border ${g.facturaAplicadaId ? 'border-purple-300 bg-purple-50 text-purple-950 font-bold' : 'border-amber-300 bg-amber-50 text-amber-950'} shadow-2xs focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer"
+                      title="Seleccionar en qué factura se aplica esta Nota de Crédito">
+                <option value="">-- Sin aplicar a factura --</option>
+                ${optionsFacturas}
+              </select>
+              ${g.facturaAplicadaId ? `
+                <div class="text-[10px] text-purple-700 font-bold flex items-center gap-1">
+                  <svg class="w-3 h-3 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                  <span>Aplicada a: <span class="font-mono text-purple-900">${g.facturaAplicadaConsecutivo || 'Factura'}</span></span>
+                </div>
+              ` : `
+                <div class="text-[10px] text-amber-700 font-medium">⚠️ Requiere vincular a factura</div>
+              `}
+            </div>
+          `;
+        } else {
+          // FACTURA O TIQUETE: botón para marcar Pagada / No Pagada
+          const appliedNcs = gastosList.filter(nc => nc.isNotaCredito && (nc.facturaAplicadaId === g.id || nc.facturaAplicadaConsecutivo === g.consecutivo));
+          const totalNcMonto = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.totalCRC || 0), 0);
+          const saldoNeto = Math.max(0, (g.totalCRC || 0) - totalNcMonto);
+
+          if (appliedNcs.length > 0) {
+            ncNoticeOnFactura = `
+              <div class="mt-1 text-[10px] text-purple-800 bg-purple-50 border border-purple-200 px-1.5 py-0.5 rounded font-medium">
+                🔄 NC: -${formatCRC(totalNcMonto)}
+                <div class="font-bold text-amber-900 font-mono">Saldo: ${formatCRC(saldoNeto)}</div>
+              </div>
+            `;
+          }
+
+          if (g.estadoPago === "pagada") {
+            colEstadoPagoHtml = `
+              <div class="flex flex-col items-center justify-center gap-1">
+                <button type="button" 
+                        onclick="openModalRegistrarPago('${g.id}')" 
+                        class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 hover:bg-emerald-200 text-emerald-900 border border-emerald-300 transition flex items-center gap-1 shadow-2xs cursor-pointer" 
+                        title="Factura Pagada. Clic para ver o modificar comprobante y banco">
+                  <svg class="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                  <span>Pagada</span>
+                </button>
+                <div class="text-[11px] text-slate-700 font-semibold text-center leading-tight">
+                  <span class="block">${g.bancoPago || 'Banco'}</span>
+                  <span class="text-indigo-950 font-mono font-bold">#${g.comprobantePago || 'S/N'}</span>
+                </div>
+                ${g.fechaPago ? `<div class="text-[10px] text-slate-400 font-mono">${g.fechaPago}</div>` : ''}
+              </div>
+            `;
+          } else {
+            colEstadoPagoHtml = `
+              <div class="flex flex-col items-center justify-center gap-1">
+                <button type="button" 
+                        onclick="openModalRegistrarPago('${g.id}')" 
+                        class="px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 transition flex items-center gap-1 shadow-2xs cursor-pointer" 
+                        title="Factura pendiente. Clic para registrar pago, banco y comprobante">
+                  <svg class="w-3.5 h-3.5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/></svg>
+                  <span>No Pagada</span>
+                </button>
+                ${ncNoticeOnFactura}
+              </div>
+            `;
+          }
+        }
 
         return `
           <tr class="hover:bg-slate-50/80 transition-colors">
@@ -8842,19 +9234,6 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
               <div class="font-bold text-slate-900 line-clamp-1" title="${g.emisorNombre}">${g.emisorNombre}</div>
               <div class="text-[10px] text-slate-400 font-mono mt-0.5">Cédula: ${g.emisorCedula}</div>
             </td>
-            <td class="px-3.5 py-3 whitespace-nowrap">
-              <select onchange="updateGastoCategoria('${g.id}', this.value)" class="text-[11px] font-semibold rounded-lg px-2 py-1 border shadow-2xs focus:outline-none focus:ring-1 focus:ring-indigo-500 ${badgeColor}">
-                <option value="Combustibles y Lubricantes" ${g.categoria === "Combustibles y Lubricantes" ? "selected" : ""}>⛽ Combustibles</option>
-                <option value="Mantenimiento de Vehículos" ${g.categoria === "Mantenimiento de Vehículos" ? "selected" : ""}>🔧 Mantenimiento</option>
-                <option value="Viáticos y Alimentación" ${g.categoria === "Viáticos y Alimentación" ? "selected" : ""}>🍽️ Viáticos</option>
-                <option value="Suministros y Empaque" ${g.categoria === "Suministros y Empaque" ? "selected" : ""}>📦 Suministros</option>
-                <option value="Servicios Públicos" ${g.categoria === "Servicios Públicos" ? "selected" : ""}>💡 Servicios Públicos</option>
-                <option value="Alquileres y Bodegaje" ${g.categoria === "Alquileres y Bodegaje" ? "selected" : ""}>🏢 Alquileres</option>
-                <option value="Servicios Profesionales" ${g.categoria === "Servicios Profesionales" ? "selected" : ""}>💼 Servicios Prof.</option>
-                <option value="Mercadería y Compras" ${g.categoria === "Mercadería y Compras" ? "selected" : ""}>🛒 Mercadería</option>
-                <option value="Otros Gastos Operativos" ${g.categoria === "Otros Gastos Operativos" ? "selected" : ""}>📁 Otros Gastos</option>
-              </select>
-            </td>
             <td class="px-3.5 py-3 text-right whitespace-nowrap font-mono text-slate-700">
               ${isUSD ? "$" + Number(g.subtotal).toFixed(2) : formatCRC(g.subtotal)}
               ${isUSD ? `<div class="text-[10px] text-slate-400">${formatCRC(g.subtotalCRC)}</div>` : ""}
@@ -8866,6 +9245,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             <td class="px-3.5 py-3 text-right whitespace-nowrap font-mono font-bold text-slate-900">
               ${isUSD ? "$" + Number(g.total).toFixed(2) : formatCRC(g.total)}
               ${isUSD ? `<div class="text-[10px] text-indigo-700 font-bold">${formatCRC(g.totalCRC)}</div>` : ""}
+            </td>
+            <td class="px-3.5 py-3 whitespace-nowrap text-center">
+              ${colEstadoPagoHtml}
             </td>
             <td class="px-3.5 py-3 text-center whitespace-nowrap">
               <div class="flex items-center justify-center gap-1.5">
@@ -8880,15 +9262,6 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           </tr>
         `;
       }).join("");
-    }
-
-    function updateGastoCategoria(gastoId, nuevaCat) {
-      const g = gastosList.find(item => item.id === gastoId);
-      if (g) {
-        g.categoria = nuevaCat;
-        saveGastosToStorage();
-        renderGastosTable();
-      }
     }
 
     async function deleteGasto(gastoId) {
@@ -9003,8 +9376,27 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           <div>
             <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Fecha y Hora de Emisión</span>
             <span class="font-bold text-slate-800 text-xs font-mono block">${g.fecha || "N/A"}</span>
-            <span class="text-[11px] text-indigo-700 font-semibold block mt-1">Categoría: ${g.categoria}</span>
+            
           </div>
+        </div>
+
+        <!-- Información de Pago / CxP -->
+        <div class="p-3 ${g.estadoPago === 'pagada' ? 'bg-emerald-50 border-emerald-200' : (g.isNotaCredito ? 'bg-purple-50 border-purple-200' : 'bg-amber-50 border-amber-200')} rounded-xl border space-y-1 text-xs">
+          ${g.isNotaCredito ? `
+            <div class="font-bold text-purple-900 flex items-center gap-1.5">
+              <span>🔄 Nota de Crédito</span>
+              <span class="text-purple-700 font-normal">• ${g.facturaAplicadaConsecutivo ? `Aplicada a Factura #${g.facturaAplicadaConsecutivo}` : 'Sin aplicar a factura'}</span>
+            </div>
+          ` : `
+            <div class="flex justify-between items-center">
+              <span class="font-bold ${g.estadoPago === 'pagada' ? 'text-emerald-900' : 'text-amber-900'}">
+                ${g.estadoPago === 'pagada' ? '✅ Factura Pagada' : '⏳ Factura Pendiente de Pago (CxP)'}
+              </span>
+              ${g.estadoPago === 'pagada' ? `
+                <span class="font-mono text-emerald-800 text-[11px]">${g.bancoPago || 'Banco'} #${g.comprobantePago || ''} (${g.fechaPago || ''})</span>
+              ` : ''}
+            </div>
+          `}
         </div>
 
         <div class="p-3 bg-indigo-50/50 rounded-xl border border-indigo-100 space-y-1">
