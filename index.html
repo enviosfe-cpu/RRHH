@@ -9604,40 +9604,98 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         return;
       }
 
-      const rows = gastosList.map((g, idx) => ({
-        "N°": idx + 1,
-        "Fecha Emisión": g.fecha || "",
-        "Consecutivo": g.consecutivo || "",
-        "Clave Hacienda": g.clave || "",
-        "Proveedor": g.emisorNombre || "",
-        "Cédula Proveedor": g.emisorCedula || "",
-        "Categoría de Gasto": g.categoria || "",
-        "Moneda": g.moneda || "CRC",
-        "Tipo Cambio": g.tipoCambio || 1,
-        "Subtotal Original": g.subtotal || 0,
-        "IVA Original": g.iva || 0,
-        "Total Original": g.total || 0,
-        "Subtotal CRC": g.subtotalCRC || 0,
-        "IVA Crédito Fiscal CRC": g.ivaCRC || 0,
-        "Total Gasto CRC": g.totalCRC || 0,
-        "Archivo Origen": g.fileName || ""
-      }));
+      const rows = gastosList.map((g, idx) => {
+        let ncConsecutivo = "";
+        let ncFecha = "";
+        let ncMonto = 0;
+        let montoAPagar = 0;
+        let estadoFactura = "";
+        let comprobante = "";
+
+        if (g.isNotaCredito) {
+          // Es una Nota de Crédito
+          ncConsecutivo = g.consecutivo || "";
+          ncFecha = g.fecha ? g.fecha.split(" ")[0] : "";
+          ncMonto = Math.abs(g.totalCRC || 0);
+          montoAPagar = 0;
+          estadoFactura = g.facturaAplicadaConsecutivo 
+            ? `Aplicada a Fac. #${g.facturaAplicadaConsecutivo}` 
+            : "NC Sin aplicar";
+          comprobante = "";
+        } else {
+          // Es Factura o Tiquete
+          const appliedNcs = gastosList.filter(nc => 
+            nc.isNotaCredito && (nc.facturaAplicadaId === g.id || nc.facturaAplicadaConsecutivo === g.consecutivo)
+          );
+
+          if (appliedNcs.length > 0) {
+            ncConsecutivo = appliedNcs.map(nc => nc.consecutivo).join(", ");
+            ncFecha = appliedNcs.map(nc => (nc.fecha ? nc.fecha.split(" ")[0] : "")).filter(Boolean).join(", ");
+            ncMonto = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.totalCRC || 0), 0);
+          } else {
+            ncConsecutivo = "";
+            ncFecha = "";
+            ncMonto = 0;
+          }
+
+          // Monto a pagar = Total Factura - Monto de la NC aplicada
+          montoAPagar = Math.max(0, (g.totalCRC || 0) - ncMonto);
+
+          // Estado de factura: Pagada o No Pagada
+          estadoFactura = (g.estadoPago === "pagada") ? "Pagada" : "No Pagada";
+
+          // Comprobante: dato ingresado al pagarla (Banco y Comprobante)
+          if (g.estadoPago === "pagada") {
+            const bancoStr = g.bancoPago ? g.bancoPago + " " : "";
+            const compStr = g.comprobantePago || "";
+            comprobante = `${bancoStr}#${compStr}`.trim();
+            if (g.fechaPago) {
+              comprobante += ` (${g.fechaPago})`;
+            }
+          } else {
+            comprobante = "";
+          }
+        }
+
+        return {
+          "N°": idx + 1,
+          "Fecha Emisión": g.fecha || "",
+          "Consecutivo": g.consecutivo || "",
+          "Proveedor": g.emisorNombre || "",
+          "Moneda": g.moneda || "CRC",
+          "Total Gasto CRC": g.totalCRC || 0,
+          "NC consecutivo": ncConsecutivo,
+          "FECHA": ncFecha,
+          "MONTO": ncMonto > 0 ? ncMonto : "",
+          "Monto a pagar": montoAPagar,
+          "Estado de factura": estadoFactura,
+          "Comprobante": comprobante
+        };
+      });
 
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.json_to_sheet(rows);
 
-      // Anchos de columna
+      // Anchos de columna exactos según estructura
       ws["!cols"] = [
-        { wch: 5 }, { wch: 18 }, { wch: 22 }, { wch: 52 },
-        { wch: 32 }, { wch: 16 }, { wch: 26 }, { wch: 8 },
-        { wch: 10 }, { wch: 16 }, { wch: 14 }, { wch: 16 },
-        { wch: 16 }, { wch: 18 }, { wch: 18 }, { wch: 24 }
+        { wch: 6 },  // N°
+        { wch: 18 }, // Fecha Emisión
+        { wch: 25 }, // Consecutivo
+        { wch: 36 }, // Proveedor
+        { wch: 10 }, // Moneda
+        { wch: 18 }, // Total Gasto CRC
+        { wch: 25 }, // NC consecutivo
+        { wch: 14 }, // FECHA
+        { wch: 16 }, // MONTO
+        { wch: 18 }, // Monto a pagar
+        { wch: 18 }, // Estado de factura
+        { wch: 32 }  // Comprobante
       ];
 
-      XLSX.utils.book_append_sheet(wb, ws, "Control_Gastos_HCS");
-      const fileName = `Control_Gastos_Facturas_${new Date().toISOString().split("T")[0]}.xlsx`;
+      XLSX.utils.book_append_sheet(wb, ws, "Gestion_Proveedores_HCS");
+      const fileName = `Gestion_Proveedores_${new Date().toISOString().split("T")[0]}.xlsx`;
       XLSX.writeFile(wb, fileName);
-      showToast("Reporte Excel descargado exitosamente", "success");
+      showToast("Reporte Excel de Gestión de Proveedores descargado exitosamente", "success");
     }
 
     function switchTab(tabId) {
