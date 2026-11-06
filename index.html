@@ -8674,9 +8674,25 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       let total = parseFloat(getXmlTagValue(xmlDoc, "TotalComprobante"));
       let iva = parseFloat(getXmlTagValue(xmlDoc, "TotalImpuesto"));
       let subtotalNeto = parseFloat(getXmlTagValue(xmlDoc, "TotalVentaNeta"));
-      let totalVentaBruto = parseFloat(getXmlTagValue(xmlDoc, "TotalVenta"));
-      
-      // Búsqueda exhaustiva de <TotalDescuentos> (oficial Hacienda CR)
+
+      // 1. SUBTOTAL: Tomado prioritariamente de la etiqueta <TotalVenta> (oficial Hacienda CR)
+      let totalVentaVal = getXmlTagValue(xmlDoc, "TotalVenta");
+      if (!totalVentaVal && typeof xmlString === "string") {
+        const matchVenta = xmlString.match(/<(?:\w+:)?TotalVenta[^>]*>([\d\.\,\-]+)<\/(?:\w+:)?TotalVenta>/i);
+        if (matchVenta) totalVentaVal = matchVenta[1];
+      }
+      let totalVentaBruto = parseFloat(totalVentaVal);
+
+      // Subtotal toma directamente <TotalVenta>
+      let subtotal = totalVentaBruto;
+      if (isNaN(subtotal) || subtotal <= 0) {
+        subtotal = subtotalNeto;
+      }
+      if (isNaN(subtotal) || subtotal <= 0) {
+        subtotal = Math.max(0, total - iva);
+      }
+
+      // 2. DESCUENTOS: Búsqueda exhaustiva de <TotalDescuentos> (oficial Hacienda CR)
       let descuentoVal = getXmlTagValue(xmlDoc, "TotalDescuentos");
       if (!descuentoVal && typeof xmlString === "string") {
         const matchDesc = xmlString.match(/<(?:\w+:)?TotalDescuentos[^>]*>([\d\.\,\-]+)<\/(?:\w+:)?TotalDescuentos>/i);
@@ -8703,16 +8719,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         descuento = totalVentaBruto - subtotalNeto;
       }
 
-      let subtotal = subtotalNeto;
-      if (isNaN(subtotal) || subtotal <= 0) {
-        subtotal = totalVentaBruto;
-      }
       if (isNaN(iva)) iva = 0;
       if (isNaN(total) || total <= 0) {
-        total = (isNaN(subtotal) ? 0 : subtotal) + iva;
-      }
-      if (isNaN(subtotal) || subtotal <= 0) {
-        subtotal = Math.max(0, total - iva);
+        total = (isNaN(subtotal) ? 0 : subtotal) - descuento + iva;
       }
 
       // Si es Nota de Crédito, los montos restan al gasto total (crédito a favor)
@@ -8761,6 +8770,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         moneda,
         tipoCambio,
         subtotal,
+        totalVenta: Math.abs(totalVentaBruto || subtotal),
+        totalVentaCRC: Math.abs(subtotalCRC),
         iva,
         total,
         descuento: Math.abs(descuento),
@@ -8820,7 +8831,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             duplicadas++;
             // Enriquecer registro existente con descuento si estaba vacío sin alterar estado de pago
             const existing = gastosList[existingIndex];
-            if ((existing.descuento === undefined || existing.descuento === 0) && parsed.descuento > 0) {
+            existing.subtotal = parsed.subtotal;
+            existing.subtotalCRC = parsed.subtotalCRC;
+            existing.totalVenta = parsed.totalVenta;
+            existing.totalVentaCRC = parsed.totalVentaCRC;
+            if (parsed.descuento > 0) {
               existing.descuento = parsed.descuento;
               existing.descuentoCRC = parsed.descuentoCRC;
             }
@@ -9670,8 +9685,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           ncConsecutivo = appliedNcs.map(nc => nc.consecutivo).join(", ");
           ncFecha = appliedNcs.map(nc => (nc.fecha ? nc.fecha.split(" ")[0] : "")).filter(Boolean).join(", ");
           
-          const subtotalSum = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.subtotalCRC || 0), 0);
+          let subtotalSum = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.totalVentaCRC || nc.subtotalCRC || 0), 0);
           const descSum = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.descuentoCRC || nc.descuento || 0), 0);
+          if (descSum > 0 && (subtotalSum + appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.ivaCRC || 0), 0)) <= appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.totalCRC || 0), 0)) {
+            subtotalSum += descSum;
+          }
           const ivaSum = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.ivaCRC || 0), 0);
           totalNc = appliedNcs.reduce((sum, nc) => sum + Math.abs(nc.totalCRC || 0), 0);
 
@@ -9681,9 +9699,13 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           ncMonto = totalNc;
         }
 
-        // Subtotal, Descuento e IVA de la Factura
-        const subtotalFactura = Math.abs(f.subtotalCRC || 0);
+        // Subtotal Factura CRC (tomado directamente de <TotalVenta>)
         const descuentoFactura = Math.abs(f.descuentoCRC || f.descuento || 0);
+        let subtotalFactura = Math.abs(f.totalVentaCRC || f.subtotalCRC || 0);
+        // Si el subtotal guardado originalmente era neto, reconstituir TotalVenta = VentaNeta + Descuento
+        if (descuentoFactura > 0 && (subtotalFactura + (f.ivaCRC || 0)) <= (f.totalCRC || 0)) {
+          subtotalFactura += descuentoFactura;
+        }
         const ivaFactura = Math.abs(f.ivaCRC || 0);
         const totalFactura = f.totalCRC || 0;
 
