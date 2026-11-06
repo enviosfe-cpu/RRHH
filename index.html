@@ -1085,7 +1085,11 @@
 
         </button>
 
-        <button type="button" onclick="switchTab('tab-sheets')" id="tab-btn-sheets" class="nav-tab">
+                <button type="button" onclick="switchTab('tab-gastos')" id="tab-btn-gastos" class="nav-tab">
+          <svg class="ico" data-i="receipt" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 6v12"/></svg> Gestión de Gastos
+        </button>
+
+<button type="button" onclick="switchTab('tab-sheets')" id="tab-btn-sheets" class="nav-tab">
 
           <svg class="ico" data-i="settings" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Configuración
 
@@ -2057,6 +2061,259 @@
 
 
 
+        <!-- ==================== TAB: GESTIÓN DE GASTOS ==================== -->
+    <section id="tab-gastos" class="tab-content hidden space-y-4">
+      
+      <!-- Encabezado del Módulo de Gastos -->
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+        
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b pb-4">
+          <div>
+            <div class="flex items-center gap-2.5">
+              <span class="p-2.5 bg-indigo-50 text-indigo-700 rounded-xl border border-indigo-200 shadow-2xs">
+                <svg class="ico w-6 h-6" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 6v12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <div>
+                <h2 class="text-lg font-bold text-slate-900">Gestión de Gastos y Facturas Electrónicas</h2>
+                <p class="text-xs text-slate-500">Carga manual de XML de Hacienda (v4.3), extracción automática de proveedores, montos, IVA y categorías</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" onclick="exportGastosToExcel()" class="px-3 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg font-bold text-xs shadow-xs transition flex items-center gap-1.5" title="Exportar reporte de gastos a Microsoft Excel">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+              Exportar Excel
+            </button>
+            <button type="button" onclick="clearAllGastos()" class="px-3 py-2 bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-700 rounded-lg font-bold text-xs border border-slate-200 hover:border-rose-200 transition flex items-center gap-1.5" title="Eliminar todos los gastos cargados">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+              Limpiar Todo
+            </button>
+          </div>
+        </div>
+
+        <!-- Tarjetas de Métricas en Tiempo Real -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-gradient-to-br from-slate-50 to-indigo-50/40 p-4 rounded-xl border border-slate-200 shadow-2xs">
+            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
+              <span>Total Gastos (CRC)</span>
+              <span class="text-indigo-600 font-mono text-xs">₡</span>
+            </div>
+            <div id="stat-gastos-total" class="text-2xl font-black text-slate-900 mt-1 font-mono">₡0,00</div>
+            <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
+              <span>Suma total de facturas registradas</span>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-slate-50 to-emerald-50/40 p-4 rounded-xl border border-slate-200 shadow-2xs">
+            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
+              <span>IVA Crédito Fiscal</span>
+              <span class="text-emerald-600 font-mono text-xs">D-104</span>
+            </div>
+            <div id="stat-gastos-iva" class="text-2xl font-black text-emerald-800 mt-1 font-mono">₡0,00</div>
+            <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
+              <span>Impuesto deducible reportado</span>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-slate-50 to-purple-50/40 p-4 rounded-xl border border-slate-200 shadow-2xs">
+            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
+              <span>Facturas Procesadas</span>
+              <span class="text-purple-600 font-mono text-xs">XML</span>
+            </div>
+            <div id="stat-gastos-count" class="text-2xl font-black text-purple-900 mt-1 font-mono">0</div>
+            <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
+              <span>Comprobantes electrónicos únicos</span>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-slate-50 to-amber-50/40 p-4 rounded-xl border border-slate-200 shadow-2xs">
+            <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center justify-between">
+              <span>Gastos del Mes Actual</span>
+              <span id="stat-gastos-mes-label" class="text-amber-600 text-[10px] font-bold uppercase">Mes</span>
+            </div>
+            <div id="stat-gastos-mes-monto" class="text-2xl font-black text-amber-900 mt-1 font-mono">₡0,00</div>
+            <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
+              <span>Período fiscal en curso</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barra de Consulta Automática desde Gmail por Rango de Fechas -->
+        <div class="bg-gradient-to-r from-purple-950 via-indigo-950 to-slate-900 text-white p-4 rounded-xl shadow-md border border-purple-800/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="p-2.5 bg-purple-500/20 text-purple-300 rounded-xl border border-purple-400/30">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h4 class="font-bold text-sm tracking-wide text-white">Descarga Automática desde Gmail</h4>
+                <span class="text-[10px] bg-purple-500/30 text-purple-200 border border-purple-400/30 font-bold px-2 py-0.5 rounded-full">Por Rango de Fechas</span>
+              </div>
+              <p class="text-xs text-purple-200 mt-0.5">Consulta la bandeja del correo y extrae las facturas electrónicas XML emitidas en el período.</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+            <button type="button" 
+                    onclick="setGmailDatePreset('mes-actual')" 
+                    class="px-3 py-1.5 rounded-lg bg-purple-900/70 hover:bg-purple-800 text-purple-200 hover:text-white border border-purple-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
+                    title="Fijar automáticamente al mes en curso (del 1 al último día del mes)">
+              <svg class="w-3.5 h-3.5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              Mes en Curso
+            </button>
+
+            <button type="button" 
+                    onclick="setGmailDatePreset('mes-anterior')" 
+                    class="px-2.5 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white border border-purple-500/30 text-xs font-semibold transition hidden sm:flex items-center gap-1 cursor-pointer"
+                    title="Fijar al mes anterior completo">
+              Mes Anterior
+            </button>
+
+            <div class="flex items-center gap-1.5 text-xs text-purple-100">
+              <label for="gmail-fecha-desde" class="font-bold">Desde:</label>
+              <input type="date" id="gmail-fecha-desde" class="px-2.5 py-1.5 rounded-lg bg-slate-800/80 border border-purple-500/40 text-white text-xs focus:ring-2 focus:ring-purple-400 focus:outline-none" />
+            </div>
+
+            <div class="flex items-center gap-1.5 text-xs text-purple-100">
+              <label for="gmail-fecha-hasta" class="font-bold">Hasta:</label>
+              <input type="date" id="gmail-fecha-hasta" class="px-2.5 py-1.5 rounded-lg bg-slate-800/80 border border-purple-500/40 text-white text-xs focus:ring-2 focus:ring-purple-400 focus:outline-none" />
+            </div>
+
+            <div class="flex items-center gap-2 bg-slate-800/80 px-2.5 py-1.5 rounded-lg border border-purple-500/40">
+              <label class="flex items-center gap-1.5 text-xs text-purple-100 cursor-pointer select-none">
+                <input type="checkbox" id="chk-solo-autorizados" checked onchange="toggleFilterSoloAutorizados(this.checked)" class="rounded text-purple-600 focus:ring-purple-400 w-3.5 h-3.5 cursor-pointer" />
+                <span class="font-bold">Solo proveedores autorizados (<span id="badge-prov-count">18</span>)</span>
+              </label>
+              <button type="button" onclick="openModalProveedoresAutorizados()" class="text-[11px] text-purple-300 hover:text-white underline font-semibold ml-1 cursor-pointer" title="Ver y editar proveedores autorizados">
+                Ver lista
+              </button>
+            </div>
+
+            <button type="button" 
+                    id="btn-fetch-gmail-invoices" 
+                    onclick="fetchInvoicesFromGmail()" 
+                    class="px-3.5 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-xl font-bold text-xs shadow-sm hover:shadow transition flex items-center gap-1.5 cursor-pointer">
+              <svg id="btn-fetch-gmail-spinner" class="w-4 h-4 text-white hidden animate-spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+              <span id="btn-fetch-gmail-text">📥 Traer Facturas de Gmail</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Zona de Carga Manual de XML (Drag & Drop + Selección Múltiple) -->
+        <div id="xml-dropzone" 
+             ondragover="handleXmlDragOver(event)" 
+             ondragleave="handleXmlDragLeave(event)" 
+             ondrop="handleXmlDrop(event)"
+             onclick="document.getElementById('xml-file-input').click()"
+             class="group relative border-2 border-dashed border-indigo-200 hover:border-indigo-500 bg-gradient-to-b from-slate-50/70 to-indigo-50/30 hover:bg-indigo-50/60 rounded-2xl p-6 sm:p-8 text-center cursor-pointer transition-all duration-300">
+          
+          <input type="file" id="xml-file-input" accept=".xml,text/xml" multiple class="hidden" onchange="handleXmlFileInput(this.files)" />
+          
+          <div class="flex flex-col items-center justify-center pointer-events-none">
+            <div class="w-14 h-14 bg-white rounded-2xl shadow-sm border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+            </div>
+            
+            <h3 class="mt-3 text-sm sm:text-base font-bold text-slate-800 group-hover:text-indigo-900 transition-colors">
+              Arrastra y suelta tus archivos XML de factura aquí
+            </h3>
+            
+            <p class="text-xs text-slate-500 mt-1 max-w-md">
+              o haz clic para explorar en tu computadora. Puedes seleccionar <strong class="text-indigo-700">múltiples facturas electrónicas a la vez</strong> (.xml de Hacienda Costa Rica v4.3).
+            </p>
+
+            <div class="mt-3 flex flex-wrap items-center justify-center gap-2">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-white rounded-lg text-[11px] font-semibold text-slate-600 border border-slate-200 shadow-2xs">
+                📄 Factura Electrónica
+              </span>
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-white rounded-lg text-[11px] font-semibold text-slate-600 border border-slate-200 shadow-2xs">
+                🎫 Tiquete Electrónico
+              </span>
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-white rounded-lg text-[11px] font-semibold text-slate-600 border border-slate-200 shadow-2xs">
+                ⚡ Lectura Instantánea
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Barra de Progreso / Mensaje de Estado de Carga -->
+        <div id="xml-upload-feedback" class="hidden p-3 rounded-xl text-xs font-semibold flex items-center justify-between border"></div>
+
+        <!-- Filtros y Búsqueda -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+          
+          <div class="flex-1 flex flex-wrap items-center gap-2">
+            <div class="relative flex-1 min-w-[220px]">
+              <input type="text" 
+                     id="filter-gastos-search" 
+                     oninput="renderGastosTable()" 
+                     placeholder="Buscar por proveedor, cédula o consecutivo..." 
+                     class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-2xs" />
+              <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            </div>
+
+            <select id="filter-gastos-categoria" 
+                    onchange="renderGastosTable()" 
+                    class="px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white shadow-2xs">
+              <option value="">Todas las Categorías</option>
+              <option value="Combustibles y Lubricantes">⛽ Combustibles y Lubricantes</option>
+              <option value="Mantenimiento de Vehículos">🔧 Mantenimiento de Vehículos</option>
+              <option value="Viáticos y Alimentación">🍽️ Viáticos y Alimentación</option>
+              <option value="Suministros y Empaque">📦 Suministros y Empaque</option>
+              <option value="Servicios Públicos">💡 Servicios Públicos (Luz/Agua/Tel)</option>
+              <option value="Alquileres y Bodegaje">🏢 Alquileres y Bodegaje</option>
+              <option value="Servicios Profesionales">💼 Servicios Profesionales / Contables</option>
+              <option value="Mercadería y Compras">🛒 Mercadería y Productos</option>
+              <option value="Otros Gastos Operativos">📁 Otros Gastos Operativos</option>
+            </select>
+
+            <select id="filter-gastos-mes" 
+                    onchange="renderGastosTable()" 
+                    class="px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white shadow-2xs">
+              <option value="">Todos los Meses</option>
+            </select>
+          </div>
+
+          <div class="text-xs text-slate-500 text-right flex items-center justify-end gap-1.5 font-medium">
+            <span>Mostrando:</span>
+            <span id="gastos-filtered-count" class="font-bold text-slate-900 font-mono">0</span>
+            <span>gastos</span>
+          </div>
+        </div>
+
+        <!-- Contenedor con Desbordamiento Horizontal Adaptable de la Tabla de Gastos -->
+        <div class="overflow-x-auto rounded-xl border border-slate-200">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-900 text-white text-[11px] uppercase tracking-wider font-bold">
+                <th scope="col" class="px-3.5 py-3 whitespace-nowrap">Fecha</th>
+                <th scope="col" class="px-3.5 py-3 whitespace-nowrap">Consecutivo</th>
+                <th scope="col" class="px-3.5 py-3 whitespace-nowrap">Proveedor / Emisor</th>
+                <th scope="col" class="px-3.5 py-3 whitespace-nowrap">Categoría de Gasto</th>
+                <th scope="col" class="px-3.5 py-3 text-right whitespace-nowrap">Subtotal</th>
+                <th scope="col" class="px-3.5 py-3 text-right whitespace-nowrap">IVA</th>
+                <th scope="col" class="px-3.5 py-3 text-right whitespace-nowrap">Total Factura</th>
+                <th scope="col" class="px-3.5 py-3 text-center whitespace-nowrap">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="gastos-table-body" class="divide-y divide-slate-100 bg-white">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+
+
     <!-- ==================== TAB 6: GOOGLE SHEETS & ENVÍO GMAIL ==================== -->
 
     <section id="tab-sheets" class="tab-content hidden space-y-4">
@@ -2198,6 +2455,25 @@
             </div>
 
 
+
+            <!-- URL del Lector de Facturas Gmail (dhcastrosantos@gmail.com) -->
+            <div class="mt-3 p-3 bg-purple-50 rounded-xl border border-purple-200 space-y-2">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-bold text-purple-950 flex items-center gap-1.5">
+                  <svg class="ico text-purple-700" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 6L2 7"/></svg> Conexión al Correo de Facturas (dhcastrosantos@gmail.com):
+                </h4>
+                <span id="badge-gastos-gmail" class="text-[10px] bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded-full border border-purple-300">Opcional</span>
+              </div>
+              <p class="text-[11px] text-purple-800 leading-relaxed">
+                Pega aquí la URL de la aplicación web creada en <strong>dhcastrosantos@gmail.com</strong> para extraer las facturas electrónicas (.xml) directamente desde esa cuenta:
+              </p>
+              <div class="flex gap-2">
+                <input type="url" id="gastos-gmail-url-input" placeholder="https://script.google.com/macros/s/.../exec" class="flex-1 border border-purple-300 rounded-lg p-2 text-xs font-mono bg-white focus:ring-2 focus:ring-purple-500">
+                <button type="button" onclick="saveGastosGmailUrl()" class="bg-purple-800 hover:bg-purple-900 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1">
+                  Guardar Lector
+                </button>
+              </div>
+            </div>
 
             <!-- Diagnóstico de Envío de Correo por Gmail -->
 
@@ -4378,6 +4654,90 @@
   <div id="sr-live" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <!-- Modal QR Vacaciones Ampliado con Transición Fluida -->
+    <!-- Modal Proveedores Autorizados para Gastos -->
+  <div id="modal-proveedores-autorizados" role="dialog" aria-modal="true" aria-labelledby="modal-prov-aut-title" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-xl w-full shadow-2xl overflow-hidden m-auto border border-slate-200 max-h-[92vh] flex flex-col">
+      <div class="bg-slate-900 text-white px-5 py-3.5 flex justify-between items-center text-xs">
+        <div class="flex items-center gap-2">
+          <span class="p-1.5 bg-indigo-500/20 rounded-lg text-indigo-300 font-bold">🏢</span>
+          <div>
+            <h4 id="modal-prov-aut-title" class="font-bold text-sm">Proveedores Autorizados de Facturas</h4>
+            <p class="text-[11px] text-slate-400">Solo los comprobantes emitidos por estos proveedores serán consumidos</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeModalProveedoresAutorizados()" class="text-slate-400 hover:text-white p-1 rounded-lg transition" title="Cerrar (Esc)">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="p-5 overflow-y-auto space-y-4 text-xs">
+        
+        <!-- Formulario para agregar nuevo proveedor -->
+        <div class="flex gap-2">
+          <input type="text" id="inp-nuevo-proveedor" placeholder="Nombre de nuevo proveedor a autorizar..." class="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white" onkeydown="if(event.key==='Enter')agregarProveedorAutorizado()" />
+          <button type="button" onclick="agregarProveedorAutorizado()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xs shadow-xs transition flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Agregar
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between text-slate-500 text-[11px]">
+          <span>Proveedores activos: <strong id="count-prov-autorizados" class="text-slate-900 font-mono font-bold">18</strong></span>
+          <button type="button" onclick="restaurarProveedoresPorDefecto()" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">Restaurar lista original de 18</button>
+        </div>
+
+        <!-- Lista de Proveedores -->
+        <div class="overflow-x-auto rounded-xl border border-slate-200">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 font-bold text-[11px] uppercase tracking-wider">
+                <th scope="col" class="px-3 py-2 w-10 text-center">#</th>
+                <th scope="col" class="px-3 py-2">Nombre del Proveedor Autorizado</th>
+                <th scope="col" class="px-3 py-2 text-center w-20">Acción</th>
+              </tr>
+            </thead>
+            <tbody id="lista-proveedores-autorizados-body" class="divide-y divide-slate-100 bg-white">
+              <!-- Render dinámico -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <div class="bg-slate-50 px-5 py-3 border-t border-slate-200 flex justify-between items-center text-xs">
+        <span class="text-[11px] text-slate-500">Se guarda automáticamente en memoria</span>
+        <button type="button" onclick="closeModalProveedoresAutorizados()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs transition">
+          Listo / Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Detalle de Factura Electrónica -->
+  <div id="modal-gasto-detalle" role="dialog" aria-modal="true" aria-labelledby="modal-gasto-detalle-title" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden m-auto border border-slate-200 max-h-[92vh] flex flex-col">
+      <div class="bg-slate-900 text-white px-5 py-3.5 flex justify-between items-center text-xs">
+        <div class="flex items-center gap-2">
+          <span class="p-1.5 bg-indigo-500/20 rounded-lg text-indigo-300 font-bold">XML</span>
+          <h4 id="modal-gasto-detalle-title" class="font-bold text-sm">Detalle de Factura Electrónica</h4>
+        </div>
+        <button type="button" onclick="closeModalGastoDetalle()" class="text-slate-400 hover:text-white p-1 rounded-lg transition" title="Cerrar (Esc)">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div id="modal-gasto-detalle-content" class="p-5 overflow-y-auto space-y-4 text-xs">
+        <!-- Renderizado dinámico del detalle -->
+      </div>
+
+      <div class="bg-slate-50 px-5 py-3 border-t border-slate-200 flex justify-end gap-2">
+        <button type="button" onclick="closeModalGastoDetalle()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-bold text-xs transition">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div id="modal-qr-vacaciones" role="dialog" aria-modal="true" aria-labelledby="modal-qr-vacaciones-title" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto transition-opacity duration-300 opacity-0">
     <div id="modal-qr-vacaciones-content" class="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden m-auto border border-slate-200 transform transition-all duration-300 scale-95 opacity-0 flex flex-col">
       <!-- Header -->
@@ -4772,6 +5132,14 @@
         function onKey(e) {
 
           if (e.key === "Escape") {
+        const mpa = document.getElementById("modal-proveedores-autorizados");
+        if (mpa && !mpa.classList.contains("hidden")) {
+          closeModalProveedoresAutorizados();
+        }
+        const mgd = document.getElementById("modal-gasto-detalle");
+        if (mgd && !mgd.classList.contains("hidden")) {
+          closeModalGastoDetalle();
+        }
         const mq = document.getElementById("modal-qr-vacaciones");
         if (mq && !mq.classList.contains("hidden")) {
           closeQrVacacionesModal();
@@ -5301,6 +5669,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         }
       }
 
+      if (typeof setGmailDatePreset === "function") {
+        setGmailDatePreset("mes-actual");
+      }
+      if (typeof updateProveedoresUI === "function") updateProveedoresUI();
+      if (typeof renderGastosTable === "function") renderGastosTable();
       renderEmployeesTable();
     }
 
@@ -5369,7 +5742,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       reader.readAsText(file);
     }
 
-    let sheetsApiUrl = localStorage.getItem("hc_sheets_url") || "https://script.google.com/macros/s/AKfycbzgx7jb5qrcTR6EIp_g4cG0y1r0X3OSueR3W4Z3r7ssulEl5C676rprZgM9BQWQjA/exec";
+    let sheetsApiUrl = localStorage.getItem("hc_sheets_url") || "";
 
     const CCSS_PERCENTAGE = 0.1083;
     const REF_DATE = new Date("2026-10-23");
@@ -7195,6 +7568,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       if (vacInput) {
         vacInput.value = vacationSheetsApiUrl;
       }
+      const gInput = document.getElementById("gastos-gmail-url-input");
+      if (gInput) {
+        gInput.value = gastosGmailApiUrl;
+      }
+      updateGastosGmailBadge();
       updateVacationBadge(!!getVacationApiUrl());
 
       updateSyncIndicator();
@@ -7221,6 +7599,38 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
       });
+    }
+
+    let gastosGmailApiUrl = localStorage.getItem("hc_gastos_gmail_url") || "";
+
+    function getGastosGmailUrl() {
+      return gastosGmailApiUrl || sheetsApiUrl || "";
+    }
+
+    function saveGastosGmailUrl() {
+      const input = document.getElementById("gastos-gmail-url-input");
+      const val = input ? input.value.trim() : "";
+      gastosGmailApiUrl = val;
+      if (val) {
+        localStorage.setItem("hc_gastos_gmail_url", val);
+        showToast("URL del Lector de Facturas guardada con éxito", "success");
+      } else {
+        localStorage.removeItem("hc_gastos_gmail_url");
+        showToast("Se usará la URL principal para Gmail", "info");
+      }
+      updateGastosGmailBadge();
+    }
+
+    function updateGastosGmailBadge() {
+      const badge = document.getElementById("badge-gastos-gmail");
+      if (!badge) return;
+      if (gastosGmailApiUrl) {
+        badge.className = "text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full border border-emerald-300";
+        badge.textContent = "Conectado";
+      } else {
+        badge.className = "text-[10px] bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded-full border border-purple-300";
+        badge.textContent = "Usa Script Principal";
+      }
     }
 
     async function saveSheetsUrl() {
@@ -7847,12 +8257,1004 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
     }
 
+    // ==================== MÓDULO DE GESTIÓN DE GASTOS (CARGA MANUAL XML) ====================
+    const DEFAULT_PROVEEDORES_AUTORIZADOS = [
+      "Cia. Nestle Costa Rica SA",
+      "SIGMA ALIMENTOS COSTA RICA, S.A.",
+      "LUIS GUILLERMO MORA MONGE",
+      "LA MAQUILA LAMA S.A.",
+      "PROGRAMATICA Y TECNOLOGIA DE PALMARES",
+      "CARLOS ALBERTO BOLAÑOS CAMPOS",
+      "COPRODISA CR SA",
+      "DISTRIBUIDORA KIKO",
+      "DISTRIBUIDORA ALTERNATIVA S.A.",
+      "OXI SUR SRL",
+      "PURINA",
+      "EXPORTADORA PMT S.A.",
+      "APICOLA LA REINA",
+      "GLOBAL MERCHANTS",
+      "GOLDEN TRADING SA",
+      "CALVO DISTRIBUIDORA ALIMENTARIA",
+      "LA MUNDIAL",
+      "RED ECOLOGICA Y PAPEL"
+    ];
+
+    function getProveedoresAutorizados() {
+      try {
+        const saved = localStorage.getItem("hc_proveedores_autorizados");
+        if (saved) return JSON.parse(saved);
+      } catch(e) {}
+      return DEFAULT_PROVEEDORES_AUTORIZADOS.slice();
+    }
+
+    function saveProveedoresAutorizados(list) {
+      try {
+        localStorage.setItem("hc_proveedores_autorizados", JSON.stringify(list));
+      } catch(e) {}
+      updateProveedoresUI();
+    }
+
+    function normalizeText(str) {
+      return (str || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function isProveedorAutorizado(nombreEmisor) {
+      const chk = document.getElementById("chk-solo-autorizados");
+      // Si el usuario desactiva la casilla, acepta todos los proveedores
+      if (chk && !chk.checked) return true;
+
+      const normEmisor = normalizeText(nombreEmisor);
+      if (!normEmisor) return false;
+      
+      const whitelist = getProveedoresAutorizados();
+      const stopWords = new Set([
+        "sa", "srl", "sociedad", "anonima", "cia", "compania", 
+        "de", "la", "el", "los", "las", "y", "cr", "costa", "rica", 
+        "limitada", "ltda", "rl", "del", "al", "distribuidora"
+      ]);
+      
+      for (let i = 0; i < whitelist.length; i++) {
+        const prov = whitelist[i];
+        const normProv = normalizeText(prov);
+        if (!normProv) continue;
+        
+        // Coincidencia directa de subcadena
+        if (normEmisor.includes(normProv) || normProv.includes(normEmisor)) {
+          return true;
+        }
+        
+        // Coincidencia inteligente por palabras clave distintivas
+        const wordsProv = normProv.split(" ").filter(w => w.length > 2 && !stopWords.has(w));
+        if (wordsProv.length > 0) {
+          const matchedWords = wordsProv.filter(w => normEmisor.includes(w));
+          // Si tiene 1 palabra distintiva (ej. nestle, purina, coprodisa, kiko, mundial)
+          if (wordsProv.length === 1 && matchedWords.length === 1) return true;
+          // Si tiene 2 palabras distintivas
+          if (wordsProv.length === 2 && matchedWords.length >= 1) {
+            if (wordsProv.includes("oxi") && (!matchedWords.includes("oxi") || !matchedWords.includes("sur"))) {
+              continue;
+            }
+            return true;
+          }
+          // Si tiene 3 o más palabras distintivas, exigir al menos 2
+          if (wordsProv.length >= 3 && matchedWords.length >= 2) return true;
+        }
+      }
+      return false;
+    }
+
+    function updateProveedoresUI() {
+      const list = getProveedoresAutorizados();
+      const countEl = document.getElementById("count-prov-autorizados");
+      const badgeCount = document.getElementById("badge-prov-count");
+      if (countEl) countEl.textContent = list.length;
+      if (badgeCount) badgeCount.textContent = list.length;
+
+      const tbody = document.getElementById("lista-proveedores-autorizados-body");
+      if (!tbody) return;
+
+      tbody.innerHTML = list.map((prov, idx) => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="px-3 py-2 text-center text-slate-400 font-mono text-[11px]">${idx + 1}</td>
+          <td class="px-3 py-2 font-semibold text-slate-800">${prov}</td>
+          <td class="px-3 py-2 text-center">
+            <button type="button" onclick="eliminarProveedorAutorizado(${idx})" class="text-rose-500 hover:text-rose-700 hover:bg-rose-50 p-1 rounded transition" title="Eliminar proveedor">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function agregarProveedorAutorizado() {
+      const inp = document.getElementById("inp-nuevo-proveedor");
+      const val = inp ? inp.value.trim() : "";
+      if (!val) return;
+      const list = getProveedoresAutorizados();
+      if (!list.some(p => p.toLowerCase() === val.toLowerCase())) {
+        list.push(val);
+        saveProveedoresAutorizados(list);
+        showToast("Proveedor agregado a la lista autorizada", "success");
+      }
+      if (inp) inp.value = "";
+    }
+
+    function eliminarProveedorAutorizado(idx) {
+      const list = getProveedoresAutorizados();
+      if (idx >= 0 && idx < list.length) {
+        const removed = list.splice(idx, 1);
+        saveProveedoresAutorizados(list);
+        showToast(`Proveedor "${removed[0]}" eliminado`, "info");
+      }
+    }
+
+    function restaurarProveedoresPorDefecto() {
+      saveProveedoresAutorizados(DEFAULT_PROVEEDORES_AUTORIZADOS.slice());
+      showToast("Lista restaurada a los 18 proveedores oficiales", "success");
+    }
+
+    function openModalProveedoresAutorizados() {
+      updateProveedoresUI();
+      const modal = document.getElementById("modal-proveedores-autorizados");
+      if (modal) modal.classList.remove("hidden");
+    }
+
+    function closeModalProveedoresAutorizados() {
+      const modal = document.getElementById("modal-proveedores-autorizados");
+      if (modal) modal.classList.add("hidden");
+    }
+
+    function toggleFilterSoloAutorizados(checked) {
+      showToast(checked ? "Filtro activo: solo los 18 proveedores autorizados" : "Filtro desactivado: se admiten todos los proveedores", "info");
+    }
+
+    let gastosList = [];
+    try {
+      const savedGastos = localStorage.getItem("hc_gastos_registrados");
+      if (savedGastos) {
+        gastosList = JSON.parse(savedGastos);
+      }
+    } catch(e) {
+      console.warn("Error cargando gastos guardados:", e);
+      gastosList = [];
+    }
+
+    function saveGastosToStorage() {
+      try {
+        localStorage.setItem("hc_gastos_registrados", JSON.stringify(gastosList));
+      } catch(e) {
+        console.error("Error guardando gastos en localStorage:", e);
+      }
+    }
+
+    function handleXmlDragOver(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const dropzone = document.getElementById("xml-dropzone");
+      if (dropzone) {
+        dropzone.classList.add("border-indigo-600", "bg-indigo-100/40");
+      }
+    }
+
+    function handleXmlDragLeave(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const dropzone = document.getElementById("xml-dropzone");
+      if (dropzone) {
+        dropzone.classList.remove("border-indigo-600", "bg-indigo-100/40");
+      }
+    }
+
+    function handleXmlDrop(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const dropzone = document.getElementById("xml-dropzone");
+      if (dropzone) {
+        dropzone.classList.remove("border-indigo-600", "bg-indigo-100/40");
+      }
+      if (e.dataTransfer && e.dataTransfer.files) {
+        processXmlFiles(e.dataTransfer.files);
+      }
+    }
+
+    function handleXmlFileInput(files) {
+      if (files && files.length > 0) {
+        processXmlFiles(files);
+      }
+    }
+
+    function getXmlTagValue(xmlDoc, tagName) {
+      const elems = xmlDoc.getElementsByTagName(tagName);
+      if (elems && elems.length > 0) {
+        return elems[0].textContent ? elems[0].textContent.trim() : "";
+      }
+      // Búsqueda insensible a mayúsculas/prefijos de namespace (ej: fe:Clave, p:Clave)
+      const all = xmlDoc.getElementsByTagName("*");
+      for (let i = 0; i < all.length; i++) {
+        const local = all[i].localName || all[i].tagName.split(":").pop();
+        if (local.toLowerCase() === tagName.toLowerCase()) {
+          return all[i].textContent ? all[i].textContent.trim() : "";
+        }
+      }
+      return "";
+    }
+
+    function autoDetectCategoria(emisorNombre, lineas) {
+      const text = ((emisorNombre || "") + " " + (lineas || []).map(l => l.detalle || "").join(" ")).toLowerCase();
+      if (/gasolin|recope|combustib|diesel|super|regular|lubrican|servicentro|estacion de servicio|uno|delta/i.test(text)) {
+        return "Combustibles y Lubricantes";
+      }
+      if (/repuesto|taller|mecanic|llanta|freno|bateria|aceite|auto|vehiculo|alineacion/i.test(text)) {
+        return "Mantenimiento de Vehículos";
+      }
+      if (/restauran|soda|almuerzo|comida|panaderia|supermercado|pali|masxmenos|walmart|abastecedor|alimento|desayuno|cena/i.test(text)) {
+        return "Viáticos y Alimentación";
+      }
+      if (/luz|agua|cnfl|aya|ice|kolbi|claro|liberty|telecable|internet|telefono|electric/i.test(text)) {
+        return "Servicios Públicos";
+      }
+      if (/papel|libreria|oficina|cartucho|tinta|impres|comput|suministro|empaque/i.test(text)) {
+        return "Suministros y Empaque";
+      }
+      if (/alquiler|arrendam|bodega|local/i.test(text)) {
+        return "Alquileres y Bodegaje";
+      }
+      if (/abogad|contador|asesor|profesional|honorario|auditor/i.test(text)) {
+        return "Servicios Profesionales";
+      }
+      if (/mercaderia|distribuidora|compra de mercaderia|producto|proveedor/i.test(text)) {
+        return "Mercadería y Compras";
+      }
+      return "Otros Gastos Operativos";
+    }
+
+    function parseCostaRicaXml(xmlString, fileName) {
+      const parser = new DOMParser();
+      const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+      
+      const parseError = xmlDoc.getElementsByTagName("parsererror");
+      if (parseError && parseError.length > 0) {
+        throw new Error("El archivo XML no tiene una estructura válida.");
+      }
+
+      const rootName = xmlDoc.documentElement ? (xmlDoc.documentElement.localName || xmlDoc.documentElement.tagName) : "";
+      const rootLower = rootName.toLowerCase();
+      
+      if (rootLower.includes("mensajehacienda") || rootLower.includes("confirmacion")) {
+        throw new Error("El archivo es un acuse de recibo de Hacienda (MensajeHacienda), no un comprobante de gasto.");
+      }
+      
+      let tipoDoc = "Factura Electrónica";
+      let isNotaCredito = false;
+      let isTiquete = false;
+
+      if (rootLower.includes("notacredito") || rootLower.includes("nota_credito")) {
+        tipoDoc = "Nota de Crédito";
+        isNotaCredito = true;
+      } else if (rootLower.includes("tiquete")) {
+        tipoDoc = "Tiquete Electrónico";
+        isTiquete = true;
+      } else if (rootLower.includes("notadebito")) {
+        tipoDoc = "Nota de Débito";
+      }
+
+      // Extracción de Campos de Hacienda Costa Rica
+      const clave = getXmlTagValue(xmlDoc, "Clave");
+      let consecutivo = getXmlTagValue(xmlDoc, "NumeroConsecutivo");
+      if (!consecutivo && clave && clave.length >= 40) {
+        consecutivo = clave.substring(21, 41);
+      }
+      if (!consecutivo) consecutivo = fileName.replace(/\.xml$/i, "");
+
+      // Si el consecutivo indica tipo por posición 8-10 (01: Factura, 03: Nota Crédito, 04: Tiquete)
+      if (consecutivo && consecutivo.length >= 10) {
+        const subTipo = consecutivo.substring(8, 10);
+        if (subTipo === "03") {
+          tipoDoc = "Nota de Crédito";
+          isNotaCredito = true;
+        } else if (subTipo === "04") {
+          tipoDoc = "Tiquete Electrónico";
+          isTiquete = true;
+        }
+      }
+
+      const fechaRaw = getXmlTagValue(xmlDoc, "FechaEmision") || new Date().toISOString();
+      const fechaFormatted = fechaRaw.split("T")[0] + (fechaRaw.includes("T") ? " " + fechaRaw.split("T")[1].substring(0, 5) : "");
+
+      // Emisor
+      let emisorNombre = "";
+      let emisorCedula = "";
+      const emisorNodes = xmlDoc.getElementsByTagName("Emisor");
+      if (emisorNodes.length > 0) {
+        const eNode = emisorNodes[0];
+        const nom = eNode.getElementsByTagName("Nombre");
+        if (nom.length > 0) emisorNombre = nom[0].textContent.trim();
+        const ident = eNode.getElementsByTagName("Identificacion");
+        if (ident.length > 0) {
+          const num = ident[0].getElementsByTagName("Numero");
+          if (num.length > 0) emisorCedula = num[0].textContent.trim();
+        }
+      }
+      if (!emisorNombre) emisorNombre = getXmlTagValue(xmlDoc, "Nombre") || "Proveedor No Identificado";
+      if (!emisorCedula) emisorCedula = getXmlTagValue(xmlDoc, "Numero") || "N/A";
+
+      // Moneda y Tipo de Cambio
+      let moneda = "CRC";
+      let tipoCambio = 1.0;
+      const codMon = getXmlTagValue(xmlDoc, "CodigoMoneda");
+      if (codMon) moneda = codMon.toUpperCase();
+      const tc = parseFloat(getXmlTagValue(xmlDoc, "TipoCambio"));
+      if (!isNaN(tc) && tc > 0) tipoCambio = tc;
+
+      // Montos
+      let total = parseFloat(getXmlTagValue(xmlDoc, "TotalComprobante"));
+      let iva = parseFloat(getXmlTagValue(xmlDoc, "TotalImpuesto"));
+      let subtotal = parseFloat(getXmlTagValue(xmlDoc, "TotalVentaNeta"));
+
+      if (isNaN(subtotal) || subtotal <= 0) {
+        subtotal = parseFloat(getXmlTagValue(xmlDoc, "TotalVenta"));
+      }
+      if (isNaN(iva)) iva = 0;
+      if (isNaN(total) || total <= 0) {
+        total = (isNaN(subtotal) ? 0 : subtotal) + iva;
+      }
+      if (isNaN(subtotal) || subtotal <= 0) {
+        subtotal = Math.max(0, total - iva);
+      }
+
+      // Si es Nota de Crédito, los montos restan al gasto total (crédito a favor)
+      if (isNotaCredito) {
+        subtotal = -Math.abs(subtotal);
+        iva = -Math.abs(iva);
+        total = -Math.abs(total);
+      }
+
+      // Convertir a CRC si viene en otra moneda (ej. USD)
+      const subtotalCRC = moneda === "USD" ? subtotal * tipoCambio : subtotal;
+      const ivaCRC = moneda === "USD" ? iva * tipoCambio : iva;
+      const totalCRC = moneda === "USD" ? total * tipoCambio : total;
+
+      // Líneas de Detalle
+      const lineas = [];
+      const lineNodes = xmlDoc.getElementsByTagName("LineaDetalle");
+      for (let i = 0; i < lineNodes.length; i++) {
+        const lNode = lineNodes[i];
+        const detEl = lNode.getElementsByTagName("Detalle");
+        const cantEl = lNode.getElementsByTagName("Cantidad");
+        const preEl = lNode.getElementsByTagName("PrecioUnitario");
+        const totEl = lNode.getElementsByTagName("MontoTotalLinea");
+        lineas.push({
+          detalle: detEl.length > 0 ? detEl[0].textContent.trim() : `Línea #${i + 1}`,
+          cantidad: cantEl.length > 0 ? parseFloat(cantEl[0].textContent.trim()) || 1 : 1,
+          precio: preEl.length > 0 ? parseFloat(preEl[0].textContent.trim()) || 0 : 0,
+          total: totEl.length > 0 ? parseFloat(totEl[0].textContent.trim()) || 0 : 0
+        });
+      }
+
+      const categoria = autoDetectCategoria(emisorNombre, lineas);
+
+      return {
+        id: "gasto_" + Date.now() + "_" + Math.random().toString(36).substr(2, 6),
+        clave: clave || ("TEMP_" + Date.now()),
+        consecutivo,
+        tipoDoc,
+        isNotaCredito,
+        isTiquete,
+        fecha: fechaFormatted,
+        fechaIso: fechaRaw,
+        emisorNombre,
+        emisorCedula,
+        moneda,
+        tipoCambio,
+        subtotal,
+        iva,
+        total,
+        subtotalCRC,
+        ivaCRC,
+        totalCRC,
+        categoria,
+        lineas,
+        rootType: rootName,
+        fileName
+      };
+    }
+
+    async function processXmlFiles(files) {
+      if (!files || files.length === 0) return;
+      
+      const feedback = document.getElementById("xml-upload-feedback");
+      if (feedback) {
+        feedback.className = "p-3 rounded-xl text-xs font-semibold flex items-center justify-between border bg-indigo-50 border-indigo-200 text-indigo-900";
+        feedback.innerHTML = `<span>⏳ Procesando ${files.length} archivo(s) XML...</span>`;
+        feedback.classList.remove("hidden");
+      }
+
+      let agregadas = 0;
+      let duplicadas = 0;
+      let errores = 0;
+      let noAutorizadas = 0;
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (!file.name.toLowerCase().endsWith(".xml")) {
+          errores++;
+          continue;
+        }
+
+        try {
+          const text = await file.text();
+          const parsed = parseCostaRicaXml(text, file.name);
+
+          // Filtro de proveedores autorizados
+          if (!isProveedorAutorizado(parsed.emisorNombre)) {
+            noAutorizadas++;
+            continue;
+          }
+
+          // Verificar si ya existe por clave o consecutivo
+          const exists = gastosList.some(g => (parsed.clave && g.clave === parsed.clave) || (parsed.consecutivo && g.consecutivo === parsed.consecutivo && g.emisorCedula === parsed.emisorCedula));
+          if (exists) {
+            duplicadas++;
+          } else {
+            gastosList.unshift(parsed);
+            agregadas++;
+          }
+        } catch(err) {
+          console.warn("Error procesando archivo XML:", file.name, err);
+          errores++;
+        }
+      }
+
+      saveGastosToStorage();
+      renderGastosTable();
+
+      if (feedback) {
+        let msg = `<strong>${agregadas} factura(s) procesada(s) con éxito.</strong>`;
+        if (noAutorizadas > 0) msg += ` • ${noAutorizadas} omitida(s) (proveedor no autorizado).`;
+        if (duplicadas > 0) msg += ` • ${duplicadas} omitida(s) por estar duplicadas.`;
+        if (errores > 0) msg += ` • ${errores} con error o formato incompatible.`;
+        
+        feedback.className = "p-3 rounded-xl text-xs font-semibold flex items-center justify-between border " + (agregadas > 0 ? "bg-emerald-50 border-emerald-200 text-emerald-900" : "bg-amber-50 border-amber-200 text-amber-900");
+        feedback.innerHTML = `
+          <span>${msg}</span>
+          <button type="button" onclick="document.getElementById('xml-upload-feedback').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 ml-3">✕</button>
+        `;
+        setTimeout(() => {
+          if (feedback) feedback.classList.add("hidden");
+        }, 7000);
+      }
+
+      // Limpiar input file
+      const fileInput = document.getElementById("xml-file-input");
+      if (fileInput) fileInput.value = "";
+    }
+
+    function renderGastosTable() {
+      const tbody = document.getElementById("gastos-table-body");
+      if (!tbody) return;
+
+      const qSearch = (document.getElementById("filter-gastos-search") ? document.getElementById("filter-gastos-search").value : "").toLowerCase().trim();
+      const qCat = document.getElementById("filter-gastos-categoria") ? document.getElementById("filter-gastos-categoria").value : "";
+      const qMes = document.getElementById("filter-gastos-mes") ? document.getElementById("filter-gastos-mes").value : "";
+
+      // Actualizar opciones del select de meses
+      updateGastosMonthFilter();
+
+      let totalCRC = 0;
+      let totalIvaCRC = 0;
+      let thisMonthCRC = 0;
+      const now = new Date();
+      const currentYearMonth = now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0");
+
+      gastosList.forEach(g => {
+        totalCRC += (g.totalCRC || 0);
+        totalIvaCRC += (g.ivaCRC || 0);
+        if (g.fechaIso && g.fechaIso.startsWith(currentYearMonth)) {
+          thisMonthCRC += (g.totalCRC || 0);
+        }
+      });
+
+      // Actualizar Métricas Superiores
+      const statTotal = document.getElementById("stat-gastos-total");
+      const statIva = document.getElementById("stat-gastos-iva");
+      const statCount = document.getElementById("stat-gastos-count");
+      const statMesMonto = document.getElementById("stat-gastos-mes-monto");
+      const statMesLabel = document.getElementById("stat-gastos-mes-label");
+
+      if (statTotal) statTotal.textContent = formatCRC(totalCRC);
+      if (statIva) statIva.textContent = formatCRC(totalIvaCRC);
+      if (statCount) statCount.textContent = gastosList.length;
+      if (statMesMonto) statMesMonto.textContent = formatCRC(thisMonthCRC);
+      if (statMesLabel) {
+        const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"];
+        statMesLabel.textContent = `${monthNames[now.getMonth()]} ${now.getFullYear()}`;
+      }
+
+      // Filtrado
+      const filtered = gastosList.filter(g => {
+        if (qCat && g.categoria !== qCat) return false;
+        if (qMes && (!g.fechaIso || !g.fechaIso.startsWith(qMes))) return false;
+        if (qSearch) {
+          const matchProv = (g.emisorNombre || "").toLowerCase().includes(qSearch);
+          const matchCed = (g.emisorCedula || "").toLowerCase().includes(qSearch);
+          const matchCons = (g.consecutivo || "").toLowerCase().includes(qSearch);
+          const matchClave = (g.clave || "").toLowerCase().includes(qSearch);
+          if (!matchProv && !matchCed && !matchCons && !matchClave) return false;
+        }
+        return true;
+      });
+
+      const countEl = document.getElementById("gastos-filtered-count");
+      if (countEl) countEl.textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="px-4 py-12 text-center text-slate-400">
+              <div class="flex flex-col items-center justify-center">
+                <svg class="w-10 h-10 text-slate-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <p class="font-semibold text-slate-600">No hay facturas cargadas con los filtros seleccionados</p>
+                <p class="text-xs text-slate-400 mt-1">Arrastra tus archivos XML al recuadro superior para registrarlos.</p>
+              </div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(g => {
+        const isUSD = g.moneda === "USD";
+        const catBadgeColors = {
+          "Combustibles y Lubricantes": "bg-amber-50 text-amber-800 border-amber-200",
+          "Mantenimiento de Vehículos": "bg-blue-50 text-blue-800 border-blue-200",
+          "Viáticos y Alimentación": "bg-rose-50 text-rose-800 border-rose-200",
+          "Suministros y Empaque": "bg-emerald-50 text-emerald-800 border-emerald-200",
+          "Servicios Públicos": "bg-purple-50 text-purple-800 border-purple-200",
+          "Alquileres y Bodegaje": "bg-indigo-50 text-indigo-800 border-indigo-200",
+          "Servicios Profesionales": "bg-cyan-50 text-cyan-800 border-cyan-200",
+          "Mercadería y Compras": "bg-teal-50 text-teal-800 border-teal-200",
+          "Otros Gastos Operativos": "bg-slate-100 text-slate-700 border-slate-200"
+        };
+        const badgeColor = catBadgeColors[g.categoria] || "bg-slate-100 text-slate-700 border-slate-200";
+
+        return `
+          <tr class="hover:bg-slate-50/80 transition-colors">
+            <td class="px-3.5 py-3 whitespace-nowrap text-slate-600 font-mono text-[11px]">${g.fecha || "N/A"}</td>
+            <td class="px-3.5 py-3 whitespace-nowrap">
+              <div class="font-mono text-[11px] font-semibold text-indigo-900" title="${g.clave || ''}">${g.consecutivo || "N/A"}</div>
+              <div class="mt-0.5">
+                ${g.isNotaCredito 
+                  ? `<span class="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.2 rounded bg-rose-100 text-rose-800 border border-rose-200">🔄 Nota de Crédito</span>`
+                  : g.isTiquete 
+                    ? `<span class="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.2 rounded bg-purple-100 text-purple-800 border border-purple-200">🎫 Tiquete</span>`
+                    : `<span class="inline-flex items-center gap-1 text-[9px] font-bold px-1.5 py-0.2 rounded bg-blue-100 text-blue-800 border border-blue-200">📄 Factura</span>`}
+              </div>
+            </td>
+            <td class="px-3.5 py-3">
+              <div class="font-bold text-slate-900 line-clamp-1" title="${g.emisorNombre}">${g.emisorNombre}</div>
+              <div class="text-[10px] text-slate-400 font-mono mt-0.5">Cédula: ${g.emisorCedula}</div>
+            </td>
+            <td class="px-3.5 py-3 whitespace-nowrap">
+              <select onchange="updateGastoCategoria('${g.id}', this.value)" class="text-[11px] font-semibold rounded-lg px-2 py-1 border shadow-2xs focus:outline-none focus:ring-1 focus:ring-indigo-500 ${badgeColor}">
+                <option value="Combustibles y Lubricantes" ${g.categoria === "Combustibles y Lubricantes" ? "selected" : ""}>⛽ Combustibles</option>
+                <option value="Mantenimiento de Vehículos" ${g.categoria === "Mantenimiento de Vehículos" ? "selected" : ""}>🔧 Mantenimiento</option>
+                <option value="Viáticos y Alimentación" ${g.categoria === "Viáticos y Alimentación" ? "selected" : ""}>🍽️ Viáticos</option>
+                <option value="Suministros y Empaque" ${g.categoria === "Suministros y Empaque" ? "selected" : ""}>📦 Suministros</option>
+                <option value="Servicios Públicos" ${g.categoria === "Servicios Públicos" ? "selected" : ""}>💡 Servicios Públicos</option>
+                <option value="Alquileres y Bodegaje" ${g.categoria === "Alquileres y Bodegaje" ? "selected" : ""}>🏢 Alquileres</option>
+                <option value="Servicios Profesionales" ${g.categoria === "Servicios Profesionales" ? "selected" : ""}>💼 Servicios Prof.</option>
+                <option value="Mercadería y Compras" ${g.categoria === "Mercadería y Compras" ? "selected" : ""}>🛒 Mercadería</option>
+                <option value="Otros Gastos Operativos" ${g.categoria === "Otros Gastos Operativos" ? "selected" : ""}>📁 Otros Gastos</option>
+              </select>
+            </td>
+            <td class="px-3.5 py-3 text-right whitespace-nowrap font-mono text-slate-700">
+              ${isUSD ? "$" + Number(g.subtotal).toFixed(2) : formatCRC(g.subtotal)}
+              ${isUSD ? `<div class="text-[10px] text-slate-400">${formatCRC(g.subtotalCRC)}</div>` : ""}
+            </td>
+            <td class="px-3.5 py-3 text-right whitespace-nowrap font-mono text-emerald-700 font-semibold">
+              ${isUSD ? "$" + Number(g.iva).toFixed(2) : formatCRC(g.iva)}
+              ${isUSD ? `<div class="text-[10px] text-emerald-600">${formatCRC(g.ivaCRC)}</div>` : ""}
+            </td>
+            <td class="px-3.5 py-3 text-right whitespace-nowrap font-mono font-bold text-slate-900">
+              ${isUSD ? "$" + Number(g.total).toFixed(2) : formatCRC(g.total)}
+              ${isUSD ? `<div class="text-[10px] text-indigo-700 font-bold">${formatCRC(g.totalCRC)}</div>` : ""}
+            </td>
+            <td class="px-3.5 py-3 text-center whitespace-nowrap">
+              <div class="flex items-center justify-center gap-1.5">
+                <button type="button" onclick="openModalGastoDetalle('${g.id}')" class="p-1.5 text-indigo-600 hover:text-indigo-900 hover:bg-indigo-50 rounded-lg transition" title="Ver detalle completo de factura">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </button>
+                <button type="button" onclick="deleteGasto('${g.id}')" class="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition" title="Eliminar factura">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function updateGastoCategoria(gastoId, nuevaCat) {
+      const g = gastosList.find(item => item.id === gastoId);
+      if (g) {
+        g.categoria = nuevaCat;
+        saveGastosToStorage();
+        renderGastosTable();
+      }
+    }
+
+    async function deleteGasto(gastoId) {
+      const g = gastosList.find(item => item.id === gastoId);
+      if (!g) return;
+      const conf = await uiConfirm(`¿Desea eliminar la factura de ${g.emisorNombre} (${formatCRC(g.totalCRC)})?`, {
+        title: "Eliminar Factura de Gasto",
+        tone: "warning",
+        danger: true,
+        confirmText: "Sí, Eliminar",
+        cancelText: "Cancelar"
+      });
+      if (conf) {
+        gastosList = gastosList.filter(item => item.id !== gastoId);
+        saveGastosToStorage();
+        renderGastosTable();
+        showToast("Factura eliminada de gastos", "info");
+      }
+    }
+
+    async function clearAllGastos() {
+      if (gastosList.length === 0) {
+        showToast("No hay gastos registrados para limpiar", "info");
+        return;
+      }
+      const conf = await uiConfirm("¿Está seguro de que desea eliminar TODAS las facturas cargadas en Gestión de Gastos? Esta acción no se puede deshacer.", {
+        title: "Limpiar Todos los Gastos",
+        tone: "danger",
+        danger: true,
+        confirmText: "Sí, Limpiar Todo",
+        cancelText: "Cancelar"
+      });
+      if (conf) {
+        gastosList = [];
+        saveGastosToStorage();
+        renderGastosTable();
+        showToast("Todos los gastos han sido limpiados", "success");
+      }
+    }
+
+    function updateGastosMonthFilter() {
+      const sel = document.getElementById("filter-gastos-mes");
+      if (!sel) return;
+      const currentVal = sel.value;
+      const months = new Set();
+      gastosList.forEach(g => {
+        if (g.fechaIso && g.fechaIso.length >= 7) {
+          months.add(g.fechaIso.substring(0, 7));
+        }
+      });
+      const sortedMonths = Array.from(months).sort().reverse();
+      const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+      
+      let html = '<option value="">Todos los Meses</option>';
+      sortedMonths.forEach(ym => {
+        const parts = ym.split("-");
+        const y = parts[0];
+        const m = parseInt(parts[1], 10) - 1;
+        const label = `${monthNames[m] || ym} ${y}`;
+        html += `<option value="${ym}" ${ym === currentVal ? "selected" : ""}>${label}</option>`;
+      });
+      sel.innerHTML = html;
+    }
+
+    function openModalGastoDetalle(gastoId) {
+      const g = gastosList.find(item => item.id === gastoId);
+      if (!g) return;
+      const modal = document.getElementById("modal-gasto-detalle");
+      const cont = document.getElementById("modal-gasto-detalle-content");
+      if (!modal || !cont) return;
+
+      const isUSD = g.moneda === "USD";
+
+      let lineasHtml = "";
+      if (g.lineas && g.lineas.length > 0) {
+        lineasHtml = `
+          <div class="mt-3">
+            <h5 class="font-bold text-slate-800 text-xs mb-1.5">Artículos / Servicios Facturados (${g.lineas.length})</h5>
+            <div class="overflow-x-auto rounded-lg border border-slate-200">
+              <table class="w-full text-left border-collapse text-[11px]">
+                <thead>
+                  <tr class="bg-slate-100 text-slate-700 font-bold">
+                    <th scope="col" class="px-2.5 py-1.5">Descripción</th>
+                    <th scope="col" class="px-2.5 py-1.5 text-center">Cant.</th>
+                    <th scope="col" class="px-2.5 py-1.5 text-right">Precio Unit.</th>
+                    <th scope="col" class="px-2.5 py-1.5 text-right">Total</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  ${g.lineas.map(l => `
+                    <tr>
+                      <td class="px-2.5 py-1.5 text-slate-800 font-medium">${l.detalle}</td>
+                      <td class="px-2.5 py-1.5 text-center font-mono text-slate-600">${l.cantidad}</td>
+                      <td class="px-2.5 py-1.5 text-right font-mono text-slate-600">${isUSD ? "$" : "₡"}${Number(l.precio).toFixed(2)}</td>
+                      <td class="px-2.5 py-1.5 text-right font-mono font-bold text-slate-900">${isUSD ? "$" : "₡"}${Number(l.total).toFixed(2)}</td>
+                    </tr>
+                  `).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      cont.innerHTML = `
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <div>
+            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Emisor / Proveedor</span>
+            <span class="font-bold text-slate-900 text-sm block">${g.emisorNombre}</span>
+            <span class="text-xs text-slate-500 font-mono">Cédula: ${g.emisorCedula}</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Fecha y Hora de Emisión</span>
+            <span class="font-bold text-slate-800 text-xs font-mono block">${g.fecha || "N/A"}</span>
+            <span class="text-[11px] text-indigo-700 font-semibold block mt-1">Categoría: ${g.categoria}</span>
+          </div>
+        </div>
+
+        <div class="p-3 bg-indigo-50/50 rounded-xl border border-indigo-100 space-y-1">
+          <span class="text-[10px] text-indigo-900 font-bold uppercase tracking-wider block">Clave Numérica de Hacienda (50 dígitos)</span>
+          <div class="font-mono text-[11px] text-slate-800 break-all select-all bg-white p-2 rounded-lg border border-indigo-200">
+            ${g.clave || "N/A"}
+          </div>
+          <div class="flex items-center justify-between text-[11px] text-slate-500 pt-1">
+            <span>Consecutivo: <strong class="font-mono text-slate-800">${g.consecutivo}</strong></span>
+            <span>Tipo: <strong class="text-slate-800">${g.rootType || "Factura Electrónica"}</strong></span>
+          </div>
+        </div>
+
+        ${lineasHtml}
+
+        <div class="p-3 bg-slate-900 text-white rounded-xl space-y-1.5">
+          <div class="flex justify-between items-center text-xs">
+            <span class="text-slate-300">Subtotal Neto:</span>
+            <span class="font-mono font-medium">${isUSD ? "$" + Number(g.subtotal).toFixed(2) + " (" + formatCRC(g.subtotalCRC) + ")" : formatCRC(g.subtotal)}</span>
+          </div>
+          <div class="flex justify-between items-center text-xs">
+            <span class="text-emerald-400">IVA (Impuesto al Valor Agregado):</span>
+            <span class="font-mono font-medium text-emerald-400">${isUSD ? "$" + Number(g.iva).toFixed(2) + " (" + formatCRC(g.ivaCRC) + ")" : formatCRC(g.iva)}</span>
+          </div>
+          <div class="flex justify-between items-center text-sm font-bold border-t border-slate-700 pt-1.5 mt-1">
+            <span class="text-white">Total a Pagar:</span>
+            <span class="font-mono text-amber-400 text-base">${isUSD ? "$" + Number(g.total).toFixed(2) + " • " + formatCRC(g.totalCRC) : formatCRC(g.total)}</span>
+          </div>
+          ${isUSD ? `<div class="text-[10px] text-slate-400 text-right">Tipo de cambio aplicado: ₡${g.tipoCambio}</div>` : ""}
+        </div>
+      `;
+
+      modal.classList.remove("hidden");
+    }
+
+    function closeModalGastoDetalle() {
+      const modal = document.getElementById("modal-gasto-detalle");
+      if (modal) modal.classList.add("hidden");
+    }
+
+    function setGmailDatePreset(preset) {
+      const inpDesde = document.getElementById("gmail-fecha-desde");
+      const inpHasta = document.getElementById("gmail-fecha-hasta");
+      if (!inpDesde || !inpHasta) return;
+
+      const now = new Date();
+      if (preset === "mes-actual") {
+        const y = now.getFullYear();
+        const m = now.getMonth();
+        const lastDay = new Date(y, m + 1, 0).getDate();
+        const mStr = String(m + 1).padStart(2, "0");
+        const dLast = String(lastDay).padStart(2, "0");
+
+        inpDesde.value = `${y}-${mStr}-01`;
+        inpHasta.value = `${y}-${mStr}-${dLast}`;
+        showToast("Rango fijado al Mes en Curso completo", "info");
+      } else if (preset === "mes-anterior") {
+        const y = now.getMonth() === 0 ? now.getFullYear() - 1 : now.getFullYear();
+        const m = now.getMonth() === 0 ? 11 : now.getMonth() - 1;
+        const lastDay = new Date(y, m + 1, 0).getDate();
+        const mStr = String(m + 1).padStart(2, "0");
+        const dLast = String(lastDay).padStart(2, "0");
+
+        inpDesde.value = `${y}-${mStr}-01`;
+        inpHasta.value = `${y}-${mStr}-${dLast}`;
+        showToast("Rango fijado al Mes Anterior completo", "info");
+      }
+    }
+
+    async function fetchInvoicesFromGmail() {
+      let targetUrl = getGastosGmailUrl();
+      if (!targetUrl) {
+        const conf = await uiConfirm("No se ha configurado la URL del Lector de Facturas de Gmail.\n\n¿Desea ir a la pestaña de Configuración para ingresar la URL del Web App de Apps Script?", {
+          title: "Lector de Gmail no Configurado",
+          confirmText: "Ir a Configuración",
+          cancelText: "Cerrar"
+        });
+        if (conf) {
+          switchTab("tab-config");
+          const el = document.getElementById("gastos-gmail-url-input");
+          if (el) {
+            el.focus();
+            el.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }
+        return;
+      }
+
+      const fDesde = document.getElementById("gmail-fecha-desde") ? document.getElementById("gmail-fecha-desde").value : "";
+      const fHasta = document.getElementById("gmail-fecha-hasta") ? document.getElementById("gmail-fecha-hasta").value : "";
+
+      if (!fDesde && !fHasta) {
+        const conf = await uiConfirm("No ha seleccionado un rango de fechas. ¿Desea consultar las facturas de los últimos 30 días?", {
+          title: "Consulta sin Fechas",
+          confirmText: "Consultar Últimos 30 Días",
+          cancelText: "Cancelar"
+        });
+        if (!conf) return;
+      }
+
+      const btn = document.getElementById("btn-fetch-gmail-invoices");
+      const btnText = document.getElementById("btn-fetch-gmail-text");
+      const spinner = document.getElementById("btn-fetch-gmail-spinner");
+      const feedback = document.getElementById("xml-upload-feedback");
+
+      if (btn) btn.disabled = true;
+      if (spinner) spinner.classList.remove("hidden");
+      if (btnText) btnText.textContent = "Consultando Gmail...";
+
+      try {
+        const cleanUrl = targetUrl.split("?")[0];
+        const chkOnly = document.getElementById("chk-solo-autorizados");
+        const queryParams = new URLSearchParams({
+          action: "fetchGmailInvoices",
+          startDate: fDesde || "",
+          endDate: fHasta || "",
+          onlyAuthorized: chkOnly ? String(chkOnly.checked) : "true"
+        });
+        const fullUrl = cleanUrl + "?" + queryParams.toString();
+
+        let resp = null;
+        try {
+          const fetchResp = await fetch(fullUrl, { method: "GET" });
+          if (!fetchResp.ok) {
+            throw new Error(`Servidor respondió con código ${fetchResp.status}`);
+          }
+          resp = await fetchResp.json();
+        } catch (netErr) {
+          console.warn("Fallo en GET directo:", netErr);
+          throw new Error("No se pudo conectar con el script de Google. Verifique que la aplicación web esté publicada con acceso para 'Cualquier usuario' (Anyone).\nDetalle: " + netErr.message);
+        }
+
+        if (!resp || resp.status !== "success") {
+          throw new Error(resp && resp.message ? resp.message : "El script no devolvió un estado exitoso.");
+        }
+
+        const invoices = resp.invoices || [];
+        if (invoices.length === 0) {
+          showToast("No se encontraron facturas XML en Gmail para el rango de fechas seleccionado.", "info");
+          if (feedback) {
+            feedback.className = "p-3 rounded-xl text-xs font-semibold flex items-center justify-between border bg-slate-50 border-slate-200 text-slate-700";
+            feedback.innerHTML = `<span>No se encontraron nuevas facturas XML en Gmail entre ${fDesde || 'inicio'} y ${fHasta || 'hoy'}.</span>`;
+            feedback.classList.remove("hidden");
+          }
+          return;
+        }
+
+        let agregadas = 0;
+        let duplicadas = 0;
+        let errores = 0;
+        let noAutorizadas = 0;
+
+        for (let i = 0; i < invoices.length; i++) {
+          const inv = invoices[i];
+          try {
+            const parsed = parseCostaRicaXml(inv.xmlContent, inv.fileName || ("Factura_" + (i + 1) + ".xml"));
+
+            // Filtro de proveedores autorizados
+            if (!isProveedorAutorizado(parsed.emisorNombre)) {
+              noAutorizadas++;
+              continue;
+            }
+            const exists = gastosList.some(g => (parsed.clave && g.clave === parsed.clave) || (parsed.consecutivo && g.consecutivo === parsed.consecutivo && g.emisorCedula === parsed.emisorCedula));
+            if (exists) {
+              duplicadas++;
+            } else {
+              gastosList.unshift(parsed);
+              agregadas++;
+            }
+          } catch(err) {
+            console.warn("Error procesando XML de Gmail:", err);
+            errores++;
+          }
+        }
+
+        saveGastosToStorage();
+        renderGastosTable();
+
+        showToast(`¡Descarga completada! ${agregadas} factura(s) agregada(s) desde Gmail.`, "success");
+        if (feedback) {
+          feedback.className = "p-3 rounded-xl text-xs font-semibold flex items-center justify-between border bg-emerald-50 border-emerald-200 text-emerald-900";
+          feedback.innerHTML = `
+            <span><strong>${agregadas} factura(s) de proveedores autorizados importadas desde Gmail.</strong> (${noAutorizadas} omitidas de otros proveedores, ${duplicadas} duplicadas).</span>
+            <button type="button" onclick="document.getElementById('xml-upload-feedback').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 ml-3">✕</button>
+          `;
+          feedback.classList.remove("hidden");
+        }
+      } catch(err) {
+        console.error("Error en fetchInvoicesFromGmail:", err);
+        await uiAlert("Error al consultar facturas en Gmail:\n" + err.message, { tone: "danger" });
+      } finally {
+        if (btn) btn.disabled = false;
+        if (spinner) spinner.classList.add("hidden");
+        if (btnText) btnText.textContent = "📥 Traer Facturas de Gmail";
+      }
+    }
+
+    function exportGastosToExcel() {
+      if (typeof XLSX === "undefined") {
+        alert("La librería SheetJS no está lista todavía. Espere un momento e intente de nuevo.");
+        return;
+      }
+      if (gastosList.length === 0) {
+        showToast("No hay facturas registradas para exportar", "info");
+        return;
+      }
+
+      const rows = gastosList.map((g, idx) => ({
+        "N°": idx + 1,
+        "Fecha Emisión": g.fecha || "",
+        "Consecutivo": g.consecutivo || "",
+        "Clave Hacienda": g.clave || "",
+        "Proveedor": g.emisorNombre || "",
+        "Cédula Proveedor": g.emisorCedula || "",
+        "Categoría de Gasto": g.categoria || "",
+        "Moneda": g.moneda || "CRC",
+        "Tipo Cambio": g.tipoCambio || 1,
+        "Subtotal Original": g.subtotal || 0,
+        "IVA Original": g.iva || 0,
+        "Total Original": g.total || 0,
+        "Subtotal CRC": g.subtotalCRC || 0,
+        "IVA Crédito Fiscal CRC": g.ivaCRC || 0,
+        "Total Gasto CRC": g.totalCRC || 0,
+        "Archivo Origen": g.fileName || ""
+      }));
+
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.json_to_sheet(rows);
+
+      // Anchos de columna
+      ws["!cols"] = [
+        { wch: 5 }, { wch: 18 }, { wch: 22 }, { wch: 52 },
+        { wch: 32 }, { wch: 16 }, { wch: 26 }, { wch: 8 },
+        { wch: 10 }, { wch: 16 }, { wch: 14 }, { wch: 16 },
+        { wch: 16 }, { wch: 18 }, { wch: 18 }, { wch: 24 }
+      ];
+
+      XLSX.utils.book_append_sheet(wb, ws, "Control_Gastos_HCS");
+      const fileName = `Control_Gastos_Facturas_${new Date().toISOString().split("T")[0]}.xlsx`;
+      XLSX.writeFile(wb, fileName);
+      showToast("Reporte Excel descargado exitosamente", "success");
+    }
+
     function switchTab(tabId) {
       document.querySelectorAll(".tab-content").forEach(el => el.classList.add("hidden"));
       document.querySelectorAll(".nav-tab").forEach(el => {
         el.className = "nav-tab px-3 py-2 rounded-md text-indigo-200 hover:bg-indigo-900 hover:text-white transition flex items-center gap-1.5 whitespace-nowrap";
       });
 
+      if (tabId === "tab-gastos" && typeof renderGastosTable === "function") renderGastosTable();
       document.getElementById(tabId).classList.remove("hidden");
       const activeBtn = document.getElementById("tab-btn-" + tabId.replace("tab-", ""));
       if (activeBtn) {
