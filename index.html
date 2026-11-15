@@ -5977,6 +5977,167 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       return dailyRate * days;
     }
 
+    // =========================================================================
+    // CÁLCULO PROPORCIONAL DE SALARIO POR DÍAS LABORADOS (INGRESO / SALIDA)
+    // =========================================================================
+    // Conforme a la legislación laboral y modalidad de pago quincenal (mes comercial 30 días):
+    // Cada quincena ordinaria computa 15 días de salario base.
+    // Si un colaborador ingresa durante el transcurso de la quincena (ej. 9 de noviembre),
+    // se le liquidan los días efectivamente laborados (del 9 al 15 = 7 días, contando el día
+    // de ingreso y el día de cierre quincenal):
+    // Fórmula legal: (Salario Mensual ÷ 30) × Días Laborados en la Quincena.
+    const SPANISH_MONTHS_MAP = {
+      "enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6,
+      "julio": 7, "agosto": 8, "setiembre": 9, "septiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12
+    };
+
+    function normalizeDateStr(dateStr) {
+      if (!dateStr) return null;
+      const str = String(dateStr).trim().split("T")[0];
+      if (!str) return null;
+      const isoMatch = str.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/);
+      if (isoMatch) {
+        const y = isoMatch[1];
+        const m = String(isoMatch[2]).padStart(2, "0");
+        const d = String(isoMatch[3]).padStart(2, "0");
+        return `${y}-${m}-${d}`;
+      }
+      const dmyMatch = str.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})/);
+      if (dmyMatch) {
+        const d = String(dmyMatch[1]).padStart(2, "0");
+        const m = String(dmyMatch[2]).padStart(2, "0");
+        const y = dmyMatch[3];
+        return `${y}-${m}-${d}`;
+      }
+      return null;
+    }
+
+    function parsePeriodDates(periodStr) {
+      if (!periodStr) return null;
+      const str = String(periodStr).trim();
+      const isFirst = str.startsWith("I ") || str.startsWith("I Quincena");
+      const isSecond = str.startsWith("II ") || str.startsWith("II Quincena");
+      if (!isFirst && !isSecond) return null;
+
+      const match = str.match(/(?:I|II)\s+Quincena\s+(?:de\s+)?([A-Za-záéíóúñ]+)(?:\s+del?)?\s+(\d{4})/i);
+      if (!match) return null;
+      const mName = match[1].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const monthNum = SPANISH_MONTHS_MAP[mName];
+      if (!monthNum) return null;
+      const year = parseInt(match[2], 10);
+
+      return {
+        isFirst: isFirst,
+        year: year,
+        month: monthNum,
+        startDay: isFirst ? 1 : 16,
+        endDay: isFirst ? 15 : 30
+      };
+    }
+
+    function getEmployeeQuincenaDays(emp, periodStr) {
+      if (!emp) return { diasTrabajados: 15, esProporcional: false, diasQuincena: 15 };
+      const targetPeriod = periodStr || (typeof currentPeriod !== "undefined" ? currentPeriod : "");
+      const pInfo = parsePeriodDates(targetPeriod);
+      if (!pInfo) {
+        return { diasTrabajados: 15, esProporcional: false, diasQuincena: 15 };
+      }
+
+      const pad = (n) => String(n).padStart(2, "0");
+      const y = pInfo.year;
+      const m = pInfo.month;
+
+      const periodStartStr = `${y}-${pad(m)}-${pad(pInfo.isFirst ? 1 : 16)}`;
+      const lastDayCalendar = new Date(y, m, 0).getDate();
+      const periodEndStr = `${y}-${pad(m)}-${pad(pInfo.isFirst ? 15 : lastDayCalendar)}`;
+
+      let startDay = pInfo.isFirst ? 1 : 16;
+      let endDay = pInfo.isFirst ? 15 : 30;
+
+      // 1. Verificar Fecha de Ingreso
+      if (emp.fechaIngreso) {
+        const normIngreso = normalizeDateStr(emp.fechaIngreso);
+        if (normIngreso) {
+          // Si ingresó DESPUÉS del fin del período: 0 días laborados en esta quincena
+          if (normIngreso > periodEndStr) {
+            return {
+              diasTrabajados: 0,
+              esProporcional: true,
+              diasQuincena: 15,
+              startDay: 0,
+              endDay: 0,
+              fechaIngreso: normIngreso
+            };
+          }
+          // Si ingresó DURANTE este período quincenal:
+          if (normIngreso >= periodStartStr && normIngreso <= periodEndStr) {
+            const parts = normIngreso.split("-");
+            const ingYear = parseInt(parts[0], 10);
+            const ingMonth = parseInt(parts[1], 10);
+            const ingDay = parseInt(parts[2], 10);
+            if (ingYear === y && ingMonth === m) {
+              startDay = ingDay;
+            }
+          }
+        }
+      }
+
+      // 2. Verificar Fecha de Salida (si el colaborador está inactivo o desvinculado)
+      if (emp.fechaSalida && (emp.estado === "inactivo" || String(emp.estado).toLowerCase() === "inactivo")) {
+        const normSalida = normalizeDateStr(emp.fechaSalida);
+        if (normSalida) {
+          // Si salió ANTES del inicio del período: 0 días laborados
+          if (normSalida < periodStartStr) {
+            return {
+              diasTrabajados: 0,
+              esProporcional: true,
+              diasQuincena: 15,
+              startDay: 0,
+              endDay: 0,
+              fechaSalida: normSalida
+            };
+          }
+          // Si salió DURANTE este período:
+          if (normSalida >= periodStartStr && normSalida <= periodEndStr) {
+            const parts = normSalida.split("-");
+            const salYear = parseInt(parts[0], 10);
+            const salMonth = parseInt(parts[1], 10);
+            const salDay = parseInt(parts[2], 10);
+            if (salYear === y && salMonth === m) {
+              endDay = Math.min(salDay, pInfo.isFirst ? 15 : 30);
+            }
+          }
+        }
+      }
+
+      // 3. Conteo de días laborados comerciales:
+      // I Quincena (1 al 15): (15 - startDay) + 1
+      // II Quincena (16 al 30): (30 - startDay) + 1
+      let days = (endDay - startDay) + 1;
+      if (days < 0) days = 0;
+      if (days > 15) days = 15;
+
+      const esProporcional = (days !== 15);
+      return {
+        diasTrabajados: days,
+        esProporcional: esProporcional,
+        diasQuincena: 15,
+        startDay: startDay,
+        endDay: endDay
+      };
+    }
+
+    function getEmployeeBaseSalary(emp, periodStr) {
+      if (!emp) return 0;
+      const salarioMensual = Number(emp.salarioMensual || 0);
+      const qInfo = getEmployeeQuincenaDays(emp, periodStr);
+      if (!qInfo.esProporcional) {
+        return salarioMensual / 2;
+      }
+      // Regla legal y comercial: Salario mensual entre 30 multiplicado por días trabajados
+      return (salarioMensual / 30) * qInfo.diasTrabajados;
+    }
+
 
 
     
@@ -6307,7 +6468,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const emp = employees.find(e => e.id === empId);
       if (!emp) return null;
 
-      const baseQuincenal = emp.salarioMensual / 2;
+      const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
+      const baseQuincenal = getEmployeeBaseSalary(emp, currentPeriod);
       const montoExtra = getEmployeeExtraMonto(emp);
       const diasFeriados = emp.feriadosLaborados || 0;
       const montoFeriados = calculateHolidayAmount(emp, diasFeriados);
@@ -6349,6 +6511,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         puesto: emp.puesto,
         departamento: emp.departamento,
         salarioQuincenal: baseQuincenal,
+        diasTrabajadosQuincena: qDays.diasTrabajados,
+        esSalarioProporcional: qDays.esProporcional,
         horasExtraMonto: montoExtra,
         feriadosMonto: montoFeriados,
         totalDevengado: totalDevengado,
@@ -7410,7 +7574,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     function getVoucherFinancialsForPeriod(emp, period) {
       if (!emp || !period) return null;
       const salarioMensual = Number(emp.salarioMensual || 0);
-      let baseQuincenal = salarioMensual / 2;
+      let baseQuincenal = getEmployeeBaseSalary(emp, period);
       let montoExtra = 0;
       let montoFeriados = 0;
       let ccss = 0;
@@ -7909,7 +8073,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const emp = employees.find(e => e.id === empId);
       if (!emp) return;
 
-      const baseQuincenal = emp.salarioMensual / 2;
+      const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
+      const baseQuincenal = getEmployeeBaseSalary(emp, currentPeriod);
       const extra = getEmployeeExtraMonto(emp);
       const diasFeriados = emp.feriadosLaborados || 0;
       const feriadosMonto = calculateHolidayAmount(emp, diasFeriados);
@@ -7929,6 +8094,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         correo: emp.correo,
         salarioMensualFormatted: formatCRC(emp.salarioMensual),
         salarioOrdinarioFormatted: formatCRC(baseQuincenal),
+        salarioOrdinarioLabel: qDays.esProporcional ? `Salario ordinario (${qDays.diasTrabajados} días laborados):` : "Salario ordinario:",
+        diasLaborados: qDays.diasTrabajados,
+        esSalarioProporcional: qDays.esProporcional,
         horasExtraMonto: extra,
         horasExtraMontoFormatted: formatCRC(extra),
         diasCompletosMonto: emp.montoDiasCompletos || 0,
@@ -7986,7 +8154,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       showToast(`Enviando comprobantes de quincena por Gmail (${destinoAviso})...`);
 
       const vouchers = activeEmployees.map(emp => {
-        const base = emp.salarioMensual / 2;
+        const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
+        const base = getEmployeeBaseSalary(emp, currentPeriod);
         const extra = getEmployeeExtraMonto(emp);
         const diasFeriados = emp.feriadosLaborados || 0;
         const feriadosMonto = calculateHolidayAmount(emp, diasFeriados);
@@ -8004,6 +8173,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           correo: emp.correo,
           salarioMensualFormatted: formatCRC(emp.salarioMensual),
           salarioOrdinarioFormatted: formatCRC(base),
+          salarioOrdinarioLabel: qDays.esProporcional ? `Salario ordinario (${qDays.diasTrabajados} días laborados):` : "Salario ordinario:",
+          diasLaborados: qDays.diasTrabajados,
+          esSalarioProporcional: qDays.esProporcional,
           horasExtraMonto: extra,
           horasExtraMontoFormatted: formatCRC(extra),
           diasCompletosMonto: emp.montoDiasCompletos || 0,
@@ -8195,7 +8367,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       // Armar el payload completo con todos los 7 módulos y rubros actualizados
       const activeEmployees = employees.filter(emp => emp.estado !== "inactivo");
       const payrollHistory = activeEmployees.map(emp => {
-        const base = emp.salarioMensual / 2;
+        const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
+        const base = getEmployeeBaseSalary(emp, currentPeriod);
         const extra = getEmployeeExtraMonto(emp);
         const diasFeriados = emp.feriadosLaborados || 0;
         const feriadosMonto = calculateHolidayAmount(emp, diasFeriados);
@@ -8213,6 +8386,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           puesto: emp.puesto,
           departamento: emp.departamento,
           salarioQuincenal: base,
+          diasTrabajadosQuincena: qDays.diasTrabajados,
+          esSalarioProporcional: qDays.esProporcional,
           horasExtraMonto: extra,
           diasCompletosMonto: emp.montoDiasCompletos || 0,
           diasCompletosCant: emp.diasCompletosQuincena || 0,
@@ -10085,7 +10260,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
 
       activeEmployees.forEach(emp => {
-        const baseQuincenal = emp.salarioMensual / 2;
+        const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
+        const baseQuincenal = getEmployeeBaseSalary(emp, currentPeriod);
         const montoExtra = getEmployeeExtraMonto(emp);
         const diasFeriados = emp.feriadosLaborados || 0;
         const montoFeriados = calculateHolidayAmount(emp, diasFeriados);
@@ -10109,7 +10285,16 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             <div class="font-bold text-slate-900 text-sm">${emp.nombre}</div>
             <div class="text-xs text-slate-500">${emp.puesto} · ${emp.correo}</div>
           </td>
-          <td class="px-4 py-3.5 text-right font-mono whitespace-nowrap text-slate-800 font-medium">${formatCRC(baseQuincenal)}</td>
+          <td class="px-4 py-3.5 text-right font-mono whitespace-nowrap text-slate-800 font-medium">
+            ${formatCRC(baseQuincenal)}
+            ${(() => {
+              if (qDays.esProporcional) {
+                const badgeText = `${qDays.diasTrabajados} d (${emp.fechaIngreso ? formatDateCR(emp.fechaIngreso) : ''})`;
+                return `<div class="text-[10px] text-purple-700 font-bold bg-purple-100 rounded px-1.5 py-0.5 inline-block mt-0.5" title="Salario proporcional por ingreso reciente: ${qDays.diasTrabajados} días laborados de la quincena (Fórmula legal: Salario mensual ÷ 30 × ${qDays.diasTrabajados})">${badgeText}</div>`;
+              }
+              return '';
+            })()}
+          </td>
           <td class="px-4 py-3.5 text-right font-mono whitespace-nowrap ${montoExtra > 0 ? 'text-indigo-600 font-bold' : 'text-slate-400'}">
             ${(() => {
               if (montoExtra <= 0) return '₡0,00';
@@ -10195,7 +10380,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const emp = employees.find(e => e.id === empId);
       if (!emp) return;
 
-      const baseQuincenal = emp.salarioMensual / 2;
+      const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
+      const baseQuincenal = getEmployeeBaseSalary(emp, currentPeriod);
       const montoExtra = getEmployeeExtraMonto(emp);
       const diasFeriados = emp.feriadosLaborados || 0;
       const montoFeriados = calculateHolidayAmount(emp, diasFeriados);
@@ -10222,7 +10408,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       document.getElementById("cv-section-quincena").classList.remove("hidden");
       document.getElementById("cv-section-aguinaldo").classList.add("hidden");
       document.getElementById("cv-th-componentes").textContent = "Componentes salariales";
-      document.getElementById("cv-label-ingreso-1").textContent = "Salario ordinario:";
+      document.getElementById("cv-label-ingreso-1").textContent = qDays.esProporcional
+        ? `Salario ordinario (${qDays.diasTrabajados} días laborados):`
+        : "Salario ordinario:";
       document.getElementById("cv-val-ingreso-1").textContent = formatCRC(baseQuincenal);
 
       const rowExtras = document.getElementById("cv-row-extras");
@@ -11655,7 +11843,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       let totalSalariosBrutos = 0;
       const activeEmployees = employees.filter(emp => emp.estado !== "inactivo");
       activeEmployees.forEach(emp => {
-        const base = emp.salarioMensual / 2;
+        const base = getEmployeeBaseSalary(emp, currentPeriod);
         const extra = getEmployeeExtraMonto(emp);
         const feriados = calculateHolidayAmount(emp, emp.feriadosLaborados || 0);
         totalSalariosBrutos += (base + extra + feriados);
@@ -11727,7 +11915,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     // Obtener detalles financieros y novedades de un colaborador para una quincena específica
     function getEmployeePeriodFinancials(emp, selectedPeriod) {
       const salarioMensual = Number(emp.salarioMensual || 0);
-      const baseQuincenal = salarioMensual / 2;
+      const qDays = (typeof getEmployeeQuincenaDays === "function") ? getEmployeeQuincenaDays(emp, selectedPeriod) : { diasTrabajados: 15, esProporcional: false };
+      const baseQuincenal = (typeof getEmployeeBaseSalary === "function") ? getEmployeeBaseSalary(emp, selectedPeriod) : (salarioMensual / 2);
 
       let horasExtraCount = 0;
       let horasExtraMonto = 0;
@@ -11797,6 +11986,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       return {
         salarioMensual,
         baseQuincenal,
+        diasTrabajados: qDays.diasTrabajados,
+        esProporcional: qDays.esProporcional,
         horasExtraCount,
         horasExtraMonto,
         feriadosDias,
@@ -11814,6 +12005,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       if (emp.estado === "inactivo") {
         const fecha = emp.fechaSalida ? formatDateCR(emp.fechaSalida) : "";
         obs.push(fecha ? `INACTIVO (Baja: ${fecha})` : "INACTIVO");
+      }
+
+      // Proporcional por fecha de ingreso
+      if (fin.esProporcional && fin.diasTrabajados < 15) {
+        obs.push(`INGRESO (${fin.diasTrabajados} días laborados)`);
       }
 
       // B) Horas Extra registradas (Alzas de salario)
@@ -12167,7 +12363,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const emp = employees.find(e => e.id === currentRebajoEmpId);
       if (!emp) return;
 
-      const baseQuincenal = emp.salarioMensual / 2;
+      const baseQuincenal = getEmployeeBaseSalary(emp, currentPeriod);
       const montoExtra = getEmployeeExtraMonto(emp);
       const diasFeriados = emp.feriadosLaborados || 0;
       const montoFeriados = calculateHolidayAmount(emp, diasFeriados);
@@ -12493,7 +12689,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       let csv = "Cédula,Nombre,Puesto,Departamento,Plan,Salario Quincenal,Horas Extra,Feriados Obligatorios,Total Bruto,CCSS Obrero (10.83%),Neto a Pagar\n";
       const activeEmployees = employees.filter(emp => emp.estado !== "inactivo");
       activeEmployees.forEach(emp => {
-        const base = emp.salarioMensual / 2;
+        const base = getEmployeeBaseSalary(emp, currentPeriod);
         const extra = getEmployeeExtraMonto(emp);
         const feriados = calculateHolidayAmount(emp, emp.feriadosLaborados || 0);
         const bruto = base + extra + feriados;
@@ -12593,7 +12789,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       try {
         const resp = await fetch(url + (url.includes("?") ? "&" : "?") + "action=getAll");
         const json = await resp.json();
-        if (json.status === "success" && Array.isArray(json.data)) {
+        const reqList = Array.isArray(json.data) ? json.data : (json.vacations || (json.data && json.data.vacationRequests) || []);
+        if (json.status === "success" && Array.isArray(reqList)) {
           // El script de vacaciones devuelve las solicitudes del portal móvil / QR
           // NUNCA revertir una solicitud que ya fue aprobada o rechazada en el sistema
           const existingMap = new Map();
@@ -12619,7 +12816,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           });
 
           // 2. Procesar las solicitudes que llegan desde la hoja de vacaciones pendientes
-          json.data.forEach(inc => {
+          reqList.forEach(inc => {
             const incId = String(inc.id || "").trim().toLowerCase();
             const incCod = String(inc.codigo || "").trim().toLowerCase();
             const incKey = incId || incCod;
