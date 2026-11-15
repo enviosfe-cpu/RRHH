@@ -1881,24 +1881,83 @@
 
 
 
-            <div>
-
-              <label class="block font-semibold text-slate-700 mb-1">Fecha</label>
-
-              <input type="date" id="extra-date" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500">
-
+            <!-- Modalidad de Aplicación: Repartir en Quincena o Fecha Única -->
+            <div id="extra-mode-container">
+              <label class="block font-semibold text-slate-700 mb-1">Modalidad de Aplicación</label>
+              <div class="grid grid-cols-2 gap-2">
+                <button type="button" id="btn-mode-distribute" onclick="setExtraMode('distribuir')" class="p-2.5 rounded-lg border-2 border-purple-600 bg-purple-50 text-purple-950 font-bold text-left transition flex flex-col gap-0.5 shadow-xs cursor-pointer">
+                  <span class="text-xs flex items-center gap-1.5">🗓️ Repartir en Quincena</span>
+                  <span class="text-[10px] text-purple-700 font-normal">Lunes a Viernes (sin fines de semana)</span>
+                </button>
+                <button type="button" id="btn-mode-single" onclick="setExtraMode('fecha_unica')" class="p-2.5 rounded-lg border-2 border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-left transition flex flex-col gap-0.5 cursor-pointer">
+                  <span class="text-xs flex items-center gap-1.5">📅 Fecha Única</span>
+                  <span class="text-[10px] text-slate-500 font-normal">Un solo día específico</span>
+                </button>
+              </div>
+              <input type="hidden" id="extra-mode-selected" value="distribuir">
             </div>
 
+            <!-- Contenedor Fecha Única (visible si fecha_unica) -->
+            <div id="extra-single-date-container" class="hidden">
+              <label class="block font-semibold text-slate-700 mb-1">Fecha</label>
+              <input type="date" id="extra-date" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500">
+            </div>
 
+            <!-- Contenedor Informativo Reparto Quincena (visible si distribuir) -->
+            <div id="extra-distribute-info" class="p-2.5 rounded-lg border border-purple-200 bg-purple-50/60 text-xs text-purple-950 space-y-1.5">
+              <div class="flex justify-between items-center">
+                <span id="extra-dist-period-label" class="font-bold">Quincena activa: I Quincena Noviembre 2026</span>
+                <span id="extra-dist-days-count" class="bg-purple-200 text-purple-900 px-2 py-0.5 rounded-md text-[10px] font-black">10 días hábiles</span>
+              </div>
+              <p id="extra-dist-days-desc" class="text-[11px] text-purple-800 leading-relaxed">
+                El total de horas se repartirá automáticamente entre los días hábiles de la quincena (Lunes a Viernes, excluyendo Sábados y Domingos).
+              </p>
+              <div id="extra-dist-hire-container" class="hidden pt-1 border-t border-purple-200/60">
+                <label class="inline-flex items-center gap-1.5 text-[11px] text-purple-900 font-medium cursor-pointer">
+                  <input type="checkbox" id="extra-dist-from-hire" checked onchange="updateExtraPreview()" class="rounded border-purple-300 text-purple-600 focus:ring-purple-500">
+                  <span id="extra-dist-hire-text">Repartir a partir de su fecha de ingreso</span>
+                </label>
+              </div>
+            </div>
 
             <div id="extra-hours-container">
+              <label id="lbl-extra-hours" class="block font-semibold text-slate-700 mb-1">Cantidad Total de Horas Extra (Quincena)</label>
+              <input type="number" id="extra-hours" step="0.5" min="0.5" value="28.5" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500 font-mono font-bold text-slate-800" oninput="updateExtraPreview()">
+              <p id="desc-extra-hours" class="text-[11px] text-slate-500 mt-1">Total de horas extraordinarias a pagar en la quincena.</p>
+            </div>
 
-              <label id="lbl-extra-hours" class="block font-semibold text-slate-700 mb-1">Cantidad de Horas Extra</label>
+            <!-- Monto / Tarifa por Hora Extra definido por el Administrativo -->
+            <div id="extra-rate-container" class="space-y-1.5">
+              <div class="flex justify-between items-center">
+                <label class="block font-semibold text-slate-700">Monto / Tarifa por Hora Extra a Pagar (₡)</label>
+                <span id="extra-rate-legal-badge" class="text-[11px] font-bold text-purple-700 bg-purple-100 px-2 py-0.5 rounded">Legal: ₡2.668,75/h</span>
+              </div>
+              <div class="flex gap-2 items-center">
+                <div class="relative flex-1">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₡</span>
+                  <input type="number" id="extra-custom-rate" step="10" min="0" value="2000" class="w-full pl-7 pr-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 font-mono font-bold text-slate-900" oninput="updateExtraPreview()" placeholder="2000">
+                </div>
+                <button type="button" id="btn-use-legal-rate" onclick="setExtraLegalRate()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold whitespace-nowrap transition cursor-pointer border border-slate-300" title="Aplicar la tarifa legal calculada a tiempo y medio">
+                  Usar Legal
+                </button>
+              </div>
+              <p class="text-[11px] text-slate-500">Monto predefinido: ₡2.000. El administrativo puede personalizar la tarifa por hora extra.</p>
 
-              <input type="number" id="extra-hours" step="0.5" min="0.5" max="12" value="2" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500" oninput="updateExtraPreview()">
-
-              <p id="desc-extra-hours" class="text-[11px] text-slate-500 mt-1">Cálculo legal a tiempo y medio: Salario / 30 / 8 × 1.5</p>
-
+              <!-- Alerta Dinámica si el cálculo legal supera el monto ingresado -->
+              <div id="extra-rate-alert" class="hidden p-2.5 rounded-lg border border-amber-300 bg-amber-50 text-amber-900 text-xs flex items-center justify-between gap-2 shadow-xs transition-all">
+                <div class="flex items-start gap-2">
+                  <span class="text-base leading-none mt-0.5">⚠️</span>
+                  <div>
+                    <span class="font-bold text-amber-950">El cálculo no puede ser menor al monto</span>
+                    <div id="extra-rate-alert-desc" class="text-[11px] text-amber-800 mt-0.5 leading-snug">
+                      La tarifa legal calculada para este colaborador es de ₡2.668,75/h (Salario / 30 / 8 × 1.5).
+                    </div>
+                  </div>
+                </div>
+                <button type="button" onclick="setExtraLegalRate()" class="px-2.5 py-1 bg-amber-600 hover:bg-amber-700 text-white rounded text-[11px] font-bold whitespace-nowrap shadow-xs cursor-pointer">
+                  Ajustar
+                </button>
+              </div>
             </div>
 
 
@@ -2566,6 +2625,12 @@
               <button type="button" onclick="testSheetsConnection()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1.5">
 
                 <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg> Probar Conexión con Base de Datos
+
+              </button>
+
+              <button type="button" onclick="checkSheetsStructure()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1.5" title="Revisa que las 7 hojas oficiales y sus columnas existan correctamente en Google Sheets">
+
+                <span>🔍</span> Revisar Estructura de Hojas
 
               </button>
 
@@ -5782,8 +5847,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     // Horas normales (día completo) = 1.0x (Salario / 30 / 8 * 8 = Salario / 30)
     // Horas extraordinarias normales = tiempo y medio (1.5x)
     // Horas en feriado obligatorio = triple (3.0x) según Art. 148 C.T.
-    function calculateOvertimeAmount(emp, hours, isHoliday = false, isDiaCompleto = false) {
+    function calculateOvertimeAmount(emp, hours, isHoliday = false, isDiaCompleto = false, customRate = null) {
       if (!emp || !hours) return 0;
+      if (customRate !== null && customRate !== undefined && Number(customRate) > 0 && !isDiaCompleto) {
+        return Number(customRate) * Number(hours);
+      }
       const hourlyRate = (Number(emp.salarioMensual) || 0) / 30 / 8;
       let rate = 1.5;
       if (isDiaCompleto) {
@@ -5825,7 +5893,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           const isDia = !!(ex.isDiaCompleto || ex.tipo === "dia_completo");
           const isHol = !!(ex.isHoliday || ex.tipo === "extra_feriado");
           const hrs = Number(ex.horas || (isDia ? 8 : 0));
-          const amt = Number(ex.montoCalculado || calculateOvertimeAmount(emp, hrs, isHol, isDia));
+          const amt = (typeof ex.montoCalculado === "number" && ex.montoCalculado > 0)
+            ? ex.montoCalculado
+            : (emp ? calculateOvertimeAmount(emp, hrs, isHol, isDia, ex.tarifaHora) : 0);
           ex.montoCalculado = amt;
 
           emp.horasExtraQuincena = (emp.horasExtraQuincena || 0) + hrs;
@@ -6514,6 +6584,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         diasTrabajadosQuincena: qDays.diasTrabajados,
         esSalarioProporcional: qDays.esProporcional,
         horasExtraMonto: montoExtra,
+        diasCompletosCant: emp.diasCompletosQuincena || 0,
+        diasCompletosMonto: emp.montoDiasCompletos || 0,
+        horasExtraOrdinariasMonto: (emp.montoHorasExtraOrdinarias || 0) + (emp.montoHorasExtraFeriado || 0),
+        horasExtraCount: (emp.horasExtraOrdinarias || 0) + (emp.horasExtraFeriado || 0),
         feriadosMonto: montoFeriados,
         totalDevengado: totalDevengado,
         ccssObrero: ccss,
@@ -7593,9 +7667,49 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           (h.nombre && emp.nombre && h.nombre.trim().toLowerCase() === emp.nombre.trim().toLowerCase())
         ) && String(h.periodo || '').trim().toLowerCase() === String(period || '').trim().toLowerCase());
 
+        let montoDiasCompletos = 0;
+        let cantDiasCompletos = 0;
+        let montoHorasExtra = 0;
+        let horasExtraCount = 0;
+
+        if (typeof extraHoursHistory !== "undefined" && Array.isArray(extraHoursHistory)) {
+          extraHoursHistory.forEach(ex => {
+            const matchEmp = (
+              (ex.employeeId && String(ex.employeeId) === String(emp.id)) ||
+              (ex.cedula && emp.cedula && String(ex.cedula).trim() === String(emp.cedula).trim()) ||
+              (ex.nombre && emp.nombre && ex.nombre.trim().toLowerCase() === emp.nombre.trim().toLowerCase())
+            );
+            const matchPeriod = (
+              !ex.periodo ||
+              String(ex.periodo).trim().toLowerCase() === String(period).trim().toLowerCase() ||
+              (period === currentPeriod && !ex.periodo)
+            );
+            if (matchEmp && matchPeriod) {
+              const isDia = !!(ex.isDiaCompleto || ex.tipo === "dia_completo");
+              const hrs = Number(ex.horas || (isDia ? 8 : 0));
+              const amt = Number(ex.montoCalculado || calculateOvertimeAmount(emp, hrs, !!(ex.isHoliday || ex.tipo === "extra_feriado"), isDia, ex.tarifaHora));
+              if (isDia) {
+                cantDiasCompletos += (hrs / 8 >= 1 ? Math.round(hrs / 8) : 1);
+                montoDiasCompletos += amt;
+              } else {
+                horasExtraCount += hrs;
+                montoHorasExtra += amt;
+              }
+            }
+          });
+        }
+
         if (payHist && (Number(payHist.totalDevengado || 0) > 0 || Number(payHist.salarioNeto || 0) > 0)) {
           baseQuincenal = Number(payHist.salarioQuincenal || baseQuincenal);
           montoExtra = Number(payHist.horasExtraMonto || 0);
+          if (typeof payHist.diasCompletosMonto === "number" && payHist.diasCompletosMonto > 0) {
+            montoDiasCompletos = payHist.diasCompletosMonto;
+            cantDiasCompletos = payHist.diasCompletosCant || Math.round(montoDiasCompletos / (emp.salarioMensual / 30)) || 1;
+          }
+          if (typeof payHist.horasExtraOrdinariasMonto === "number" && payHist.horasExtraOrdinariasMonto > 0) {
+            montoHorasExtra = payHist.horasExtraOrdinariasMonto;
+            horasExtraCount = payHist.horasExtraCount || 0;
+          }
           montoFeriados = Number(payHist.feriadosMonto || 0);
           totalDevengado = Number(payHist.totalDevengado || (baseQuincenal + montoExtra + montoFeriados));
           ccss = Number(payHist.ccssObrero || (totalDevengado * CCSS_PERCENTAGE));
@@ -7605,7 +7719,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           const rebInfo = getEmployeeRebajos(emp.id, period);
           rebajosList = (rebInfo && rebInfo.list) || [];
           isRegistered = true;
-          return { baseQuincenal, montoExtra, montoFeriados, totalDevengado, ccss, otrosRebajosMonto, totalDeducciones, neto, rebajosList, isRegistered };
+          return { baseQuincenal, montoExtra, montoHorasExtra, horasExtraCount, montoDiasCompletos, cantDiasCompletos, montoFeriados, totalDevengado, ccss, otrosRebajosMonto, totalDeducciones, neto, rebajosList, isRegistered };
         }
       } catch (e) {}
 
@@ -7734,11 +7848,33 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     function buildSingleVoucherHTML(emp, period, vData) {
       const payDate = getQuincenaPayDate(period);
       let extrasHtml = "";
-      if (vData.montoExtra > 0) {
+      let diasAdicionalesHtml = "";
+
+      // Días completos ordinarios adicionales (sumados por aparte)
+      if (vData.montoDiasCompletos > 0 || vData.cantDiasCompletos > 0) {
+        const cDias = vData.cantDiasCompletos || 1;
+        const diasLbl = cDias === 1
+          ? "Día completo ordinario adicional (1 día / 8h normales - 1.0×):"
+          : `Días completos ordinarios adicionales (${cDias} días / ${cDias * 8}h normales - 1.0×):`;
+        diasAdicionalesHtml = `
+          <div class="px-2 py-1 flex justify-between text-[12px]">
+            <span class="text-blue-950 font-medium">${diasLbl}</span>
+            <span class="font-mono text-blue-900 font-semibold">${formatCRC(vData.montoDiasCompletos)}</span>
+          </div>
+        `;
+      }
+
+      // Horas extraordinarias (sumadas en su propio rubro)
+      const otAmt = (typeof vData.montoHorasExtra === "number" && vData.montoHorasExtra > 0)
+        ? vData.montoHorasExtra
+        : ((vData.montoExtra || 0) - (vData.montoDiasCompletos || 0));
+
+      if (otAmt > 0) {
+        const otHours = vData.horasExtraCount ? ` (${vData.horasExtraCount}h)` : "";
         extrasHtml = `
           <div class="px-2 py-1 flex justify-between text-[12px]">
-            <span class="text-indigo-950 font-medium">Horas extraordinarias:</span>
-            <span class="font-mono text-indigo-900 font-semibold">${formatCRC(vData.montoExtra)}</span>
+            <span class="text-indigo-950 font-medium">Horas extraordinarias${otHours}:</span>
+            <span class="font-mono text-indigo-900 font-semibold">${formatCRC(otAmt)}</span>
           </div>
         `;
       }
@@ -7835,6 +7971,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
                 <span class="font-mono">${formatCRC(vData.baseQuincenal)}</span>
               </div>
               ${extrasHtml}
+              ${diasAdicionalesHtml}
               ${feriadosHtml}
             </div>
 
@@ -8043,6 +8180,44 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
     }
 
+    // Revisar la estructura y salud de las hojas de Google Sheets
+    async function checkSheetsStructure(autoFix = false) {
+      if (!sheetsApiUrl) {
+        alert("Primero configure y guarde la URL de la base de datos.");
+        return;
+      }
+      showToast(autoFix ? "🛠️ Reparando estructuras de hojas en Google Sheets..." : "🔍 Revisando estructura de hojas en Google Sheets...");
+      try {
+        const url = `${sheetsApiUrl}?action=${autoFix ? "repairStructures" : "checkStructures"}${autoFix ? "&autoFix=true" : ""}`;
+        const resp = await fetch(url, { method: "GET" });
+        const json = await resp.json();
+
+        if (json && json.hojas) {
+          if (json.status !== "success" && !autoFix) {
+            const doFix = await uiConfirm(
+              `${json.resumenTexto}\n\n¿Desea que el sistema repare y cree automáticamente las hojas y columnas faltantes?\n(No se alterarán ni borrarán los registros de datos existentes)`,
+              {
+                title: "Diagnóstico de Estructuras Google Sheets",
+                confirmText: "🛠️ Reparar Ahora",
+                cancelText: "Cerrar"
+              }
+            );
+            if (doFix) {
+              await checkSheetsStructure(true);
+            }
+          } else {
+            await uiAlert(json.resumenTexto, {
+              title: autoFix ? "Resultado de la Reparación" : "Diagnóstico de Estructura de Hojas"
+            });
+          }
+        } else {
+          throw new Error(json && json.message ? json.message : "Respuesta inesperada de Google Sheets.");
+        }
+      } catch (err) {
+        alert("No se pudo completar la revisión de estructuras: " + err.message);
+      }
+    }
+
     // Enviar correo de prueba para verificar Gmail
     async function sendTestGmail() {
       const targetEmail = document.getElementById("test-email-input").value.trim();
@@ -8103,6 +8278,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         diasCompletosMontoFormatted: formatCRC(emp.montoDiasCompletos || 0),
         diasCompletosCant: emp.diasCompletosQuincena || 0,
         horasExtraOrdinariasFormatted: formatCRC((emp.montoHorasExtraOrdinarias || 0) + (emp.montoHorasExtraFeriado || 0)),
+        horasExtraCount: Math.round(((emp.horasExtraOrdinarias || 0) + (emp.horasExtraFeriado || 0)) * 100) / 100,
         feriadosDias: diasFeriados,
         feriadosMonto: feriadosMonto,
         feriadosMontoFormatted: formatCRC(feriadosMonto),
@@ -8182,6 +8358,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           diasCompletosMontoFormatted: formatCRC(emp.montoDiasCompletos || 0),
           diasCompletosCant: emp.diasCompletosQuincena || 0,
           horasExtraOrdinariasFormatted: formatCRC((emp.montoHorasExtraOrdinarias || 0) + (emp.montoHorasExtraFeriado || 0)),
+        horasExtraCount: Math.round(((emp.horasExtraOrdinarias || 0) + (emp.horasExtraFeriado || 0)) * 100) / 100,
           feriadosDias: diasFeriados,
           feriadosMonto: feriadosMonto,
           feriadosMontoFormatted: formatCRC(feriadosMonto),
@@ -8423,7 +8600,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           isDiaCompleto: isDia,
           isHoliday: isHol,
           motivo: ex.motivo || "",
-          montoCalculado: emp ? calculateOvertimeAmount(emp, hrs, isHol, isDia) : Number(ex.montoCalculado || 0),
+          tarifaHora: ex.tarifaHora || null,
+          batchId: ex.batchId || null,
+          montoCalculado: (typeof ex.montoCalculado === "number" && ex.montoCalculado > 0) ? ex.montoCalculado : (emp ? calculateOvertimeAmount(emp, hrs, isHol, isDia, ex.tarifaHora) : Number(ex.montoCalculado || 0)),
           periodo: ex.periodo || currentPeriod
         };
       });
@@ -10416,29 +10595,74 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const rowExtras = document.getElementById("cv-row-extras");
       const rowDiasAdicionales = document.getElementById("cv-row-dias-adicionales");
 
-      const montoOvertime = (emp.montoHorasExtraOrdinarias || 0) + (emp.montoHorasExtraFeriado || 0);
-      const horasOvertime = (emp.horasExtraOrdinarias || 0) + (emp.horasExtraFeriado || 0);
-      const montoDias = emp.montoDiasCompletos || 0;
-      const cantDias = emp.diasCompletosQuincena || 0;
+      // Desglose riguroso de componentes: Suma de Horas Extras y Suma de Días Completos por aparte
+      let montoDias = Number(emp.montoDiasCompletos || 0);
+      let cantDias = Number(emp.diasCompletosQuincena || 0);
+      let horasOvertime = Number(emp.horasExtraOrdinarias || 0) + Number(emp.horasExtraFeriado || 0);
+      let montoOvertime = Number(emp.montoHorasExtraOrdinarias || 0) + Number(emp.montoHorasExtraFeriado || 0);
 
+      // Si no están en las propiedades de emp, escanear directamente extraHoursHistory de este período
+      if (typeof extraHoursHistory !== "undefined" && Array.isArray(extraHoursHistory)) {
+        let scDias = 0;
+        let smDias = 0;
+        let shOver = 0;
+        let smOver = 0;
+        extraHoursHistory.forEach(ex => {
+          const matchEmp = (
+            (ex.employeeId && String(ex.employeeId) === String(emp.id)) ||
+            (ex.cedula && emp.cedula && String(ex.cedula).trim() === String(emp.cedula).trim()) ||
+            (ex.nombre && emp.nombre && ex.nombre.trim().toLowerCase() === emp.nombre.trim().toLowerCase())
+          );
+          const matchPeriod = (
+            !ex.periodo ||
+            String(ex.periodo).trim().toLowerCase() === String(currentPeriod).trim().toLowerCase()
+          );
+          if (matchEmp && matchPeriod) {
+            const isDia = !!(ex.isDiaCompleto || ex.tipo === "dia_completo");
+            const hrs = Number(ex.horas || (isDia ? 8 : 0));
+            const amt = Number(ex.montoCalculado || calculateOvertimeAmount(emp, hrs, !!(ex.isHoliday || ex.tipo === "extra_feriado"), isDia, ex.tarifaHora));
+            if (isDia) {
+              scDias += (hrs / 8 >= 1 ? Math.round(hrs / 8) : 1);
+              smDias += amt;
+            } else {
+              shOver += hrs;
+              smOver += amt;
+            }
+          }
+        });
+        if (scDias > 0 || smDias > 0 || shOver > 0 || smOver > 0) {
+          cantDias = scDias;
+          montoDias = smDias;
+          horasOvertime = Math.round(shOver * 100) / 100;
+          montoOvertime = smOver;
+        }
+      }
+
+      // Si montoExtra contiene saldo sin desglosar
+      if (montoOvertime === 0 && horasOvertime === 0 && montoExtra > montoDias) {
+        montoOvertime = montoExtra - montoDias;
+        horasOvertime = Math.max(0, (emp.horasExtraQuincena || 0) - (cantDias * 8));
+      }
+
+      // 1. Rubro de Horas Extras (sumadas en un solo rubro total)
       if (rowExtras) {
-        if (montoOvertime > 0) {
+        if (montoOvertime > 0 || horasOvertime > 0) {
           rowExtras.classList.remove("hidden");
           document.getElementById("cv-label-extras").textContent = `Horas extraordinarias (${horasOvertime}h):`;
           document.getElementById("cv-val-extras").textContent = formatCRC(montoOvertime);
-        } else if (montoExtra > 0 && montoDias === 0) {
-          rowExtras.classList.remove("hidden");
-          document.getElementById("cv-label-extras").textContent = `Horas extraordinarias (${emp.horasExtraQuincena}h):`;
-          document.getElementById("cv-val-extras").textContent = formatCRC(montoExtra);
         } else {
           rowExtras.classList.add("hidden");
         }
       }
 
+      // 2. Rubro por aparte de Día(s) Completo(s) (si hay más de uno, sumados en este rubro)
       if (rowDiasAdicionales) {
-        if (montoDias > 0) {
+        if (montoDias > 0 || cantDias > 0) {
           rowDiasAdicionales.classList.remove("hidden");
-          document.getElementById("cv-label-dias-adicionales").textContent = `Día(s) adicional(es) ordinario(s) (${cantDias} d / ${cantDias * 8}h - 1.0× normales):`;
+          const diasLabel = cantDias === 1
+            ? "Día completo ordinario adicional (1 día / 8h normales - 1.0×):"
+            : `Días completos ordinarios adicionales (${cantDias} días / ${cantDias * 8}h normales - 1.0×):`;
+          document.getElementById("cv-label-dias-adicionales").textContent = diasLabel;
           document.getElementById("cv-val-dias-adicionales").textContent = formatCRC(montoDias);
         } else {
           rowDiasAdicionales.classList.add("hidden");
@@ -11254,6 +11478,158 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
     // ==================== HORAS EXTRA Y DÍAS ADICIONALES ====================
     let currentExtraTipo = "extra_normal";
+    let currentExtraMode = "distribuir"; // 'distribuir' (reparto L-V) | 'fecha_unica'
+
+    // Obtener los días hábiles (Lunes a Viernes, excluyendo Sábados y Domingos) de la quincena
+    function getQuincenaBusinessDays(emp, periodStr, ignoreHireDate = false) {
+      const targetPeriod = periodStr || (typeof currentPeriod !== "undefined" ? currentPeriod : "");
+      const pInfo = parsePeriodDates(targetPeriod);
+      if (!pInfo) {
+        return [new Date().toISOString().slice(0, 10)];
+      }
+
+      const y = pInfo.year;
+      const m = pInfo.month;
+      const pad = (n) => String(n).padStart(2, "0");
+
+      let startDay = pInfo.isFirst ? 1 : 16;
+      let endDay = pInfo.isFirst ? 15 : new Date(y, m, 0).getDate();
+
+      // Si se desea considerar la fecha de ingreso (ej. colaborador ingresó a mitad de quincena)
+      if (emp && emp.fechaIngreso && !ignoreHireDate) {
+        const normIngreso = normalizeDateStr(emp.fechaIngreso);
+        if (normIngreso) {
+          const parts = normIngreso.split("-");
+          const ingY = parseInt(parts[0], 10);
+          const ingM = parseInt(parts[1], 10);
+          const ingD = parseInt(parts[2], 10);
+          if (ingY === y && ingM === m) {
+            if (pInfo.isFirst && ingD >= 1 && ingD <= 15) {
+              startDay = Math.max(startDay, ingD);
+            } else if (!pInfo.isFirst && ingD >= 16) {
+              startDay = Math.max(startDay, ingD);
+            }
+          }
+        }
+      }
+
+      // Si fue dado de baja durante esta quincena
+      if (emp && emp.fechaSalida && emp.estado === "inactivo") {
+        const normSalida = normalizeDateStr(emp.fechaSalida);
+        if (normSalida) {
+          const parts = normSalida.split("-");
+          const salY = parseInt(parts[0], 10);
+          const salM = parseInt(parts[1], 10);
+          const salD = parseInt(parts[2], 10);
+          if (salY === y && salM === m) {
+            if (pInfo.isFirst && salD <= 15) {
+              endDay = Math.min(endDay, salD);
+            } else if (!pInfo.isFirst && salD >= 16) {
+              endDay = Math.min(endDay, salD);
+            }
+          }
+        }
+      }
+
+      const businessDays = [];
+      for (let day = startDay; day <= endDay; day++) {
+        const d = new Date(y, m - 1, day);
+        const dow = d.getDay(); // 0 = Domingo, 6 = Sábado
+        if (dow !== 0 && dow !== 6) {
+          businessDays.push(`${y}-${pad(m)}-${pad(day)}`);
+        }
+      }
+
+      // Si el rango específico no arrojó días hábiles, usar todos los días hábiles regulares de la quincena
+      if (businessDays.length === 0) {
+        const fullStart = pInfo.isFirst ? 1 : 16;
+        const fullEnd = pInfo.isFirst ? 15 : new Date(y, m, 0).getDate();
+        for (let day = fullStart; day <= fullEnd; day++) {
+          const d = new Date(y, m - 1, day);
+          const dow = d.getDay();
+          if (dow !== 0 && dow !== 6) {
+            businessDays.push(`${y}-${pad(m)}-${pad(day)}`);
+          }
+        }
+      }
+
+      return businessDays;
+    }
+
+    // Distribuir equitativamente las horas entre los días asegurando suma exacta
+    function distributeHoursEqually(totalHours, daysCount) {
+      if (daysCount <= 0) return [totalHours];
+      const base = Math.floor((totalHours / daysCount) * 100) / 100;
+      const result = [];
+      let accumulated = 0;
+      for (let i = 0; i < daysCount; i++) {
+        if (i === daysCount - 1) {
+          const last = Math.round((totalHours - accumulated) * 100) / 100;
+          result.push(last);
+        } else {
+          result.push(base);
+          accumulated += base;
+        }
+      }
+      return result;
+    }
+
+    function setExtraMode(mode) {
+      currentExtraMode = mode;
+      const hiddenMode = document.getElementById("extra-mode-selected");
+      if (hiddenMode) hiddenMode.value = mode;
+
+      const btnDist = document.getElementById("btn-mode-distribute");
+      const btnSingle = document.getElementById("btn-mode-single");
+      const singleDateCont = document.getElementById("extra-single-date-container");
+      const distInfo = document.getElementById("extra-distribute-info");
+      const lblHours = document.getElementById("lbl-extra-hours");
+      const descHours = document.getElementById("desc-extra-hours");
+      const dateInput = document.getElementById("extra-date");
+
+      const activeClass = "p-2.5 rounded-lg border-2 border-purple-600 bg-purple-50 text-purple-950 font-bold text-left transition flex flex-col gap-0.5 shadow-xs cursor-pointer";
+      const inactiveClass = "p-2.5 rounded-lg border-2 border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-left transition flex flex-col gap-0.5 cursor-pointer";
+
+      if (mode === "fecha_unica") {
+        if (btnSingle) btnSingle.className = activeClass;
+        if (btnDist) btnDist.className = inactiveClass;
+        if (singleDateCont) singleDateCont.classList.remove("hidden");
+        if (distInfo) distInfo.classList.add("hidden");
+        if (dateInput) {
+          dateInput.required = true;
+          if (!dateInput.value) dateInput.value = new Date().toISOString().slice(0, 10);
+        }
+        if (lblHours) lblHours.textContent = "Cantidad de Horas Extra (Día Específico)";
+        if (descHours) descHours.textContent = "Horas laboradas en la fecha indicada.";
+      } else {
+        // distribuir
+        if (btnDist) btnDist.className = activeClass;
+        if (btnSingle) btnSingle.className = inactiveClass;
+        if (singleDateCont) singleDateCont.classList.add("hidden");
+        if (distInfo) distInfo.classList.remove("hidden");
+        if (dateInput) dateInput.required = false;
+        if (lblHours) lblHours.textContent = "Cantidad Total de Horas Extra (Quincena)";
+        if (descHours) descHours.textContent = "Total de horas que se repartirán entre los días hábiles (Lunes a Viernes).";
+      }
+      updateExtraPreview();
+    }
+
+    function setExtraLegalRate() {
+      const empSelect = document.getElementById("extra-employee-select");
+      if (!empSelect) return;
+      const emp = employees.find(e => e.id === empSelect.value);
+      if (!emp) return;
+
+      let legalMultiplier = (currentExtraTipo === "extra_feriado") ? 3.0 : ((currentExtraTipo === "dia_completo") ? 1.0 : 1.5);
+      let legalHourlyRate = Math.round(((emp.salarioMensual / 30 / 8) * legalMultiplier) * 100) / 100;
+
+      const rateInput = document.getElementById("extra-custom-rate");
+      if (rateInput) {
+        rateInput.value = legalHourlyRate;
+      }
+      updateExtraPreview();
+      showToast(`Tarifa ajustada al valor legal calculado: ${formatCRC(legalHourlyRate)}/h`, "info");
+    }
 
     function setExtraTipo(tipo) {
       currentExtraTipo = tipo;
@@ -11269,6 +11645,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const descHours = document.getElementById("desc-extra-hours");
       const motiveInput = document.getElementById("extra-motive");
       const btnSubmit = document.getElementById("btn-submit-extra");
+      const rateContainer = document.getElementById("extra-rate-container");
+      const modeContainer = document.getElementById("extra-mode-container");
 
       // Clases inactivas estándar
       const inactiveClass = "p-2.5 rounded-lg border-2 border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-left transition flex flex-col gap-0.5 cursor-pointer";
@@ -11279,6 +11657,19 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       if (tipo === "dia_completo") {
         if (btnDia) btnDia.className = "p-2.5 rounded-lg border-2 border-blue-600 bg-blue-50/80 text-blue-950 font-bold text-left transition flex flex-col gap-0.5 shadow-xs cursor-pointer";
         if (holidayCheck) holidayCheck.checked = false;
+        if (rateContainer) rateContainer.classList.add("hidden");
+        if (modeContainer) modeContainer.classList.add("hidden");
+        // Para día completo, mostrar selector de fecha
+        const singleDateCont = document.getElementById("extra-single-date-container");
+        const distInfo = document.getElementById("extra-distribute-info");
+        if (singleDateCont) singleDateCont.classList.remove("hidden");
+        if (distInfo) distInfo.classList.add("hidden");
+        const dateInput = document.getElementById("extra-date");
+        if (dateInput) {
+          dateInput.required = true;
+          if (!dateInput.value) dateInput.value = new Date().toISOString().slice(0, 10);
+        }
+
         if (hoursInput) {
           hoursInput.value = "8";
           hoursInput.readOnly = true;
@@ -11294,34 +11685,42 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       } else if (tipo === "extra_feriado") {
         if (btnFeriado) btnFeriado.className = "p-2.5 rounded-lg border-2 border-amber-600 bg-amber-50/80 text-amber-950 font-bold text-left transition flex flex-col gap-0.5 shadow-xs cursor-pointer";
         if (holidayCheck) holidayCheck.checked = true;
+        if (rateContainer) rateContainer.classList.remove("hidden");
+        if (modeContainer) modeContainer.classList.remove("hidden");
         if (hoursInput) {
           hoursInput.readOnly = false;
           hoursInput.classList.remove("bg-slate-100", "cursor-not-allowed");
           if (hoursInput.value === "8" || !hoursInput.value) hoursInput.value = "8";
         }
-        if (lblHours) lblHours.textContent = "Cantidad de Horas en Feriado Obligatorio";
+        if (lblHours) lblHours.textContent = currentExtraMode === "distribuir" ? "Total de Horas en Feriado (a repartir)" : "Cantidad de Horas en Feriado Obligatorio";
         if (descHours) descHours.textContent = "Recargo legal al TRIPLE (3.0×) según Art. 148 del Código de Trabajo.";
         if (motiveInput && !motiveInput.value) motiveInput.placeholder = "Ej: Operación en feriado de pago obligatorio";
         if (btnSubmit) {
           btnSubmit.textContent = "Registrar Horas de Feriado (3.0×)";
           btnSubmit.className = "w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-lg transition shadow cursor-pointer";
         }
+        // Restaurar modo activo
+        setExtraMode(currentExtraMode);
       } else {
         // extra_normal
         if (btnNormal) btnNormal.className = "p-2.5 rounded-lg border-2 border-purple-600 bg-purple-50/80 text-purple-950 font-bold text-left transition flex flex-col gap-0.5 shadow-xs cursor-pointer";
         if (holidayCheck) holidayCheck.checked = false;
+        if (rateContainer) rateContainer.classList.remove("hidden");
+        if (modeContainer) modeContainer.classList.remove("hidden");
         if (hoursInput) {
           hoursInput.readOnly = false;
           hoursInput.classList.remove("bg-slate-100", "cursor-not-allowed");
-          if (hoursInput.value === "8" || !hoursInput.value) hoursInput.value = "2";
+          if (!hoursInput.value || hoursInput.value === "8") hoursInput.value = "28.5";
         }
-        if (lblHours) lblHours.textContent = "Cantidad de Horas Extra";
+        if (lblHours) lblHours.textContent = currentExtraMode === "distribuir" ? "Cantidad Total de Horas Extra (Quincena)" : "Cantidad de Horas Extra (Día Específico)";
         if (descHours) descHours.textContent = "Cálculo legal a tiempo y medio: Salario / 30 / 8 × 1.5.";
-        if (motiveInput && !motiveInput.value) motiveInput.placeholder = "Ej: Descarga de furgón nocturno";
+        if (motiveInput && !motiveInput.value) motiveInput.placeholder = "Ej: Descarga de furgón nocturno / Reparto quincenal";
         if (btnSubmit) {
           btnSubmit.textContent = "Registrar Horas Extra (1.5×)";
           btnSubmit.className = "w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 rounded-lg transition shadow cursor-pointer";
         }
+        // Restaurar modo activo
+        setExtraMode(currentExtraMode);
       }
       updateExtraPreview();
     }
@@ -11337,10 +11736,15 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const rateLabelEl = document.getElementById("extra-prev-rate-label");
       const rateEl = document.getElementById("extra-prev-rate");
       const totalEl = document.getElementById("extra-prev-total");
+      const legalBadgeEl = document.getElementById("extra-rate-legal-badge");
+      const alertEl = document.getElementById("extra-rate-alert");
+      const alertDesc = document.getElementById("extra-rate-alert-desc");
+      const customRateInput = document.getElementById("extra-custom-rate");
 
       if (!emp) {
         if (hourlyEl) hourlyEl.textContent = "₡0,00/h";
         if (totalEl) totalEl.textContent = "₡0,00";
+        if (alertEl) alertEl.classList.add("hidden");
         return;
       }
 
@@ -11349,15 +11753,89 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       if (hourlyEl) hourlyEl.textContent = `${formatCRC(hourlyRate)}/h (Diario: ${formatCRC(dailyRate)})`;
 
-      let rateText = "1.5× (Tiempo y Medio)";
-      let amount = 0;
+      let legalMultiplier = (currentExtraTipo === "extra_feriado") ? 3.0 : ((currentExtraTipo === "dia_completo") ? 1.0 : 1.5);
+      let legalHourlyRate = hourlyRate * legalMultiplier;
+      if (legalBadgeEl) {
+        legalBadgeEl.textContent = `Legal (${legalMultiplier.toFixed(1)}×): ${formatCRC(legalHourlyRate)}/h`;
+      }
 
+      let customRateVal = parseFloat(customRateInput?.value);
+      let customRate = (!isNaN(customRateVal) && customRateVal > 0) ? customRateVal : 2000;
+
+      // Validación de alerta: "el cálculo no puede ser menor al monto"
+      // Se compara si el monto ingresado es inferior a la tarifa legal mínima calculada
+      if (currentExtraTipo !== "dia_completo") {
+        const minLegalRounded = Math.floor(legalHourlyRate * 100) / 100;
+        if (customRate < minLegalRounded) {
+          if (alertEl) {
+            alertEl.classList.remove("hidden");
+            if (alertDesc) {
+              alertDesc.textContent = `La tarifa legal calculada para ${emp.nombre} es de ${formatCRC(legalHourlyRate)}/h (Salario ${formatCRC(emp.salarioMensual)} / 30 / 8 × ${legalMultiplier.toFixed(1)}). El monto a pagar (${formatCRC(customRate)}/h) no puede ser menor al cálculo legal.`;
+            }
+          }
+          if (customRateInput) {
+            customRateInput.classList.add("border-amber-500", "bg-amber-50/50");
+            customRateInput.classList.remove("border-slate-300");
+          }
+        } else {
+          if (alertEl) alertEl.classList.add("hidden");
+          if (customRateInput) {
+            customRateInput.classList.remove("border-amber-500", "bg-amber-50/50");
+            customRateInput.classList.add("border-slate-300");
+          }
+        }
+      } else {
+        if (alertEl) alertEl.classList.add("hidden");
+      }
+
+      // Información de distribución quincenal si el modo es 'distribuir'
+      if (currentExtraMode === "distribuir" && currentExtraTipo !== "dia_completo") {
+        const hireContainer = document.getElementById("extra-dist-hire-container");
+        const hireText = document.getElementById("extra-dist-hire-text");
+        const distHireCheck = document.getElementById("extra-dist-from-hire");
+
+        // Si el colaborador ingresó durante la quincena actual, mostrar opción de ingreso
+        let isMidQuincenaHire = false;
+        if (emp.fechaIngreso) {
+          const pInfo = parsePeriodDates(currentPeriod);
+          if (pInfo) {
+            const pad = (n) => String(n).padStart(2, "0");
+            const pStart = `${pInfo.year}-${pad(pInfo.month)}-${pad(pInfo.isFirst ? 1 : 16)}`;
+            const pEnd = `${pInfo.year}-${pad(pInfo.month)}-${pad(pInfo.isFirst ? 15 : new Date(pInfo.year, pInfo.month, 0).getDate())}`;
+            const normIng = normalizeDateStr(emp.fechaIngreso);
+            if (normIng && normIng > pStart && normIng <= pEnd) {
+              isMidQuincenaHire = true;
+              if (hireContainer) hireContainer.classList.remove("hidden");
+              if (hireText) hireText.textContent = `Repartir desde su fecha de ingreso (${formatDateCR(normIng)})`;
+            }
+          }
+        }
+        if (!isMidQuincenaHire && hireContainer) {
+          hireContainer.classList.add("hidden");
+        }
+
+        const ignoreHire = isMidQuincenaHire && distHireCheck ? !distHireCheck.checked : false;
+        const bDays = getQuincenaBusinessDays(emp, currentPeriod, ignoreHire);
+        const perDay = bDays.length > 0 ? (hours / bDays.length) : 0;
+
+        const pLabel = document.getElementById("extra-dist-period-label");
+        const countBadge = document.getElementById("extra-dist-days-count");
+        const dDesc = document.getElementById("extra-dist-days-desc");
+
+        if (pLabel) pLabel.textContent = `Quincena activa: ${currentPeriod}`;
+        if (countBadge) countBadge.textContent = `${bDays.length} días hábiles (L-V)`;
+        if (dDesc) {
+          dDesc.textContent = `Se repartirán las ${hours}h entre los ${bDays.length} días hábiles (${perDay.toFixed(2)}h/día de Lunes a Viernes, excluyendo Sábados y Domingos).`;
+        }
+      }
+
+      // Previsualización de Monto Total
+      let amount = 0;
       if (currentExtraTipo === "dia_completo") {
-        rateText = "1.0× (Horas Normales = Salario / 30)";
         amount = calculateOvertimeAmount(emp, 8, false, true);
         if (rateLabelEl) rateLabelEl.textContent = "Tarifa aplicada:";
         if (rateEl) {
-          rateEl.textContent = rateText;
+          rateEl.textContent = "1.0× (Día Completo Ordinario = Salario / 30)";
           rateEl.className = "font-bold text-blue-700";
         }
         if (totalEl) {
@@ -11365,11 +11843,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           totalEl.className = "font-mono text-blue-900 text-xs font-black";
         }
       } else if (currentExtraTipo === "extra_feriado") {
-        rateText = "3.0× (Triple Legal Art. 148)";
-        amount = calculateOvertimeAmount(emp, hours, true, false);
-        if (rateLabelEl) rateLabelEl.textContent = "Recargo legal:";
+        amount = hours * customRate;
+        if (rateLabelEl) rateLabelEl.textContent = "Tarifa a pagar:";
         if (rateEl) {
-          rateEl.textContent = rateText;
+          rateEl.textContent = `${formatCRC(customRate)}/h (Legal 3.0× = ${formatCRC(legalHourlyRate)}/h)`;
           rateEl.className = "font-bold text-amber-700";
         }
         if (totalEl) {
@@ -11377,11 +11854,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           totalEl.className = "font-mono text-amber-900 text-xs font-black";
         }
       } else {
-        rateText = "1.5× (Tiempo y Medio)";
-        amount = calculateOvertimeAmount(emp, hours, false, false);
-        if (rateLabelEl) rateLabelEl.textContent = "Recargo legal:";
+        amount = hours * customRate;
+        if (rateLabelEl) rateLabelEl.textContent = "Tarifa a pagar:";
         if (rateEl) {
-          rateEl.textContent = rateText;
+          rateEl.textContent = `${formatCRC(customRate)}/h (Legal 1.5× = ${formatCRC(legalHourlyRate)}/h)`;
           rateEl.className = "font-bold text-purple-700";
         }
         if (totalEl) {
@@ -11411,7 +11887,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           const isDia = !!(item.isDiaCompleto || item.tipo === "dia_completo");
           const isHol = !!(item.isHoliday || item.tipo === "extra_feriado");
           const hrs = Number(item.horas || (isDia ? 8 : 0));
-          const amount = emp ? calculateOvertimeAmount(emp, hrs, isHol, isDia) : Number(item.montoCalculado || 0);
+          const amount = (typeof item.montoCalculado === "number" && item.montoCalculado > 0)
+            ? item.montoCalculado
+            : (emp ? calculateOvertimeAmount(emp, hrs, isHol, isDia, item.tarifaHora) : Number(item.montoCalculado || 0));
 
           let badgeTipo = '';
           if (isDia) {
@@ -11422,14 +11900,17 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             badgeTipo = '<span class="ml-1 bg-purple-100 text-purple-900 font-bold px-1.5 py-0.5 rounded text-[10px]">Extra 1.5×</span>';
           }
 
+          const rateBadge = (item.tarifaHora && !isDia) ? `<span class="ml-1 font-mono text-[10px] text-slate-500 font-semibold">(₡${formatCRC(item.tarifaHora)}/h)</span>` : '';
+
           const tr = document.createElement("tr");
           tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
           tr.innerHTML = `
             <td class="py-2 px-2">
               <span class="font-bold text-slate-800">${nombre}</span>
               <div class="text-[11px] text-slate-400">
-                ${item.fecha} · ${item.motivo || (isDia ? 'Jornada adicional' : 'Operativo')}
+                ${formatDateCR(item.fecha)} · ${item.motivo || (isDia ? 'Jornada adicional' : 'Operativo')}
                 ${badgeTipo}
+                ${rateBadge}
               </div>
             </td>
             <td class="py-2 px-1 text-center font-bold ${isDia ? 'text-blue-700' : 'text-purple-700'}">${hrs}h</td>
@@ -11443,13 +11924,22 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
     }
 
-    function handleRegisterExtra(e) {
+    async function handleRegisterExtra(e) {
       e.preventDefault();
       const empId = document.getElementById("extra-employee-select").value;
-      const date = document.getElementById("extra-date").value;
-      let hours = parseFloat(document.getElementById("extra-hours").value);
-      const motive = document.getElementById("extra-motive").value;
+      const emp = employees.find(e => e.id === empId);
+      if (!emp) {
+        showToast("Seleccione un colaborador válido", "error");
+        return;
+      }
 
+      let hours = parseFloat(document.getElementById("extra-hours").value);
+      if (isNaN(hours) || hours <= 0) {
+        showToast("Ingrese una cantidad válida de horas", "error");
+        return;
+      }
+
+      const motive = document.getElementById("extra-motive").value.trim() || "HORAS EXTRA";
       const tipo = currentExtraTipo || (document.getElementById("extra-tipo-selected")?.value) || "extra_normal";
       const isDiaCompleto = (tipo === "dia_completo");
       const isHoliday = (tipo === "extra_feriado");
@@ -11458,64 +11948,152 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         hours = 8;
       }
 
-      const emp = employees.find(e => e.id === empId);
-      if (!emp) return;
+      // 1. Tarifa por hora y validación de alerta requerida por el usuario:
+      // "cuando se ponga un monto menos al salario de la hora extra calculado aparezca una alerta que diga el cálculo no puede ser menor al monto"
+      let customRate = 2000;
+      let legalMultiplier = isHoliday ? 3.0 : (isDiaCompleto ? 1.0 : 1.5);
+      let legalHourlyRate = ((emp.salarioMensual / 30 / 8) * legalMultiplier);
 
-      const amount = calculateOvertimeAmount(emp, hours, isHoliday, isDiaCompleto);
+      if (!isDiaCompleto) {
+        const crVal = parseFloat(document.getElementById("extra-custom-rate")?.value);
+        customRate = (!isNaN(crVal) && crVal > 0) ? crVal : 2000;
 
-      const newRecord = {
-        id: "ex-" + Date.now(),
-        employeeId: emp.id,
-        cedula: emp.cedula,
-        nombre: emp.nombre,
-        departamento: emp.departamento,
-        fecha: date,
-        tipo: tipo,
-        isDiaCompleto: isDiaCompleto,
-        isHoliday: isHoliday,
-        horas: hours,
-        motivo: motive,
-        periodo: currentPeriod,
-        montoCalculado: amount
-      };
+        const minLegalRounded = Math.floor(legalHourlyRate * 100) / 100;
+        if (customRate < minLegalRounded) {
+          showToast(`El cálculo no puede ser menor al monto. La tarifa legal calculada para ${emp.nombre} es de ${formatCRC(legalHourlyRate)}/h.`, "warning");
+          const alertEl = document.getElementById("extra-rate-alert");
+          if (alertEl) alertEl.classList.remove("hidden");
+          const rateInput = document.getElementById("extra-custom-rate");
+          if (rateInput) rateInput.focus();
+          return;
+        }
+      }
 
-      extraHoursHistory.unshift(newRecord);
+      // 2. Modalidad: Repartir en la quincena (L-V) o Fecha única
+      const mode = currentExtraMode || document.getElementById("extra-mode-selected")?.value || "distribuir";
+
+      if (mode === "distribuir" && !isDiaCompleto) {
+        const distHireCheck = document.getElementById("extra-dist-from-hire");
+        const ignoreHire = distHireCheck ? !distHireCheck.checked : false;
+        const bDays = getQuincenaBusinessDays(emp, currentPeriod, ignoreHire);
+
+        if (bDays.length === 0) {
+          showToast("No se encontraron días hábiles (L-V) en la quincena actual", "error");
+          return;
+        }
+
+        const distributedHours = distributeHoursEqually(hours, bDays.length);
+        const batchId = "batch-" + Date.now();
+
+        bDays.forEach((dayDate, idx) => {
+          const dayHours = distributedHours[idx];
+          const dayAmount = Math.round(dayHours * customRate * 100) / 100;
+
+          extraHoursHistory.unshift({
+            id: "ex-" + Date.now() + "-" + idx,
+            batchId: batchId,
+            employeeId: emp.id,
+            cedula: emp.cedula,
+            nombre: emp.nombre,
+            departamento: emp.departamento,
+            fecha: dayDate,
+            tipo: tipo,
+            isDiaCompleto: false,
+            isHoliday: isHoliday,
+            horas: dayHours,
+            tarifaHora: customRate,
+            motivo: motive + (bDays.length > 1 ? ` (Reparto ${hours}h en ${bDays.length}d)` : ""),
+            periodo: currentPeriod,
+            montoCalculado: dayAmount
+          });
+        });
+
+        const totalAmt = hours * customRate;
+        showToast(`Se registraron ${hours}h extra (${formatCRC(totalAmt)}) repartidas en ${bDays.length} días hábiles (L-V) para ${emp.nombre}`, "success");
+      } else {
+        // Fecha única o Día Completo
+        const dateInput = document.getElementById("extra-date");
+        const date = (dateInput && dateInput.value) || new Date().toISOString().slice(0, 10);
+        const amount = isDiaCompleto ? (emp.salarioMensual / 30) : (hours * customRate);
+
+        const newRecord = {
+          id: "ex-" + Date.now(),
+          employeeId: emp.id,
+          cedula: emp.cedula,
+          nombre: emp.nombre,
+          departamento: emp.departamento,
+          fecha: date,
+          tipo: tipo,
+          isDiaCompleto: isDiaCompleto,
+          isHoliday: isHoliday,
+          horas: hours,
+          tarifaHora: isDiaCompleto ? null : customRate,
+          motivo: motive,
+          periodo: currentPeriod,
+          montoCalculado: amount
+        };
+
+        extraHoursHistory.unshift(newRecord);
+
+        let msg = "";
+        if (isDiaCompleto) {
+          msg = `Se registró 1 día completo de trabajo (8h normales: ${formatCRC(amount)}) para ${emp.nombre}`;
+        } else if (isHoliday) {
+          msg = `Se registraron ${hours}h extra en feriado (${formatCRC(amount)}) para ${emp.nombre}`;
+        } else {
+          msg = `Se registraron ${hours}h extra (${formatCRC(amount)}) para ${emp.nombre}`;
+        }
+        showToast(msg, "success");
+      }
+
       recalcEmployeeExtraHours();
-
       saveData();
       renderExtrasModule();
       renderPayrollTable();
       renderAccountingModule();
 
-      let msg = "";
-      if (isDiaCompleto) {
-        msg = `Se registró 1 día completo de trabajo (8h normales: ${formatCRC(amount)}) para ${emp.nombre}`;
-      } else if (isHoliday) {
-        msg = `Se registraron ${hours}h extra (Feriado 3.0×: ${formatCRC(amount)}) para ${emp.nombre}`;
-      } else {
-        msg = `Se registraron ${hours}h extra (1.5×: ${formatCRC(amount)}) para ${emp.nombre}`;
-      }
-      showToast(msg);
-
       document.getElementById("extra-motive").value = "";
-      setExtraTipo("extra_normal");
       if (typeof syncAllToSheets === "function" && sheetsApiUrl) {
         syncAllToSheets();
       }
     }
 
     async function deleteExtraHour(id) {
-      if (await uiConfirm("¿Desea eliminar este registro de horas extra / día adicional?", { danger: true, title: "Eliminar Registro" })) {
-        extraHoursHistory = extraHoursHistory.filter(x => x.id !== id);
-        recalcEmployeeExtraHours();
-        saveData();
-        renderExtrasModule();
-        renderPayrollTable();
-        renderAccountingModule();
-        showToast("Registro eliminado correctamente.");
-        if (typeof syncAllToSheets === "function" && sheetsApiUrl) {
-          syncAllToSheets();
+      const rec = extraHoursHistory.find(x => x.id === id);
+      if (!rec) return;
+
+      if (rec.batchId) {
+        const batchItems = extraHoursHistory.filter(x => x.batchId === rec.batchId);
+        if (batchItems.length > 1) {
+          const totalBatchHours = Math.round(batchItems.reduce((acc, x) => acc + (x.horas || 0), 0) * 10) / 10;
+          const delBatch = await uiConfirm(
+            `Este registro forma parte de una distribución quincenal de <strong>${totalBatchHours}h</strong> (${batchItems.length} días hábiles).<br><br>¿Desea eliminar <strong>todo el lote</strong> (${totalBatchHours}h) o solo este día individual (${rec.horas}h)?`,
+            { danger: true, title: "Eliminar Horas Extra", confirmText: "Eliminar Todo el Lote", cancelText: "Solo Este Día" }
+          );
+          if (delBatch) {
+            extraHoursHistory = extraHoursHistory.filter(x => x.batchId !== rec.batchId);
+          } else {
+            extraHoursHistory = extraHoursHistory.filter(x => x.id !== id);
+          }
+        } else {
+          extraHoursHistory = extraHoursHistory.filter(x => x.id !== id);
         }
+      } else {
+        if (await uiConfirm("¿Desea eliminar este registro de horas extra / día adicional?", { danger: true, title: "Eliminar Registro" })) {
+          extraHoursHistory = extraHoursHistory.filter(x => x.id !== id);
+        } else {
+          return;
+        }
+      }
+
+      recalcEmployeeExtraHours();
+      saveData();
+      renderExtrasModule();
+      renderPayrollTable();
+      renderAccountingModule();
+      showToast("Registro eliminado correctamente.");
+      if (typeof syncAllToSheets === "function" && sheetsApiUrl) {
+        syncAllToSheets();
       }
     }
 
