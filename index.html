@@ -1,5 +1,9 @@
 <!--
-  =============================================================================
+  =======================
+
+
+
+======================================================
   SISTEMA DE PLANILLA Y RECURSOS HUMANOS - DISTRIBUIDORA HERMANOS CASTRO DEL SUR S.A.
   -----------------------------------------------------------------------------
   © 2026 Distribuidora Hermanos Castro del Sur S.A. Todos los derechos reservados.
@@ -1819,11 +1823,21 @@
 
         <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
 
-          <div>
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2 border-b border-slate-100">
 
-            <h3 class="font-bold text-slate-900 text-sm">Registro de Horas Extra y Días Adicionales</h3>
+            <div>
 
-            <p class="text-xs text-slate-500">Gestión de horas extraordinarias (1.5×), días completos ordinarios (1.0× = Salario/30) y feriados (3.0×)</p>
+              <h3 class="font-bold text-slate-900 text-sm">Registro de Horas Extra y Días Adicionales</h3>
+
+              <p class="text-xs text-slate-500">Gestión de horas extraordinarias (1.5×), días completos ordinarios (1.0× = Salario/30) y feriados (3.0×)</p>
+
+            </div>
+
+            <button type="button" onclick="openModalRelojMarcador()" class="px-3 py-1.5 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-800 hover:to-indigo-800 text-white rounded-lg font-bold text-xs flex items-center gap-1.5 shadow transition cursor-pointer self-start sm:self-auto" title="Cargar reporte Excel (.xls / .xlsx) emitido por el reloj marcador biométrico y calcular horas extras automáticamente">
+
+              <span>⏰</span> <span>Cargar Excel Reloj Marcador</span>
+
+            </button>
 
           </div>
 
@@ -2022,11 +2036,21 @@
 
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5 space-y-3">
 
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-100">
 
-            <h3 class="font-bold text-slate-900 text-sm">Horas Extra y Días Adicionales Aprobados</h3>
+            <div>
 
-            <span class="text-[11px] text-slate-400">Quincena actual</span>
+              <h3 class="font-bold text-slate-900 text-sm">Horas Extra y Días Adicionales Aprobados</h3>
+
+              <span id="extras-periodo-badge" class="text-[11px] text-slate-400">Quincena actual</span>
+
+            </div>
+
+            <button type="button" onclick="openModalRelojMarcador()" class="px-2.5 py-1 bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 rounded-md font-bold text-xs flex items-center gap-1 transition cursor-pointer" title="Importar marcas de reloj marcador biométrico">
+
+              <span>📥</span> <span>Cargar Reloj</span>
+
+            </button>
 
           </div>
 
@@ -2432,1270 +2456,649 @@
     <!-- ==================== TAB 6: GOOGLE SHEETS & ENVÍO GMAIL ==================== -->
 
     <section id="tab-sheets" class="tab-content hidden space-y-4">
-
       <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
-
         
-
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b pb-4">
-
           <div>
-
             <div class="flex items-center gap-2">
-
               <span class="text-2xl"><svg class="ico" data-i="settings" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
-
               <h2 class="text-lg font-bold text-slate-900">Configuración del Sistema & Enlace en la Nube</h2>
-
             </div>
-
             <p class="text-xs text-slate-500 mt-0.5">
-
               Catálogos maestros de nómina, feriados legales, sincronización con la base de datos central y despacho oficial con Gmail.
-
             </p>
-
           </div>
-
           <div id="sheets-connection-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1.5">
-
             <span class="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true"></span> Base de Datos y Gmail Operativos
-
           </div>
-
         </div>
-
-
 
         <!-- Tarjeta de Catálogos y Parámetros Oficiales de la Empresa -->
-
         <div class="bg-gradient-to-r from-purple-50 via-purple-50 to-amber-50 p-4 sm:p-5 rounded-xl border border-purple-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-
           <div class="space-y-1">
-
             <div class="flex items-center gap-2">
-
               <svg class="ico ico-lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
-
               <h3 class="text-sm font-bold text-slate-900">Catálogos Maestros y Parámetros de Planilla</h3>
-
             </div>
-
             <p class="text-xs text-slate-600">
-
               Administración de tipos de rebajos/deducciones de la empresa y consulta oficial de los 11 feriados obligatorios y no obligatorios de Costa Rica.
-
             </p>
-
           </div>
-
           <div class="flex flex-wrap items-center gap-2.5">
-
             <button type="button" onclick="openModalMaestroRebajos()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-lg shadow flex items-center gap-2 transition hover:scale-[1.02]">
-
               <span><svg class="ico" data-i="settings" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span> Maestro de Rebajos
-
             </button>
-
             <button type="button" onclick="openModalHolidays()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-lg shadow flex items-center gap-2 transition hover:scale-[1.02]">
-
               <span>🇨🇷</span> 11 Feriados Ley
-
             </button>
-
           </div>
-
         </div>
 
-
-
-        <!-- Estado de Modo de Despacho Oficial (Producción) -->
-
-        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 mb-2 flex items-center justify-between flex-wrap gap-2">
-
-          <div class="flex items-center gap-2.5">
-
-            <span class="text-xl text-emerald-600"><svg class="ico" data-i="check-circle" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
-
-            <div>
-
-              <h4 class="text-xs font-bold text-emerald-900 uppercase tracking-wide">Modo Producción Activo (Despacho Oficial)</h4>
-
-              <p class="text-xs text-emerald-700">
-
-                Los comprobantes de pago (quincenas, masivos, aguinaldo y resoluciones) se envían de forma directa y oficial al correo registrado de cada colaborador.
-
-              </p>
-
+        <!-- Control Interactivo de Modo de Despacho (Producción vs Modo Pruebas) -->
+        <div id="banner-modo-despacho" class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 mb-2 transition-all">
+          <div class="flex items-center justify-between flex-wrap gap-3">
+            <div class="flex items-start sm:items-center gap-2.5">
+              <span id="banner-modo-icon" class="text-xl text-emerald-600 mt-0.5 sm:mt-0 flex items-center">
+                <svg class="ico" data-i="check-circle" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              </span>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h4 id="banner-modo-title" class="text-xs font-bold text-emerald-900 uppercase tracking-wide">
+                    Modo Producción Activo (Despacho Oficial)
+                  </h4>
+                  <span id="banner-modo-badge" class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs border border-emerald-300">
+                    PRODUCCIÓN
+                  </span>
+                </div>
+                <p id="banner-modo-desc" class="text-xs text-emerald-700 mt-0.5">
+                  Los comprobantes de pago (quincenas, masivos, aguinaldo y resoluciones) se envían de forma directa y oficial al correo registrado de cada colaborador.
+                </p>
+              </div>
             </div>
 
+            <!-- Botón de Alternancia de Modo -->
+            <div class="flex items-center gap-2">
+              <button type="button" id="btn-toggle-test-mode" onclick="toggleTestMode()" class="px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 transition shadow cursor-pointer bg-amber-600 hover:bg-amber-700 text-white">
+                <span>🧪</span> <span>Activar Modo Pruebas</span>
+              </button>
+            </div>
           </div>
 
-          <span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded font-bold text-xs border border-emerald-300">
-
-            PRODUCCIÓN
-
-          </span>
-
+          <!-- Panel de Configuración de Correo para Modo Pruebas -->
+          <div id="panel-test-email" class="hidden mt-3 pt-3 border-t border-amber-200 flex flex-wrap items-center gap-2 text-xs">
+            <span class="font-bold text-amber-900 flex items-center gap-1">
+              <span>✉️</span> Correo de destino para pruebas:
+            </span>
+            <input type="email" id="inp-test-override-email" class="flex-1 min-w-[240px] max-w-sm px-3 py-1.5 bg-white border border-amber-300 rounded-lg text-amber-950 font-medium focus:outline-none focus:ring-2 focus:ring-amber-500 text-xs shadow-inner" placeholder="ej: carlosssb1016@gmail.com" onchange="saveTestOverrideEmail(false)">
+            <button type="button" onclick="saveTestOverrideEmail(true)" class="px-3.5 py-1.5 bg-amber-700 hover:bg-amber-800 text-white font-bold rounded-lg text-xs transition cursor-pointer flex items-center gap-1">
+              <span>💾</span> <span>Guardar Correo</span>
+            </button>
+            <span class="text-[11px] text-amber-800 italic w-full">
+              ℹ️ Ningún colaborador recibirá correos mientras el Modo Pruebas esté encendido. Todos los envíos se redirigirán estrictamente a esta dirección.
+            </span>
+          </div>
         </div>
-
-
+          <span class="px-2.5 py-1 bg-rose-200 text-rose-900 rounded font-mono font-bold text-xs border border-rose-300">
+            TEST_MODE = true
+          </span>
+        </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
           
-
           <!-- Columna Configuración URL -->
-
           <div class="md:col-span-2 space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
-
             <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">URL de Conexión a la Base de Datos & Gmail</h3>
-
             <p class="text-xs text-slate-600">
-
               Conecta tu servicio de correo y base de datos con la URL de la aplicación web implementada:
-
             </p>
-
             <div class="flex gap-2">
-
               <input type="url" id="sheets-url-input" placeholder="https://script.google.com/macros/s/AKfycb.../exec" class="flex-1 border border-slate-300 rounded-lg p-2.5 text-xs font-mono focus:ring-2 focus:ring-rose-500 bg-white">
-
               <button type="button" onclick="saveSheetsUrl()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2 rounded-lg text-xs transition">
-
                 Guardar URL
-
               </button>
-
             </div>
 
-
-
-            <!-- URL del Lector de Facturas Gmail (dhcastrosantos@gmail.com) -->
-            <div class="mt-3 p-3 bg-purple-50 rounded-xl border border-purple-200 space-y-2">
-              <div class="flex items-center justify-between">
-                <h4 class="text-xs font-bold text-purple-950 flex items-center gap-1.5">
-                  <svg class="ico text-purple-700" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 6L2 7"/></svg> Conexión al Correo de Facturas (dhcastrosantos@gmail.com):
-                </h4>
-                <span id="badge-gastos-gmail" class="text-[10px] bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded-full border border-purple-300">Opcional</span>
-              </div>
-              <p class="text-[11px] text-purple-800 leading-relaxed">
-                Pega aquí la URL de la aplicación web creada en <strong>dhcastrosantos@gmail.com</strong> para extraer las facturas electrónicas (.xml) directamente desde esa cuenta:
-              </p>
-              <div class="flex gap-2">
-                <input type="url" id="gastos-gmail-url-input" placeholder="https://script.google.com/macros/s/.../exec" class="flex-1 border border-purple-300 rounded-lg p-2 text-xs font-mono bg-white focus:ring-2 focus:ring-purple-500">
-                <button type="button" onclick="saveGastosGmailUrl()" class="bg-purple-800 hover:bg-purple-900 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1">
-                  Guardar Lector
-                </button>
-              </div>
-            </div>
-
-            <!-- Diagnóstico de Envío de Correo por Gmail -->
-
-            <div class="mt-3 p-3 bg-slate-100 rounded-lg border border-slate-200 space-y-2">
-
-              <h4 class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-
-                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 6L2 7"/></svg> Diagnóstico de Envío con Gmail:
-
+            <!-- Prueba de Envío de Correo por Gmail -->
+            <div class="mt-3 p-3 bg-rose-50 rounded-lg border border-rose-200 space-y-2">
+              <h4 class="text-xs font-bold text-rose-900 flex items-center gap-1.5">
+                <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 6L2 7"/></svg> Prueba de Envío Real con Gmail:
               </h4>
-
               <div class="flex gap-2">
-
-                <input type="email" id="test-email-input" placeholder="Escribe un correo para diagnóstico (ej: micorreo@gmail.com)" class="flex-1 border border-slate-300 rounded-lg p-2 text-xs bg-white focus:ring-2 focus:ring-slate-500">
-
-                <button type="button" onclick="sendTestGmail()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1">
-
-                  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Enviar Diagnóstico
-
+                <input type="email" id="test-email-input" placeholder="Escribe tu correo (ej: micorreo@gmail.com)" class="flex-1 border border-rose-300 rounded-lg p-2 text-xs bg-white focus:ring-2 focus:ring-rose-500">
+                <button type="button" onclick="sendTestGmail()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1">
+                  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Enviar Prueba Gmail
                 </button>
-
               </div>
-
-              <p class="text-[11px] text-slate-500">Envía un correo de verificación para comprobar que la conexión con Gmail está activa y operativa.</p>
-
+              <p class="text-[11px] text-rose-700">El correo llegará con el remitente de tu cuenta autorizada y el formato oficial de Hermanos Castro del Sur S.A.</p>
             </div>
-
-
 
             <!-- Botones de Acción de Sincronización -->
-
             <div class="pt-2 border-t border-slate-200 flex flex-wrap gap-2">
-
               <button type="button" onclick="testSheetsConnection()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1.5">
-
                 <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg> Probar Conexión con Base de Datos
-
               </button>
 
               <button type="button" onclick="checkSheetsStructure()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1.5" title="Revisa que las 7 hojas oficiales y sus columnas existan correctamente en Google Sheets">
-
                 <span>🔍</span> Revisar Estructura de Hojas
-
               </button>
-
               <button type="button" onclick="syncAllToSheets()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1.5">
-
                 <span>⬆️</span> Cargar Información a la Base de Datos
-
               </button>
-
               <button type="button" onclick="loadFromSheets()" class="bg-slate-700 hover:bg-slate-800 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center gap-1.5">
-
                 <span><svg class="ico" data-i="download" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg></span> Descargar Información de la Base de Datos
-
               </button>
-
               <button type="button" onclick="clearAllLocalData()" class="bg-rose-100 hover:bg-rose-200 text-rose-800 font-bold px-3 py-2 rounded-lg text-xs transition border border-rose-300 flex items-center gap-1.5" title="Borra todos los datos locales para iniciar en limpio">
-
                 <span><svg class="ico" data-i="trash" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span> Limpiar Datos Locales
-
               </button>
-
             </div>
-
           </div>
-
-
 
           <!-- Cuotas y Especificaciones de Gmail -->
-
           <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3 text-xs">
-
             <h4 class="font-bold text-slate-900 flex items-center gap-1">
-
               <span><svg class="ico" data-i="chart" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></span> Capacidad y Ventajas de Gmail
-
             </h4>
-
             <ul class="space-y-2 text-slate-600">
-
               <li class="bg-slate-50 p-2 rounded border border-slate-100">
-
                 <strong class="text-slate-800">Cuentas @gmail.com gratuitas:</strong><br/>
-
                 Hasta <strong>100 correos diarios</strong> (más que suficiente para la planilla de la empresa).
-
               </li>
-
               <li class="bg-slate-50 p-2 rounded border border-slate-100">
-
                 <strong class="text-slate-800">Cuentas Google Workspace corporativas:</strong><br/>
-
                 Hasta <strong>1.500 correos diarios</strong>.
-
               </li>
-
               <li class="bg-slate-50 p-2 rounded border border-slate-100">
-
                 <strong class="text-slate-800">Cero costos adicionales:</strong><br/>
-
                 No se requieren suscripciones de SendGrid ni APIs de pago.
-
               </li>
-
             </ul>
-
           </div>
-
         </div>
 
-
-
       </div>
-
     </section>
-
-
 
   </main>
 
-  <!-- ==================== PIE DE PÁGINA CORPORATIVO (FOOTER) ==================== -->
-  <footer class="mt-auto bg-slate-900 text-slate-400 text-xs py-4 px-4 sm:px-8 border-t border-purple-900/40 no-print">
-    <div class="w-full max-w-[98%] 2xl:max-w-[1920px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-purple-500"></span>
-        <span class="text-slate-300 font-semibold tracking-wide">Distribuidora Hermanos Castro del Sur S.A.</span>
-        <span class="text-slate-500 hidden sm:inline">•</span>
-        <span>Sistema de Planilla y RRHH <span class="bg-purple-950 text-purple-300 px-2 py-0.5 rounded text-[10px] font-mono border border-purple-800">v3.2</span></span>
-      </div>
-      <div class="flex items-center gap-3 text-[11px]">
-        <span>© 2026 Todos los derechos reservados</span>
-        <span class="text-slate-600">|</span>
-        <button type="button" onclick="openLegalModal()" class="text-purple-400 hover:text-purple-300 hover:underline inline-flex items-center gap-1 font-medium cursor-pointer transition">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Aviso Legal y Derechos de Autor
-        </button>
-      </div>
-    </div>
-  </footer>
-
-
-
-
   <!-- ==================== MODAL: COMPROBANTE OFICIAL (PLANILLA Y AGUINALDO) ==================== -->
+  <div
 
-  <div id="modal-voucher" role="dialog" aria-modal="true" aria-labelledby="modal-voucher-title" onclick="if(event.target === this) closeModalVoucher()" class="fixed inset-0 bg-black/60 z-50 hidden overflow-y-auto p-2 sm:p-4 flex flex-col justify-start sm:justify-center items-center">
-
-    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[92vh] flex flex-col shadow-2xl overflow-hidden m-auto border border-slate-200">
-
+  ================ MODAL: COMPROBANTE OFICIAL (PLANILLA Y AGUINALDO) ==================== -->
+  <div id="modal-voucher" role="dialog" aria-modal="true" aria-labelledby="modal-voucher-title" onclick="if(event.target === this) closeModalVoucher()" class="fixed inset-0 bg-black/60 z-50 hidden overflow-y-auto flex items-center justify-center p-2 sm:p-4 no-print">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto border border-slate-200">
       
-
       <div class="bg-slate-900 text-white px-5 py-3 flex justify-between items-center text-xs no-print flex-shrink-0 shadow-sm z-10">
-
         <span class="font-bold flex items-center gap-2 truncate pr-2" id="modal-voucher-title">
-
           <span><svg class="ico" data-i="file" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span> Comprobante Oficial de Pago
-
         </span>
-
         <div class="flex items-center gap-2 flex-shrink-0">
-
           <button type="button" id="btn-modal-send-gmail" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1 transition shadow-xs text-xs">
-
             <svg class="ico" data-i="mail" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 6L2 7"/></svg> Enviar por GMAIL
-
           </button>
-
           <button type="button" onclick="printVoucher()" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1 transition shadow-xs text-xs">
-
             <svg class="ico" data-i="printer" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg> Imprimir / Guardar PDF
-
           </button>
-
           <button type="button" onclick="closeModalVoucher()" class="text-slate-400 hover:text-white hover:bg-slate-800 p-1 rounded-lg text-base font-bold ml-1 transition" title="Cerrar" aria-label="Cerrar">
-
             <svg class="ico" data-i="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
-
           </button>
-
         </div>
-
       </div>
-
-
 
       <!-- COMPROBANTE OFICIAL EXACTO (CON SCROLL PROPIO) -->
-
       <div id="printable-voucher" class="flex-1 overflow-y-auto p-5 sm:p-8 bg-white font-sans text-slate-900 space-y-4">
-
         
-
         <!-- Recuadro 1: Encabezado de la Empresa con Logo Oficial -->
-
         <div class="voucher-box p-4 flex justify-between items-center">
-
           <div class="text-[12px] leading-tight space-y-1">
-
             <h2 class="font-bold text-[13px] text-slate-950">Distribuidora Hermanos Castro del Sur S.A.</h2>
-
             <p>Cédula Jurídica 3-101-553770</p>
-
             <p>Correo: dhcastrosantos@gmail.com</p>
-
             <p>San José, Tarrazú, San Marcos, La Sabana</p>
-
           </div>
-
-
 
           <div class="flex items-center pl-4">
-
             <img src="logo.jpg" onerror="if(typeof OFFICIAL_LOGO_B64 !== 'undefined') this.src = OFFICIAL_LOGO_B64;" alt="Distribuidora Hermanos Castro del Sur S.A." class="h-20 w-auto object-contain max-w-[130px]">
-
           </div>
-
         </div>
-
-
 
         <!-- Recuadro 2: Datos del Colaborador -->
-
         <div class="voucher-box p-4 text-[12px] leading-relaxed">
-
           <div class="grid grid-cols-1 gap-1">
-
             <div class="flex">
-
               <span class="font-bold w-20">Nombre:</span>
-
               <span class="font-bold uppercase" id="cv-nombre">--</span>
-
             </div>
-
             <div class="flex">
-
               <span class="font-bold w-20">Cédula:</span>
-
               <span id="cv-cedula">--</span>
-
             </div>
-
             <div class="flex">
-
               <span class="font-bold w-20">Puesto:</span>
-
               <span id="cv-puesto">--</span>
-
             </div>
-
           </div>
-
         </div>
-
-
 
         <!-- Recuadro 3: Cuerpo del Comprobante -->
-
         <div class="voucher-box p-5 text-[12px] space-y-4">
-
           <div class="text-center font-bold tracking-wide text-[13px]" id="cv-doc-title">
-
             COMPROBANTE DE PAGO
-
           </div>
-
-
 
           <div class="space-y-1 text-[12px]">
-
             <div class="flex justify-between sm:justify-start gap-4">
-
               <span class="w-44 text-slate-800" id="cv-label-periodo">Periodo de pago:</span>
-
               <span class="font-medium" id="cv-val-periodo">--</span>
-
             </div>
-
             <div class="hidden justify-between sm:justify-start gap-4" id="cv-row-plan">
-
               <span class="w-44 text-slate-800" id="cv-label-plan">Plan de planilla:</span>
-
               <span class="font-medium" id="cv-val-plan"></span>
-
             </div>
-
             <div class="flex justify-between sm:justify-start gap-4">
-
               <span class="w-44 text-slate-800" id="cv-label-salario">Salario bruto mensual:</span>
-
               <span class="font-medium font-mono" id="cv-val-salario">₡0,00</span>
-
             </div>
-
           </div>
-
-
 
           <div class="border-t-2 border-b border-slate-900 py-1 text-center font-semibold text-[12px] italic tracking-wide" id="cv-subtitulo-detalle">
-
             Detalle del salario líquido
-
           </div>
-
-
 
           <!-- SECCIÓN A: COMPROBANTE DE QUINCENA REGULAR -->
-
           <div id="cv-section-quincena" class="space-y-4">
-
             <div class="space-y-1">
-
               <div class="voucher-header-table px-3 py-1 flex justify-between">
-
                 <span id="cv-th-componentes">Componentes salariales</span>
-
                 <span>Monto</span>
-
               </div>
-
               <div class="px-2 py-1 flex justify-between text-[12px]" id="cv-row-ordinario">
-
                 <span id="cv-label-ingreso-1">Salario ordinario:</span>
-
                 <span class="font-mono" id="cv-val-ingreso-1">₡0,00</span>
-
               </div>
-
               <div class="px-2 py-1 flex justify-between text-[12px] hidden" id="cv-row-extras">
-
                 <span id="cv-label-extras">Horas extraordinarias:</span>
-
                 <span class="font-mono text-purple-900" id="cv-val-extras">₡0,00</span>
-
               </div>
-
-
-
-              <div class="px-2 py-1 flex justify-between text-[12px] hidden" id="cv-row-dias-adicionales">
-
-                <span id="cv-label-dias-adicionales">Días adicionales laborados (8h normales - 1.0×):</span>
-
-                <span class="font-mono text-blue-900 font-semibold" id="cv-val-dias-adicionales">₡0,00</span>
-
-              </div>
-
               <div class="px-2 py-1 flex justify-between text-[12px] hidden" id="cv-row-feriados">
-
                 <span id="cv-label-feriados">Feriados obligatorios laborados (Pago doble Art. 148):</span>
-
                 <span class="font-mono text-amber-800 font-bold" id="cv-val-feriados">₡0,00</span>
-
               </div>
-
             </div>
-
-
 
             <div class="space-y-1">
-
               <div class="voucher-header-table px-3 py-1 flex justify-between">
-
                 <span id="cv-th-deducciones">Deducciones de marco legal</span>
-
                 <span>Monto</span>
-
               </div>
-
               <div class="px-2 py-1 flex justify-between text-[12px]" id="cv-row-ccss">
-
                 <span id="cv-label-deduccion-1">C.C.S.S. (10,83%)</span>
-
                 <span class="font-mono" id="cv-val-deduccion-1">₡0,00</span>
-
               </div>
-
               <div id="cv-container-otros-rebajos"></div>
-
               <div class="px-2 py-1 flex justify-between text-[11px] font-bold text-rose-900 bg-rose-50/50 hidden" id="cv-row-total-deducciones">
-
                 <span>Total deducciones aplicadas:</span>
-
                 <span class="font-mono" id="cv-val-total-deducciones">₡0,00</span>
-
               </div>
-
             </div>
-
           </div>
-
-
 
           <!-- SECCIÓN B: DESGLOSE MENSUAL PARA COMPROBANTE Y PDF DE AGUINALDO (12 MESES: DIC A NOV) -->
-
           <div id="cv-section-aguinaldo" class="hidden space-y-3">
-
             <div class="voucher-header-table px-3 py-1.5 flex justify-between text-[12px]">
-
               <span>Desglose de Salarios Devengados (Diciembre a Noviembre)</span>
-
               <span>Salario Bruto Devengado</span>
-
             </div>
-
             
-
             <div class="border border-slate-300 rounded-lg overflow-hidden">
-
               <table class="w-full text-[11px] divide-y divide-slate-200">
-
                 <thead class="bg-slate-100 text-slate-700 font-bold">
-
                   <tr>
-
                     <th scope="col" class="px-2.5 py-1 text-left">Mes Computable</th>
-
                     <th scope="col" class="px-2.5 py-1 text-center">Quincenas</th>
-
                     <th scope="col" class="px-2.5 py-1 text-right">Salario Devengado</th>
-
                   </tr>
-
                 </thead>
-
                 <tbody id="cv-aguin-meses-body" class="divide-y divide-slate-100 font-mono">
-
                 </tbody>
-
                 <tfoot class="bg-slate-50 font-bold border-t-2 border-slate-900">
-
                   <tr>
-
                     <td class="px-2.5 py-1.5 text-left font-sans text-slate-900" colspan="2">TOTAL SALARIOS DEVENGADOS ACUMULADOS:</td>
-
                     <td class="px-2.5 py-1.5 text-right font-black text-slate-950 font-mono text-[12px]" id="cv-aguin-total-acumulado">₡0,00</td>
-
                   </tr>
-
                 </tfoot>
-
               </table>
-
             </div>
-
-
 
             <!-- Recuadro Legal de Aguinaldo -->
-
             <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg space-y-1 text-[11px]">
-
               <div class="flex justify-between">
-
                 <span class="text-slate-600">Fórmula legal de cálculo (Ley N° 2412):</span>
-
                 <span class="font-mono font-bold text-slate-800">Total Devengado ÷ 12 meses</span>
-
               </div>
-
               <div class="flex justify-between text-emerald-800 font-semibold">
-
                 <span>Exención legal de C.C.S.S. y Renta (Ley N° 2412):</span>
-
                 <span class="font-mono">₡0,00 (100% Exento)</span>
-
               </div>
-
             </div>
-
           </div>
-
-
 
           <div class="pt-2 flex justify-end items-center gap-3 text-[13px] border-t border-slate-300">
-
             <span class="font-bold tracking-wider" id="cv-label-total">TOTAL:</span>
-
             <span class="font-black font-mono text-[14px]" id="cv-val-total">₡0,00</span>
-
           </div>
-
-
 
         </div>
 
-
-
       </div>
-
-
 
       <!-- Pie Sticky del Comprobante con Botón Cerrar Siempre Visible -->
-
       <div class="bg-slate-50 px-5 py-2.5 border-t border-slate-200 flex justify-between items-center text-xs no-print flex-shrink-0">
-
         <span class="text-slate-500 text-[11px] flex items-center gap-1.5">
-
           <span>Distribuidora Hermanos Castro del Sur S.A.</span>
-
         </span>
-
         <button aria-label="Cerrar" type="button" onclick="closeModalVoucher()" class="bg-slate-900 hover:bg-slate-800 text-white px-4 py-1.5 rounded-lg font-bold transition shadow-xs flex items-center gap-1.5">
-
           <span><svg class="ico" data-i="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></span> Cerrar Recibo
-
         </button>
-
       </div>
 
-
-
     </div>
-
   </div>
-
-
 
   <!-- ==================== MODAL: RESOLUCIÓN OFICIAL DE VACACIONES (FORMATO TIPO CORREO) ==================== -->
-
   <div id="modal-vacation-resolution" role="dialog" aria-modal="true" aria-labelledby="modal-vac-res-header-title" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-
-    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden m-auto max-h-[92vh] flex flex-col border border-slate-200">
-
+    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden my-6 border border-slate-200">
       
-
       <div class="bg-slate-900 text-white px-5 py-3 flex justify-between items-center text-xs no-print">
-
         <span class="font-bold flex items-center gap-2" id="modal-vac-res-header-title">
-
           <span><svg class="ico" data-i="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span> Notificación Oficial de Resolución de Vacaciones
-
         </span>
-
         <div class="flex items-center gap-2">
-
           <button type="button" id="btn-resend-vac-top" onclick="resendCurrentVacationEmail()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1 transition shadow-xs">
-
             <svg class="ico" data-i="mail" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 6L2 7"/></svg> Reenviar por GMAIL
-
           </button>
-
           <button type="button" onclick="printVacationResolution()" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg font-semibold flex items-center gap-1 transition">
-
             <svg class="ico" data-i="printer" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg> Imprimir / Guardar PDF
-
           </button>
-
           <button type="button" onclick="closeModalVacationResolution()" class="text-slate-400 hover:text-white text-base font-bold ml-2" aria-label="Cerrar">
-
             <svg class="ico" data-i="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
-
           </button>
-
         </div>
-
       </div>
-
-
 
       <!-- FORMATO CORPORATIVO EXACTO AL CORREO -->
-
       <div id="printable-vacation-resolution" class="p-6 sm:p-8 bg-white font-sans text-slate-900 space-y-4">
-
         <!-- Renderizado dinámicamente idéntico al correo -->
-
       </div>
-
-
 
       <!-- Barra de estado de envío por Gmail -->
-
       <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs no-print">
-
         <div id="vac-res-email-status" class="text-slate-600 font-semibold flex items-center gap-1.5">
-
           <span><svg class="ico" data-i="mail" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span> Procesando notificación por correo...
-
         </div>
-
         <div class="flex items-center gap-2">
-
           <button type="button" id="btn-resend-vac-email" onclick="resendCurrentVacationEmail()" class="bg-rose-600 hover:bg-rose-700 text-white px-3.5 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 shadow-xs">
-
             <span><svg class="ico" data-i="mail" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span> Reenviar Correo
-
           </button>
-
           <button aria-label="Cerrar" type="button" onclick="closeModalVacationResolution()" class="bg-slate-900 hover:bg-slate-800 text-white px-4 py-1.5 rounded-lg font-bold transition">
-
             Entendido / Cerrar
-
           </button>
-
         </div>
-
       </div>
 
-
-
     </div>
-
   </div>
-
-
 
   <!-- ==================== MODAL: CALENDARIO DE FERIADOS CR (ART. 148 C.T.) ==================== -->
-
-  <div id="modal-holidays" role="dialog" aria-modal="true" class="fixed inset-0 bg-black/60 z-50 hidden overflow-y-auto p-2 sm:p-4 flex flex-col justify-start sm:justify-center items-center no-print">
-
-    <div class="bg-white rounded-2xl max-w-2xl w-full p-4 sm:p-6 shadow-2xl space-y-4 border border-slate-200 text-xs m-auto max-h-[92vh] overflow-y-auto">
-
+  <div id="modal-holidays" role="dialog" aria-modal="true" class="fixed inset-0 bg-black/60 z-50 hidden overflow-y-auto flex items-center justify-center p-3 no-print">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl space-y-4 border border-slate-200 text-xs">
       <div class="flex justify-between items-center border-b pb-3">
-
         <div class="flex items-center gap-2.5">
-
           <span class="text-2xl">🇨🇷</span>
-
           <div>
-
             <h3 class="font-bold text-slate-900 text-sm">Calendario Oficial de Feriados · Costa Rica</h3>
-
             <p class="text-slate-500 text-[11px]">Artículo 148 del Código de Trabajo y reformas (Ley N° 10.392 / Ley N° 10.001)</p>
-
           </div>
-
         </div>
-
         <button type="button" onclick="closeModalHolidays()" class="text-slate-400 hover:text-slate-600 text-base font-bold" aria-label="Cerrar"><svg class="ico" data-i="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-
       </div>
-
-
 
       <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl text-[11px] text-amber-950 space-y-1.5 leading-relaxed">
-
         <p class="font-bold text-amber-900 flex items-center gap-1.5">
-
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg> Regla Legal para Modalidad Quincenal/Mensual (Distribuidora Hermanos Castro):
-
         </p>
-
         <p>• <strong>Feriado NO laborado:</strong> El colaborador disfruta el día libre. No se rebaja nada de su quincena porque el salario mensual ya cubre los 30 días del mes.</p>
-
         <p>• <strong>Feriado SÍ laborado:</strong> El patrono debe pagar un salario diario ordinario adicional por cada feriado (<code class="bg-white px-1 py-0.5 rounded font-mono font-bold">Salario Mensual ÷ 30</code>), completando el <strong>PAGO DOBLE</strong> por ley.</p>
-
         <p>• <strong>Horas Extra en Feriado Obligatorio:</strong> Se liquidan al <strong>TRIPLE (3.0×)</strong> sobre el valor ordinario de la hora.</p>
-
       </div>
 
-
-
-      <div class="overflow-auto max-h-72 border border-slate-200 rounded-xl">
-
+      <div class="overflow-y-auto overflow-x-auto max-h-72 border border-slate-200 rounded-xl">
         <table class="min-w-full divide-y divide-slate-200 text-xs">
-
           <thead class="bg-slate-900 text-white font-semibold text-left">
-
             <tr>
-
               <th scope="col" class="py-2.5 px-3">Fecha</th>
-
               <th scope="col" class="py-2.5 px-3">Festividad Oficial</th>
-
               <th scope="col" class="py-2.5 px-3">Quincena</th>
-
               <th scope="col" class="py-2.5 px-3">Tipo de Pago</th>
-
               <th scope="col" class="py-2.5 px-3">Base Legal</th>
-
             </tr>
-
           </thead>
-
           <tbody id="holidays-modal-body" class="divide-y divide-slate-100">
-
           </tbody>
-
         </table>
-
       </div>
-
-
 
       <div class="flex justify-between items-center pt-2 border-t text-[11px] text-slate-500">
-
         <span>Total: <strong>11 Feriados de Pago Obligatorio</strong> por ley en Costa Rica.</span>
-
         <button aria-label="Cerrar" type="button" onclick="closeModalHolidays()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg transition shadow">
-
           Cerrar
-
         </button>
-
       </div>
-
     </div>
-
   </div>
-
-
-
-
 
 
 
   
-
   <!-- ==================== MODAL: CONTROL DE SALARIOS LÍQUIDOS 2026 ==================== -->
-
-  <div id="modal-control-salarios" role="dialog" aria-modal="true" class="fixed inset-0 bg-black/60 z-50 hidden overflow-y-auto p-2 sm:p-4 flex flex-col justify-start sm:justify-center items-center no-print">
-
-    <div class="bg-white rounded-2xl max-w-[98%] 2xl:max-w-[1900px] w-full p-3 sm:p-5 shadow-2xl border border-slate-200 text-xs flex flex-col max-h-[94vh] m-auto">
-
+  <div id="modal-control-salarios" role="dialog" aria-modal="true" class="fixed inset-0 bg-black/60 z-50 hidden overflow-y-auto flex items-center justify-center p-2 sm:p-4 no-print">
+    <div class="bg-white rounded-2xl max-w-[98%] 2xl:max-w-[1900px] w-full p-4 sm:p-6 shadow-2xl border border-slate-200 text-xs flex flex-col max-h-[94vh]">
       <div class="flex flex-wrap justify-between items-center border-b pb-3 gap-2">
-
         <div class="flex items-center gap-3">
-
           <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl">
-
             <svg class="ico" data-i="chart" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg>
-
           </div>
-
           <div>
-
             <h3 class="font-black text-slate-900 text-base sm:text-lg">Control de Salarios Líquidos 2026</h3>
-
             <p class="text-xs text-slate-500">Distribuidora Hermanos Castro del Sur S.A. · San Marcos, Tarrazú · Plan D9N3</p>
-
           </div>
-
         </div>
-
         <div class="flex items-center gap-2">
-
           <input type="file" id="input-excel-salarios" accept=".xlsx, .xls, .csv" class="hidden" onchange="handleUploadExcelSalarios(event)">
-
           <button type="button" onclick="document.getElementById('input-excel-salarios').click()" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-bold flex items-center gap-1.5 shadow" title="Cargar archivo Excel directamente">
-
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></svg> Cargar Excel (.xlsx)
-
           </button>
-
           <button type="button" onclick="openModalExpedientePDF()" class="px-3 py-1.5 bg-rose-700 hover:bg-rose-800 text-white rounded-lg font-bold flex items-center gap-1.5 shadow transition" title="Generar expediente de comprobantes en PDF por colaborador">
-
             <span><svg class="ico" data-i="file" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span> Expediente PDF
-
           </button>
-
           <button aria-label="Cerrar" type="button" onclick="closeModalControlSalarios()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-bold">
-
             <svg class="ico" data-i="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg> Cerrar
-
           </button>
-
         </div>
-
       </div>
-
-
 
       <div class="my-3 p-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 text-xs flex flex-wrap items-center justify-between gap-2">
-
         <div class="flex items-center gap-2">
-
           <span class="text-base"><svg class="ico" data-i="bulb" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/></svg></span>
-
           <span><strong>Registro Oficial:</strong> Salarios netos quincenales históricos pagados de Enero a Mayo 2026 con deducción del 10.83% de CCSS obrero y feriados de ley.</span>
-
         </div>
-
         <div class="text-[11px] font-semibold text-blue-700">
-
           Total colaboradores operativos: <span id="ctl-total-emps" class="font-bold">13</span>
-
         </div>
-
       </div>
-
-
 
       <div class="overflow-auto flex-1 border border-slate-200 rounded-xl">
-
         <table class="min-w-full divide-y divide-slate-200 text-[11px] sm:text-xs">
-
           <thead class="bg-slate-900 text-white font-bold sticky top-0 z-10">
-
             <tr>
-
               <th scope="col" class="px-3 py-2 text-left uppercase whitespace-nowrap bg-slate-950 sticky left-0 z-20">Nombre</th>
-
               <th scope="col" class="px-3 py-2 text-left uppercase whitespace-nowrap bg-slate-950">Puesto</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-purple-950 text-amber-300 border-x border-slate-700" title="Diciembre del año anterior (Inicio oficial del ciclo de Aguinaldo según Ley N° 2412)">DICIEMBRE *</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-slate-800 border-x border-slate-700">ENERO</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-slate-850 border-x border-slate-700">FEBRERO</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-slate-800 border-x border-slate-700">MARZO</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-slate-850 border-x border-slate-700">ABRIL</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-blue-950 border-x border-slate-700">MAYO</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-slate-800 border-x border-slate-700">JUNIO</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-slate-850 border-x border-slate-700">JULIO</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-slate-800 border-x border-slate-700">AGOSTO</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-slate-850 border-x border-slate-700">SETIEMBRE</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-slate-800 border-x border-slate-700">OCTUBRE</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-slate-850 border-x border-slate-700">NOVIEMBRE</th>
-
               <th scope="col" colspan="2" class="px-2 py-1.5 text-center bg-slate-800 border-x border-slate-700">DICIEMBRE 2026</th>
-
               <th scope="col" class="px-3 py-2 text-right bg-emerald-950 font-black whitespace-nowrap">TOTAL NETO</th>
-
             </tr>
-
             <tr class="text-[10px] bg-slate-800 text-slate-300 border-t border-slate-700">
-
               <th scope="col" class="px-3 py-1 bg-slate-900 sticky left-0 z-20"></th>
-
               <th scope="col" class="px-3 py-1 bg-slate-900"></th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700 text-amber-200" title="I Quincena Diciembre (Año anterior)">IQ</th><th scope="col" class="px-2 py-1 text-center text-amber-200" title="II Quincena Diciembre (Año anterior)">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700">IQ</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700">IQ</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700">IQ</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700">IQ</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700 text-amber-300 font-bold" title="Feriado 1 Mayo">IQ *</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700">IQ</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700">IQ</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700">IQ</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700">IQ</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700">IQ</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700">IQ</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-2 py-1 text-center border-l border-slate-700">IQ</th><th scope="col" class="px-2 py-1 text-center">IIQ</th>
-
               <th scope="col" class="px-3 py-1 text-right text-emerald-300 font-bold">Acumulado</th>
-
             </tr>
-
           </thead>
-
           <tbody id="ctl-table-body" class="divide-y divide-slate-100 bg-white">
-
           </tbody>
-
           <tfoot id="ctl-table-foot" class="bg-slate-100 font-bold text-slate-900 border-t-2 border-slate-300 sticky bottom-0">
-
           </tfoot>
-
         </table>
-
       </div>
-
-
 
       <div class="mt-3 text-[11px] text-slate-500 flex flex-wrap justify-between items-center gap-2">
-
         <span>* <strong>Diciembre IQ e IIQ:</strong> Salarios netos de referencia del año anterior con los que se inicia legalmente el cálculo de Aguinaldo (1 Dic a 30 Nov).</span>
-
         <span>* <strong>Mayo IQ:</strong> Incluye pago doble del feriado obligatorio del 1° de Mayo (Art. 148 C.T.).</span>
-
         <span>Plan de planilla: <strong>D9N3</strong> · Moneda: <strong>Colones Costarricenses (CRC)</strong></span>
-
       </div>
-
     </div>
-
   </div>
-
-
 
   <!-- ==================== MODAL: EXPEDIENTE DE COMPROBANTES OFICIALES EN PDF ==================== -->
-
-  <div id="modal-expediente-pdf" role="dialog" aria-modal="true" aria-label="Expediente de comprobantes en PDF" onclick="if(event.target === this) closeModalExpedientePDF()" class="fixed inset-0 bg-black/60 z-50 hidden overflow-y-auto p-2 sm:p-4 flex flex-col justify-start sm:justify-center items-center no-print">
-
-    <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden m-auto text-xs">
-
+  <div id="modal-expediente-pdf" role="dialog" aria-modal="true" aria-label="Expediente de comprobantes en PDF" onclick="if(event.target === this) closeModalExpedientePDF()" class="fixed inset-0 bg-black/60 z-50 hidden overflow-y-auto flex items-center justify-center p-2 sm:p-4 no-print">
+    <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden my-auto text-xs">
       
-
       <!-- Encabezado del Modal -->
-
       <div class="bg-slate-900 text-white px-5 py-3.5 flex justify-between items-center text-xs flex-shrink-0 shadow-sm">
-
         <div class="flex items-center gap-2.5">
-
           <span class="text-xl"><svg class="ico" data-i="file" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span>
-
           <div>
-
             <h3 class="font-bold text-sm text-white flex items-center gap-2">
-
               Expediente de Comprobantes Oficiales (PDF)
-
               <span class="bg-rose-600 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold">Trámites y Bancos</span>
-
             </h3>
-
             <p class="text-[11px] text-slate-300">Genera un documento PDF consolidado con los recibos oficiales para el colaborador o entidades financieras.</p>
-
           </div>
-
         </div>
-
         <button type="button" onclick="closeModalExpedientePDF()" class="text-slate-400 hover:text-white hover:bg-slate-800 p-1.5 rounded-lg text-lg font-bold transition" title="Cerrar" aria-label="Cerrar">
-
           <svg class="ico" data-i="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
-
         </button>
-
       </div>
-
-
 
       <!-- Cuerpo del Modal (Scroll interno) -->
-
       <div class="p-5 overflow-y-auto flex-1 space-y-4 bg-slate-50">
-
         
-
         <!-- Bloque 1: Selector de Colaborador -->
-
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs space-y-2">
-
           <label class="block font-bold text-slate-800 text-xs uppercase tracking-wide">
-
             1. Seleccionar Colaborador:
-
           </label>
-
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
-
             <select id="exp-emp-select" onchange="onExpedienteEmpleadoChange()" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 font-bold text-slate-900 focus:ring-2 focus:ring-purple-500 text-xs">
-
             </select>
-
             <div id="exp-emp-info-pill" class="bg-purple-50 border border-purple-200 rounded-lg p-2 text-[11px] text-purple-950 flex flex-wrap gap-x-3 gap-y-1">
-
               <span>Cédula: <strong id="exp-pill-cedula">--</strong></span>
-
               <span>Puesto: <strong id="exp-pill-puesto">--</strong></span>
-
               <span>Salario: <strong id="exp-pill-salario">--</strong></span>
-
             </div>
-
           </div>
-
         </div>
-
-
 
         <!-- Bloque 2: Filtros Rápidos de Rango y Lista de Quincenas -->
-
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs space-y-2.5">
-
           <div class="flex flex-wrap justify-between items-center gap-2">
-
             <label class="block font-bold text-slate-800 text-xs uppercase tracking-wide">
-
               2. Quincenas Registradas con Salario Devengado:
-
             </label>
-
             <div class="flex flex-wrap items-center gap-1.5">
-
               <button type="button" onclick="selectExpedientePreset(6)" class="bg-purple-50 hover:bg-purple-100 text-purple-800 font-bold px-2.5 py-1 rounded-lg text-[11px] border border-purple-200 transition" title="Selecciona las últimas 6 quincenas">
-
                 <svg class="ico" data-i="zap" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg> Últimos 3 Meses (6 Q)
-
               </button>
-
               <button type="button" onclick="selectExpedientePreset(12)" class="bg-purple-50 hover:bg-purple-100 text-purple-800 font-bold px-2.5 py-1 rounded-lg text-[11px] border border-purple-200 transition" title="Selecciona las últimas 12 quincenas">
-
                 <svg class="ico" data-i="zap" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg> Últimos 6 Meses (12 Q)
-
               </button>
-
               <button type="button" onclick="selectAllExpedienteCheckboxes(true)" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-2 py-1 rounded-lg text-[11px] transition">
-
                 Marcar todas
-
               </button>
-
               <button type="button" onclick="selectAllExpedienteCheckboxes(false)" class="bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold px-2 py-1 rounded-lg text-[11px] transition">
-
                 Desmarcar
-
               </button>
-
             </div>
-
           </div>
-
-
 
           <!-- Contenedor de Checkboxes de Quincenas -->
-
           <div id="exp-quincenas-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 max-h-56 overflow-y-auto p-2 bg-slate-50 border border-slate-200 rounded-lg">
-
             <!-- Inyectado dinámicamente con las quincenas -->
-
           </div>
-
         </div>
-
-
 
         <!-- Bloque 3: Resumen del Expediente a Generar -->
-
         <div class="bg-gradient-to-r from-slate-900 to-purple-950 text-white p-4 rounded-xl shadow-xs flex flex-wrap justify-between items-center gap-3">
-
           <div>
-
             <span class="text-[11px] text-slate-300 uppercase font-semibold">Resumen del Expediente:</span>
-
             <p class="text-sm font-bold flex items-center gap-2 mt-0.5">
-
               <span id="exp-summary-count" class="bg-emerald-500 text-slate-950 px-2 py-0.5 rounded text-xs font-black">0 quincenas</span>
-
               <span class="text-xs text-slate-200">seleccionadas para exportación</span>
-
             </p>
-
           </div>
-
           <div class="flex items-center gap-6 text-right">
-
             <div>
-
               <span class="text-[10px] text-slate-400 block uppercase">Total Bruto Acumulado:</span>
-
               <span id="exp-summary-bruto" class="font-mono font-bold text-xs text-slate-200">₡0,00</span>
-
             </div>
-
             <div>
-
               <span class="text-[10px] text-emerald-400 block uppercase">Total Líquido (Neto):</span>
-
               <span id="exp-summary-neto" class="font-mono font-black text-sm text-emerald-300">₡0,00</span>
-
             </div>
-
           </div>
-
         </div>
 
-
-
       </div>
-
-
 
       <!-- Pie del Modal Sticky con Botón Generar PDF -->
-
       <div class="bg-white px-5 py-3 border-t border-slate-200 flex flex-wrap justify-between items-center gap-2 flex-shrink-0">
-
         <span class="text-[11px] text-slate-500 flex items-center gap-1.5">
-
           <span><svg class="ico" data-i="bulb" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/></svg></span> Al hacer clic en <strong>Generar PDF</strong>, se abrirá la vista oficial con salto de página por cada quincena lista para guardar en PDF.
-
         </span>
-
         <div class="flex items-center gap-2">
-
           <button aria-label="Cerrar" type="button" onclick="closeModalExpedientePDF()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold px-4 py-2 rounded-lg transition">
-
             <svg class="ico" data-i="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg> Cerrar
-
           </button>
-
           <button type="button" onclick="printExpedientePDF()" id="btn-print-expediente" class="bg-rose-700 hover:bg-rose-800 text-white font-bold px-5 py-2 rounded-lg shadow flex items-center gap-2 transition text-xs">
-
             <span><svg class="ico" data-i="printer" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg></span> Generar y Descargar PDF
-
           </button>
-
         </div>
-
       </div>
 
-
-
     </div>
-
   </div>
-
-
 
   <!-- Contenedor para impresión de expediente consolidado -->
 
@@ -3703,11 +3106,172 @@
 
 
 
+  <!-- ==================== MODAL: CARGA DE HORAS EXTRAS DESDE RELOJ MARCADOR ==================== -->
+  <div id="modal-reloj-marcador" role="dialog" aria-modal="true" class="fixed inset-0 bg-black/60 z-50 hidden overflow-y-auto p-2 sm:p-4 flex flex-col justify-start sm:justify-center items-center no-print">
+    <div class="bg-white rounded-2xl max-w-4xl w-full p-4 sm:p-6 shadow-2xl border border-slate-200 text-xs flex flex-col max-h-[92vh] space-y-4 m-auto">
+      
+      <!-- Encabezado -->
+      <div class="flex justify-between items-start border-b pb-3">
+        <div>
+          <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+            <span>⏰</span>
+            <span>Carga de Horas Extras desde Reloj Marcador (Excel)</span>
+          </h3>
+          <p class="text-xs text-slate-500 mt-0.5">
+            Jornada ordinaria: <strong>7:00 AM a 6:00 PM</strong>. Toda salida después de las 6:00 PM devenga horas extraordinarias.
+          </p>
+        </div>
+        <button type="button" onclick="closeModalRelojMarcador()" class="text-slate-400 hover:text-slate-600 text-base font-bold p-1 cursor-pointer" aria-label="Cerrar">
+          <svg class="ico" data-i="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
 
+      <!-- Pestañas internas del modal: 1. Cargar Archivo | 2. Homologación de Códigos -->
+      <div class="flex gap-2 border-b border-slate-200 pb-2">
+        <button type="button" id="tab-btn-reloj-importar" onclick="switchRelojModalTab('importar')" class="px-3 py-1.5 rounded-lg font-bold text-xs bg-purple-100 text-purple-900 flex items-center gap-1.5 transition cursor-pointer">
+          <span>📥</span> <span>Cargar y Procesar Archivo</span>
+        </button>
+        <button type="button" id="tab-btn-reloj-codigos" onclick="switchRelojModalTab('codigos')" class="px-3 py-1.5 rounded-lg font-semibold text-xs text-slate-600 hover:bg-slate-100 flex items-center gap-1.5 transition cursor-pointer">
+          <span>👥</span> <span>Homologación de Códigos (#1 Felipe, #2 Jonathan, #4 Santiago)</span>
+        </button>
+      </div>
 
+      <!-- SECCIÓN 1: IMPORTADOR -->
+      <div id="reloj-sec-importar" class="space-y-4 overflow-y-auto pr-1">
+        <!-- Zona de Carga de Archivo -->
+        <div class="border-2 border-dashed border-purple-300 bg-purple-50/40 hover:bg-purple-50/80 rounded-xl p-5 text-center transition cursor-pointer" onclick="document.getElementById('input-file-reloj').click()">
+          <input type="file" id="input-file-reloj" accept=".xls, .xlsx, .html, .htm, .csv" class="hidden" onchange="handleFileSelectReloj(event)">
+          <div class="flex flex-col items-center gap-2">
+            <span class="text-3xl">📊</span>
+            <div>
+              <p class="font-bold text-purple-950 text-sm">Haga clic o arrastre el archivo de Excel exportado del Reloj Marcador</p>
+              <p class="text-xs text-purple-700 mt-0.5">Compatible con reportes de reloj biométrico (.xls tabla HTML, .xlsx y .csv)</p>
+            </div>
+            <span id="reloj-file-name" class="hidden px-2.5 py-1 bg-purple-200 text-purple-900 font-mono font-bold text-xs rounded-md"></span>
+          </div>
+        </div>
 
+        <!-- Parámetros de Cálculo y Quincena -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Quincena de Aplicación</label>
+            <select id="reloj-periodo-select" class="w-full border border-slate-300 rounded-lg p-2 bg-white text-xs font-semibold focus:ring-2 focus:ring-purple-500" onchange="recalcRelojPreview()">
+              <!-- Opciones pobladas dinámicamente -->
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Jornada Ordinaria (Salida)</label>
+            <div class="flex items-center gap-1.5">
+              <input type="text" value="6:00 PM (18:00)" readonly class="w-full border border-slate-300 rounded-lg p-2 bg-slate-100 text-slate-700 font-bold text-xs">
+            </div>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Modalidad de Tarifa</label>
+            <select id="reloj-tarifa-modo" class="w-full border border-slate-300 rounded-lg p-2 bg-white text-xs font-semibold focus:ring-2 focus:ring-purple-500" onchange="recalcRelojPreview()">
+              <option value="legal">Tarifa Legal Oficial (1.5× por Colaborador)</option>
+              <option value="custom">Tarifa Administrativa Fija (₡2.000/h)</option>
+            </select>
+          </div>
+        </div>
 
-  
+        <!-- Opciones de importación -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-slate-600 bg-amber-50/80 border border-amber-200 px-3 py-2 rounded-lg">
+          <label class="inline-flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="reloj-replace-existing" checked class="rounded text-purple-600 border-slate-300">
+            <span class="font-medium text-amber-950">Reemplazar marcas de reloj previas en la quincena seleccionada (evita duplicados)</span>
+          </label>
+          <span id="reloj-punches-counter" class="font-mono font-bold text-amber-900">0 marcas leídas</span>
+        </div>
+
+        <!-- Contenedor de Previsualización de Resultados -->
+        <div id="reloj-preview-container" class="space-y-3 hidden">
+          <!-- Tarjetas de resumen por colaborador -->
+          <div class="border-t border-slate-200 pt-3">
+            <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-2">Resumen por Colaborador</h4>
+            <div id="reloj-summary-cards" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <!-- Renderizado dinámico -->
+            </div>
+          </div>
+
+          <!-- Tabla con el desglose día por día -->
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider">Detalle Diario de Marcas y Horas Extras</h4>
+              <span class="text-[11px] text-slate-500">Cálculo: Salida - 18:00:00</span>
+            </div>
+            <div class="overflow-x-auto max-h-64 border rounded-lg">
+              <table class="min-w-full text-xs">
+                <thead class="bg-slate-100 text-slate-700 font-bold border-b text-left sticky top-0">
+                  <tr>
+                    <th class="p-2">Colaborador Oficial</th>
+                    <th class="p-2 text-center">Fecha</th>
+                    <th class="p-2 text-center">Entrada Asumida</th>
+                    <th class="p-2 text-center">Salida Registrada</th>
+                    <th class="p-2 text-right">Horas Extras</th>
+                    <th class="p-2 text-right">Tarifa / h</th>
+                    <th class="p-2 text-right">Monto Total</th>
+                  </tr>
+                </thead>
+                <tbody id="reloj-preview-tbody" class="divide-y divide-slate-100 bg-white">
+                  <!-- Filas dinámicas -->
+                </tbody>
+                <tfoot class="bg-purple-50 font-bold text-purple-950 border-t sticky bottom-0">
+                  <tr>
+                    <td class="p-2" colspan="4">TOTAL QUINCENA A REGISTRAR:</td>
+                    <td id="reloj-total-hours" class="p-2 text-right font-mono">0.00 h</td>
+                    <td class="p-2"></td>
+                    <td id="reloj-total-amount" class="p-2 text-right font-mono">₡0,00</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 2: TABLA DE HOMOLOGACIÓN DE CÓDIGOS -->
+      <div id="reloj-sec-codigos" class="hidden space-y-3 overflow-y-auto pr-1">
+        <div class="p-3 bg-purple-50 rounded-lg border border-purple-200 text-xs text-purple-900">
+          <p class="font-bold">Homologación de Códigos de Reloj Marcador</p>
+          <p class="text-[11px] text-purple-700 mt-0.5">
+            Asigne a cada colaborador su <strong>Nº de Empleado</strong> en el reloj biométrico. Al cargar el archivo de marcas, el sistema asociará automáticamente las horas extras al colaborador correspondiente.
+          </p>
+        </div>
+        <div class="overflow-x-auto max-h-72 border rounded-lg">
+          <table class="min-w-full text-xs">
+            <thead class="bg-slate-100 text-slate-700 font-bold border-b text-left">
+              <tr>
+                <th class="p-2">Colaborador Oficial</th>
+                <th class="p-2">Cédula</th>
+                <th class="p-2">Puesto / Depto</th>
+                <th class="p-2 text-center" style="width: 140px;">Nº Reloj Marcador</th>
+                <th class="p-2" style="width: 150px;">Nombre en Reloj (Alias)</th>
+              </tr>
+            </thead>
+            <tbody id="reloj-codigos-tbody" class="divide-y divide-slate-100">
+              <!-- Renderizado dinámico de los colaboradores -->
+            </tbody>
+          </table>
+        </div>
+        <div class="flex justify-end gap-2 pt-2 border-t">
+          <button type="button" onclick="saveRelojCodigosFromTable()" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg shadow text-xs cursor-pointer">
+            Guardar Homologaciones
+          </button>
+        </div>
+      </div>
+
+      <!-- Pie del Modal con botones de acción -->
+      <div class="flex justify-between items-center pt-3 border-t">
+        <button type="button" onclick="closeModalRelojMarcador()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs cursor-pointer">
+          Cerrar
+        </button>
+        <button type="button" id="btn-confirm-reloj-import" onclick="confirmRelojImport()" disabled class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-lg shadow text-xs flex items-center gap-1.5 transition cursor-pointer">
+          <span>✓</span> <span>Confirmar y Cargar a Horas Extras</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
 
   <!-- ==================== MODAL: MAESTRO DE REBAJOS Y DEDUCCIONES ==================== -->
 
@@ -4329,7 +3893,16 @@
 
         </div>
 
-
+        <div class="grid grid-cols-2 gap-2 bg-purple-50/70 p-2.5 rounded-lg border border-purple-200">
+          <div>
+            <label class="block font-semibold text-purple-900 mb-1">⏰ Nº Reloj Marcador</label>
+            <input type="text" id="inp-codigo-reloj" placeholder="Ej: 1, 2, 4..." class="w-full border border-purple-300 rounded-lg p-2 font-mono font-bold text-purple-950 bg-white text-xs" title="Número de empleado en el reloj marcador biométrico para cálculo automático de horas extras">
+          </div>
+          <div>
+            <label class="block font-semibold text-purple-900 mb-1">Nombre en Reloj (Alias)</label>
+            <input type="text" id="inp-alias-reloj" placeholder="Ej: FELIPE, JONATHAN..." class="w-full border border-purple-300 rounded-lg p-2 uppercase text-purple-950 bg-white text-xs" title="Nombre con el que se identifica en el reporte del reloj marcador">
+          </div>
+        </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200">
 
@@ -5568,8 +5141,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     // =================================================================
     // ✉️ PARÁMETRO DE MODO DE ENVÍO DE CORREOS (PRODUCCIÓN ACTIVA)
     // =================================================================
-    let TEST_MODE_ENABLED = false;
-    let TEST_MODE_OVERRIDE_EMAIL = "";
+    var TEST_MODE_ENABLED = localStorage.getItem("hc_test_mode_enabled") === "true";
+    var TEST_MODE_OVERRIDE_EMAIL = localStorage.getItem("hc_test_mode_email") || "carlosssb1016@gmail.com";
+    if (typeof window !== "undefined") { window.TEST_MODE_ENABLED = TEST_MODE_ENABLED; window.TEST_MODE_OVERRIDE_EMAIL = TEST_MODE_OVERRIDE_EMAIL; }
 
     const DEFAULT_EMPLOYEES = [
   {
@@ -5666,7 +5240,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
     "estado": "activo",
-    "fechaSalida": null
+    "fechaSalida": null,
+    "codigoReloj": "4",
+    "aliasReloj": "SANTIAGO"
   },
   {
     "id": "emp-305090511",
@@ -5698,7 +5274,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
     "estado": "activo",
-    "fechaSalida": null
+    "fechaSalida": null,
+    "codigoReloj": "2",
+    "aliasReloj": "JONATHAN"
   },
   {
     "id": "emp-304610479",
@@ -5714,7 +5292,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     "horasExtraQuincena": 0,
     "diasDisfrutados": 0,
     "estado": "activo",
-    "fechaSalida": null
+    "fechaSalida": null,
+    "codigoReloj": "1",
+    "aliasReloj": "FELIPE"
   },
   {
     "id": "emp-304970937",
@@ -5843,6 +5423,113 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       if (!e.fechaSalida) e.fechaSalida = null;
     });
 
+    // Homologación oficial de Códigos de Reloj Marcador Biométrico:
+    // Nº 1: JOSE FELIPE UREÑA PRADO (FELIPE)
+    // Nº 2: JONATHAN VEGA JIMENEZ (JONATHAN)
+    // Nº 4: HEBER SANTIAGO NARANJO CAMPOS (SANTIAGO)
+    function initClockHomologations() {
+      let changed = false;
+      employees.forEach(emp => {
+        const nom = (emp.nombre || "").toUpperCase();
+        if (!emp.codigoReloj) {
+          if (nom.includes("FELIPE") || nom.includes("UREÑA") || nom.includes("URENA")) {
+            emp.codigoReloj = "1";
+            emp.aliasReloj = "FELIPE";
+            changed = true;
+          } else if (nom.includes("JONATHAN") || nom.includes("VEGA")) {
+            emp.codigoReloj = "2";
+            emp.aliasReloj = "JONATHAN";
+            changed = true;
+          } else if (nom.includes("SANTIAGO") || nom.includes("NARANJO")) {
+            emp.codigoReloj = "4";
+            emp.aliasReloj = "SANTIAGO";
+            changed = true;
+          }
+        }
+      });
+      if (changed) {
+        try { localStorage.setItem("hc_employees", JSON.stringify(employees)); } catch(e) {}
+      }
+    }
+    initClockHomologations();
+    initTestMode();
+
+    const SPANISH_MONTHS_MAP = {
+      "enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6,
+      "julio": 7, "agosto": 8, "setiembre": 9, "septiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12
+    };
+
+    function normalizeDateStr(dateStr) {
+      if (!dateStr) return null;
+      const str = String(dateStr).trim().split("T")[0];
+      if (!str) return null;
+      const isoMatch = str.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/);
+      if (isoMatch) {
+        const y = isoMatch[1];
+        const m = String(isoMatch[2]).padStart(2, "0");
+        const d = String(isoMatch[3]).padStart(2, "0");
+        return `${y}-${m}-${d}`;
+      }
+      const dmyMatch = str.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})/);
+      if (dmyMatch) {
+        const d = String(dmyMatch[1]).padStart(2, "0");
+        const m = String(dmyMatch[2]).padStart(2, "0");
+        const y = dmyMatch[3];
+        return `${y}-${m}-${d}`;
+      }
+      return null;
+    }
+
+    function parsePeriodDates(periodStr) {
+      if (!periodStr) return null;
+      const str = String(periodStr).trim();
+      const isFirst = str.startsWith("I ") || str.startsWith("I Quincena");
+      const isSecond = str.startsWith("II ") || str.startsWith("II Quincena");
+      if (!isFirst && !isSecond) return null;
+
+      const match = str.match(/(?:I|II)\s+Quincena\s+(?:de\s+)?([A-Za-záéíóúñ]+)(?:\s+del?)?\s+(\d{4})/i);
+      if (!match) return null;
+      const mName = match[1].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const monthNum = SPANISH_MONTHS_MAP[mName];
+      if (!monthNum) return null;
+      const year = parseInt(match[2], 10);
+      const lastDayOfMonth = new Date(year, monthNum, 0).getDate();
+
+      return {
+        isFirst: isFirst,
+        year: year,
+        month: monthNum,
+        startDay: isFirst ? 1 : 16,
+        endDay: isFirst ? 15 : lastDayOfMonth
+      };
+    }
+
+    // Determina con exactitud si un registro de horas extras pertenece a un período (por fecha o por período asignado)
+    function isExtraHourInPeriod(ex, periodStr) {
+      if (!ex) return false;
+      const targetPeriod = periodStr || (typeof currentPeriod !== "undefined" ? currentPeriod : "");
+      if (!targetPeriod) return false;
+
+      const pInfo = parsePeriodDates(targetPeriod);
+
+      // 1. Si el registro cuenta con fecha, la fecha determina con exactitud la quincena
+      const normFecha = normalizeDateStr(ex.fecha);
+      if (normFecha && pInfo) {
+        const parts = normFecha.split("-");
+        const y = parseInt(parts[0], 10);
+        const m = parseInt(parts[1], 10);
+        const d = parseInt(parts[2], 10);
+        return (y === pInfo.year && m === pInfo.month && d >= pInfo.startDay && d <= pInfo.endDay);
+      }
+
+      // 2. Si no tiene fecha válida, cotejar por el campo periodo asignado
+      if (ex.periodo) {
+        return String(ex.periodo).trim().toLowerCase() === String(targetPeriod).trim().toLowerCase();
+      }
+
+      return false;
+    }
+
     // Cálculo legal de Horas Extra y Días Adicionales
     // Horas normales (día completo) = 1.0x (Salario / 30 / 8 * 8 = Salario / 30)
     // Horas extraordinarias normales = tiempo y medio (1.5x)
@@ -5862,60 +5549,104 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       return hourlyRate * rate * Number(hours);
     }
 
-    function getEmployeeExtraMonto(emp) {
+    // Obtener desglose financiero completo de horas extras y días adicionales de un empleado para un período específico
+    function getEmployeeExtraDataForPeriod(emp, periodStr) {
+      const targetPeriod = periodStr || (typeof currentPeriod !== "undefined" ? currentPeriod : "");
+      let horasExtraQuincena = 0;
+      let montoExtraQuincena = 0;
+      let diasCompletosQuincena = 0;
+      let montoDiasCompletos = 0;
+      let horasExtraOrdinarias = 0;
+      let montoHorasExtraOrdinarias = 0;
+      let horasExtraFeriado = 0;
+      let montoHorasExtraFeriado = 0;
+
+      if (!emp) {
+        return {
+          horasExtraQuincena,
+          montoExtraQuincena,
+          diasCompletosQuincena,
+          montoDiasCompletos,
+          horasExtraOrdinarias,
+          montoHorasExtraOrdinarias,
+          horasExtraFeriado,
+          montoHorasExtraFeriado
+        };
+      }
+
+      if (typeof extraHoursHistory !== "undefined" && Array.isArray(extraHoursHistory)) {
+        extraHoursHistory.forEach(ex => {
+          const matchEmp = (
+            (ex.employeeId && String(ex.employeeId) === String(emp.id)) ||
+            (ex.cedula && emp.cedula && String(ex.cedula).trim() === String(emp.cedula).trim()) ||
+            (ex.nombre && emp.nombre && ex.nombre.trim().toLowerCase() === emp.nombre.trim().toLowerCase())
+          );
+          if (!matchEmp) return;
+
+          if (isExtraHourInPeriod(ex, targetPeriod)) {
+            const isDia = !!(ex.isDiaCompleto || ex.tipo === "dia_completo");
+            const isHol = !!(ex.isHoliday || ex.tipo === "extra_feriado");
+            const hrs = Number(ex.horas || (isDia ? 8 : 0));
+            const amt = (typeof ex.montoCalculado === "number" && ex.montoCalculado > 0)
+              ? ex.montoCalculado
+              : calculateOvertimeAmount(emp, hrs, isHol, isDia, ex.tarifaHora);
+
+            horasExtraQuincena += hrs;
+            montoExtraQuincena += amt;
+
+            if (isDia) {
+              diasCompletosQuincena += (hrs / 8 >= 1 ? Math.round(hrs / 8) : 1);
+              montoDiasCompletos += amt;
+            } else if (isHol) {
+              horasExtraFeriado += hrs;
+              montoHorasExtraFeriado += amt;
+            } else {
+              horasExtraOrdinarias += hrs;
+              montoHorasExtraOrdinarias += amt;
+            }
+          }
+        });
+      }
+
+      return {
+        horasExtraQuincena: Math.round(horasExtraQuincena * 100) / 100,
+        montoExtraQuincena: Math.round(montoExtraQuincena * 100) / 100,
+        diasCompletosQuincena: Math.round(diasCompletosQuincena * 100) / 100,
+        montoDiasCompletos: Math.round(montoDiasCompletos * 100) / 100,
+        horasExtraOrdinarias: Math.round(horasExtraOrdinarias * 100) / 100,
+        montoHorasExtraOrdinarias: Math.round(montoHorasExtraOrdinarias * 100) / 100,
+        horasExtraFeriado: Math.round(horasExtraFeriado * 100) / 100,
+        montoHorasExtraFeriado: Math.round(montoHorasExtraFeriado * 100) / 100
+      };
+    }
+
+    function getEmployeeExtraMonto(emp, periodStr) {
       if (!emp) return 0;
-      if (typeof emp.montoExtraQuincena === "number") {
+      const targetPeriod = periodStr || (typeof currentPeriod !== "undefined" ? currentPeriod : "");
+      if (targetPeriod && typeof currentPeriod !== "undefined" && targetPeriod === currentPeriod && typeof emp.montoExtraQuincena === "number") {
         return emp.montoExtraQuincena;
       }
-      return calculateOvertimeAmount(emp, emp.horasExtraQuincena || 0);
+      const data = getEmployeeExtraDataForPeriod(emp, targetPeriod);
+      return data.montoExtraQuincena;
     }
 
-    // Recalcular y sincronizar horas extra acumuladas por colaborador desde el historial
-    function recalcEmployeeExtraHours() {
+    // Recalcular y sincronizar horas extra acumuladas por colaborador desde el historial filtrando por el período activo
+    function recalcEmployeeExtraHours(targetPeriod) {
+      const activePeriod = targetPeriod || (typeof currentPeriod !== "undefined" ? currentPeriod : "");
       employees.forEach(emp => {
-        emp.horasExtraQuincena = 0;
-        emp.montoExtraQuincena = 0;
-        emp.diasCompletosQuincena = 0;
-        emp.montoDiasCompletos = 0;
-        emp.horasExtraOrdinarias = 0;
-        emp.montoHorasExtraOrdinarias = 0;
-        emp.horasExtraFeriado = 0;
-        emp.montoHorasExtraFeriado = 0;
-      });
-      extraHoursHistory.forEach(ex => {
-        const emp = employees.find(e => e.id === ex.employeeId || (ex.cedula && e.cedula === ex.cedula) || (ex.nombre && e.nombre.toLowerCase() === ex.nombre.toLowerCase()));
-        if (emp) {
-          ex.employeeId = emp.id;
-          ex.cedula = emp.cedula;
-          ex.nombre = emp.nombre;
-          ex.departamento = emp.departamento;
-
-          const isDia = !!(ex.isDiaCompleto || ex.tipo === "dia_completo");
-          const isHol = !!(ex.isHoliday || ex.tipo === "extra_feriado");
-          const hrs = Number(ex.horas || (isDia ? 8 : 0));
-          const amt = (typeof ex.montoCalculado === "number" && ex.montoCalculado > 0)
-            ? ex.montoCalculado
-            : (emp ? calculateOvertimeAmount(emp, hrs, isHol, isDia, ex.tarifaHora) : 0);
-          ex.montoCalculado = amt;
-
-          emp.horasExtraQuincena = (emp.horasExtraQuincena || 0) + hrs;
-          emp.montoExtraQuincena = (emp.montoExtraQuincena || 0) + amt;
-
-          if (isDia) {
-            emp.diasCompletosQuincena = (emp.diasCompletosQuincena || 0) + (hrs / 8 || 1);
-            emp.montoDiasCompletos = (emp.montoDiasCompletos || 0) + amt;
-          } else if (isHol) {
-            emp.horasExtraFeriado = (emp.horasExtraFeriado || 0) + hrs;
-            emp.montoHorasExtraFeriado = (emp.montoHorasExtraFeriado || 0) + amt;
-          } else {
-            emp.horasExtraOrdinarias = (emp.horasExtraOrdinarias || 0) + hrs;
-            emp.montoHorasExtraOrdinarias = (emp.montoHorasExtraOrdinarias || 0) + amt;
-          }
-        }
+        const data = getEmployeeExtraDataForPeriod(emp, activePeriod);
+        emp.horasExtraQuincena = data.horasExtraQuincena;
+        emp.montoExtraQuincena = data.montoExtraQuincena;
+        emp.diasCompletosQuincena = data.diasCompletosQuincena;
+        emp.montoDiasCompletos = data.montoDiasCompletos;
+        emp.horasExtraOrdinarias = data.horasExtraOrdinarias;
+        emp.montoHorasExtraOrdinarias = data.montoHorasExtraOrdinarias;
+        emp.horasExtraFeriado = data.horasExtraFeriado;
+        emp.montoHorasExtraFeriado = data.montoHorasExtraFeriado;
       });
     }
 
-    recalcEmployeeExtraHours();
+    recalcEmployeeExtraHours(currentPeriod);
 
     let employeeFilterStatus = "activos"; // 'activos' | 'inactivos' | 'todos'
 
@@ -6056,54 +5787,6 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     // se le liquidan los días efectivamente laborados (del 9 al 15 = 7 días, contando el día
     // de ingreso y el día de cierre quincenal):
     // Fórmula legal: (Salario Mensual ÷ 30) × Días Laborados en la Quincena.
-    const SPANISH_MONTHS_MAP = {
-      "enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6,
-      "julio": 7, "agosto": 8, "setiembre": 9, "septiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12
-    };
-
-    function normalizeDateStr(dateStr) {
-      if (!dateStr) return null;
-      const str = String(dateStr).trim().split("T")[0];
-      if (!str) return null;
-      const isoMatch = str.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/);
-      if (isoMatch) {
-        const y = isoMatch[1];
-        const m = String(isoMatch[2]).padStart(2, "0");
-        const d = String(isoMatch[3]).padStart(2, "0");
-        return `${y}-${m}-${d}`;
-      }
-      const dmyMatch = str.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})/);
-      if (dmyMatch) {
-        const d = String(dmyMatch[1]).padStart(2, "0");
-        const m = String(dmyMatch[2]).padStart(2, "0");
-        const y = dmyMatch[3];
-        return `${y}-${m}-${d}`;
-      }
-      return null;
-    }
-
-    function parsePeriodDates(periodStr) {
-      if (!periodStr) return null;
-      const str = String(periodStr).trim();
-      const isFirst = str.startsWith("I ") || str.startsWith("I Quincena");
-      const isSecond = str.startsWith("II ") || str.startsWith("II Quincena");
-      if (!isFirst && !isSecond) return null;
-
-      const match = str.match(/(?:I|II)\s+Quincena\s+(?:de\s+)?([A-Za-záéíóúñ]+)(?:\s+del?)?\s+(\d{4})/i);
-      if (!match) return null;
-      const mName = match[1].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      const monthNum = SPANISH_MONTHS_MAP[mName];
-      if (!monthNum) return null;
-      const year = parseInt(match[2], 10);
-
-      return {
-        isFirst: isFirst,
-        year: year,
-        month: monthNum,
-        startDay: isFirst ? 1 : 16,
-        endDay: isFirst ? 15 : 30
-      };
-    }
 
     function getEmployeeQuincenaDays(emp, periodStr) {
       if (!emp) return { diasTrabajados: 15, esProporcional: false, diasQuincena: 15 };
@@ -6304,17 +5987,30 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const emp = employees.find(e => e.id === empId);
       if (!emp) return false;
 
+      const cleanEmpCed = emp.cedula ? String(emp.cedula).replace(/\D/g, "") : "";
+      const cleanEmpNom = emp.nombre ? emp.nombre.trim().toUpperCase() : "";
+
       const qKey = QUINCENA_MAP[period];
       if (qKey) {
         const salData = getControlSalariosData();
-        const salRow = salData.find(s => s.nombre === (emp.alias || emp.nombre.split(" ")[0].toUpperCase()) || s.nombre === emp.nombre);
+        const salRow = salData.find(s => {
+          const sCed = s.cedula ? String(s.cedula).replace(/\D/g, "") : "";
+          if (cleanEmpCed && sCed && cleanEmpCed === sCed) return true;
+          const sNom = s.nombre ? s.nombre.trim().toUpperCase() : "";
+          return sNom === cleanEmpNom || (emp.alias && sNom === emp.alias.trim().toUpperCase());
+        });
         if (salRow && salRow[qKey] !== null && salRow[qKey] !== undefined && salRow[qKey] !== "" && !isNaN(salRow[qKey]) && Number(salRow[qKey]) > 0) {
           return true;
         }
       }
 
       const history = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
-      return history.some(h => (h.cedula === emp.cedula || h.nombre === emp.nombre) && h.periodo === period);
+      return history.some(h => {
+        const hCed = h.cedula ? String(h.cedula).replace(/\D/g, "") : "";
+        const hNom = h.nombre ? h.nombre.trim().toUpperCase() : "";
+        const matchEmp = (cleanEmpCed && hCed && cleanEmpCed === hCed) || (hNom && cleanEmpNom && hNom === cleanEmpNom);
+        return matchEmp && h.periodo === period;
+      });
     }
 
     // Gestionar clic en botón de Salario Generado (permite anular/deshacer o recalcular)
@@ -6472,34 +6168,84 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     }
 
     // Deshacer/anular la generación de salario de un colaborador para un período
-    function unmarkSalaryGenerated(empId, period) {
+    function unmarkSalaryGenerated(empId, period, isBatch = false) {
       const emp = employees.find(e => e.id === empId);
       if (!emp) return;
 
+      const cleanEmpCed = emp.cedula ? String(emp.cedula).replace(/\D/g, "") : "";
+      const cleanEmpNom = emp.nombre ? emp.nombre.trim().toUpperCase() : "";
+
       // 1. Quitar del historial de nómina local
       let history = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
-      history = history.filter(h => !( (h.cedula === emp.cedula || h.nombre === emp.nombre) && h.periodo === period ));
+      history = history.filter(h => {
+        const hCed = h.cedula ? String(h.cedula).replace(/\D/g, "") : "";
+        const hNom = h.nombre ? h.nombre.trim().toUpperCase() : "";
+        const matchEmp = (cleanEmpCed && hCed && cleanEmpCed === hCed) || (hNom && cleanEmpNom && hNom === cleanEmpNom);
+        return !(matchEmp && h.periodo === period);
+      });
       localStorage.setItem("hc_payroll_history", JSON.stringify(history));
 
       // 2. Limpiar columna en Control de Salarios Líquidos 2026
       const qKey = QUINCENA_MAP[period];
       if (qKey) {
         let salData = getControlSalariosData();
-        let salRow = salData.find(s => s.nombre === (emp.alias || emp.nombre.split(" ")[0].toUpperCase()) || s.nombre === emp.nombre);
+        let salRow = salData.find(s => {
+          const sCed = s.cedula ? String(s.cedula).replace(/\D/g, "") : "";
+          if (cleanEmpCed && sCed && cleanEmpCed === sCed) return true;
+          const sNom = s.nombre ? s.nombre.trim().toUpperCase() : "";
+          return sNom === cleanEmpNom || (emp.alias && sNom === emp.alias.trim().toUpperCase());
+        });
         if (salRow) {
-          salRow[qKey] = 0;
+          salRow[qKey] = null;
           localStorage.setItem("hc_salarios_2026", JSON.stringify(salData));
         }
       }
 
       emp.emailSent = false;
       unmarkGmailSent(emp.cedula, period);
+      
+      if (!isBatch) {
+        saveData();
+        renderPayrollTable();
+        renderAguinaldoModule();
+        showToast(`Salario de ${emp.nombre} para ${period} devuelto a estado Pendiente.`);
+
+        // Sincronizar actualización a Google Sheets
+        if (sheetsApiUrl) {
+          syncAllToSheets();
+        }
+      }
+    }
+
+    // Anular/deshacer la generación de toda la quincena actual para todos los colaboradores
+    async function unmarkAllSalariesCurrentPeriod() {
+      const activeEmployees = employees.filter(e => e.estado !== "inactivo");
+      if (activeEmployees.length === 0) return;
+
+      const confirmed = await uiConfirm(
+        `¿Desea anular la generación de salarios de TODOS los colaboradores para la ${currentPeriod}?\n\n` +
+        `• Todos los estados volverán a "💰 Generar".\n` +
+        `• Se limpiará el cierre de esta quincena en el historial y se sincronizará con Google Sheets.`,
+        {
+          title: "Deshacer Generación de Quincena",
+          confirmText: "Sí, Deshacer Toda la Quincena",
+          cancelText: "Cancelar",
+          danger: true
+        }
+      );
+
+      if (!confirmed) return;
+
+      activeEmployees.forEach(emp => {
+        unmarkSalaryGenerated(emp.id, currentPeriod, true);
+      });
+
       saveData();
       renderPayrollTable();
       renderAguinaldoModule();
-      showToast(`Salario de ${emp.nombre} para ${period} devuelto a estado Pendiente.`);
+      renderAccountingModule();
+      showToast(`Generación de la ${currentPeriod} anulada para todos los colaboradores.`);
 
-      // Sincronizar actualización a Google Sheets
       if (sheetsApiUrl) {
         syncAllToSheets();
       }
@@ -6540,7 +6286,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
       const baseQuincenal = getEmployeeBaseSalary(emp, currentPeriod);
-      const montoExtra = getEmployeeExtraMonto(emp);
+      const extraData = getEmployeeExtraDataForPeriod(emp, currentPeriod);
+      const montoExtra = extraData.montoExtraQuincena;
       const diasFeriados = emp.feriadosLaborados || 0;
       const montoFeriados = calculateHolidayAmount(emp, diasFeriados);
       const totalDevengado = baseQuincenal + montoExtra + montoFeriados;
@@ -6552,24 +6299,42 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       const qKey = QUINCENA_MAP[currentPeriod];
 
-      // 1. Almacenar en Control de Salarios Líquidos 2026
+      // 1. Almacenar en Control de Salarios Líquidos 2026 (con cédula y nombre completo oficial)
       if (qKey) {
         let salData = getControlSalariosData();
-        let salRow = salData.find(s => s.nombre === (emp.alias || emp.nombre.split(" ")[0].toUpperCase()) || s.nombre === emp.nombre);
+        const cleanEmpCed = emp.cedula ? String(emp.cedula).replace(/\D/g, "") : "";
+        const cleanEmpNom = emp.nombre ? emp.nombre.trim().toUpperCase() : "";
+        let salRow = salData.find(s => {
+          const sCed = s.cedula ? String(s.cedula).replace(/\D/g, "") : "";
+          if (cleanEmpCed && sCed && cleanEmpCed === sCed) return true;
+          const sNom = s.nombre ? s.nombre.trim().toUpperCase() : "";
+          return sNom === cleanEmpNom || (emp.alias && sNom === emp.alias.trim().toUpperCase());
+        });
         if (!salRow) {
           salRow = {
-            nombre: emp.alias || emp.nombre.split(" ")[0].toUpperCase(),
-            puesto: emp.puesto
+            nombre: emp.nombre,
+            cedula: emp.cedula || "",
+            puesto: emp.puesto || ""
           };
           salData.push(salRow);
         }
+        salRow.nombre = emp.nombre;
+        if (emp.cedula && !salRow.cedula) salRow.cedula = emp.cedula;
+        if (emp.puesto && !salRow.puesto) salRow.puesto = emp.puesto;
         salRow[qKey] = Number(neto.toFixed(2));
         localStorage.setItem("hc_salarios_2026", JSON.stringify(salData));
       }
 
       // 2. Almacenar en Cierres de Planilla (hc_payroll_history)
       let history = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
-      history = history.filter(h => !( (h.cedula === emp.cedula || h.nombre === emp.nombre) && h.periodo === currentPeriod ));
+      const cleanEmpCed = emp.cedula ? String(emp.cedula).replace(/\D/g, "") : "";
+      const cleanEmpNom = emp.nombre ? emp.nombre.trim().toUpperCase() : "";
+      history = history.filter(h => {
+        const hCed = h.cedula ? String(h.cedula).replace(/\D/g, "") : "";
+        const hNom = h.nombre ? h.nombre.trim().toUpperCase() : "";
+        const matchEmp = (cleanEmpCed && hCed && cleanEmpCed === hCed) || (hNom && cleanEmpNom && hNom === cleanEmpNom);
+        return !(matchEmp && h.periodo === currentPeriod);
+      });
 
       const payRecord = {
         id: `pay-${qKey || 'q'}-${emp.id}`,
@@ -6584,10 +6349,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         diasTrabajadosQuincena: qDays.diasTrabajados,
         esSalarioProporcional: qDays.esProporcional,
         horasExtraMonto: montoExtra,
-        diasCompletosCant: emp.diasCompletosQuincena || 0,
-        diasCompletosMonto: emp.montoDiasCompletos || 0,
-        horasExtraOrdinariasMonto: (emp.montoHorasExtraOrdinarias || 0) + (emp.montoHorasExtraFeriado || 0),
-        horasExtraCount: (emp.horasExtraOrdinarias || 0) + (emp.horasExtraFeriado || 0),
+        diasCompletosCant: extraData.diasCompletosQuincena,
+        diasCompletosMonto: extraData.montoDiasCompletos,
+        horasExtraOrdinariasMonto: extraData.montoHorasExtraOrdinarias + extraData.montoHorasExtraFeriado,
+        horasExtraCount: extraData.horasExtraOrdinarias + extraData.horasExtraFeriado,
         feriadosMonto: montoFeriados,
         totalDevengado: totalDevengado,
         ccssObrero: ccss,
@@ -6619,6 +6384,31 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         return;
       }
 
+      // Si ya existen colaboradores generados en el período actual, ofrecer recalcular o anular
+      const alreadyGeneratedCount = activeEmployees.filter(emp => isSalaryGeneratedForPeriod(emp.id, currentPeriod)).length;
+      if (alreadyGeneratedCount > 0) {
+        const option = await uiConfirm(
+          `En la ${currentPeriod}, ya figuran salarios generados (${alreadyGeneratedCount} de ${activeEmployees.length} colaboradores).\n\n` +
+          `• Elija "Recalcular y Actualizar Todo" para actualizar todos los cierres con los cálculos actuales.\n` +
+          `• Elija "Deshacer Generación" para revertir la quincena completa a estado Pendiente (💰 Generar).`,
+          {
+            title: "Planilla Quincenal en Gestión",
+            confirmText: "Recalcular y Actualizar Todo",
+            cancelText: "Deshacer Generación (Volver a Pendiente)"
+          }
+        );
+        if (!option) {
+          activeEmployees.forEach(emp => unmarkSalaryGenerated(emp.id, currentPeriod, true));
+          saveData();
+          renderPayrollTable();
+          renderAguinaldoModule();
+          renderAccountingModule();
+          showToast(`Generación de la ${currentPeriod} anulada para todos los colaboradores.`);
+          if (sheetsApiUrl) syncAllToSheets();
+          return;
+        }
+      }
+
       const payDate = getQuincenaPayDate(currentPeriod);
       const nextInfo = getNextQuincenaInfo(currentPeriod);
 
@@ -6639,7 +6429,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       const alertMsg = `🎉 ¡Se generaron y registraron exitosamente los salarios de ${count} colaboradores para la ${currentPeriod}!\n\n` +
         `• Fecha oficial de pago registrada: ${payDate}\n` +
-        `• Almacenado en: Control de Salarios Líquidos 2026 e Historial de Nómina\n\n` +
+        `• Almacenado en: Control de Salarios Líquidos 2026 e Historial de Nómina (Planilla_Cierres)\n\n` +
         (nextInfo.nextPeriod 
           ? `📅 PRÓXIMA QUINCENA A PAGAR: ${nextInfo.nextPeriod}\n• Fecha de pago: ${nextInfo.payDate}\n\n¿Desea avanzar ahora el sistema a la ${nextInfo.nextPeriod}?`
           : `Se ha completado el calendario anual de planilla 2026.`);
@@ -6673,9 +6463,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     function changePeriod(newPeriod) {
       currentPeriod = newPeriod;
       localStorage.setItem("hc_current_period", newPeriod);
+      recalcEmployeeExtraHours(currentPeriod);
       updateQuincenaControlHeader();
       renderHolidayAlert();
       renderPayrollTable();
+      renderExtrasModule();
       renderAccountingModule();
       showToast(`Período actualizado: ${newPeriod}`);
     }
@@ -7271,15 +7063,40 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           if (Array.isArray(parsed)) {
             storedList = parsed;
             let payCorrected = false;
-            storedList.forEach(p => {
-              if (p.periodo && p.periodo.toLowerCase().includes("noviembre") && (p.periodo.toLowerCase().includes("i quincena") || p.periodo.toLowerCase().includes("1q"))) {
-                p.periodo = "I Quincena Octubre 2026";
-                p.fechaPago = "2026-10-15";
-                p.fechaRegistro = "2026-10-15";
-                if (p.id) p.id = p.id.replace("noviembre_iq", "octubre_iq");
-                payCorrected = true;
-              }
-            });
+            if (typeof employees !== "undefined" && Array.isArray(employees)) {
+              storedList.forEach(p => {
+                // Si algún registro de noviembre quedó incorrectamente renombrado a octubre por versiones previas, restaurarlo
+                if (p.periodo && p.periodo === "I Quincena Octubre 2026" && p.fechaRegistro && p.fechaRegistro.startsWith("2026-11")) {
+                  p.periodo = "I Quincena Noviembre 2026";
+                  p.fechaPago = "2026-11-15";
+                  if (p.id) p.id = p.id.replace("octubre_iq", "noviembre_iq");
+                  payCorrected = true;
+                }
+                const empMatch = employees.find(e => (
+                  (e.cedula && p.cedula && String(e.cedula).replace(/\D/g, "") === String(p.cedula).replace(/\D/g, "")) ||
+                  (e.nombre && p.nombre && e.nombre.trim().toUpperCase() === p.nombre.trim().toUpperCase())
+                ));
+                if (empMatch && p.periodo) {
+                  const qDays = getEmployeeQuincenaDays(empMatch, p.periodo);
+                  if (qDays && qDays.esProporcional) {
+                    const correctBase = getEmployeeBaseSalary(empMatch, p.periodo);
+                    if (Math.abs(Number(p.salarioQuincenal || 0) - correctBase) > 1) {
+                      p.salarioQuincenal = correctBase;
+                      p.diasTrabajadosQuincena = qDays.diasTrabajados;
+                      p.esSalarioProporcional = true;
+                      const extraM = Number(p.horasExtraMonto || 0);
+                      const ferM = Number(p.feriadosMonto || 0);
+                      p.totalDevengado = correctBase + extraM + ferM;
+                      p.ccssObrero = p.totalDevengado * CCSS_PERCENTAGE;
+                      const rebM = Number(p.otrosRebajosMonto || 0);
+                      p.totalDeducciones = p.ccssObrero + rebM;
+                      p.salarioNeto = Number((p.totalDevengado - p.totalDeducciones).toFixed(2));
+                      payCorrected = true;
+                    }
+                  }
+                }
+              });
+            }
             if (payCorrected) {
               localStorage.setItem("hc_payroll_history", JSON.stringify(storedList));
             }
@@ -7365,15 +7182,36 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         }
       });
 
-      // 3. Normalizar quincenas y asegurar que no queden desfasadas
       const finalResult = Array.from(masterMap.values());
-      finalResult.forEach(row => {
-        if (row.noviembre_iq !== null && row.noviembre_iq !== undefined && row.noviembre_iq !== "" && 
-           (row.octubre_iq === null || row.octubre_iq === undefined || row.octubre_iq === "")) {
-          row.octubre_iq = row.noviembre_iq;
-          row.noviembre_iq = null;
-        }
-      });
+      // Asegurar que colaboradores de nuevo ingreso en períodos proporcionales mantengan su neto correcto
+      if (typeof employees !== "undefined" && Array.isArray(employees)) {
+        employees.forEach(emp => {
+          const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
+          if (qDays && qDays.esProporcional) {
+            const qKey = QUINCENA_MAP[currentPeriod];
+            if (qKey) {
+              const cleanEmpCed = emp.cedula ? String(emp.cedula).replace(/\D/g, "") : "";
+              const cleanEmpNom = emp.nombre ? emp.nombre.trim().toUpperCase() : "";
+              const targetRow = finalResult.find(r => {
+                const rCed = r.cedula ? String(r.cedula).replace(/\D/g, "") : "";
+                if (cleanEmpCed && rCed && cleanEmpCed === rCed) return true;
+                const rNom = r.nombre ? r.nombre.trim().toUpperCase() : "";
+                return rNom === cleanEmpNom || (emp.alias && rNom === emp.alias.trim().toUpperCase());
+              });
+              if (targetRow && targetRow[qKey] !== null && targetRow[qKey] !== undefined && Number(targetRow[qKey]) > 0) {
+                const correctBase = getEmployeeBaseSalary(emp, currentPeriod);
+                const extraM = getEmployeeExtraMonto(emp);
+                const ferM = calculateHolidayAmount(emp, emp.feriadosLaborados || 0);
+                const dev = correctBase + extraM + ferM;
+                const ccss = dev * CCSS_PERCENTAGE;
+                const reb = getEmployeeRebajos(emp.id, currentPeriod);
+                const net = Number((dev - (ccss + (reb ? reb.total : 0))).toFixed(2));
+                targetRow[qKey] = net;
+              }
+            }
+          }
+        });
+      }
 
       // Limpiar y guardar inmediatamente en localStorage sin duplicados
       try {
@@ -7649,6 +7487,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       if (!emp || !period) return null;
       const salarioMensual = Number(emp.salarioMensual || 0);
       let baseQuincenal = getEmployeeBaseSalary(emp, period);
+      const qDays = getEmployeeQuincenaDays(emp, period);
+      let diasTrabajados = qDays.diasTrabajados;
+      let esSalarioProporcional = qDays.esProporcional;
       let montoExtra = 0;
       let montoFeriados = 0;
       let ccss = 0;
@@ -7662,46 +7503,35 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       // 1. Revisar cierres de nómina archivados
       try {
         const history = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
-        const payHist = history.find(h => (
-          (h.cedula && emp.cedula && String(h.cedula).trim() === String(emp.cedula).trim()) ||
-          (h.nombre && emp.nombre && h.nombre.trim().toLowerCase() === emp.nombre.trim().toLowerCase())
-        ) && String(h.periodo || '').trim().toLowerCase() === String(period || '').trim().toLowerCase());
+        const cleanEmpCed = emp.cedula ? String(emp.cedula).replace(/\D/g, "") : "";
+        const cleanEmpNom = emp.nombre ? emp.nombre.trim().toUpperCase() : "";
+        const payHist = history.find(h => {
+          const hCed = h.cedula ? String(h.cedula).replace(/\D/g, "") : "";
+          const hNom = h.nombre ? h.nombre.trim().toUpperCase() : "";
+          const matchEmp = (cleanEmpCed && hCed && cleanEmpCed === hCed) || (hNom && cleanEmpNom && hNom === cleanEmpNom);
+          return matchEmp && String(h.periodo || '').trim().toLowerCase() === String(period || '').trim().toLowerCase();
+        });
 
-        let montoDiasCompletos = 0;
-        let cantDiasCompletos = 0;
-        let montoHorasExtra = 0;
-        let horasExtraCount = 0;
-
-        if (typeof extraHoursHistory !== "undefined" && Array.isArray(extraHoursHistory)) {
-          extraHoursHistory.forEach(ex => {
-            const matchEmp = (
-              (ex.employeeId && String(ex.employeeId) === String(emp.id)) ||
-              (ex.cedula && emp.cedula && String(ex.cedula).trim() === String(emp.cedula).trim()) ||
-              (ex.nombre && emp.nombre && ex.nombre.trim().toLowerCase() === emp.nombre.trim().toLowerCase())
-            );
-            const matchPeriod = (
-              !ex.periodo ||
-              String(ex.periodo).trim().toLowerCase() === String(period).trim().toLowerCase() ||
-              (period === currentPeriod && !ex.periodo)
-            );
-            if (matchEmp && matchPeriod) {
-              const isDia = !!(ex.isDiaCompleto || ex.tipo === "dia_completo");
-              const hrs = Number(ex.horas || (isDia ? 8 : 0));
-              const amt = Number(ex.montoCalculado || calculateOvertimeAmount(emp, hrs, !!(ex.isHoliday || ex.tipo === "extra_feriado"), isDia, ex.tarifaHora));
-              if (isDia) {
-                cantDiasCompletos += (hrs / 8 >= 1 ? Math.round(hrs / 8) : 1);
-                montoDiasCompletos += amt;
-              } else {
-                horasExtraCount += hrs;
-                montoHorasExtra += amt;
-              }
-            }
-          });
-        }
+        const extraData = getEmployeeExtraDataForPeriod(emp, period);
+        let montoDiasCompletos = extraData.montoDiasCompletos;
+        let cantDiasCompletos = extraData.diasCompletosQuincena;
+        let montoHorasExtra = extraData.montoHorasExtraOrdinarias + extraData.montoHorasExtraFeriado;
+        let horasExtraCount = extraData.horasExtraOrdinarias + extraData.horasExtraFeriado;
+        montoExtra = extraData.montoExtraQuincena;
 
         if (payHist && (Number(payHist.totalDevengado || 0) > 0 || Number(payHist.salarioNeto || 0) > 0)) {
-          baseQuincenal = Number(payHist.salarioQuincenal || baseQuincenal);
-          montoExtra = Number(payHist.horasExtraMonto || 0);
+          if (qDays.esProporcional) {
+            baseQuincenal = getEmployeeBaseSalary(emp, period);
+            diasTrabajados = qDays.diasTrabajados;
+            esSalarioProporcional = true;
+          } else {
+            baseQuincenal = Number(payHist.salarioQuincenal || baseQuincenal);
+            diasTrabajados = payHist.diasTrabajadosQuincena || 15;
+            esSalarioProporcional = !!payHist.esSalarioProporcional;
+          }
+          if (typeof payHist.horasExtraMonto === "number" && payHist.horasExtraMonto > 0) {
+            montoExtra = payHist.horasExtraMonto;
+          }
           if (typeof payHist.diasCompletosMonto === "number" && payHist.diasCompletosMonto > 0) {
             montoDiasCompletos = payHist.diasCompletosMonto;
             cantDiasCompletos = payHist.diasCompletosCant || Math.round(montoDiasCompletos / (emp.salarioMensual / 30)) || 1;
@@ -7719,26 +7549,60 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           const rebInfo = getEmployeeRebajos(emp.id, period);
           rebajosList = (rebInfo && rebInfo.list) || [];
           isRegistered = true;
-          return { baseQuincenal, montoExtra, montoHorasExtra, horasExtraCount, montoDiasCompletos, cantDiasCompletos, montoFeriados, totalDevengado, ccss, otrosRebajosMonto, totalDeducciones, neto, rebajosList, isRegistered };
+          return { baseQuincenal, diasTrabajados, esSalarioProporcional, montoExtra, montoHorasExtra, horasExtraCount, montoDiasCompletos, cantDiasCompletos, montoFeriados, totalDevengado, ccss, otrosRebajosMonto, totalDeducciones, neto, rebajosList, isRegistered };
         }
       } catch (e) {}
 
       // 2. Revisar Control de Salarios 2026
       const qKey = QUINCENA_MAP[period];
       if (qKey) {
-        const salControl = getControlSalariosData().find(s => 
-          s.nombre === (emp.alias || emp.nombre.split(" ")[0].toUpperCase()) ||
-          s.nombre.toUpperCase() === emp.nombre.toUpperCase()
-        );
+        const cleanEmpCed = emp.cedula ? String(emp.cedula).replace(/\D/g, "") : "";
+        const cleanEmpNom = emp.nombre ? emp.nombre.trim().toUpperCase() : "";
+        const salControl = getControlSalariosData().find(s => {
+          const sCed = s.cedula ? String(s.cedula).replace(/\D/g, "") : "";
+          if (cleanEmpCed && sCed && cleanEmpCed === sCed) return true;
+          const sNom = s.nombre ? s.nombre.trim().toUpperCase() : "";
+          return sNom === cleanEmpNom || (emp.alias && sNom === emp.alias.trim().toUpperCase());
+        });
         if (salControl && salControl[qKey] !== null && salControl[qKey] !== undefined && salControl[qKey] !== "" && !isNaN(salControl[qKey]) && Number(salControl[qKey]) > 0) {
           neto = Number(salControl[qKey]);
-          totalDevengado = neto / (1 - CCSS_PERCENTAGE);
-          baseQuincenal = totalDevengado;
-          ccss = totalDevengado * CCSS_PERCENTAGE;
+          totalDevengado = Number((neto / (1 - CCSS_PERCENTAGE)).toFixed(2));
+          if (qDays.esProporcional) {
+            baseQuincenal = getEmployeeBaseSalary(emp, period);
+            diasTrabajados = qDays.diasTrabajados;
+            esSalarioProporcional = true;
+          } else {
+            baseQuincenal = totalDevengado;
+          }
+          ccss = Number((totalDevengado * CCSS_PERCENTAGE).toFixed(2));
           totalDeducciones = ccss;
           isRegistered = true;
-          return { baseQuincenal, montoExtra, montoFeriados, totalDevengado, ccss, otrosRebajosMonto, totalDeducciones, neto, rebajosList, isRegistered };
+          return { baseQuincenal, diasTrabajados, esSalarioProporcional, montoExtra, montoHorasExtra, horasExtraCount, montoDiasCompletos, cantDiasCompletos, montoFeriados, totalDevengado, ccss, otrosRebajosMonto, totalDeducciones, neto, rebajosList, isRegistered };
         }
+      }
+
+      // 3. Si es el período actual y el salario ya está generado o marcado
+      if (period === currentPeriod && isSalaryGeneratedForPeriod(emp.id, currentPeriod)) {
+        baseQuincenal = getEmployeeBaseSalary(emp, currentPeriod);
+        diasTrabajados = qDays.diasTrabajados;
+        esSalarioProporcional = qDays.esProporcional;
+        const extraData = getEmployeeExtraDataForPeriod(emp, currentPeriod);
+        montoExtra = extraData.montoExtraQuincena;
+        montoDiasCompletos = extraData.montoDiasCompletos;
+        cantDiasCompletos = extraData.diasCompletosQuincena;
+        horasExtraCount = extraData.horasExtraOrdinarias + extraData.horasExtraFeriado;
+        montoHorasExtra = extraData.montoHorasExtraOrdinarias + extraData.montoHorasExtraFeriado;
+        const diasFeriados = emp.feriadosLaborados || 0;
+        montoFeriados = calculateHolidayAmount(emp, diasFeriados);
+        totalDevengado = baseQuincenal + montoExtra + montoFeriados;
+        ccss = Number((totalDevengado * CCSS_PERCENTAGE).toFixed(2));
+        const rebInfo = getEmployeeRebajos(emp.id, currentPeriod);
+        otrosRebajosMonto = rebInfo.total;
+        rebajosList = (rebInfo && rebInfo.list) || [];
+        totalDeducciones = ccss + otrosRebajosMonto;
+        neto = Number((totalDevengado - totalDeducciones).toFixed(2));
+        isRegistered = true;
+        return { baseQuincenal, diasTrabajados, esSalarioProporcional, montoExtra, montoHorasExtra, horasExtraCount, montoDiasCompletos, cantDiasCompletos, montoFeriados, totalDevengado, ccss, otrosRebajosMonto, totalDeducciones, neto, rebajosList, isRegistered };
       }
 
       // Si no existe registro cerrado de pago ni en el control de salarios, no mostrar datos
@@ -7951,7 +7815,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
               <span class="font-medium">${payDate}</span>
             </div>
             <div class="flex justify-between sm:justify-start gap-4">
-              <span class="w-44 text-slate-800">Salario bruto mensual:</span>
+              <span class="w-44 text-slate-800">${vData.esSalarioProporcional ? "Salario mensual de referencia:" : "Salario bruto mensual:"}</span>
               <span class="font-medium font-mono">${formatCRC(emp.salarioMensual)}</span>
             </div>
           </div>
@@ -7967,7 +7831,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
                 <span>Monto</span>
               </div>
               <div class="px-2 py-1 flex justify-between text-[12px]">
-                <span>Salario ordinario:</span>
+                <span>${vData.esSalarioProporcional ? ("Salario ordinario proporcional (" + (vData.diasTrabajados || "") + " días laborados):") : "Salario ordinario:"}</span>
                 <span class="font-mono">${formatCRC(vData.baseQuincenal)}</span>
               </div>
               ${extrasHtml}
@@ -8032,6 +7896,141 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }, 1000);
     }
 
+    // Depuración de seguridad de registros no generados oficialmente
+    function cleanupPrematurePayrollHistory() {
+      try {
+        let history = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
+        if (Array.isArray(history)) {
+          const filtered = history.filter(h => {
+            const per = String(h.periodo || "").trim().toLowerCase();
+            return per !== "ii quincena noviembre 2026";
+          });
+          if (filtered.length !== history.length) {
+            localStorage.setItem("hc_payroll_history", JSON.stringify(filtered));
+          }
+        }
+
+        let salData = JSON.parse(localStorage.getItem("hc_salarios_2026")) || [];
+        let salChanged = false;
+        if (Array.isArray(salData)) {
+          salData.forEach(s => {
+            if (s.noviembre_iiq !== null && s.noviembre_iiq !== undefined && s.noviembre_iiq !== "") {
+              s.noviembre_iiq = null;
+              salChanged = true;
+            }
+          });
+          if (salChanged) {
+            localStorage.setItem("hc_salarios_2026", JSON.stringify(salData));
+          }
+        }
+      } catch (e) {
+        console.warn("cleanupPrematurePayrollHistory error:", e);
+      }
+    }
+
+    function repairNewHirePayrollRecords() {
+      try {
+        const period = currentPeriod || "I Quincena Noviembre 2026";
+        const qKey = QUINCENA_MAP[period] || "noviembre_iq";
+        let historyChanged = false;
+        let controlChanged = false;
+
+        // 1. Revisar y reparar hc_payroll_history
+        let history = JSON.parse(localStorage.getItem("hc_payroll_history")) || [];
+        employees.forEach(emp => {
+          const qDays = getEmployeeQuincenaDays(emp, period);
+          if (qDays && qDays.esProporcional) {
+            const expectedBase = getEmployeeBaseSalary(emp, period);
+            const cleanEmpCed = emp.cedula ? String(emp.cedula).replace(/\D/g, "") : "";
+            const cleanEmpNom = emp.nombre ? emp.nombre.trim().toUpperCase() : "";
+
+            history.forEach(h => {
+              const hCed = h.cedula ? String(h.cedula).replace(/\D/g, "") : "";
+              const hNom = h.nombre ? h.nombre.trim().toUpperCase() : "";
+              const matchEmp = (cleanEmpCed && hCed && cleanEmpCed === hCed) || (hNom && cleanEmpNom && hNom === cleanEmpNom);
+              const matchPeriod = String(h.periodo || '').trim().toLowerCase() === String(period).trim().toLowerCase();
+
+              if (matchEmp && matchPeriod) {
+                if (Math.abs(Number(h.salarioQuincenal || 0) - expectedBase) > 1 || !h.esSalarioProporcional) {
+                  h.salarioQuincenal = expectedBase;
+                  h.diasTrabajadosQuincena = qDays.diasTrabajados;
+                  h.esSalarioProporcional = true;
+
+                  const extraAmt = (typeof h.horasExtraMonto === "number" && h.horasExtraMonto > 0)
+                    ? h.horasExtraMonto
+                    : getEmployeeExtraMonto(emp, period);
+                  const feriadosAmt = (typeof h.feriadosMonto === "number" && h.feriadosMonto > 0)
+                    ? h.feriadosMonto
+                    : calculateHolidayAmount(emp, emp.feriadosLaborados || 0);
+                  const totDev = expectedBase + extraAmt + feriadosAmt;
+                  const ccss = Number((totDev * CCSS_PERCENTAGE).toFixed(2));
+                  const rebInfo = getEmployeeRebajos(emp.id, period);
+                  const otrosReb = (rebInfo && rebInfo.total) || Number(h.otrosRebajosMonto || 0);
+                  const totDed = ccss + otrosReb;
+                  const neto = Number((totDev - totDed).toFixed(2));
+
+                  h.horasExtraMonto = extraAmt;
+                  const perExtraData = getEmployeeExtraDataForPeriod(emp, period);
+                  if (perExtraData.montoDiasCompletos) h.diasCompletosMonto = perExtraData.montoDiasCompletos;
+                  if (perExtraData.diasCompletosQuincena) h.diasCompletosCant = perExtraData.diasCompletosQuincena;
+                  h.totalDevengado = totDev;
+                  h.ccssObrero = ccss;
+                  h.otrosRebajosMonto = otrosReb;
+                  h.totalDeducciones = totDed;
+                  h.salarioNeto = neto;
+                  historyChanged = true;
+                }
+              }
+            });
+          }
+        });
+
+        if (historyChanged) {
+          localStorage.setItem("hc_payroll_history", JSON.stringify(history));
+        }
+
+        // 2. Revisar y reparar hc_salarios_2026
+        let salControl = getControlSalariosData();
+        employees.forEach(emp => {
+          const qDays = getEmployeeQuincenaDays(emp, period);
+          if (qDays && qDays.esProporcional) {
+            const expectedBase = getEmployeeBaseSalary(emp, period);
+            const extraAmt = getEmployeeExtraMonto(emp, period);
+            const feriadosAmt = calculateHolidayAmount(emp, emp.feriadosLaborados || 0);
+            const totDev = expectedBase + extraAmt + feriadosAmt;
+            const ccss = Number((totDev * CCSS_PERCENTAGE).toFixed(2));
+            const rebInfo = getEmployeeRebajos(emp.id, period);
+            const otrosReb = (rebInfo && rebInfo.total) || 0;
+            const expectedNeto = Number((totDev - (ccss + otrosReb)).toFixed(2));
+
+            const cleanEmpCed = emp.cedula ? String(emp.cedula).replace(/\D/g, "") : "";
+            const cleanEmpNom = emp.nombre ? emp.nombre.trim().toUpperCase() : "";
+
+            const row = salControl.find(s => {
+              const sCed = s.cedula ? String(s.cedula).replace(/\D/g, "") : "";
+              if (cleanEmpCed && sCed && cleanEmpCed === sCed) return true;
+              const sNom = s.nombre ? s.nombre.trim().toUpperCase() : "";
+              return sNom === cleanEmpNom || (emp.alias && sNom === emp.alias.trim().toUpperCase());
+            });
+
+            if (row && row[qKey] !== null && row[qKey] !== undefined && row[qKey] !== "" && !isNaN(row[qKey])) {
+              const currentVal = Number(row[qKey]);
+              if (Math.abs(currentVal - expectedNeto) > 5) {
+                row[qKey] = expectedNeto;
+                controlChanged = true;
+              }
+            }
+          }
+        });
+
+        if (controlChanged) {
+          localStorage.setItem("hc_salarios_2026", JSON.stringify(salControl));
+        }
+      } catch (e) {
+        console.warn("repairNewHirePayrollRecords error:", e);
+      }
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
       const modalQrEl = document.getElementById("modal-qr-vacaciones");
       if (modalQrEl) {
@@ -8040,6 +8039,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         });
       }
       if (typeof checkAuthSessionOnInit === "function") checkAuthSessionOnInit();
+      cleanupPrematurePayrollHistory();
+      repairNewHirePayrollRecords();
       renderPeriodSelector();
       renderHolidayAlert();
       renderEmployeesTable();
@@ -8086,12 +8087,37 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     // ==================== GMAIL & GOOGLE SHEETS INTEGRATION ====================
     async function postToAppsScript(url, payload) {
       if (!url) return null;
-      return fetch(url, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
-      });
+      try {
+        if (payload && typeof payload === "object") {
+          try {
+            const rawSession = sessionStorage.getItem("hc_auth_user") || localStorage.getItem("hc_auth_user");
+            if (rawSession) {
+              const uObj = JSON.parse(rawSession);
+              if (uObj && (uObj.token || uObj.authToken)) {
+                payload.authToken = uObj.token || uObj.authToken;
+              }
+            }
+          } catch(sessionErr) {}
+        }
+        const resp = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+        const text = await resp.text();
+        try {
+          return JSON.parse(text);
+        } catch(jsonErr) {
+          return { status: "success", raw: text };
+        }
+      } catch (err) {
+        return fetch(url, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+      }
     }
 
     let gastosGmailApiUrl = localStorage.getItem("hc_gastos_gmail_url") || "";
@@ -8243,6 +8269,134 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
     }
 
+    
+    // =================================================================
+    // CONTROL DINÁMICO DE MODO PRUEBAS / PRODUCCIÓN
+    // =================================================================
+    function initTestMode() {
+      TEST_MODE_ENABLED = localStorage.getItem("hc_test_mode_enabled") === "true";
+      TEST_MODE_OVERRIDE_EMAIL = localStorage.getItem("hc_test_mode_email") || "carlosssb1016@gmail.com";
+      if (typeof window !== "undefined") { window.TEST_MODE_ENABLED = TEST_MODE_ENABLED; window.TEST_MODE_OVERRIDE_EMAIL = TEST_MODE_OVERRIDE_EMAIL; }
+      renderTestModeUI();
+    }
+
+    function toggleTestMode() {
+      TEST_MODE_ENABLED = !TEST_MODE_ENABLED;
+      if (typeof window !== "undefined") window.TEST_MODE_ENABLED = TEST_MODE_ENABLED;
+      if (typeof globalThis !== "undefined") globalThis.TEST_MODE_ENABLED = TEST_MODE_ENABLED;
+      localStorage.setItem("hc_test_mode_enabled", TEST_MODE_ENABLED ? "true" : "false");
+      renderTestModeUI();
+      if (TEST_MODE_ENABLED) {
+        showToast(`🧪 MODO PRUEBAS ACTIVADO. Los envíos se redirigirán a: ${TEST_MODE_OVERRIDE_EMAIL}.`, "warning");
+      } else {
+        showToast("🚀 MODO PRODUCCIÓN ACTIVADO. Los comprobantes se despacharán a los correos reales de cada colaborador.", "success");
+      }
+    }
+
+    function saveTestOverrideEmail(showNotification) {
+      const inp = document.getElementById("inp-test-override-email");
+      if (!inp) return;
+      const newEmail = inp.value.trim().toLowerCase();
+      if (!newEmail || !newEmail.includes("@")) {
+        showToast("Ingresa un correo electrónico válido para pruebas.", "error");
+        return;
+      }
+      TEST_MODE_OVERRIDE_EMAIL = newEmail;
+      localStorage.setItem("hc_test_mode_email", newEmail);
+      renderTestModeUI();
+      if (showNotification) {
+        showToast(`✓ Correo de pruebas actualizado a: ${newEmail}`, "success");
+      }
+    }
+
+    function renderTestModeUI() {
+      // 1. Banner en Ajustes
+      const banner = document.getElementById("banner-modo-despacho");
+      const icon = document.getElementById("banner-modo-icon");
+      const title = document.getElementById("banner-modo-title");
+      const badge = document.getElementById("banner-modo-badge");
+      const desc = document.getElementById("banner-modo-desc");
+      const btn = document.getElementById("btn-toggle-test-mode");
+      const panel = document.getElementById("panel-test-email");
+      const inpEmail = document.getElementById("inp-test-override-email");
+
+      if (inpEmail && (!inpEmail.value || inpEmail.value !== TEST_MODE_OVERRIDE_EMAIL)) {
+        inpEmail.value = TEST_MODE_OVERRIDE_EMAIL || "carlosssb1016@gmail.com";
+      }
+
+      if (TEST_MODE_ENABLED) {
+        if (banner) {
+          banner.className = "bg-amber-50 border-2 border-amber-300 rounded-xl p-3.5 mb-2 transition-all shadow-xs";
+        }
+        if (icon) {
+          icon.innerHTML = '<span class="text-2xl animate-bounce">🧪</span>';
+        }
+        if (title) {
+          title.className = "text-xs font-bold text-amber-950 uppercase tracking-wide flex items-center gap-1.5";
+          title.textContent = "Modo Pruebas Activo (Envíos Simulados)";
+        }
+        if (badge) {
+          badge.className = "px-2.5 py-0.5 bg-amber-200 text-amber-900 rounded font-bold text-xs border border-amber-400";
+          badge.textContent = "MODO PRUEBA";
+        }
+        if (desc) {
+          desc.className = "text-xs text-amber-800 mt-0.5";
+          desc.innerHTML = '⚠️ <strong>Los colaboradores NO recibirán correos.</strong> Todos los comprobantes (quincenas, masivos, aguinaldos y resoluciones) se redirigen estrictamente a: <strong>' + (TEST_MODE_OVERRIDE_EMAIL || "carlosssb1016@gmail.com") + '</strong>.';
+        }
+        if (btn) {
+          btn.className = "px-3.5 py-2 rounded-lg font-bold text-xs flex items-center gap-1.5 transition shadow cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white";
+          btn.innerHTML = '<span>🚀</span> <span>Volver a Modo Producción</span>';
+          btn.title = "Desactiva el modo pruebas y vuelve a despachar a los correos reales de los colaboradores";
+        }
+        if (panel) {
+          panel.classList.remove("hidden");
+        }
+      } else {
+        if (banner) {
+          banner.className = "bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 mb-2 transition-all";
+        }
+        if (icon) {
+          icon.innerHTML = '<svg class="ico" data-i="check-circle" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>';
+        }
+        if (title) {
+          title.className = "text-xs font-bold text-emerald-900 uppercase tracking-wide";
+          title.textContent = "Modo Producción Activo (Despacho Oficial)";
+        }
+        if (badge) {
+          badge.className = "px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-xs border border-emerald-300";
+          badge.textContent = "PRODUCCIÓN";
+        }
+        if (desc) {
+          desc.className = "text-xs text-emerald-700 mt-0.5";
+          desc.textContent = "Los comprobantes de pago (quincenas, masivos, aguinaldo y resoluciones) se envían de forma directa y oficial al correo registrado de cada colaborador.";
+        }
+        if (btn) {
+          btn.className = "px-3.5 py-2 rounded-lg font-bold text-xs flex items-center gap-1.5 transition shadow cursor-pointer bg-amber-600 hover:bg-amber-700 text-white";
+          btn.innerHTML = '<span>🧪</span> <span>Activar Modo Pruebas</span>';
+          btn.title = "Redirige todos los correos hacia tu dirección de pruebas sin enviar nada a los colaboradores";
+        }
+        if (panel) {
+          panel.classList.add("hidden");
+        }
+      }
+
+      // 2. Badge en la Pestaña Planilla
+      const payrollBadge = document.getElementById("badge-modo-envio");
+      if (payrollBadge) {
+        if (TEST_MODE_ENABLED) {
+          payrollBadge.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 border border-amber-300 shadow-sm cursor-pointer hover:bg-amber-200 transition";
+          payrollBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse" aria-hidden="true"></span> <span>🧪 Modo Pruebas: Redirigido a ' + (TEST_MODE_OVERRIDE_EMAIL || "carlosssb1016@gmail.com") + '</span>';
+          payrollBadge.onclick = () => switchTab("tab-sheets");
+          payrollBadge.title = "Haga clic para ver o cambiar la configuración de despacho en Ajustes";
+        } else {
+          payrollBadge.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-sm";
+          payrollBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true"></span> <svg class="ico" data-i="check-circle" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Modo Producción: Envío Directo a Colaboradores';
+          payrollBadge.onclick = null;
+          payrollBadge.title = "";
+        }
+      }
+    }
+
     // Enviar Comprobante Individual por Gmail
     async function sendVoucherByGmail(empId) {
       const emp = employees.find(e => e.id === empId);
@@ -8250,7 +8404,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
       const baseQuincenal = getEmployeeBaseSalary(emp, currentPeriod);
-      const extra = getEmployeeExtraMonto(emp);
+      const extraData = getEmployeeExtraDataForPeriod(emp, currentPeriod);
+      const extra = extraData.montoExtraQuincena;
       const diasFeriados = emp.feriadosLaborados || 0;
       const feriadosMonto = calculateHolidayAmount(emp, diasFeriados);
       const devengado = baseQuincenal + extra + feriadosMonto;
@@ -8274,11 +8429,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         esSalarioProporcional: qDays.esProporcional,
         horasExtraMonto: extra,
         horasExtraMontoFormatted: formatCRC(extra),
-        diasCompletosMonto: emp.montoDiasCompletos || 0,
-        diasCompletosMontoFormatted: formatCRC(emp.montoDiasCompletos || 0),
-        diasCompletosCant: emp.diasCompletosQuincena || 0,
-        horasExtraOrdinariasFormatted: formatCRC((emp.montoHorasExtraOrdinarias || 0) + (emp.montoHorasExtraFeriado || 0)),
-        horasExtraCount: Math.round(((emp.horasExtraOrdinarias || 0) + (emp.horasExtraFeriado || 0)) * 100) / 100,
+        diasCompletosMonto: extraData.montoDiasCompletos,
+        diasCompletosMontoFormatted: formatCRC(extraData.montoDiasCompletos),
+        diasCompletosCant: extraData.diasCompletosQuincena,
+        horasExtraOrdinariasFormatted: formatCRC(extraData.montoHorasExtraOrdinarias + extraData.montoHorasExtraFeriado),
+        horasExtraCount: Math.round(((extraData.horasExtraOrdinarias) + (extraData.horasExtraFeriado)) * 100) / 100,
         feriadosDias: diasFeriados,
         feriadosMonto: feriadosMonto,
         feriadosMontoFormatted: formatCRC(feriadosMonto),
@@ -8299,18 +8454,28 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       if (sheetsApiUrl) {
         try {
-          await postToAppsScript(sheetsApiUrl, {
+          const res = await postToAppsScript(sheetsApiUrl, {
             action: "sendGmailVoucher",
             testMode: TEST_MODE_ENABLED,
+            testOverrideEmail: TEST_MODE_OVERRIDE_EMAIL,
             voucher: voucherData
           });
-        } catch (e) {}
+          if (res && res.status === "error") {
+            alert("⚠️ No se pudo enviar el comprobante por Gmail:\n" + (res.message || "Error al conectar con el servidor de correo."));
+            return;
+          }
+        } catch (e) {
+          console.warn("Fallo de red al despachar comprobante:", e);
+        }
       }
 
       emp.emailSent = true;
       markGmailSent(emp.cedula, currentPeriod);
       saveData();
       renderPayrollTable();
+      if (sheetsApiUrl) {
+        syncAllToSheets();
+      }
       if (TEST_MODE_ENABLED) {
         showToast(`¡Comprobante enviado a ${TEST_MODE_OVERRIDE_EMAIL} [Modo Prueba]! (Original: ${emp.correo})`);
       } else {
@@ -8332,7 +8497,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const vouchers = activeEmployees.map(emp => {
         const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
         const base = getEmployeeBaseSalary(emp, currentPeriod);
-        const extra = getEmployeeExtraMonto(emp);
+        const extraData = getEmployeeExtraDataForPeriod(emp, currentPeriod);
+        const extra = extraData.montoExtraQuincena;
         const diasFeriados = emp.feriadosLaborados || 0;
         const feriadosMonto = calculateHolidayAmount(emp, diasFeriados);
         const devengado = base + extra + feriadosMonto;
@@ -8354,11 +8520,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           esSalarioProporcional: qDays.esProporcional,
           horasExtraMonto: extra,
           horasExtraMontoFormatted: formatCRC(extra),
-          diasCompletosMonto: emp.montoDiasCompletos || 0,
-          diasCompletosMontoFormatted: formatCRC(emp.montoDiasCompletos || 0),
-          diasCompletosCant: emp.diasCompletosQuincena || 0,
-          horasExtraOrdinariasFormatted: formatCRC((emp.montoHorasExtraOrdinarias || 0) + (emp.montoHorasExtraFeriado || 0)),
-        horasExtraCount: Math.round(((emp.horasExtraOrdinarias || 0) + (emp.horasExtraFeriado || 0)) * 100) / 100,
+          diasCompletosMonto: extraData.montoDiasCompletos,
+          diasCompletosMontoFormatted: formatCRC(extraData.montoDiasCompletos),
+          diasCompletosCant: extraData.diasCompletosQuincena,
+          horasExtraOrdinariasFormatted: formatCRC(extraData.montoHorasExtraOrdinarias + extraData.montoHorasExtraFeriado),
+          horasExtraCount: Math.round(((extraData.horasExtraOrdinarias) + (extraData.horasExtraFeriado)) * 100) / 100,
           feriadosDias: diasFeriados,
           feriadosMonto: feriadosMonto,
           feriadosMontoFormatted: formatCRC(feriadosMonto),
@@ -8380,6 +8546,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           await postToAppsScript(sheetsApiUrl, {
             action: "sendAllGmailVouchers",
             testMode: TEST_MODE_ENABLED,
+            testOverrideEmail: TEST_MODE_OVERRIDE_EMAIL,
             vouchers: vouchers
           });
         } catch (e) {}
@@ -8391,6 +8558,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       });
       saveData();
       renderPayrollTable();
+      if (sheetsApiUrl) {
+        syncAllToSheets();
+      }
       if (TEST_MODE_ENABLED) {
         showToast(`¡Se despacharon todos los comprobantes en Modo Prueba a ${TEST_MODE_OVERRIDE_EMAIL}!`);
         alert(`Se despacharon ${employees.length} comprobantes en MODO DE PRUEBAS.\n\nTodos los correos fueron redirigidos a: ${TEST_MODE_OVERRIDE_EMAIL}\nRemitente: Distribuidora Hermanos Castro del Sur S.A.`);
@@ -8426,6 +8596,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           await postToAppsScript(sheetsApiUrl, {
             action: "sendAguinaldoGmail",
             testMode: TEST_MODE_ENABLED,
+            testOverrideEmail: TEST_MODE_OVERRIDE_EMAIL,
             aguinaldo: aguinaldoData
           });
         } catch (e) {}
@@ -8542,45 +8713,16 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const queueBatchLength = syncQueue.length;
 
       // Armar el payload completo con todos los 7 módulos y rubros actualizados
-      const activeEmployees = employees.filter(emp => emp.estado !== "inactivo");
-      const payrollHistory = activeEmployees.map(emp => {
-        const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
-        const base = getEmployeeBaseSalary(emp, currentPeriod);
-        const extra = getEmployeeExtraMonto(emp);
-        const diasFeriados = emp.feriadosLaborados || 0;
-        const feriadosMonto = calculateHolidayAmount(emp, diasFeriados);
-        const devengado = base + extra + feriadosMonto;
-        const ccss = devengado * CCSS_PERCENTAGE;
-        const rebInfo = getEmployeeRebajos(emp.id, currentPeriod);
-        const totalOtrosRebajos = rebInfo.total;
-        const totalDeducciones = ccss + totalOtrosRebajos;
-        const neto = devengado - totalDeducciones;
+      // Historial oficial de cierres de nómina reales registrados (Planilla_Cierres)
+      const rawPayrollHist = getPayrollHistoryData();
+      const payrollHistory = rawPayrollHist.map(p => {
+        const gmStat = getGmailStatus({ cedula: p.cedula, nombre: p.nombre }, p.periodo);
+        const estGmail = (p.estadoGmail && String(p.estadoGmail).toLowerCase().includes("enviado"))
+          ? p.estadoGmail
+          : (gmStat.sent ? ("Enviado Gmail: " + (gmStat.date || "")) : (p.estadoGmail || "Pendiente"));
         return {
-          periodo: currentPeriod,
-          plan: "",
-          cedula: emp.cedula,
-          nombre: emp.nombre,
-          puesto: emp.puesto,
-          departamento: emp.departamento,
-          salarioQuincenal: base,
-          diasTrabajadosQuincena: qDays.diasTrabajados,
-          esSalarioProporcional: qDays.esProporcional,
-          horasExtraMonto: extra,
-          diasCompletosMonto: emp.montoDiasCompletos || 0,
-          diasCompletosCant: emp.diasCompletosQuincena || 0,
-          feriadosMonto: feriadosMonto,
-          totalDevengado: devengado,
-          ccssObrero: ccss,
-          otrosRebajosMonto: totalOtrosRebajos,
-          totalDeducciones: totalDeducciones,
-          otrosRebajos: rebInfo.list.map(r => ({
-            tipoNombre: r.tipoNombre,
-            tipoCodigo: r.tipoCodigo,
-            detalle: r.detalle,
-            monto: r.monto,
-            montoFormatted: formatCRC(r.monto)
-          })),
-          salarioNeto: neto
+          ...p,
+          estadoGmail: estGmail
         };
       });
 
@@ -8676,7 +8818,17 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       updateSyncIndicator("syncing", "Descargando...");
 
       try {
-        const resp = await fetch(sheetsApiUrl + "?action=getAll");
+        let getAllUrl = sheetsApiUrl + "?action=getAll";
+        try {
+          const rawSession = sessionStorage.getItem("hc_auth_user") || localStorage.getItem("hc_auth_user");
+          if (rawSession) {
+            const uObj = JSON.parse(rawSession);
+            if (uObj && (uObj.token || uObj.authToken)) {
+              getAllUrl += "&authToken=" + encodeURIComponent(uObj.token || uObj.authToken);
+            }
+          }
+        } catch(sessionErr) {}
+        const resp = await fetch(getAllUrl);
         const json = await resp.json();
         if (json.status === "success" && json.data) {
           // 1. Colaboradores: La hoja es la fuente de verdad absoluta (altas, bajas y eliminaciones)
@@ -8688,10 +8840,13 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
               const mappedEmployees = json.data.employees.map((e, idx) => {
                 const existing = oldEmployees.find(o => (o.cedula && o.cedula === e.cedula) || (o.nombre && o.nombre.toLowerCase() === e.nombre.toLowerCase()));
+                const def = (typeof DEFAULT_EMPLOYEES !== "undefined" && DEFAULT_EMPLOYEES.find(d => (d.cedula && d.cedula === e.cedula) || (d.nombre && d.nombre.toLowerCase() === e.nombre.toLowerCase())));
                 const stableId = existing ? existing.id : ("emp-" + (e.cedula ? String(e.cedula).replace(/\D/g, "") : ("row-" + idx)));
                 return {
                   ...e,
                   id: stableId,
+                  codigoReloj: e.codigoReloj || (existing ? existing.codigoReloj : "") || (def ? def.codigoReloj : ""),
+                  aliasReloj: e.aliasReloj || (existing ? existing.aliasReloj : "") || (def ? def.aliasReloj : ""),
                   horasExtraQuincena: existing ? (existing.horasExtraQuincena || 0) : 0,
                   feriadosLaborados: existing ? (existing.feriadosLaborados || 0) : 0,
                   estado: e.estado || "activo",
@@ -8712,7 +8867,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           if (json.data.extraHours !== undefined && Array.isArray(json.data.extraHours)) {
             extraHoursHistory = json.data.extraHours;
             localStorage.setItem("hc_extra_hours", JSON.stringify(extraHoursHistory));
-            recalcEmployeeExtraHours();
+            recalcEmployeeExtraHours(currentPeriod);
           }
 
           // 3. Vacaciones: La hoja principal es la fuente de verdad de las solicitudes resueltas
@@ -8753,9 +8908,25 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             localStorage.setItem("hc_employee_rebajos", JSON.stringify(employeeRebajos));
           }
 
-          // 7. Histórico de Nómina y Cierres
+          // 7. Histórico de Nómina y Cierres (Planilla_Cierres)
           if (json.data.payrollHistory !== undefined && Array.isArray(json.data.payrollHistory)) {
             localStorage.setItem("hc_payroll_history", JSON.stringify(json.data.payrollHistory));
+
+            // Sincronizar trazabilidad de envíos Gmail desde la Columna 16 de Planilla_Cierres
+            const log = JSON.parse(localStorage.getItem("hc_gmail_sent_log")) || {};
+            json.data.payrollHistory.forEach(p => {
+              if (p.cedula && p.periodo) {
+                const k = getGmailStatusKey(p.cedula, p.periodo);
+                const est = String(p.estadoGmail || "").trim();
+                if (est.toLowerCase().includes("enviado")) {
+                  const dMatch = est.replace(/Enviado\s*(Gmail)?:?/i, "").replace(/[()]/g, "").trim();
+                  log[k] = { sent: true, date: dMatch || "Registrado en Sheets" };
+                } else if (est.toLowerCase().includes("pendiente")) {
+                  delete log[k];
+                }
+              }
+            });
+            localStorage.setItem("hc_gmail_sent_log", JSON.stringify(log));
           }
 
           saveData();
@@ -10344,6 +10515,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           <td class="px-4 py-3.5 whitespace-nowrap">
             <div class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
               ${emp.nombre}
+              ${emp.codigoReloj ? `<span class="text-[10px] bg-purple-100 text-purple-900 font-bold px-1.5 py-0.5 rounded border border-purple-200 font-mono" title="Código en Reloj Marcador: #${emp.codigoReloj} (${emp.aliasReloj || emp.nombre})">⏰ #${emp.codigoReloj}</span>` : ''}
               ${isInactive ? '<span class="text-[10px] bg-rose-100 text-rose-800 font-black px-1.5 py-0.2 rounded border border-rose-300">INACTIVO</span>' : ''}
             </div>
             <div class="text-slate-500 text-xs">${emp.cedula} · ${emp.correo}</div>
@@ -10441,7 +10613,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       activeEmployees.forEach(emp => {
         const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
         const baseQuincenal = getEmployeeBaseSalary(emp, currentPeriod);
-        const montoExtra = getEmployeeExtraMonto(emp);
+        const extraData = getEmployeeExtraDataForPeriod(emp, currentPeriod);
+        const montoExtra = extraData.montoExtraQuincena;
         const diasFeriados = emp.feriadosLaborados || 0;
         const montoFeriados = calculateHolidayAmount(emp, diasFeriados);
         const totalDevengado = baseQuincenal + montoExtra + montoFeriados;
@@ -10477,12 +10650,12 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           <td class="px-4 py-3.5 text-right font-mono whitespace-nowrap ${montoExtra > 0 ? 'text-indigo-600 font-bold' : 'text-slate-400'}">
             ${(() => {
               if (montoExtra <= 0) return '₡0,00';
-              let badgeDetalle = `${emp.horasExtraQuincena || 0}h`;
-              if (emp.diasCompletosQuincena > 0) {
-                if (emp.horasExtraOrdinarias > 0 || emp.horasExtraFeriado > 0) {
-                  badgeDetalle = `${emp.horasExtraQuincena}h (${emp.diasCompletosQuincena}d)`;
+              let badgeDetalle = `${extraData.horasExtraQuincena || 0}h`;
+              if (extraData.diasCompletosQuincena > 0) {
+                if (extraData.horasExtraOrdinarias > 0 || extraData.horasExtraFeriado > 0) {
+                  badgeDetalle = `${extraData.horasExtraQuincena}h (${extraData.diasCompletosQuincena}d)`;
                 } else {
-                  badgeDetalle = `${emp.diasCompletosQuincena}d (8h)`;
+                  badgeDetalle = `${extraData.diasCompletosQuincena}d (8h)`;
                 }
               }
               return `+${formatCRC(montoExtra)} (${badgeDetalle})`;
@@ -10561,7 +10734,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       const qDays = getEmployeeQuincenaDays(emp, currentPeriod);
       const baseQuincenal = getEmployeeBaseSalary(emp, currentPeriod);
-      const montoExtra = getEmployeeExtraMonto(emp);
+      const extraData = getEmployeeExtraDataForPeriod(emp, currentPeriod);
+      const montoExtra = extraData.montoExtraQuincena;
       const diasFeriados = emp.feriadosLaborados || 0;
       const montoFeriados = calculateHolidayAmount(emp, diasFeriados);
       const totalBruto = baseQuincenal + montoExtra + montoFeriados;
@@ -10579,7 +10753,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       document.getElementById("cv-val-periodo").textContent = currentPeriod;
       document.getElementById("cv-label-plan").textContent = "Plan de planilla:";
       document.getElementById("cv-val-plan").textContent = "D9N3";
-      document.getElementById("cv-label-salario").textContent = "Salario bruto mensual:";
+      document.getElementById("cv-label-salario").textContent = qDays.esProporcional ? "Salario mensual de referencia:" : "Salario bruto mensual:";
       document.getElementById("cv-val-salario").textContent = formatCRC(emp.salarioMensual);
 
       document.getElementById("cv-subtitulo-detalle").textContent = "Detalle del salario líquido";
@@ -10588,7 +10762,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       document.getElementById("cv-section-aguinaldo").classList.add("hidden");
       document.getElementById("cv-th-componentes").textContent = "Componentes salariales";
       document.getElementById("cv-label-ingreso-1").textContent = qDays.esProporcional
-        ? `Salario ordinario (${qDays.diasTrabajados} días laborados):`
+        ? `Salario ordinario proporcional (${qDays.diasTrabajados} días laborados):`
         : "Salario ordinario:";
       document.getElementById("cv-val-ingreso-1").textContent = formatCRC(baseQuincenal);
 
@@ -10596,53 +10770,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const rowDiasAdicionales = document.getElementById("cv-row-dias-adicionales");
 
       // Desglose riguroso de componentes: Suma de Horas Extras y Suma de Días Completos por aparte
-      let montoDias = Number(emp.montoDiasCompletos || 0);
-      let cantDias = Number(emp.diasCompletosQuincena || 0);
-      let horasOvertime = Number(emp.horasExtraOrdinarias || 0) + Number(emp.horasExtraFeriado || 0);
-      let montoOvertime = Number(emp.montoHorasExtraOrdinarias || 0) + Number(emp.montoHorasExtraFeriado || 0);
-
-      // Si no están en las propiedades de emp, escanear directamente extraHoursHistory de este período
-      if (typeof extraHoursHistory !== "undefined" && Array.isArray(extraHoursHistory)) {
-        let scDias = 0;
-        let smDias = 0;
-        let shOver = 0;
-        let smOver = 0;
-        extraHoursHistory.forEach(ex => {
-          const matchEmp = (
-            (ex.employeeId && String(ex.employeeId) === String(emp.id)) ||
-            (ex.cedula && emp.cedula && String(ex.cedula).trim() === String(emp.cedula).trim()) ||
-            (ex.nombre && emp.nombre && ex.nombre.trim().toLowerCase() === emp.nombre.trim().toLowerCase())
-          );
-          const matchPeriod = (
-            !ex.periodo ||
-            String(ex.periodo).trim().toLowerCase() === String(currentPeriod).trim().toLowerCase()
-          );
-          if (matchEmp && matchPeriod) {
-            const isDia = !!(ex.isDiaCompleto || ex.tipo === "dia_completo");
-            const hrs = Number(ex.horas || (isDia ? 8 : 0));
-            const amt = Number(ex.montoCalculado || calculateOvertimeAmount(emp, hrs, !!(ex.isHoliday || ex.tipo === "extra_feriado"), isDia, ex.tarifaHora));
-            if (isDia) {
-              scDias += (hrs / 8 >= 1 ? Math.round(hrs / 8) : 1);
-              smDias += amt;
-            } else {
-              shOver += hrs;
-              smOver += amt;
-            }
-          }
-        });
-        if (scDias > 0 || smDias > 0 || shOver > 0 || smOver > 0) {
-          cantDias = scDias;
-          montoDias = smDias;
-          horasOvertime = Math.round(shOver * 100) / 100;
-          montoOvertime = smOver;
-        }
-      }
-
-      // Si montoExtra contiene saldo sin desglosar
-      if (montoOvertime === 0 && horasOvertime === 0 && montoExtra > montoDias) {
-        montoOvertime = montoExtra - montoDias;
-        horasOvertime = Math.max(0, (emp.horasExtraQuincena || 0) - (cantDias * 8));
-      }
+      let montoDias = extraData.montoDiasCompletos;
+      let cantDias = extraData.diasCompletosQuincena;
+      let horasOvertime = Math.round((extraData.horasExtraOrdinarias + extraData.horasExtraFeriado) * 100) / 100;
+      let montoOvertime = extraData.montoHorasExtraOrdinarias + extraData.montoHorasExtraFeriado;
 
       // 1. Rubro de Horas Extras (sumadas en un solo rubro total)
       if (rowExtras) {
@@ -11278,6 +11409,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         await postToAppsScript(sheetsApiUrl, {
           action: "resolveVacation",
           testMode: TEST_MODE_ENABLED,
+          testOverrideEmail: TEST_MODE_OVERRIDE_EMAIL,
           vacation: vacData
         });
 
@@ -11872,16 +12004,23 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       if (!histBody) return;
       histBody.innerHTML = "";
 
-      if (extraHoursHistory.length === 0) {
+      const periodRecords = extraHoursHistory.filter(item => isExtraHourInPeriod(item, currentPeriod));
+
+      const badgeHeader = document.getElementById("extras-periodo-badge");
+      if (badgeHeader) {
+        badgeHeader.textContent = currentPeriod;
+      }
+
+      if (periodRecords.length === 0) {
         histBody.innerHTML = `
           <tr>
             <td colspan="4" class="py-4 text-center text-slate-400 text-xs">
-              Sin registros en esta quincena.
+              Sin registros en ${currentPeriod}.
             </td>
           </tr>
         `;
       } else {
-        extraHoursHistory.forEach(item => {
+        periodRecords.forEach(item => {
           const emp = employees.find(e => e.id === item.employeeId || (item.cedula && e.cedula === item.cedula) || (item.nombre && e.nombre.toLowerCase() === item.nombre.toLowerCase()));
           const nombre = emp ? emp.nombre : (item.nombre || "Colaborador");
           const isDia = !!(item.isDiaCompleto || item.tipo === "dia_completo");
@@ -12046,7 +12185,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         showToast(msg, "success");
       }
 
-      recalcEmployeeExtraHours();
+      recalcEmployeeExtraHours(currentPeriod);
       saveData();
       renderExtrasModule();
       renderPayrollTable();
@@ -12086,12 +12225,600 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         }
       }
 
-      recalcEmployeeExtraHours();
+      recalcEmployeeExtraHours(currentPeriod);
       saveData();
       renderExtrasModule();
       renderPayrollTable();
       renderAccountingModule();
       showToast("Registro eliminado correctamente.");
+      if (typeof syncAllToSheets === "function" && sheetsApiUrl) {
+        syncAllToSheets();
+      }
+    }
+
+    // ==================== CARGA DE HORAS EXTRAS DESDE RELOJ MARCADOR ====================
+    let parsedRelojPunches = [];
+    let parsedRelojResults = [];
+
+    function openModalRelojMarcador() {
+      const modal = document.getElementById("modal-reloj-marcador");
+      if (!modal) return;
+
+      // Poblar selector de quincenas
+      const pSel = document.getElementById("reloj-periodo-select");
+      if (pSel) {
+        pSel.innerHTML = "";
+        ALL_QUINCENAS.forEach(p => {
+          const opt = document.createElement("option");
+          opt.value = p;
+          opt.textContent = p;
+          if (p === currentPeriod) opt.selected = true;
+          pSel.appendChild(opt);
+        });
+      }
+
+      // Limpiar archivo y resultados previos
+      const fileInput = document.getElementById("input-file-reloj");
+      if (fileInput) fileInput.value = "";
+      const fileNameEl = document.getElementById("reloj-file-name");
+      if (fileNameEl) {
+        fileNameEl.textContent = "";
+        fileNameEl.classList.add("hidden");
+      }
+      const counterEl = document.getElementById("reloj-punches-counter");
+      if (counterEl) counterEl.textContent = "0 marcas leídas";
+      const previewCont = document.getElementById("reloj-preview-container");
+      if (previewCont) previewCont.classList.add("hidden");
+      const btnConfirm = document.getElementById("btn-confirm-reloj-import");
+      if (btnConfirm) btnConfirm.disabled = true;
+
+      parsedRelojPunches = [];
+      parsedRelojResults = [];
+
+      switchRelojModalTab("importar");
+      renderRelojCodigosTable();
+      modal.classList.remove("hidden");
+    }
+
+    function closeModalRelojMarcador() {
+      const modal = document.getElementById("modal-reloj-marcador");
+      if (modal) modal.classList.add("hidden");
+    }
+
+    function switchRelojModalTab(tab) {
+      const secImportar = document.getElementById("reloj-sec-importar");
+      const secCodigos = document.getElementById("reloj-sec-codigos");
+      const btnTabImportar = document.getElementById("tab-btn-reloj-importar");
+      const btnTabCodigos = document.getElementById("tab-btn-reloj-codigos");
+
+      if (tab === "importar") {
+        if (secImportar) secImportar.classList.remove("hidden");
+        if (secCodigos) secCodigos.classList.add("hidden");
+        if (btnTabImportar) btnTabImportar.className = "px-3 py-1.5 rounded-lg font-bold text-xs bg-purple-100 text-purple-900 flex items-center gap-1.5 transition cursor-pointer";
+        if (btnTabCodigos) btnTabCodigos.className = "px-3 py-1.5 rounded-lg font-semibold text-xs text-slate-600 hover:bg-slate-100 flex items-center gap-1.5 transition cursor-pointer";
+      } else {
+        if (secImportar) secImportar.classList.add("hidden");
+        if (secCodigos) secCodigos.classList.remove("hidden");
+        if (btnTabImportar) btnTabImportar.className = "px-3 py-1.5 rounded-lg font-semibold text-xs text-slate-600 hover:bg-slate-100 flex items-center gap-1.5 transition cursor-pointer";
+        if (btnTabCodigos) btnTabCodigos.className = "px-3 py-1.5 rounded-lg font-bold text-xs bg-purple-100 text-purple-900 flex items-center gap-1.5 transition cursor-pointer";
+        renderRelojCodigosTable();
+      }
+    }
+
+    function renderRelojCodigosTable() {
+      const tbody = document.getElementById("reloj-codigos-tbody");
+      if (!tbody) return;
+      tbody.innerHTML = "";
+
+      const activeEmployees = employees.filter(e => e.estado !== "inactivo");
+      activeEmployees.forEach(emp => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-slate-50 transition";
+        tr.innerHTML = `
+          <td class="p-2 font-bold text-slate-900">${emp.nombre}</td>
+          <td class="p-2 text-slate-500 font-mono text-[11px]">${emp.cedula || '--'}</td>
+          <td class="p-2 text-slate-600">${emp.puesto} (${emp.departamento})</td>
+          <td class="p-2 text-center">
+            <input type="text" data-emp-id="${emp.id}" class="inp-reloj-code w-24 text-center font-mono font-bold text-purple-900 border border-purple-300 rounded px-2 py-1 text-xs bg-white focus:ring-2 focus:ring-purple-500" value="${emp.codigoReloj || ''}" placeholder="Ej: 1, 2, 4">
+          </td>
+          <td class="p-2">
+            <input type="text" data-emp-id="${emp.id}" class="inp-reloj-alias w-full uppercase text-slate-800 border border-slate-300 rounded px-2 py-1 text-xs bg-white focus:ring-2 focus:ring-purple-500" value="${emp.aliasReloj || ''}" placeholder="FELIPE, JONATHAN">
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function saveRelojCodigosFromTable() {
+      const codeInputs = document.querySelectorAll(".inp-reloj-code");
+      const aliasInputs = document.querySelectorAll(".inp-reloj-alias");
+
+      codeInputs.forEach(inp => {
+        const empId = inp.getAttribute("data-emp-id");
+        const emp = employees.find(e => e.id === empId);
+        if (emp) {
+          emp.codigoReloj = inp.value.trim();
+        }
+      });
+
+      aliasInputs.forEach(inp => {
+        const empId = inp.getAttribute("data-emp-id");
+        const emp = employees.find(e => e.id === empId);
+        if (emp) {
+          emp.aliasReloj = inp.value.trim().toUpperCase();
+        }
+      });
+
+      saveData();
+      renderEmployeesTable();
+      showToast("¡Homologaciones de reloj marcador guardadas exitosamente!", "success");
+
+      // Si ya hay un archivo cargado, recalcular la previsualización
+      if (parsedRelojPunches && parsedRelojPunches.length > 0) {
+        processRelojPunches(parsedRelojPunches);
+      }
+    }
+
+    function findEmployeeByClockCodeOrName(code, name) {
+      const cleanCode = String(code || "").trim();
+      const cleanName = String(name || "").trim().toUpperCase();
+
+      const searchList = (employees && employees.length > 0) ? employees : (typeof DEFAULT_EMPLOYEES !== 'undefined' ? DEFAULT_EMPLOYEES : []);
+
+      // 1. Por codigoReloj
+      let emp = searchList.find(e => e.codigoReloj && String(e.codigoReloj).trim() === cleanCode);
+      if (emp) return emp;
+
+      // 2. Por aliasReloj
+      if (cleanName) {
+        emp = searchList.find(e => e.aliasReloj && e.aliasReloj.trim().toUpperCase() === cleanName);
+        if (emp) return emp;
+      }
+
+      // 3. Homologación oficial predeterminada (Felipe #1, Jonathan #2, Santiago #4)
+      if (cleanCode === "1" || cleanName.includes("FELIPE")) {
+        emp = searchList.find(e => e.nombre.toUpperCase().includes("FELIPE") || e.nombre.toUpperCase().includes("UREÑA") || e.nombre.toUpperCase().includes("URENA"));
+        if (emp) return emp;
+      }
+      if (cleanCode === "2" || cleanName.includes("JONATHAN")) {
+        emp = searchList.find(e => e.nombre.toUpperCase().includes("JONATHAN") || e.nombre.toUpperCase().includes("VEGA"));
+        if (emp) return emp;
+      }
+      if (cleanCode === "4" || cleanName.includes("SANTIAGO")) {
+        emp = searchList.find(e => e.nombre.toUpperCase().includes("SANTIAGO") || e.nombre.toUpperCase().includes("NARANJO") || e.nombre.toUpperCase().includes("HEBER"));
+        if (emp) return emp;
+      }
+
+      // 4. Búsqueda por subcadena en nombre completo
+      if (cleanName) {
+        emp = searchList.find(e => e.nombre.toUpperCase().includes(cleanName));
+        if (emp) return emp;
+      }
+
+      // 5. Fallback a DEFAULT_EMPLOYEES si searchList era distinto
+      if (searchList !== DEFAULT_EMPLOYEES && typeof DEFAULT_EMPLOYEES !== 'undefined') {
+        let defEmp = DEFAULT_EMPLOYEES.find(e => e.codigoReloj && String(e.codigoReloj).trim() === cleanCode);
+        if (defEmp) return defEmp;
+        if (cleanName) {
+          defEmp = DEFAULT_EMPLOYEES.find(e => e.aliasReloj && e.aliasReloj.trim().toUpperCase() === cleanName);
+          if (defEmp) return defEmp;
+        }
+        if (cleanCode === "1" || cleanName.includes("FELIPE")) {
+          defEmp = DEFAULT_EMPLOYEES.find(e => e.nombre.toUpperCase().includes("FELIPE") || e.nombre.toUpperCase().includes("UREÑA") || e.nombre.toUpperCase().includes("URENA"));
+          if (defEmp) return defEmp;
+        }
+        if (cleanCode === "2" || cleanName.includes("JONATHAN")) {
+          defEmp = DEFAULT_EMPLOYEES.find(e => e.nombre.toUpperCase().includes("JONATHAN") || e.nombre.toUpperCase().includes("VEGA"));
+          if (defEmp) return defEmp;
+        }
+        if (cleanCode === "4" || cleanName.includes("SANTIAGO")) {
+          defEmp = DEFAULT_EMPLOYEES.find(e => e.nombre.toUpperCase().includes("SANTIAGO") || e.nombre.toUpperCase().includes("NARANJO") || e.nombre.toUpperCase().includes("HEBER"));
+          if (defEmp) return defEmp;
+        }
+        if (cleanName) {
+          defEmp = DEFAULT_EMPLOYEES.find(e => e.nombre.toUpperCase().includes(cleanName));
+          if (defEmp) return defEmp;
+        }
+      }
+
+      return null;
+    }
+
+    function getExtraHoursHistory() {
+      return extraHoursHistory;
+    }
+
+    function parseRelojMarcasContent(content) {
+      const punches = [];
+      const trRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+      const tdRegex = /<td[^>]*>([\s\S]*?)<\/td>/gi;
+      let trMatch;
+
+      while ((trMatch = trRegex.exec(content)) !== null) {
+        const trContent = trMatch[1];
+        const cells = [];
+        let tdMatch;
+        while ((tdMatch = tdRegex.exec(trContent)) !== null) {
+          cells.push(tdMatch[1].replace(/<[^>]+>/g, "").trim());
+        }
+        if (cells.length >= 3) {
+          const rawCode = cells[0].replace(/\s+/g, " ").trim();
+          const rawName = cells[1].replace(/\s+/g, " ").trim().toUpperCase();
+          const rawTs = cells[2].replace(/\s+/g, " ").trim();
+          const rawTipo = cells[3] ? cells[3].replace(/\s+/g, " ").trim() : "";
+
+          // Comprobar que sea fila de datos (código numérico y fecha con hora)
+          if (rawCode && !isNaN(rawCode) && (rawTs.includes(":") || rawTs.includes("/"))) {
+            punches.push({
+              empCode: rawCode,
+              empName: rawName,
+              timestamp: rawTs,
+              tipo: rawTipo
+            });
+          }
+        }
+      }
+
+      return punches;
+    }
+
+    function parseRelojMarcasWorkbook(workbook) {
+      const punches = [];
+      if (!workbook || !workbook.SheetNames || workbook.SheetNames.length === 0) return punches;
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+
+      rows.forEach(cells => {
+        if (!Array.isArray(cells) || cells.length < 3) return;
+        const rawCode = String(cells[0] || "").trim();
+        const rawName = String(cells[1] || "").trim().toUpperCase();
+        let rawTs = String(cells[2] || "").trim();
+        const rawTipo = String(cells[3] || "").trim();
+
+        if (rawCode && !isNaN(rawCode) && (rawTs.includes(":") || rawTs.includes("/"))) {
+          punches.push({
+            empCode: rawCode,
+            empName: rawName,
+            timestamp: rawTs,
+            tipo: rawTipo
+          });
+        }
+      });
+
+      return punches;
+    }
+
+    function calculateRelojOvertime(punches, options = {}) {
+      const normalCutoffSec = 18 * 3600; // 18:00:00 (6:00 PM)
+
+      // 1. Agrupar por empleado y fecha
+      const grouped = {};
+      punches.forEach(p => {
+        let dateStr = "";
+        let timeStr = "";
+        if (p.timestamp.includes(" ")) {
+          const parts = p.timestamp.split(" ");
+          dateStr = parts[0];
+          timeStr = parts[1];
+        } else {
+          dateStr = p.timestamp;
+          timeStr = "18:00:00";
+        }
+
+        // Normalizar fecha a YYYY-MM-DD
+        let y = "", m = "", d = "";
+        if (dateStr.includes("/")) {
+          const dp = dateStr.split("/");
+          if (dp[0].length === 4) {
+            y = dp[0]; m = dp[1].padStart(2, "0"); d = dp[2].padStart(2, "0");
+          } else {
+            d = dp[0].padStart(2, "0"); m = dp[1].padStart(2, "0"); y = dp[2];
+          }
+        } else if (dateStr.includes("-")) {
+          const dp = dateStr.split("-");
+          if (dp[0].length === 4) {
+            y = dp[0]; m = dp[1].padStart(2, "0"); d = dp[2].padStart(2, "0");
+          } else {
+            d = dp[0].padStart(2, "0"); m = dp[1].padStart(2, "0"); y = dp[2];
+          }
+        }
+        const isoDate = `${y}-${m}-${d}`;
+        const key = `${p.empCode}_${isoDate}`;
+
+        if (!grouped[key]) {
+          grouped[key] = {
+            empCode: p.empCode,
+            empName: p.empName,
+            date: isoDate,
+            punches: []
+          };
+        }
+        grouped[key].punches.push({ timeStr, tipo: p.tipo });
+      });
+
+      // 2. Determinar salida de cada día y calcular horas extraordinarias
+      const results = [];
+      Object.values(grouped).forEach(g => {
+        let maxSec = 0;
+        let maxTimeStr = "18:00:00";
+
+        g.punches.forEach(punch => {
+          const tp = punch.timeStr.split(":");
+          const sec = parseInt(tp[0] || "0", 10) * 3600 + parseInt(tp[1] || "0", 10) * 60 + parseInt(tp[2] || "0", 10);
+          if (sec > maxSec) {
+            maxSec = sec;
+            maxTimeStr = punch.timeStr;
+          }
+        });
+
+        let otHours = 0;
+        if (maxSec > normalCutoffSec) {
+          otHours = Math.round(((maxSec - normalCutoffSec) / 3600) * 100) / 100;
+        }
+
+        const emp = findEmployeeByClockCodeOrName(g.empCode, g.empName);
+
+        let tarifa = 2000;
+        let monto = 0;
+        if (emp) {
+          const legalRate = (emp.salarioMensual / 30 / 8) * 1.5;
+          if (options.tarifaModo === "custom" && options.customRate) {
+            tarifa = Number(options.customRate);
+          } else {
+            tarifa = legalRate;
+          }
+          monto = Math.round(otHours * tarifa * 100) / 100;
+        }
+
+        if (otHours > 0) {
+          results.push({
+            empCode: g.empCode,
+            empName: g.empName,
+            date: g.date,
+            assumedEntry: "07:00:00",
+            exitTime: maxTimeStr,
+            otHours: otHours,
+            employee: emp || null,
+            tarifa: tarifa,
+            monto: monto
+          });
+        }
+      });
+
+      // Ordenar por empleado y luego por fecha
+      results.sort((a, b) => {
+        if (a.empCode !== b.empCode) return Number(a.empCode) - Number(b.empCode);
+        return a.date.localeCompare(b.date);
+      });
+
+      return results;
+    }
+
+    function processRelojPunches(punches) {
+      parsedRelojPunches = punches;
+      const tarifaModo = document.getElementById("reloj-tarifa-modo")?.value || "legal";
+      const customRate = 2000;
+
+      parsedRelojResults = calculateRelojOvertime(punches, { tarifaModo, customRate });
+      if (typeof window !== "undefined") window.parsedRelojResults = parsedRelojResults;
+
+      const counterEl = document.getElementById("reloj-punches-counter");
+      if (counterEl) counterEl.textContent = `${punches.length} marcas leídas · ${parsedRelojResults.length} jornadas con extras`;
+
+      const previewCont = document.getElementById("reloj-preview-container");
+      const btnConfirm = document.getElementById("btn-confirm-reloj-import");
+
+      if (parsedRelojResults.length === 0) {
+        if (previewCont) previewCont.classList.add("hidden");
+        if (btnConfirm) btnConfirm.disabled = true;
+        showToast("No se detectaron marcas con salidas posteriores a las 6:00 PM.", "warning");
+        return;
+      }
+
+      if (previewCont) previewCont.classList.remove("hidden");
+      if (btnConfirm) btnConfirm.disabled = false;
+
+      // 1. Tarjetas de Resumen por Colaborador
+      const summaryCards = document.getElementById("reloj-summary-cards");
+      if (summaryCards) {
+        summaryCards.innerHTML = "";
+        const byEmp = {};
+        parsedRelojResults.forEach(r => {
+          const key = r.employee ? r.employee.id : `code-${r.empCode}`;
+          if (!byEmp[key]) {
+            byEmp[key] = {
+              name: r.employee ? r.employee.nombre : `${r.empName} (Cód. #${r.empCode})`,
+              emp: r.employee,
+              code: r.empCode,
+              totalHours: 0,
+              totalAmount: 0,
+              daysCount: 0
+            };
+          }
+          byEmp[key].totalHours += r.otHours;
+          byEmp[key].totalAmount += r.monto;
+          byEmp[key].daysCount++;
+        });
+
+        Object.values(byEmp).forEach(b => {
+          const card = document.createElement("div");
+          card.className = "bg-purple-50/70 border border-purple-200 rounded-xl p-3 space-y-1 shadow-xs";
+          card.innerHTML = `
+            <div class="flex justify-between items-start">
+              <span class="font-black text-purple-950 text-xs">${b.name}</span>
+              <span class="font-mono bg-purple-200 text-purple-900 font-bold px-1.5 py-0.5 rounded text-[10px]">#${b.code}</span>
+            </div>
+            <div class="text-[11px] text-purple-800 flex justify-between pt-1 border-t border-purple-200/60">
+              <span>Días con extras:</span>
+              <span class="font-bold">${b.daysCount} días</span>
+            </div>
+            <div class="text-[11px] text-purple-800 flex justify-between">
+              <span>Total Horas Extra:</span>
+              <span class="font-black font-mono text-purple-950">${b.totalHours.toFixed(2)} h</span>
+            </div>
+            <div class="text-[11px] text-purple-800 flex justify-between pt-1 border-t border-purple-200/60">
+              <span class="font-bold">Monto Quincena:</span>
+              <span class="font-black font-mono text-emerald-800 text-xs">${formatCRC(b.totalAmount)}</span>
+            </div>
+          `;
+          summaryCards.appendChild(card);
+        });
+      }
+
+      // 2. Tabla Detallada Día por Día
+      const tbody = document.getElementById("reloj-preview-tbody");
+      if (tbody) {
+        tbody.innerHTML = "";
+        let grandTotalHours = 0;
+        let grandTotalAmount = 0;
+
+        parsedRelojResults.forEach(r => {
+          grandTotalHours += r.otHours;
+          grandTotalAmount += r.monto;
+
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-purple-50/40 transition text-xs";
+          const empLabel = r.employee ? `${r.employee.nombre} <span class="text-slate-400 font-mono text-[10px]">(#${r.empCode})</span>` : `<span class="text-rose-600 font-bold">⚠️ No homologado (Cód. #${r.empCode} - ${r.empName})</span>`;
+
+          tr.innerHTML = `
+            <td class="p-2 font-semibold text-slate-800">${empLabel}</td>
+            <td class="p-2 text-center text-slate-600 font-mono">${formatDateCR(r.date)}</td>
+            <td class="p-2 text-center text-slate-500 font-mono">07:00:00</td>
+            <td class="p-2 text-center font-bold text-purple-900 font-mono">${r.exitTime}</td>
+            <td class="p-2 text-right font-black text-purple-900 font-mono">+${r.otHours.toFixed(2)} h</td>
+            <td class="p-2 text-right text-slate-500 font-mono text-[11px]">${formatCRC(r.tarifa)}</td>
+            <td class="p-2 text-right font-black text-emerald-800 font-mono">${formatCRC(r.monto)}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        const totalHoursEl = document.getElementById("reloj-total-hours");
+        const totalAmountEl = document.getElementById("reloj-total-amount");
+        if (totalHoursEl) totalHoursEl.textContent = `${grandTotalHours.toFixed(2)} h`;
+        if (totalAmountEl) totalAmountEl.textContent = formatCRC(grandTotalAmount);
+      }
+    }
+
+    function recalcRelojPreview() {
+      if (parsedRelojPunches && parsedRelojPunches.length > 0) {
+        processRelojPunches(parsedRelojPunches);
+      }
+    }
+
+    function handleFileSelectReloj(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const fileNameEl = document.getElementById("reloj-file-name");
+      if (fileNameEl) {
+        fileNameEl.textContent = `Archivo: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+        fileNameEl.classList.remove("hidden");
+      }
+
+      showToast("Leyendo archivo del reloj marcador...", "info");
+
+      const reader = new FileReader();
+      const isXlsx = file.name.endsWith(".xlsx");
+
+      if (isXlsx) {
+        reader.onload = function(evt) {
+          try {
+            const data = new Uint8Array(evt.target.result);
+            if (typeof XLSX === "undefined") {
+              showToast("La librería SheetJS no está lista.", "error");
+              return;
+            }
+            const wb = XLSX.read(data, { type: "array" });
+            const punches = parseRelojMarcasWorkbook(wb);
+            processRelojPunches(punches);
+          } catch (err) {
+            console.error("Error al procesar archivo XLSX:", err);
+            showToast("Error al leer el archivo Excel: " + err.message, "error");
+          }
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        // .xls (HTML table), .html, .csv
+        reader.onload = function(evt) {
+          try {
+            const text = evt.target.result;
+            let punches = parseRelojMarcasContent(text);
+            if (punches.length === 0 && typeof XLSX !== "undefined") {
+              try {
+                const wb = XLSX.read(text, { type: "string" });
+                punches = parseRelojMarcasWorkbook(wb);
+              } catch(e) {}
+            }
+            processRelojPunches(punches);
+          } catch (err) {
+            console.error("Error al procesar archivo de reloj:", err);
+            showToast("Error al procesar archivo: " + err.message, "error");
+          }
+        };
+        reader.readAsText(file, "UTF-8");
+      }
+    }
+
+    function confirmRelojImport() {
+      const items = (parsedRelojResults && parsedRelojResults.length > 0) ? parsedRelojResults : ((typeof window !== "undefined" && window.parsedRelojResults) ? window.parsedRelojResults : []);
+      if (!items || items.length === 0) {
+        showToast("No hay registros de horas extras para importar.", "warning");
+        return;
+      }
+
+      const targetPeriod = document.getElementById("reloj-periodo-select")?.value || currentPeriod;
+      const shouldReplace = document.getElementById("reloj-replace-existing")?.checked ?? true;
+
+      // 1. Eliminar marcas previas de reloj en este período si se marcó reemplazar
+      if (shouldReplace) {
+        extraHoursHistory = extraHoursHistory.filter(ex => !(
+          isExtraHourInPeriod(ex, targetPeriod) &&
+          (ex.motivo && ex.motivo.includes("Reloj Marcador"))
+        ));
+      }
+
+      let countImported = 0;
+      let totalHoursImported = 0;
+      let totalMontoImported = 0;
+
+      items.forEach((res, idx) => {
+        const emp = res.employee || findEmployeeByClockCodeOrName(res.empCode, res.empName);
+        if (!emp) return;
+        if (Array.isArray(employees) && !employees.some(e => e.cedula === emp.cedula || e.id === emp.id)) { employees.push(emp); }
+
+        const record = {
+          id: `ex-reloj-${Date.now()}-${idx}-${Math.random().toString(36).substr(2, 4)}`,
+          employeeId: emp.id,
+          cedula: emp.cedula,
+          nombre: emp.nombre,
+          departamento: emp.departamento,
+          fecha: res.date,
+          tipo: "extra_normal",
+          isDiaCompleto: false,
+          isHoliday: false,
+          horas: res.otHours,
+          tarifaHora: res.tarifa,
+          motivo: `Reloj Marcador #${res.empCode} (Salida: ${res.exitTime})`,
+          periodo: targetPeriod,
+          montoCalculado: res.monto,
+          codigoReloj: res.empCode
+        };
+
+        extraHoursHistory.unshift(record);
+        countImported++;
+        totalHoursImported += res.otHours;
+        totalMontoImported += res.monto;
+      });
+
+      recalcEmployeeExtraHours(currentPeriod);
+      saveData();
+      renderExtrasModule();
+      renderPayrollTable();
+      renderAccountingModule();
+      closeModalRelojMarcador();
+
+      showToast(`¡Carga completada! Se registraron ${countImported} jornadas (${totalHoursImported.toFixed(2)}h - ${formatCRC(totalMontoImported)}) desde el reloj marcador para ${targetPeriod}.`, "success");
+
       if (typeof syncAllToSheets === "function" && sheetsApiUrl) {
         syncAllToSheets();
       }
@@ -12496,37 +13223,12 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const qDays = (typeof getEmployeeQuincenaDays === "function") ? getEmployeeQuincenaDays(emp, selectedPeriod) : { diasTrabajados: 15, esProporcional: false };
       const baseQuincenal = (typeof getEmployeeBaseSalary === "function") ? getEmployeeBaseSalary(emp, selectedPeriod) : (salarioMensual / 2);
 
-      let horasExtraCount = 0;
-      let horasExtraMonto = 0;
+      const extraData = (typeof getEmployeeExtraDataForPeriod === "function")
+        ? getEmployeeExtraDataForPeriod(emp, selectedPeriod)
+        : { horasExtraQuincena: 0, montoExtraQuincena: 0, diasCompletosQuincena: 0, montoDiasCompletos: 0, horasExtraOrdinarias: 0, montoHorasExtraOrdinarias: 0, horasExtraFeriado: 0, montoHorasExtraFeriado: 0 };
 
-      // 1. Buscar en el historial de Horas Extra
-      if (typeof extraHoursHistory !== "undefined" && Array.isArray(extraHoursHistory)) {
-        extraHoursHistory.forEach(ex => {
-          const matchEmp = (
-            (ex.employeeId && String(ex.employeeId) === String(emp.id)) ||
-            (ex.cedula && emp.cedula && String(ex.cedula).trim() === String(emp.cedula).trim()) ||
-            (ex.nombre && emp.nombre && ex.nombre.trim().toLowerCase() === emp.nombre.trim().toLowerCase())
-          );
-          const matchPeriod = (
-            !ex.periodo ||
-            String(ex.periodo).trim().toLowerCase() === String(selectedPeriod).trim().toLowerCase() ||
-            (selectedPeriod === currentPeriod && !ex.periodo)
-          );
-          if (matchEmp && matchPeriod) {
-            const isDia = !!(ex.isDiaCompleto || ex.tipo === "dia_completo");
-            const isHol = !!(ex.isHoliday || ex.tipo === "extra_feriado");
-            const hrs = Number(ex.horas || (isDia ? 8 : 0));
-            horasExtraCount += hrs;
-            horasExtraMonto += Number(ex.montoCalculado || calculateOvertimeAmount(emp, hrs, isHol, isDia));
-          }
-        });
-      }
-
-      // 2. Si es la quincena actual y en el colaborador hay horas extra acumuladas directamente
-      if (selectedPeriod === currentPeriod && horasExtraCount === 0 && Number(emp.horasExtraQuincena || 0) > 0) {
-        horasExtraCount = Number(emp.horasExtraQuincena);
-        horasExtraMonto = getEmployeeExtraMonto(emp);
-      }
+      let horasExtraCount = extraData.horasExtraQuincena;
+      let horasExtraMonto = extraData.montoExtraQuincena;
 
       // 3. Feriados laborados
       let feriadosMonto = 0;
@@ -13065,6 +13767,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       document.getElementById("inp-salario").value = "427000.00";
       document.getElementById("inp-correo").value = "";
       document.getElementById("inp-confianza").value = "false";
+      const inpCod = document.getElementById("inp-codigo-reloj"); if (inpCod) inpCod.value = "";
+      const inpAlias = document.getElementById("inp-alias-reloj"); if (inpAlias) inpAlias.value = "";
       document.getElementById("inp-estado").value = "activo";
       document.getElementById("inp-fecha-salida").value = "";
       toggleFechaSalidaInput("activo");
@@ -13084,6 +13788,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       document.getElementById("inp-salario").value = Number(emp.salarioMensual || 427000).toFixed(2);
       document.getElementById("inp-correo").value = emp.correo || "";
       document.getElementById("inp-confianza").value = emp.esConfianza ? "true" : "false";
+      const inpCod = document.getElementById("inp-codigo-reloj"); if (inpCod) inpCod.value = emp.codigoReloj || "";
+      const inpAlias = document.getElementById("inp-alias-reloj"); if (inpAlias) inpAlias.value = emp.aliasReloj || "";
       document.getElementById("inp-estado").value = emp.estado || "activo";
       document.getElementById("inp-fecha-salida").value = emp.fechaSalida || "";
       toggleFechaSalidaInput(emp.estado || "activo");
@@ -13106,6 +13812,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const salarioMensual = parseFloat(rawSal) || 0;
       const esConfianza = document.getElementById("inp-confianza").value === "true";
       const correo = document.getElementById("inp-correo").value.trim();
+      const codigoReloj = (document.getElementById("inp-codigo-reloj")?.value || "").trim();
+      const aliasReloj = (document.getElementById("inp-alias-reloj")?.value || "").trim().toUpperCase();
       const estado = document.getElementById("inp-estado").value || "activo";
       const fechaSalida = estado === "inactivo" ? (document.getElementById("inp-fecha-salida").value || new Date().toISOString().split("T")[0]) : null;
 
@@ -13122,6 +13830,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           emp.salarioMensual = salarioMensual;
           emp.esConfianza = esConfianza;
           emp.correo = correo;
+          emp.codigoReloj = codigoReloj;
+          emp.aliasReloj = aliasReloj;
           emp.estado = estado;
           emp.fechaSalida = fechaSalida;
           savedEmp = emp;
@@ -13139,6 +13849,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           salarioMensual: salarioMensual,
           esConfianza: esConfianza,
           correo: correo,
+          codigoReloj: codigoReloj,
+          aliasReloj: aliasReloj,
           estado: estado,
           fechaSalida: fechaSalida,
           diasDisfrutados: 0,
@@ -13530,7 +14242,18 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     // CONTROL DE AUTENTICACIÓN Y ACCESO (LOGIN CON USUARIO, CLAVE Y SCRIPT URL)
     // =========================================================================
     const EXPECTED_ADMIN_USER = "maguero@hcsantos";
-    const EXPECTED_ADMIN_PASS = "Gallina2026.";
+    // Hash criptográfico SHA-256 de la credencial oficial (irreversible, sin texto plano)
+    const EXPECTED_ADMIN_HASH = "e7cc35574484eef359872cb5e2058c39d1b1641e74a60ec72dada0b1aa2d20ac";
+
+    async function hashPasswordSha256(str) {
+      if (typeof crypto !== "undefined" && crypto.subtle && crypto.subtle.digest) {
+        try {
+          const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+          return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+        } catch(e) {}
+      }
+      return "";
+    }
 
     function checkAuthSessionOnInit() {
       const session = sessionStorage.getItem("hc_auth_user") || localStorage.getItem("hc_auth_user");
@@ -13697,14 +14420,16 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           }
         }
 
-        // 2. Validación directa en código (requerida por el sistema)
+        // 2. Validación directa en código (verificación criptográfica por Hash SHA-256 irreversible)
         if (!isValid) {
-          if (user.toLowerCase() === EXPECTED_ADMIN_USER.toLowerCase() && pass === EXPECTED_ADMIN_PASS) {
+          const passHash = await hashPasswordSha256(pass);
+          if (user.toLowerCase() === EXPECTED_ADMIN_USER.toLowerCase() && passHash === EXPECTED_ADMIN_HASH) {
             isValid = true;
             userData = {
               username: EXPECTED_ADMIN_USER,
               nombre: "M. Agüero",
               rol: "Super Administrador",
+              token: "hcs_local_" + Date.now(),
               fechaLogin: new Date().toISOString()
             };
           }
