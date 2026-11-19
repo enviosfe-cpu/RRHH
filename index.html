@@ -272,7 +272,8 @@
       #modal-voucher:not(.hidden), #modal-voucher:not(.hidden) *,
       #modal-reporte-contable:not(.hidden), #modal-reporte-contable:not(.hidden) *,
       #modal-vacation-resolution:not(.hidden), #modal-vacation-resolution:not(.hidden) *,
-      #printable-expediente:not(.hidden), #printable-expediente:not(.hidden) * {
+      #printable-expediente:not(.hidden), #printable-expediente:not(.hidden) *,
+      #printable-control-salarios:not(.hidden), #printable-control-salarios:not(.hidden) * {
         visibility: visible;
       }
 
@@ -292,6 +293,17 @@
       }
 
       #printable-expediente:not(.hidden) {
+        position: static !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        display: block !important;
+        overflow: visible !important;
+        max-height: none !important;
+      }
+
+      #printable-control-salarios:not(.hidden) {
         position: static !important;
         width: 100% !important;
         margin: 0 !important;
@@ -2094,50 +2106,40 @@
 
         
 
-        <!-- Selector interactivo de Modo de Cálculo -->
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- Selector interactivo de Modo de Cálculo -->
+          <div class="flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-xl border border-slate-300">
+            <button type="button" id="btn-aguin-real" onclick="setAguinaldoMode('real')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-xs bg-purple-900 text-white flex items-center gap-1.5" title="Calcular con la suma exacta de las quincenas registradas en el historial de pagos">
+              <span><svg class="ico" data-i="file" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span> Historial Real Devengado
+            </button>
+            <button type="button" id="btn-aguin-proy" onclick="setAguinaldoMode('proyeccion')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5" title="Proyectar a 12 meses completando las quincenas restantes con el promedio real devengado por el vendedor">
+              <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/></svg> Proyección Anual (12m)
+            </button>
+          </div>
 
-        <div class="flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-xl border border-slate-300">
-
-          <button type="button" id="btn-aguin-real" onclick="setAguinaldoMode('real')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-xs bg-purple-900 text-white flex items-center gap-1.5" title="Calcular con la suma exacta de las quincenas registradas en el historial de pagos">
-
-            <span><svg class="ico" data-i="file" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span> Historial Real Devengado
-
+          <!-- Botón de Exportar Control de Salarios y Aguinaldo a PDF -->
+          <button type="button" id="btn-aguinaldo-salarios-pdf" onclick="printControlSalariosPDF()" class="px-3 py-2 bg-rose-700 hover:bg-rose-800 text-white rounded-xl font-bold text-xs transition shadow-xs flex items-center gap-1.5 cursor-pointer" title="Exportar Control de Salarios Líquidos y Devengados 2026 a PDF">
+            <span><svg class="ico" data-i="file" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span> Exportar Salarios en PDF
           </button>
-
-          <button type="button" id="btn-aguin-proy" onclick="setAguinaldoMode('proyeccion')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5" title="Proyectar a 12 meses completando las quincenas restantes con el promedio real devengado por el vendedor">
-
-            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/></svg> Proyección Anual (12m)
-
-          </button>
-
         </div>
-
       </div>
 
-
-
       <!-- Banner Informativo de Estado de Cálculo s/ Historial -->
-
       <div id="aguin-banner-info" class="bg-purple-50/80 border border-purple-200 rounded-xl p-3 flex items-center justify-between text-xs text-purple-950 flex-wrap gap-2">
-
         <div class="flex items-center gap-2">
-
           <span class="text-lg">ℹ️</span>
-
           <span id="aguin-banner-text">
-
             <strong>Cálculo según Historial Real de Pagos:</strong> Suma de todos los salarios brutos devengados por el colaborador en las quincenas registradas en el Control de Salarios 2026 ÷ 12.
-
           </span>
-
         </div>
-
-        <button type="button" onclick="openModalControlSalarios()" class="px-2.5 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded font-bold text-[11px] transition shadow-xs flex items-center gap-1">
-
-          <span><svg class="ico" data-i="chart" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></span> Ver Control de Salarios 2026
-
-        </button>
-
+        <div class="flex items-center gap-2">
+          <button type="button" id="btn-banner-salarios-pdf" onclick="printControlSalariosPDF()" class="px-2.5 py-1 bg-rose-700 hover:bg-rose-800 text-white rounded font-bold text-[11px] transition shadow-xs flex items-center gap-1 cursor-pointer" title="Descargar reporte de Salarios Líquidos y Aguinaldo en PDF">
+            <span><svg class="ico" data-i="printer" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg></span> Exportar PDF
+          </button>
+          <button type="button" onclick="openModalControlSalarios()" class="px-2.5 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded font-bold text-[11px] transition shadow-xs flex items-center gap-1">
+            <span><svg class="ico" data-i="chart" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></span> Ver Control de Salarios 2026
+          </button>
+        </div>
       </div>
 
 
@@ -2185,7 +2187,7 @@
 
 
         <!-- ==================== TAB: GESTIÓN DE GASTOS ==================== -->
-    <section id="tab-gastos" class="tab-content hidden space-y-4">
+    <section id="tab-gastos" class="tab-content hidden space-y-4" ondragover="handleXmlDragOver(event)">
       
       <!-- Encabezado del Módulo de Gastos -->
       <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
@@ -2208,13 +2210,29 @@
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <button type="button" onclick="exportGastosToExcel()" class="px-3 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg font-bold text-xs shadow-xs transition flex items-center gap-1.5" title="Exportar reporte de gastos a Microsoft Excel">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-              Exportar Excel
+            <!-- Selector oculto para explorar archivos XML -->
+            <input type="file" id="xml-file-input" accept=".xml,text/xml" multiple class="hidden" onchange="handleXmlFileInput(this.files)" />
+
+            <!-- Botón Cargar Facturas XML -->
+            <button type="button" 
+                    id="btn-upload-xml" 
+                    onclick="document.getElementById('xml-file-input').click()" 
+                    class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer hover:scale-[1.02]" 
+                    title="Cargar uno o múltiples archivos XML de factura desde la computadora (.xml de Hacienda Costa Rica)">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+              <span>Cargar Facturas XML</span>
             </button>
-            <button type="button" onclick="clearAllGastos()" class="px-3 py-2 bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-700 rounded-lg font-bold text-xs border border-slate-200 hover:border-rose-200 transition flex items-center gap-1.5" title="Eliminar todos los gastos cargados">
+
+            <!-- Botón Exportar Excel -->
+            <button type="button" onclick="exportGastosToExcel()" class="px-3 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg font-bold text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer hover:scale-[1.02]" title="Exportar reporte de gastos a Microsoft Excel">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+              <span>Exportar Excel</span>
+            </button>
+
+            <!-- Botón Limpiar Todo -->
+            <button type="button" onclick="clearAllGastos()" class="px-3 py-2 bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-700 rounded-lg font-bold text-xs border border-slate-200 hover:border-rose-200 transition flex items-center gap-1.5 cursor-pointer" title="Eliminar todos los gastos cargados">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
-              Limpiar Todo
+              <span>Limpiar Todo</span>
             </button>
           </div>
         </div>
@@ -2328,42 +2346,18 @@
           </div>
         </div>
 
-        <!-- Zona de Carga Manual de XML (Drag & Drop + Selección Múltiple) -->
+        <!-- Indicador Flotante de Arrastre de XML (Activo únicamente al arrastrar archivos sobre la pantalla) -->
         <div id="xml-dropzone" 
              ondragover="handleXmlDragOver(event)" 
              ondragleave="handleXmlDragLeave(event)" 
              ondrop="handleXmlDrop(event)"
-             onclick="document.getElementById('xml-file-input').click()"
-             class="group relative border-2 border-dashed border-indigo-200 hover:border-indigo-500 bg-gradient-to-b from-slate-50/70 to-indigo-50/30 hover:bg-indigo-50/60 rounded-2xl p-6 sm:p-8 text-center cursor-pointer transition-all duration-300">
-          
-          <input type="file" id="xml-file-input" accept=".xml,text/xml" multiple class="hidden" onchange="handleXmlFileInput(this.files)" />
-          
-          <div class="flex flex-col items-center justify-center pointer-events-none">
-            <div class="w-14 h-14 bg-white rounded-2xl shadow-sm border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
-              <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-              </svg>
+             class="hidden fixed inset-0 z-50 bg-indigo-950/80 backdrop-blur-xs flex flex-col items-center justify-center text-white transition-all duration-200">
+          <div class="p-8 rounded-3xl bg-indigo-900 border-2 border-dashed border-indigo-400 text-center max-w-md shadow-2xl flex flex-col items-center pointer-events-none">
+            <div class="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-white mb-3 shadow-lg animate-bounce">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
             </div>
-            
-            <h3 class="mt-3 text-sm sm:text-base font-bold text-slate-800 group-hover:text-indigo-900 transition-colors">
-              Arrastra y suelta tus archivos XML de factura aquí
-            </h3>
-            
-            <p class="text-xs text-slate-500 mt-1 max-w-md">
-              o haz clic para explorar en tu computadora. Puedes seleccionar <strong class="text-indigo-700">múltiples facturas electrónicas a la vez</strong> (.xml de Hacienda Costa Rica v4.3).
-            </p>
-
-            <div class="mt-3 flex flex-wrap items-center justify-center gap-2">
-              <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-white rounded-lg text-[11px] font-semibold text-slate-600 border border-slate-200 shadow-2xs">
-                📄 Factura Electrónica
-              </span>
-              <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-white rounded-lg text-[11px] font-semibold text-slate-600 border border-slate-200 shadow-2xs">
-                🎫 Tiquete Electrónico
-              </span>
-              <span class="inline-flex items-center gap-1 px-2.5 py-1 bg-white rounded-lg text-[11px] font-semibold text-slate-600 border border-slate-200 shadow-2xs">
-                ⚡ Lectura Instantánea
-              </span>
-            </div>
+            <h3 class="text-base font-bold">Suelte sus archivos XML de factura aquí</h3>
+            <p class="text-xs text-indigo-200 mt-1">Facturas electrónicas y tiquetes de Hacienda Costa Rica v4.3</p>
           </div>
         </div>
 
@@ -2517,9 +2511,51 @@
             </span>
           </div>
         </div>
-          <span class="px-2.5 py-1 bg-rose-200 text-rose-900 rounded font-mono font-bold text-xs border border-rose-300">
-            TEST_MODE = true
-          </span>
+
+        <!-- Tarjeta de Catálogo Oficial de Proveedores de Mercadería (Facturas XML) -->
+        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="p-1.5 bg-indigo-50 border border-indigo-200 rounded-lg text-indigo-700 font-bold text-sm">🏢</span>
+                <h3 class="text-sm font-bold text-slate-900">Catálogo de Proveedores de Mercadería (Facturas XML)</h3>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Almacena todos los proveedores detectados en compras. Configure cuáles están autorizados o no para procesar sus comprobantes electrónicos.
+              </p>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <button type="button" onclick="openModalProveedoresAutorizados()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2 rounded-lg shadow flex items-center gap-1.5 transition hover:scale-[1.02] cursor-pointer">
+                <span>⚙️ Modificar Autorizaciones</span>
+                <span id="badge-config-prov-count" class="bg-indigo-800 text-indigo-100 text-[10px] px-1.5 py-0.5 rounded-full font-mono">18</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Métricas Resumen de Proveedores -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between">
+              <div>
+                <span class="text-[11px] text-slate-500 font-medium block">Total Almacenados</span>
+                <span id="stat-prov-total" class="text-lg font-bold text-slate-900 font-mono">18</span>
+              </div>
+              <span class="text-2xl opacity-60">📦</span>
+            </div>
+            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex items-center justify-between">
+              <div>
+                <span class="text-[11px] text-emerald-700 font-medium block">Autorizados (Activos)</span>
+                <span id="stat-prov-autorizados" class="text-lg font-bold text-emerald-800 font-mono">18</span>
+              </div>
+              <span class="text-2xl text-emerald-600">✅</span>
+            </div>
+            <div class="bg-rose-50 border border-rose-200 rounded-xl p-3 flex items-center justify-between">
+              <div>
+                <span class="text-[11px] text-rose-700 font-medium block">No Autorizados</span>
+                <span id="stat-prov-no-autorizados" class="text-lg font-bold text-rose-800 font-mono">0</span>
+              </div>
+              <span class="text-2xl text-rose-600">🚫</span>
+            </div>
+          </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -2896,7 +2932,10 @@
           <button type="button" onclick="document.getElementById('input-excel-salarios').click()" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-bold flex items-center gap-1.5 shadow" title="Cargar archivo Excel directamente">
             <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></svg> Cargar Excel (.xlsx)
           </button>
-          <button type="button" onclick="openModalExpedientePDF()" class="px-3 py-1.5 bg-rose-700 hover:bg-rose-800 text-white rounded-lg font-bold flex items-center gap-1.5 shadow transition" title="Generar expediente de comprobantes en PDF por colaborador">
+          <button type="button" id="btn-export-control-salarios-pdf" onclick="printControlSalariosPDF()" class="px-3 py-1.5 bg-rose-700 hover:bg-rose-800 text-white rounded-lg font-bold flex items-center gap-1.5 shadow transition cursor-pointer" title="Exportar reporte de Control de Salarios Líquidos 2026 a PDF">
+            <span><svg class="ico" data-i="file" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span> Exportar PDF
+          </button>
+          <button type="button" onclick="openModalExpedientePDF()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-800 text-white rounded-lg font-bold flex items-center gap-1.5 shadow transition" title="Generar expediente de comprobantes en PDF por colaborador">
             <span><svg class="ico" data-i="file" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span> Expediente PDF
           </button>
           <button aria-label="Cerrar" type="button" onclick="closeModalControlSalarios()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-bold">
@@ -3082,6 +3121,10 @@
   <!-- Contenedor para impresión de expediente consolidado -->
 
   <div id="printable-expediente" class="hidden"></div>
+
+  <!-- Contenedor para impresión de Control de Salarios Líquidos 2026 (Landscape) -->
+
+  <div id="printable-control-salarios" class="hidden"></div>
 
 
 
@@ -4337,18 +4380,18 @@
   <div id="sr-live" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <!-- Modal QR Vacaciones Ampliado con Transición Fluida -->
-    <!-- Modal Proveedores Autorizados para Gastos -->
+  <!-- Modal Proveedores Autorizados y Catálogo General para Gastos -->
   <div id="modal-proveedores-autorizados" role="dialog" aria-modal="true" aria-labelledby="modal-prov-aut-title" class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-    <div class="bg-white rounded-2xl max-w-xl w-full shadow-2xl overflow-hidden m-auto border border-slate-200 max-h-[92vh] flex flex-col">
+    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden m-auto border border-slate-200 max-h-[92vh] flex flex-col">
       <div class="bg-slate-900 text-white px-5 py-3.5 flex justify-between items-center text-xs">
         <div class="flex items-center gap-2">
-          <span class="p-1.5 bg-indigo-500/20 rounded-lg text-indigo-300 font-bold">🏢</span>
+          <span class="p-1.5 bg-indigo-500/20 rounded-lg text-indigo-300 font-bold text-sm">🏢</span>
           <div>
-            <h4 id="modal-prov-aut-title" class="font-bold text-sm">Proveedores Autorizados de Facturas</h4>
-            <p class="text-[11px] text-slate-400">Solo los comprobantes emitidos por estos proveedores serán consumidos</p>
+            <h4 id="modal-prov-aut-title" class="font-bold text-sm">Catálogo Oficial de Proveedores & Autorizaciones</h4>
+            <p class="text-[11px] text-slate-400">Configure si cada proveedor está autorizado o no para el registro de facturas</p>
           </div>
         </div>
-        <button type="button" onclick="closeModalProveedoresAutorizados()" class="text-slate-400 hover:text-white p-1 rounded-lg transition" title="Cerrar (Esc)">
+        <button type="button" onclick="closeModalProveedoresAutorizados()" class="text-slate-400 hover:text-white p-1 rounded-lg transition cursor-pointer" title="Cerrar (Esc)">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
@@ -4356,27 +4399,48 @@
       <div class="p-5 overflow-y-auto space-y-4 text-xs">
         
         <!-- Formulario para agregar nuevo proveedor -->
-        <div class="flex gap-2">
-          <input type="text" id="inp-nuevo-proveedor" placeholder="Nombre de nuevo proveedor a autorizar..." class="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white" onkeydown="if(event.key==='Enter')agregarProveedorAutorizado()" />
-          <button type="button" onclick="agregarProveedorAutorizado()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xs shadow-xs transition flex items-center gap-1">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            Agregar
-          </button>
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+          <span class="font-bold text-slate-800 text-[11px] block">Registrar Nuevo Proveedor en el Catálogo:</span>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input type="text" id="inp-nuevo-proveedor" placeholder="Nombre o Razón Social del proveedor..." class="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white" onkeydown="if(event.key==='Enter')agregarProveedorAutorizado()" />
+            <select id="sel-nuevo-proveedor-estado" class="px-2.5 py-2 text-xs rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 font-semibold text-slate-700">
+              <option value="true" selected>✔ Autorizado</option>
+              <option value="false">✕ No Autorizado</option>
+            </select>
+            <button type="button" onclick="agregarProveedorAutorizado()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold text-xs shadow-xs transition flex items-center justify-center gap-1 cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Agregar</span>
+            </button>
+          </div>
         </div>
 
-        <div class="flex items-center justify-between text-slate-500 text-[11px]">
-          <span>Proveedores activos: <strong id="count-prov-autorizados" class="text-slate-900 font-mono font-bold">18</strong></span>
-          <button type="button" onclick="restaurarProveedoresPorDefecto()" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">Restaurar lista original de 18</button>
+        <!-- Barra de Búsqueda y Filtros Rápidos -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
+          <div class="relative flex-1">
+            <input type="text" id="inp-buscar-proveedor" oninput="updateProveedoresUI()" placeholder="Buscar proveedor por nombre o cédula..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white" />
+            <span class="absolute left-2.5 top-2 text-slate-400">🔍</span>
+          </div>
+          <div class="flex items-center gap-1 text-[11px] bg-slate-100 p-1 rounded-xl font-semibold">
+            <button type="button" id="btn-filtro-prov-todos" onclick="setFiltroEstadoProveedores('todos')" class="px-2.5 py-1 rounded-lg bg-white text-slate-900 shadow-xs transition cursor-pointer">Todos (<span id="count-prov-total">18</span>)</button>
+            <button type="button" id="btn-filtro-prov-auth" onclick="setFiltroEstadoProveedores('autorizados')" class="px-2.5 py-1 rounded-lg text-slate-600 hover:text-slate-900 transition cursor-pointer">Autorizados (<span id="count-prov-autorizados">18</span>)</button>
+            <button type="button" id="btn-filtro-prov-noauth" onclick="setFiltroEstadoProveedores('no_autorizados')" class="px-2.5 py-1 rounded-lg text-slate-600 hover:text-slate-900 transition cursor-pointer">No Autorizados (<span id="count-prov-no-autorizados">0</span>)</button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-slate-500 text-[11px] px-0.5">
+          <span class="italic">💡 Haga clic en el botón de estado para cambiar entre <strong>Autorizado</strong> y <strong>No Autorizado</strong>.</span>
+          <button type="button" onclick="restaurarProveedoresPorDefecto()" class="text-indigo-600 hover:text-indigo-800 underline font-semibold cursor-pointer">Restaurar 18 oficiales</button>
         </div>
 
         <!-- Lista de Proveedores -->
-        <div class="overflow-x-auto rounded-xl border border-slate-200">
+        <div class="overflow-x-auto rounded-xl border border-slate-200 max-h-[46vh] overflow-y-auto">
           <table class="w-full text-left border-collapse text-xs">
-            <thead>
-              <tr class="bg-slate-100 text-slate-700 font-bold text-[11px] uppercase tracking-wider">
+            <thead class="sticky top-0 bg-slate-100 z-10 shadow-xs">
+              <tr class="text-slate-700 font-bold text-[11px] uppercase tracking-wider">
                 <th scope="col" class="px-3 py-2 w-10 text-center">#</th>
-                <th scope="col" class="px-3 py-2">Nombre del Proveedor Autorizado</th>
-                <th scope="col" class="px-3 py-2 text-center w-20">Acción</th>
+                <th scope="col" class="px-3 py-2">Proveedor / Razón Social</th>
+                <th scope="col" class="px-3 py-2 text-center w-36">Estado (Clic para Cambiar)</th>
+                <th scope="col" class="px-3 py-2 text-center w-24">Acciones</th>
               </tr>
             </thead>
             <tbody id="lista-proveedores-autorizados-body" class="divide-y divide-slate-100 bg-white">
@@ -4388,8 +4452,8 @@
       </div>
 
       <div class="bg-slate-50 px-5 py-3 border-t border-slate-200 flex justify-between items-center text-xs">
-        <span class="text-[11px] text-slate-500">Se guarda automáticamente en memoria</span>
-        <button type="button" onclick="closeModalProveedoresAutorizados()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs transition">
+        <span class="text-[11px] text-slate-500">Los cambios se guardan automáticamente y rigen de inmediato</span>
+        <button type="button" onclick="closeModalProveedoresAutorizados()" class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold text-xs transition cursor-pointer">
           Listo / Cerrar
         </button>
       </div>
@@ -5654,6 +5718,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
       if (typeof updateProveedoresUI === "function") updateProveedoresUI();
       if (typeof renderGastosTable === "function") renderGastosTable();
+      if (typeof updateProveedoresUI === "function") updateProveedoresUI();
       renderEmployeesTable();
     }
 
@@ -7406,6 +7471,219 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       showToast("Archivo CSV descargado con éxito");
     }
 
+    // ==================== EXPORTACIÓN DE CONTROL DE SALARIOS A PDF (LANDSCAPE) ====================
+    function buildControlSalariosPrintHTML(data) {
+      const keys = [
+        "diciembre_ant_iq", "diciembre_ant_iiq",
+        "enero_iq", "enero_iiq", "febrero_iq", "febrero_iiq", "marzo_iq", "marzo_iiq",
+        "abril_iq", "abril_iiq", "mayo_iq", "mayo_iiq", "junio_iq", "junio_iiq",
+        "julio_iq", "julio_iiq", "agosto_iq", "agosto_iiq", "setiembre_iq", "setiembre_iiq",
+        "octubre_iq", "octubre_iiq", "noviembre_iq", "noviembre_iiq", "diciembre_iq", "diciembre_iiq"
+      ];
+
+      const columnTotals = {};
+      keys.forEach(k => columnTotals[k] = 0);
+      let grandTotal = 0;
+
+      const safe = (val) => {
+        if (val === null || val === undefined) return "";
+        return String(val)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      };
+
+      let rowsHtml = "";
+      data.forEach((row, idx) => {
+        let rowTotal = 0;
+        const bgRow = (idx % 2 === 0) ? "#ffffff" : "#f8fafc";
+        let rowCells = `
+          <td style="padding: 2.5px 4px; border: 1px solid #cbd5e1; font-weight: 700; color: #0f172a; white-space: nowrap; font-size: 6.8pt; background-color: ${bgRow};">${safe(row.nombre)}</td>
+          <td style="padding: 2.5px 3px; border: 1px solid #cbd5e1; color: #475569; white-space: nowrap; font-size: 6.2pt; background-color: ${bgRow};">${safe(row.puesto || 'Agente de ventas')}</td>
+        `;
+
+        keys.forEach(k => {
+          const val = Number(row[k]) || 0;
+          if (val > 0) {
+            rowTotal += val;
+            columnTotals[k] = (columnTotals[k] || 0) + val;
+            rowCells += `<td style="padding: 2px 2.5px; border: 1px solid #cbd5e1; text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 6.1pt; color: #1e293b; white-space: nowrap; background-color: ${bgRow};">${formatCRC(val)}</td>`;
+          } else {
+            rowCells += `<td style="padding: 2px 2.5px; border: 1px solid #cbd5e1; text-align: center; color: #cbd5e1; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 6.1pt; background-color: ${bgRow};">-</td>`;
+          }
+        });
+
+        grandTotal += rowTotal;
+        rowCells += `<td style="padding: 2.5px 4px; border: 1px solid #94a3b8; text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 800; font-size: 6.8pt; color: #047857; background-color: #ecfdf5; white-space: nowrap;">${formatCRC(rowTotal)}</td>`;
+        rowsHtml += `<tr>${rowCells}</tr>`;
+      });
+
+      let footCols = `
+        <td style="padding: 3px 4px; border: 1px solid #94a3b8; font-weight: 900; color: #0f172a; font-size: 6.8pt; text-transform: uppercase; background-color: #f1f5f9;">TOTALES</td>
+        <td style="padding: 3px 3px; border: 1px solid #94a3b8; font-weight: 700; color: #475569; font-size: 6.2pt; background-color: #f1f5f9;">${data.length} colaboradores</td>
+      `;
+      keys.forEach(k => {
+        const colSum = columnTotals[k] || 0;
+        footCols += `<td style="padding: 3px 2.5px; border: 1px solid #94a3b8; text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 800; font-size: 6.1pt; color: #0f172a; white-space: nowrap; background-color: #f1f5f9;">${colSum > 0 ? formatCRC(colSum) : '-'}</td>`;
+      });
+      footCols += `<td style="padding: 3px 4px; border: 1px solid #059669; text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 900; font-size: 7.2pt; color: #064e3b; background-color: #a7f3d0; white-space: nowrap;">${formatCRC(grandTotal)}</td>`;
+
+      const now = new Date();
+      const fechaEmision = now.toLocaleDateString("es-CR") + " " + now.toLocaleTimeString("es-CR", { hour: "2-digit", minute: "2-digit" });
+
+      return `
+        <div class="control-salarios-print-container" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0f172a; width: 100%; box-sizing: border-box; padding: 2mm 3mm; background: #fff;">
+          
+          <!-- Encabezado Institucional -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #0f172a; padding-bottom: 3px; margin-bottom: 3px;">
+            <div>
+              <div style="font-size: 12pt; font-weight: 900; letter-spacing: -0.01em; color: #0f172a; text-transform: uppercase;">DISTRIBUIDORA HERMANOS CASTRO DEL SUR S.A.</div>
+              <div style="font-size: 7.5pt; color: #475569; font-weight: 600;">Cédula Jurídica: 3-101-553770 · San Marcos, Tarrazú, Costa Rica · Tel: 2546-6000</div>
+              <div style="font-size: 9pt; font-weight: 800; color: #1e3a8a; margin-top: 1px;">CONTROL OFICIAL DE SALARIOS LÍQUIDOS 2026 · PLANILLA D9N3</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="display: inline-block; background-color: #0f172a; color: #fff; font-size: 6.8pt; font-weight: 800; padding: 2px 7px; border-radius: 4px; text-transform: uppercase;">Planilla de Aguinaldo Oficial</div>
+              <div style="font-size: 6.8pt; color: #334155; margin-top: 1px;"><strong>Emisión:</strong> ${fechaEmision}</div>
+              <div style="font-size: 6.8pt; color: #334155;"><strong>Período:</strong> 1 Dic 2025 – 30 Nov 2026</div>
+              <div style="font-size: 6.8pt; color: #334155;"><strong>Moneda:</strong> CRC (₡)</div>
+            </div>
+          </div>
+
+          <!-- Sub-banner Informativo -->
+          <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 4px; padding: 2.5px 6px; margin-bottom: 4px; font-size: 6.5pt; color: #1e3a8a; display: flex; justify-content: space-between; align-items: center;">
+            <div><strong>Registro Oficial:</strong> Salarios netos quincenales históricos pagados con deducción del 10.83% de CCSS obrero y feriados de ley (Art. 148 C.T. y Ley N° 2412).</div>
+            <div>Total colaboradores operativos: <strong>${data.length}</strong></div>
+          </div>
+
+          <!-- Tabla de Datos (26 Quincenas + Acumulado) -->
+          <table style="width: 100%; border-collapse: collapse; font-size: 6.2pt; line-height: 1.15; table-layout: auto;">
+            <thead>
+              <tr style="background-color: #0f172a; color: #ffffff; font-weight: 800; text-transform: uppercase; font-size: 6.2pt;">
+                <th rowspan="2" style="padding: 2.5px 4px; border: 1px solid #334155; text-align: left;">Nombre</th>
+                <th rowspan="2" style="padding: 2.5px 3px; border: 1px solid #334155; text-align: left;">Puesto</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #3b0764; color: #fde047;">DICIEMBRE *</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">ENERO</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">FEBRERO</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">MARZO</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">ABRIL</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #172554; color: #93c5fd;">MAYO *</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">JUNIO</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">JULIO</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">AGOSTO</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">SETIEMBRE</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">OCTUBRE</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">NOVIEMBRE</th>
+                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">DICIEMBRE 2026</th>
+                <th rowspan="2" style="padding: 2.5px 4px; border: 1px solid #064e3b; text-align: right; background-color: #064e3b; color: #a7f3d0; font-weight: 900;">TOTAL NETO</th>
+              </tr>
+              <tr style="background-color: #1e293b; color: #e2e8f0; font-size: 5.6pt; font-weight: 700; text-align: center;">
+                <th style="padding: 1.5px; border: 1px solid #334155; color: #fde047;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155; color: #fde047;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155; color: #fde047;">IQ *</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml}
+            </tbody>
+            <tfoot>
+              <tr>
+                ${footCols}
+              </tr>
+            </tfoot>
+          </table>
+
+          <!-- Notas al pie oficiales -->
+          <div style="margin-top: 3px; font-size: 6pt; color: #475569; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #cbd5e1; padding-top: 2px;">
+            <span>* <strong>Diciembre IQ e IIQ:</strong> Salarios netos de referencia del año anterior con los que se inicia legalmente el cálculo de Aguinaldo (1 Dic a 30 Nov).</span>
+            <span>* <strong>Mayo IQ:</strong> Incluye pago doble del feriado obligatorio del 1° de Mayo (Art. 148 C.T.).</span>
+            <span>Plan de planilla: <strong>D9N3</strong> · Moneda: <strong>Colones Costarricenses (CRC)</strong> · Base legal: <strong>Ley N° 2412</strong></span>
+          </div>
+
+          <!-- Bloque de Firmas Institucionales -->
+          <div style="margin-top: 8px; display: flex; justify-content: space-around; font-size: 6.8pt; color: #334155; text-align: center;">
+            <div style="width: 260px;">
+              <div style="border-bottom: 1px solid #475569; height: 26px;"></div>
+              <div style="margin-top: 2px; font-weight: 800; color: #0f172a;">Elaborado por Recursos Humanos</div>
+              <div style="font-size: 5.8pt; color: #64748b;">Distribuidora Hermanos Castro del Sur S.A.</div>
+            </div>
+            <div style="width: 260px;">
+              <div style="border-bottom: 1px solid #475569; height: 26px;"></div>
+              <div style="margin-top: 2px; font-weight: 800; color: #0f172a;">Revisado y Aprobado por Gerencia</div>
+              <div style="font-size: 5.8pt; color: #64748b;">Aprobación Oficial de Pago de Aguinaldo</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function printControlSalariosPDF() {
+      const data = getControlSalariosData();
+      if (!data || data.length === 0) {
+        alert("No hay datos disponibles en el Control de Salarios para exportar.");
+        return;
+      }
+
+      const container = document.getElementById("printable-control-salarios");
+      if (!container) return;
+
+      container.innerHTML = buildControlSalariosPrintHTML(data);
+
+      // Ocultar temporalmente otros contenedores imprimibles para garantizar aislamiento limpio
+      const otherPrintables = ["modal-voucher", "modal-reporte-contable", "modal-vacation-resolution", "printable-expediente"];
+      otherPrintables.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add("hidden");
+      });
+
+      // Añadir regla CSS para forzar orientación horizontal (landscape) y márgenes ajustados
+      let styleEl = document.getElementById("style-print-landscape");
+      if (!styleEl) {
+        styleEl = document.createElement("style");
+        styleEl.id = "style-print-landscape";
+        styleEl.innerHTML = `
+          @media print {
+            @page {
+              size: landscape;
+              margin: 4mm 5mm 4mm 5mm;
+            }
+            body {
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+          }
+        `;
+        document.head.appendChild(styleEl);
+      }
+
+      container.classList.remove("hidden");
+
+      const cleanupPrint = () => {
+        container.classList.add("hidden");
+        if (styleEl && styleEl.parentNode) {
+          styleEl.parentNode.removeChild(styleEl);
+        }
+        window.removeEventListener("afterprint", cleanupPrint);
+      };
+
+      window.addEventListener("afterprint", cleanupPrint);
+
+      window.print();
+
+      setTimeout(cleanupPrint, 3500);
+    }
+
     // ==================== EXPEDIENTE DE COMPROBANTES OFICIALES EN PDF ====================
     let expedienteSelectedEmpId = null;
 
@@ -8048,6 +8326,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       renderAccountingModule();
       populateSelects();
       if (typeof renderGastosTable === "function") renderGastosTable();
+      if (typeof updateProveedoresUI === "function") updateProveedoresUI();
 
       if (sheetsApiUrl) {
         document.getElementById("sheets-url-input").value = sheetsApiUrl;
@@ -8759,7 +9038,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         salarios2026: getControlSalariosData(),
         maestroRebajos: maestroRebajos,
         employeeRebajos: employeeRebajos,
-        extraHours: extraHours
+        extraHours: extraHours,
+        gastos: (typeof gastosList !== "undefined" && Array.isArray(gastosList)) ? gastosList : [],
+        catalogoProveedores: (typeof getCatalogoProveedores === "function") ? getCatalogoProveedores() : []
       };
 
       try {
@@ -8927,6 +9208,29 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             localStorage.setItem("hc_gmail_sent_log", JSON.stringify(log));
           }
 
+          // 8. Gastos y Facturas de Proveedores (Gastos_Facturas)
+          if (json.data.gastos !== undefined && Array.isArray(json.data.gastos)) {
+            const cloudGastos = json.data.gastos;
+            if (cloudGastos.length > 0) {
+              const cloudKeys = new Set(cloudGastos.map(cg => cg.id || cg.clave || cg.consecutivo).filter(Boolean));
+              const localUnsynced = (gastosList || []).filter(lg => {
+                const k = lg.id || lg.clave || lg.consecutivo;
+                return k && !cloudKeys.has(k);
+              });
+              gastosList = [...cloudGastos, ...localUnsynced];
+            } else if (!gastosList || gastosList.length === 0) {
+              gastosList = [];
+            }
+            saveGastosToStorage();
+            if (typeof updateGastosMonthFilter === "function") updateGastosMonthFilter();
+            renderGastosTable();
+          }
+
+          // 9. Maestro Oficial de Proveedores (Maestro_Proveedores)
+          if (json.data.catalogoProveedores !== undefined && Array.isArray(json.data.catalogoProveedores) && json.data.catalogoProveedores.length > 0) {
+            saveCatalogoProveedores(json.data.catalogoProveedores);
+          }
+
           saveData();
           renderEmployeesTable();
           renderPayrollTable();
@@ -8935,6 +9239,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           renderAguinaldoModule();
           renderAccountingModule();
           renderMaestroRebajosTable();
+          renderGastosTable();
+          updateProveedoresUI();
           populateSelects();
 
           updateSyncIndicator("synced");
@@ -8988,40 +9294,153 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     }
 
     // ==================== MÓDULO DE GESTIÓN DE GASTOS (CARGA MANUAL XML) ====================
-    const DEFAULT_PROVEEDORES_AUTORIZADOS = [
-      "Cia. Nestle Costa Rica SA",
-      "SIGMA ALIMENTOS COSTA RICA, S.A.",
-      "LUIS GUILLERMO MORA MONGE",
-      "LA MAQUILA LAMA S.A.",
-      "PROGRAMATICA Y TECNOLOGIA DE PALMARES",
-      "CARLOS ALBERTO BOLAÑOS CAMPOS",
-      "COPRODISA CR SA",
-      "DISTRIBUIDORA KIKO",
-      "DISTRIBUIDORA ALTERNATIVA S.A.",
-      "OXI SUR SRL",
-      "PURINA",
-      "EXPORTADORA PMT S.A.",
-      "APICOLA LA REINA",
-      "GLOBAL MERCHANTS",
-      "GOLDEN TRADING SA",
-      "CALVO DISTRIBUIDORA ALIMENTARIA",
-      "LA MUNDIAL",
-      "RED ECOLOGICA Y PAPEL"
-    ];
+    // El catálogo maestro de proveedores autorizados reside exclusivamente en la hoja "Maestro_Proveedores"
+    // de Google Sheets (Single Source of Truth). Cero datos quemados en el código cliente.
+
+    async function syncGastoPagoToSheets(g) {
+      if (!g) return;
+      if (sheetsApiUrl && navigator.onLine) {
+        try {
+          await postToAppsScript(sheetsApiUrl, {
+            action: "updateGastoPago",
+            id: g.id || "",
+            clave: g.clave || "",
+            consecutivo: g.consecutivo || "",
+            estadoPago: g.estadoPago || "pendiente",
+            bancoPago: g.bancoPago || "",
+            comprobantePago: g.comprobantePago || "",
+            fechaPago: g.fechaPago || "",
+            notasPago: g.notasPago || ""
+          });
+        } catch(err) {
+          console.warn("Error en updateGastoPago atómico, encolando syncAll:", err);
+          syncAllToSheets();
+        }
+      } else {
+        syncAllToSheets();
+      }
+    }
+
+    async function syncDeleteGastoToSheets(g) {
+      if (!g) return;
+      if (sheetsApiUrl && navigator.onLine) {
+        try {
+          await postToAppsScript(sheetsApiUrl, {
+            action: "deleteGasto",
+            id: g.id || "",
+            clave: g.clave || "",
+            consecutivo: g.consecutivo || ""
+          });
+        } catch(err) {
+          console.warn("Error en deleteGasto atómico, encolando syncAll:", err);
+          syncAllToSheets();
+        }
+      } else {
+        syncAllToSheets();
+      }
+    }
+
+    async function syncClearAllGastosToSheets() {
+      if (sheetsApiUrl && navigator.onLine) {
+        try {
+          await postToAppsScript(sheetsApiUrl, { action: "clearAllGastos" });
+        } catch(err) {
+          syncAllToSheets();
+        }
+      } else {
+        syncAllToSheets();
+      }
+    }
+
+    async function syncProveedorToSheets(p) {
+      if (!p) return;
+      if (sheetsApiUrl && navigator.onLine) {
+        try {
+          await postToAppsScript(sheetsApiUrl, {
+            action: "saveProveedor",
+            id: p.id || "",
+            cedula: p.cedula || "",
+            nombre: p.nombre || "",
+            autorizado: (p.autorizado !== false && String(p.autorizado).toUpperCase() !== "NO") ? "SI" : "NO",
+            categoria: p.categoria || "Mercadería y Compras"
+          });
+        } catch(err) {
+          console.warn("Error en saveProveedor atómico, encolando syncAll:", err);
+          syncAllToSheets();
+        }
+      } else {
+        syncAllToSheets();
+      }
+    }
+
+    function getCatalogoProveedores() {
+      try {
+        const raw = localStorage.getItem("hc_catalogo_proveedores");
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed;
+          }
+        }
+      } catch(e) {
+        console.warn("Error leyendo hc_catalogo_proveedores:", e);
+      }
+
+      // Migrar proveedores previos de hc_proveedores_autorizados si existieran
+      try {
+        const prev = JSON.parse(localStorage.getItem("hc_proveedores_autorizados"));
+        if (Array.isArray(prev) && prev.length > 0) {
+          const mig = prev.map(p => ({
+            nombre: typeof p === "string" ? p : p.nombre,
+            autorizado: true,
+            cedula: "",
+            fechaRegistro: new Date().toISOString()
+          }));
+          saveCatalogoProveedores(mig);
+          return mig;
+        }
+      } catch(e) {}
+
+      return [];
+    }
+
+    function saveCatalogoProveedores(catalogo) {
+      try {
+        localStorage.setItem("hc_catalogo_proveedores", JSON.stringify(catalogo));
+        const autorizados = catalogo.filter(p => p.autorizado !== false).map(p => p.nombre);
+        localStorage.setItem("hc_proveedores_autorizados", JSON.stringify(autorizados));
+      } catch(e) {
+        console.warn("Error guardando catálogo:", e);
+      }
+      updateProveedoresUI();
+    }
 
     function getProveedoresAutorizados() {
-      try {
-        const saved = localStorage.getItem("hc_proveedores_autorizados");
-        if (saved) return JSON.parse(saved);
-      } catch(e) {}
-      return DEFAULT_PROVEEDORES_AUTORIZADOS.slice();
+      const catalogo = getCatalogoProveedores();
+      return catalogo.filter(p => p.autorizado !== false).map(p => p.nombre);
     }
 
     function saveProveedoresAutorizados(list) {
-      try {
-        localStorage.setItem("hc_proveedores_autorizados", JSON.stringify(list));
-      } catch(e) {}
-      updateProveedoresUI();
+      const catalogo = getCatalogoProveedores();
+      list.forEach(nombre => {
+        const found = catalogo.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
+        if (found) {
+          found.autorizado = true;
+        } else {
+          catalogo.push({
+            nombre: nombre,
+            autorizado: true,
+            cedula: "",
+            fechaRegistro: new Date().toISOString()
+          });
+        }
+      });
+      catalogo.forEach(p => {
+        if (!list.some(n => n.toLowerCase() === p.nombre.toLowerCase())) {
+          p.autorizado = false;
+        }
+      });
+      saveCatalogoProveedores(catalogo);
     }
 
     function normalizeText(str) {
@@ -9034,96 +9453,288 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         .trim();
     }
 
-    function isProveedorAutorizado(nombreEmisor, strict = true) {
-      // Regla inmutable: el sistema procesa exclusivamente proveedores autorizados
+    function findProveedorEnCatalogo(nombreEmisor, cedula = "") {
+      const catalogo = getCatalogoProveedores();
+      if (!catalogo || catalogo.length === 0) return null;
+
+      // 1. Coincidencia por cédula si está disponible
+      if (cedula) {
+        const cleanCedula = String(cedula).replace(/[^0-9]/g, "");
+        if (cleanCedula.length >= 9) {
+          const byCedula = catalogo.find(p => p.cedula && String(p.cedula).replace(/[^0-9]/g, "") === cleanCedula);
+          if (byCedula) return byCedula;
+        }
+      }
+
+      // 2. Coincidencia por nombre normalizado
       const normEmisor = normalizeText(nombreEmisor);
-      if (!normEmisor) return false;
-      
-      const whitelist = getProveedoresAutorizados();
+      if (!normEmisor) return null;
+
       const stopWords = new Set([
         "sa", "srl", "sociedad", "anonima", "cia", "compania", 
         "de", "la", "el", "los", "las", "y", "cr", "costa", "rica", 
         "limitada", "ltda", "rl", "del", "al", "distribuidora"
       ]);
-      
-      for (let i = 0; i < whitelist.length; i++) {
-        const prov = whitelist[i];
-        const normProv = normalizeText(prov);
+
+      for (let i = 0; i < catalogo.length; i++) {
+        const prov = catalogo[i];
+        const normProv = normalizeText(prov.nombre);
         if (!normProv) continue;
-        
+
         // Coincidencia directa de subcadena
         if (normEmisor.includes(normProv) || normProv.includes(normEmisor)) {
-          return true;
+          return prov;
         }
-        
+
         // Coincidencia inteligente por palabras clave distintivas
         const wordsProv = normProv.split(" ").filter(w => w.length > 2 && !stopWords.has(w));
         if (wordsProv.length > 0) {
           const matchedWords = wordsProv.filter(w => normEmisor.includes(w));
-          // Si tiene 1 palabra distintiva (ej. nestle, purina, coprodisa, kiko, mundial)
-          if (wordsProv.length === 1 && matchedWords.length === 1) return true;
-          // Si tiene 2 palabras distintivas
+          if (wordsProv.length === 1 && matchedWords.length === 1) return prov;
           if (wordsProv.length === 2 && matchedWords.length >= 1) {
             if (wordsProv.includes("oxi") && (!matchedWords.includes("oxi") || !matchedWords.includes("sur"))) {
               continue;
             }
-            return true;
+            return prov;
           }
-          // Si tiene 3 o más palabras distintivas, exigir al menos 2
-          if (wordsProv.length >= 3 && matchedWords.length >= 2) return true;
+          if (wordsProv.length >= 3 && matchedWords.length >= 2) return prov;
         }
       }
-      return false;
+
+      return null;
+    }
+
+    function isProveedorAutorizado(nombreEmisor) {
+      const entry = findProveedorEnCatalogo(nombreEmisor);
+      return !!(entry && entry.autorizado);
+    }
+
+    function agregarProveedorCatalogo(nombre, autorizado = true, cedula = "") {
+      const cleanNombre = (nombre || "").trim();
+      if (!cleanNombre) return null;
+      const catalogo = getCatalogoProveedores();
+      const existing = findProveedorEnCatalogo(cleanNombre, cedula);
+      if (existing) {
+        existing.autorizado = !!autorizado;
+        if (cedula && !existing.cedula) existing.cedula = cedula;
+        saveCatalogoProveedores(catalogo);
+        return existing;
+      }
+      const nuevo = {
+        nombre: cleanNombre,
+        autorizado: !!autorizado,
+        cedula: cedula || "",
+        fechaRegistro: new Date().toISOString()
+      };
+      catalogo.push(nuevo);
+      saveCatalogoProveedores(catalogo);
+      syncProveedorToSheets(nuevo);
+      return nuevo;
+    }
+
+    function toggleProveedorAutorizado(target) {
+      const catalogo = getCatalogoProveedores();
+      let prov = null;
+      if (typeof target === "number" && target >= 0 && target < catalogo.length) {
+        prov = catalogo[target];
+      } else if (typeof target === "string") {
+        prov = catalogo.find(p => p.nombre.toLowerCase() === target.toLowerCase());
+      }
+      if (prov) {
+        prov.autorizado = !prov.autorizado;
+        prov.fechaModificacion = new Date().toISOString();
+        saveCatalogoProveedores(catalogo);
+        const estado = prov.autorizado ? "AUTORIZADO" : "NO AUTORIZADO";
+        showToast(`Proveedor "${prov.nombre}" marcado como ${estado}`, "info");
+        syncProveedorToSheets(prov);
+      }
+    }
+
+    async function editarProveedorCatalogo(idx) {
+      const catalogo = getCatalogoProveedores();
+      if (idx < 0 || idx >= catalogo.length) return;
+      const prov = catalogo[idx];
+      const nuevoNombre = prompt("Modificar nombre o razón social del proveedor:", prov.nombre);
+      if (nuevoNombre !== null && nuevoNombre.trim() && nuevoNombre.trim() !== prov.nombre) {
+        prov.nombre = nuevoNombre.trim();
+        prov.fechaModificacion = new Date().toISOString();
+        saveCatalogoProveedores(catalogo);
+        showToast("Proveedor actualizado correctamente", "success");
+        syncProveedorToSheets(prov);
+      }
+    }
+
+    async function eliminarProveedorCatalogo(idx) {
+      const catalogo = getCatalogoProveedores();
+      if (idx < 0 || idx >= catalogo.length) return;
+      const prov = catalogo[idx];
+      const confirmDel = await uiConfirm(
+        `¿Desea eliminar permanentemente a "${prov.nombre}" del catálogo de proveedores?`,
+        { title: "Eliminar Proveedor", tone: "danger", confirmText: "Eliminar", cancelText: "Cancelar" }
+      );
+      if (confirmDel) {
+        const deletedProv = catalogo.splice(idx, 1)[0];
+        saveCatalogoProveedores(catalogo);
+        showToast(`Proveedor "${deletedProv.nombre}" eliminado del catálogo`, "info");
+        syncAllToSheets();
+      }
+    }
+
+    async function restaurarProveedoresPorDefecto() {
+      if (sheetsApiUrl) {
+        await loadFromSheets(false);
+        showToast("Catálogo maestro descargado desde Google Sheets", "success");
+      } else {
+        showToast("Conecte con Google Sheets para sincronizar el catálogo maestro", "info");
+      }
+    }
+
+    let filtroEstadoProveedores = "todos";
+    function setFiltroEstadoProveedores(estado) {
+      filtroEstadoProveedores = estado;
+      updateProveedoresUI();
+    }
+
+    async function resolverAutorizacionProveedor(emisorNombre, emisorCedula = "", origen = "XML") {
+      let provEntry = findProveedorEnCatalogo(emisorNombre, emisorCedula);
+      if (!provEntry) {
+        // Nuevo proveedor: preguntar interactivamente si desea autorizarlo
+        const wantsAuth = await uiConfirm(
+          `Se detectó una factura de un nuevo proveedor no registrado en el sistema:\n\n` +
+          `🏢 Proveedor: ${emisorNombre}\n` +
+          (emisorCedula ? `🆔 Cédula: ${emisorCedula}\n` : '') +
+          `\n¿Desea AUTORIZAR a este proveedor para registrar sus facturas e incorporarlo a la lista oficial de proveedores autorizados?`,
+          {
+            title: `Nuevo Proveedor Detectado (${origen})`,
+            tone: "info",
+            confirmText: "Sí, Autorizar",
+            cancelText: "No Autorizar"
+          }
+        );
+
+        provEntry = agregarProveedorCatalogo(emisorNombre, wantsAuth, emisorCedula);
+        if (wantsAuth) {
+          showToast(`Proveedor "${emisorNombre}" incorporado a la lista autorizada`, "success");
+        } else {
+          showToast(`Proveedor "${emisorNombre}" registrado como No Autorizado`, "info");
+        }
+      }
+      return !!(provEntry && provEntry.autorizado);
     }
 
     function updateProveedoresUI() {
-      const list = getProveedoresAutorizados();
+      const catalogo = getCatalogoProveedores();
+      const autorizados = catalogo.filter(p => p.autorizado !== false);
+      const noAutorizados = catalogo.filter(p => p.autorizado === false);
+
       const countEl = document.getElementById("count-prov-autorizados");
       const badgeCount = document.getElementById("badge-prov-count");
-      if (countEl) countEl.textContent = list.length;
-      if (badgeCount) badgeCount.textContent = list.length;
+      const badgeConfig = document.getElementById("badge-config-prov-count");
+      const countTotal = document.getElementById("count-prov-total");
+      const countNoAuth = document.getElementById("count-prov-no-autorizados");
+      
+      const statTotal = document.getElementById("stat-prov-total");
+      const statAuth = document.getElementById("stat-prov-autorizados");
+      const statNoAuth = document.getElementById("stat-prov-no-autorizados");
+
+      if (countEl) countEl.textContent = autorizados.length;
+      if (badgeCount) badgeCount.textContent = autorizados.length;
+      if (badgeConfig) badgeConfig.textContent = autorizados.length;
+      if (countTotal) countTotal.textContent = catalogo.length;
+      if (countNoAuth) countNoAuth.textContent = noAutorizados.length;
+
+      if (statTotal) statTotal.textContent = catalogo.length;
+      if (statAuth) statAuth.textContent = autorizados.length;
+      if (statNoAuth) statNoAuth.textContent = noAutorizados.length;
+
+      const btnTodos = document.getElementById("btn-filtro-prov-todos");
+      const btnAuth = document.getElementById("btn-filtro-prov-auth");
+      const btnNoAuth = document.getElementById("btn-filtro-prov-noauth");
+      if (btnTodos && btnAuth && btnNoAuth) {
+        btnTodos.className = filtroEstadoProveedores === "todos" ? "px-2.5 py-1 rounded-lg bg-white text-slate-900 shadow-xs font-bold transition cursor-pointer" : "px-2.5 py-1 rounded-lg text-slate-600 hover:text-slate-900 transition cursor-pointer";
+        btnAuth.className = filtroEstadoProveedores === "autorizados" ? "px-2.5 py-1 rounded-lg bg-white text-emerald-800 shadow-xs font-bold transition cursor-pointer" : "px-2.5 py-1 rounded-lg text-slate-600 hover:text-slate-900 transition cursor-pointer";
+        btnNoAuth.className = filtroEstadoProveedores === "no_autorizados" ? "px-2.5 py-1 rounded-lg bg-white text-rose-800 shadow-xs font-bold transition cursor-pointer" : "px-2.5 py-1 rounded-lg text-slate-600 hover:text-slate-900 transition cursor-pointer";
+      }
 
       const tbody = document.getElementById("lista-proveedores-autorizados-body");
       if (!tbody) return;
 
-      tbody.innerHTML = list.map((prov, idx) => `
-        <tr class="hover:bg-slate-50 transition">
-          <td class="px-3 py-2 text-center text-slate-400 font-mono text-[11px]">${idx + 1}</td>
-          <td class="px-3 py-2 font-semibold text-slate-800">${prov}</td>
-          <td class="px-3 py-2 text-center">
-            <button type="button" onclick="eliminarProveedorAutorizado(${idx})" class="text-rose-500 hover:text-rose-700 hover:bg-rose-50 p-1 rounded transition" title="Eliminar proveedor">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-            </button>
-          </td>
-        </tr>
-      `).join("");
+      const searchInput = document.getElementById("inp-buscar-proveedor");
+      const q = searchInput ? searchInput.value.trim().toLowerCase() : "";
+
+      let items = catalogo.map((item, originalIdx) => ({ item, originalIdx }));
+
+      if (filtroEstadoProveedores === "autorizados") {
+        items = items.filter(x => x.item.autorizado !== false);
+      } else if (filtroEstadoProveedores === "no_autorizados") {
+        items = items.filter(x => x.item.autorizado === false);
+      }
+
+      if (q) {
+        items = items.filter(x => {
+          const n = (x.item.nombre || "").toLowerCase();
+          const c = (x.item.cedula || "").toLowerCase();
+          return n.includes(q) || c.includes(q);
+        });
+      }
+
+      if (items.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4" class="px-4 py-8 text-center text-slate-400">
+              No se encontraron proveedores ${q ? `con el término "${escapeHtml(q)}"` : ''}
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = items.map((x, displayIdx) => {
+        const prov = x.item;
+        const originalIdx = x.originalIdx;
+        const isAuth = prov.autorizado !== false;
+        return `
+          <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+            <td class="px-3 py-2 text-center text-slate-400 font-mono text-[11px]">${displayIdx + 1}</td>
+            <td class="px-3 py-2">
+              <div class="font-semibold text-slate-900">${escapeHtml(prov.nombre)}</div>
+              ${prov.cedula ? `<div class="text-[10px] text-slate-400 font-mono">Céd: ${escapeHtml(prov.cedula)}</div>` : ''}
+            </td>
+            <td class="px-3 py-2 text-center">
+              <button type="button" 
+                      onclick="toggleProveedorAutorizado(${originalIdx})" 
+                      class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border transition cursor-pointer shadow-2xs ${isAuth ? 'bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-rose-50 hover:text-rose-800 hover:border-rose-300' : 'bg-rose-50 text-rose-800 border-rose-300 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300'}"
+                      title="${isAuth ? 'Haga clic para DESAUTORIZAR' : 'Haga clic para AUTORIZAR'}">
+                <span class="w-2 h-2 rounded-full ${isAuth ? 'bg-emerald-500' : 'bg-rose-500'}"></span>
+                <span>${isAuth ? '✔ Autorizado' : '✕ No Autorizado'}</span>
+              </button>
+            </td>
+            <td class="px-3 py-2 text-center">
+              <div class="flex items-center justify-center gap-1">
+                <button type="button" onclick="editarProveedorCatalogo(${originalIdx})" class="text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 p-1 rounded transition cursor-pointer" title="Modificar nombre">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                </button>
+                <button type="button" onclick="eliminarProveedorCatalogo(${originalIdx})" class="text-rose-500 hover:text-rose-700 hover:bg-rose-50 p-1 rounded transition cursor-pointer" title="Eliminar proveedor">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
     }
 
     function agregarProveedorAutorizado() {
       const inp = document.getElementById("inp-nuevo-proveedor");
+      const selEstado = document.getElementById("sel-nuevo-proveedor-estado");
       const val = inp ? inp.value.trim() : "";
       if (!val) return;
-      const list = getProveedoresAutorizados();
-      if (!list.some(p => p.toLowerCase() === val.toLowerCase())) {
-        list.push(val);
-        saveProveedoresAutorizados(list);
-        showToast("Proveedor agregado a la lista autorizada", "success");
+      const estado = selEstado ? selEstado.value === "true" : true;
+      const res = agregarProveedorCatalogo(val, estado);
+      if (res) {
+        showToast(`Proveedor "${val}" registrado como ${estado ? 'Autorizado' : 'No Autorizado'}`, "success");
       }
       if (inp) inp.value = "";
-    }
-
-    function eliminarProveedorAutorizado(idx) {
-      const list = getProveedoresAutorizados();
-      if (idx >= 0 && idx < list.length) {
-        const removed = list.splice(idx, 1);
-        saveProveedoresAutorizados(list);
-        showToast(`Proveedor "${removed[0]}" eliminado`, "info");
-      }
-    }
-
-    function restaurarProveedoresPorDefecto() {
-      saveProveedoresAutorizados(DEFAULT_PROVEEDORES_AUTORIZADOS.slice());
-      showToast("Lista restaurada a los 18 proveedores oficiales", "success");
     }
 
     function openModalProveedoresAutorizados() {
@@ -9167,7 +9778,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       e.stopPropagation();
       const dropzone = document.getElementById("xml-dropzone");
       if (dropzone) {
-        dropzone.classList.add("border-indigo-600", "bg-indigo-100/40");
+        dropzone.classList.remove("hidden");
       }
     }
 
@@ -9175,8 +9786,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       e.preventDefault();
       e.stopPropagation();
       const dropzone = document.getElementById("xml-dropzone");
-      if (dropzone) {
-        dropzone.classList.remove("border-indigo-600", "bg-indigo-100/40");
+      if (dropzone && (!e.relatedTarget || !dropzone.contains(e.relatedTarget))) {
+        dropzone.classList.add("hidden");
       }
     }
 
@@ -9185,7 +9796,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       e.stopPropagation();
       const dropzone = document.getElementById("xml-dropzone");
       if (dropzone) {
-        dropzone.classList.remove("border-indigo-600", "bg-indigo-100/40");
+        dropzone.classList.add("hidden");
       }
       if (e.dataTransfer && e.dataTransfer.files) {
         processXmlFiles(e.dataTransfer.files);
@@ -9470,8 +10081,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           const text = await file.text();
           const parsed = parseCostaRicaXml(text, file.name);
 
-          // Filtro de proveedores autorizados
-          if (!isProveedorAutorizado(parsed.emisorNombre)) {
+          // Verificar y resolver autorización del proveedor
+          const esAutorizado = await resolverAutorizacionProveedor(parsed.emisorNombre, parsed.emisorCedula, "Carga Manual");
+          if (!esAutorizado) {
             noAutorizadas++;
             continue;
           }
@@ -9502,6 +10114,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       saveGastosToStorage();
       renderGastosTable();
+      if (agregadas > 0) {
+        syncAllToSheets();
+      }
 
       if (feedback) {
         let msg = `<strong>${agregadas} factura(s) procesada(s) con éxito.</strong>`;
@@ -9640,6 +10255,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       renderGastosTable();
       closeModalRegistrarPago();
       showToast(`Factura ${g.consecutivo} marcada como Pagada (Ref: ${comp})`, "success");
+      syncGastoPagoToSheets(g);
     }
 
     async function marcarComoNoPagada() {
@@ -9668,6 +10284,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       renderGastosTable();
       closeModalRegistrarPago();
       showToast(`Factura #${g.consecutivo} marcada como No Pagada (Pendiente)`, "info");
+      syncGastoPagoToSheets(g);
     }
 
     let isVinculandoNc = false;
@@ -9727,6 +10344,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           saveGastosToStorage();
           renderGastosTable();
           showToast(`Nota de Crédito #${nc.consecutivo} desvinculada`, "info");
+          syncAllToSheets();
           return;
         }
 
@@ -9739,6 +10357,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         saveGastosToStorage();
         renderGastosTable();
         showToast(`Nota de Crédito #${nc.consecutivo} aplicada a Factura #${targetFactura.consecutivo}`, "success");
+        syncAllToSheets();
       } finally {
         isVinculandoNc = false;
       }
@@ -10056,6 +10675,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         saveGastosToStorage();
         renderGastosTable();
         showToast("Factura eliminada de gastos", "info");
+        syncDeleteGastoToSheets(g);
       }
     }
 
@@ -10077,6 +10697,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         if (typeof updateGastosMonthFilter === "function") updateGastosMonthFilter();
         renderGastosTable();
         showToast("Todos los gastos han sido limpiados", "success");
+        syncClearAllGastosToSheets();
       }
     }
 
@@ -10308,8 +10929,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           try {
             const parsed = parseCostaRicaXml(inv.xmlContent, inv.fileName || ("Factura_" + (i + 1) + ".xml"));
 
-            // Filtro de proveedores autorizados
-            if (!isProveedorAutorizado(parsed.emisorNombre)) {
+            // Verificar y resolver autorización del proveedor
+            const esAutorizado = await resolverAutorizacionProveedor(parsed.emisorNombre, parsed.emisorCedula, "Gmail");
+            if (!esAutorizado) {
               noAutorizadas++;
               continue;
             }
@@ -10334,6 +10956,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
         saveGastosToStorage();
         renderGastosTable();
+        if (agregadas > 0) {
+          syncAllToSheets();
+        }
 
         showToast(`¡Descarga completada! ${agregadas} factura(s) agregada(s) desde Gmail.`, "success");
         if (feedback) {
@@ -10542,6 +11167,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       });
 
       if (tabId === "tab-gastos" && typeof renderGastosTable === "function") renderGastosTable();
+      if ((tabId === "tab-gastos" || tabId === "tab-sheets") && typeof updateProveedoresUI === "function") updateProveedoresUI();
       document.getElementById(tabId).classList.remove("hidden");
       const activeBtn = document.getElementById("tab-btn-" + tabId.replace("tab-", ""));
       if (activeBtn) {
