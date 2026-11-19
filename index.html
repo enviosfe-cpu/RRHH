@@ -261,105 +261,83 @@
       }
 
       body * {
-
         visibility: hidden;
-
       }
 
-      #modal-voucher, #modal-voucher *,
+      .no-print, .hidden, [hidden] {
+        display: none !important;
+        visibility: hidden !important;
+      }
 
-      #modal-reporte-contable, #modal-reporte-contable *,
-
-      #modal-vacation-resolution, #modal-vacation-resolution *,
-
-      #printable-expediente, #printable-expediente * {
-
+      #modal-voucher:not(.hidden), #modal-voucher:not(.hidden) *,
+      #modal-reporte-contable:not(.hidden), #modal-reporte-contable:not(.hidden) *,
+      #modal-vacation-resolution:not(.hidden), #modal-vacation-resolution:not(.hidden) *,
+      #printable-expediente:not(.hidden), #printable-expediente:not(.hidden) * {
         visibility: visible;
-
       }
 
-      #modal-voucher, #modal-reporte-contable, #modal-vacation-resolution, #printable-expediente {
-
+      #modal-voucher:not(.hidden),
+      #modal-reporte-contable:not(.hidden),
+      #modal-vacation-resolution:not(.hidden) {
         position: absolute;
-
         left: 0;
-
         top: 0;
-
         width: 100%;
-
         margin: 0;
-
         padding: 0;
-
-        background: transparent !important;
-
+        background: #fff !important;
         display: block !important;
-
         overflow: visible !important;
-
         max-height: none !important;
+      }
 
+      #printable-expediente:not(.hidden) {
+        position: static !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        display: block !important;
+        overflow: visible !important;
+        max-height: none !important;
       }
 
       #modal-voucher > div, #printable-voucher {
-
         max-height: none !important;
-
         overflow: visible !important;
-
       }
 
       .no-print {
-
         display: none !important;
-
       }
 
       #printable-voucher {
-
         width: 100% !important;
-
         max-width: 680px !important;
-
         margin: 0 auto !important;
-
         border: none !important;
-
         box-shadow: none !important;
-
         padding: 10mm 15mm !important;
-
       }
 
       .expediente-voucher-page {
-
         page-break-after: always !important;
-
         break-after: page !important;
-
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
         width: 100% !important;
-
         max-width: 680px !important;
-
         margin: 0 auto !important;
-
-        padding: 10mm 15mm !important;
-
+        padding: 8mm 12mm !important;
         background: #fff !important;
-
         box-shadow: none !important;
-
         border: none !important;
-
+        box-sizing: border-box !important;
       }
 
       .expediente-voucher-page:last-child {
-
         page-break-after: auto !important;
-
         break-after: auto !important;
-
       }
 
       #printable-reporte-contable {
@@ -2329,12 +2307,13 @@
               <input type="date" id="gmail-fecha-hasta" class="px-2.5 py-1.5 rounded-lg bg-slate-800/80 border border-purple-500/40 text-white text-xs focus:ring-2 focus:ring-purple-400 focus:outline-none" />
             </div>
 
-            <div class="flex items-center gap-2 bg-slate-800/80 px-2.5 py-1.5 rounded-lg border border-purple-500/40">
-              <label class="flex items-center gap-1.5 text-xs text-purple-100 cursor-pointer select-none">
-                <input type="checkbox" id="chk-solo-autorizados" checked onchange="toggleFilterSoloAutorizados(this.checked)" class="rounded text-purple-600 focus:ring-purple-400 w-3.5 h-3.5 cursor-pointer" />
+            <div class="flex items-center gap-2 bg-slate-800/80 px-2.5 py-1.5 rounded-lg border border-purple-500/40 select-none">
+              <label class="flex items-center gap-1.5 text-xs text-purple-100 cursor-not-allowed select-none" title="Filtro permanente y obligatorio: El sistema procesa exclusivamente proveedores autorizados">
+                <input type="checkbox" id="chk-solo-autorizados" checked disabled onclick="return false;" class="rounded text-purple-500 bg-purple-900/50 border-purple-400 focus:ring-0 w-3.5 h-3.5 cursor-not-allowed accent-purple-600 opacity-95" />
                 <span class="font-bold">Solo proveedores autorizados (<span id="badge-prov-count">18</span>)</span>
+                <span class="text-[9px] bg-purple-500/20 text-purple-300 border border-purple-400/30 px-1.5 py-0.5 rounded font-mono font-bold tracking-wider" title="Regla obligatoria e inmutable del sistema">FIJO</span>
               </label>
-              <button type="button" onclick="openModalProveedoresAutorizados()" class="text-[11px] text-purple-300 hover:text-white underline font-semibold ml-1 cursor-pointer" title="Ver y editar proveedores autorizados">
+              <button type="button" onclick="openModalProveedoresAutorizados()" class="text-[11px] text-purple-300 hover:text-white underline font-semibold ml-1 cursor-pointer" title="Ver lista de proveedores autorizados">
                 Ver lista
               </button>
             </div>
@@ -7491,6 +7470,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       let diasTrabajados = qDays.diasTrabajados;
       let esSalarioProporcional = qDays.esProporcional;
       let montoExtra = 0;
+      let montoDiasCompletos = 0;
+      let cantDiasCompletos = 0;
+      let montoHorasExtra = 0;
+      let horasExtraCount = 0;
       let montoFeriados = 0;
       let ccss = 0;
       let otrosRebajosMonto = 0;
@@ -7499,6 +7482,15 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       let neto = 0;
       let rebajosList = [];
       let isRegistered = false;
+
+      const extraData = getEmployeeExtraDataForPeriod(emp, period);
+      if (extraData) {
+        montoDiasCompletos = extraData.montoDiasCompletos || 0;
+        cantDiasCompletos = extraData.diasCompletosQuincena || 0;
+        montoHorasExtra = (extraData.montoHorasExtraOrdinarias || 0) + (extraData.montoHorasExtraFeriado || 0);
+        horasExtraCount = (extraData.horasExtraOrdinarias || 0) + (extraData.horasExtraFeriado || 0);
+        montoExtra = extraData.montoExtraQuincena || 0;
+      }
 
       // 1. Revisar cierres de nómina archivados
       try {
@@ -7511,13 +7503,6 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           const matchEmp = (cleanEmpCed && hCed && cleanEmpCed === hCed) || (hNom && cleanEmpNom && hNom === cleanEmpNom);
           return matchEmp && String(h.periodo || '').trim().toLowerCase() === String(period || '').trim().toLowerCase();
         });
-
-        const extraData = getEmployeeExtraDataForPeriod(emp, period);
-        let montoDiasCompletos = extraData.montoDiasCompletos;
-        let cantDiasCompletos = extraData.diasCompletosQuincena;
-        let montoHorasExtra = extraData.montoHorasExtraOrdinarias + extraData.montoHorasExtraFeriado;
-        let horasExtraCount = extraData.horasExtraOrdinarias + extraData.horasExtraFeriado;
-        montoExtra = extraData.montoExtraQuincena;
 
         if (payHist && (Number(payHist.totalDevengado || 0) > 0 || Number(payHist.salarioNeto || 0) > 0)) {
           if (qDays.esProporcional) {
@@ -7888,12 +7873,24 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         }
       });
 
+      // Asegurar que otros contenedores imprimibles estén estrictamente ocultos
+      const otherPrintables = ["modal-voucher", "modal-reporte-contable", "modal-vacation-resolution"];
+      otherPrintables.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add("hidden");
+      });
+
       container.classList.remove("hidden");
+
+      const cleanupPrint = () => {
+        container.classList.add("hidden");
+        window.removeEventListener("afterprint", cleanupPrint);
+      };
+      window.addEventListener("afterprint", cleanupPrint);
+
       window.print();
 
-      setTimeout(() => {
-        container.classList.add("hidden");
-      }, 1000);
+      setTimeout(cleanupPrint, 3000);
     }
 
     // Depuración de seguridad de registros no generados oficialmente
@@ -8050,6 +8047,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       renderAguinaldoModule();
       renderAccountingModule();
       populateSelects();
+      if (typeof renderGastosTable === "function") renderGastosTable();
 
       if (sheetsApiUrl) {
         document.getElementById("sheets-url-input").value = sheetsApiUrl;
@@ -9036,11 +9034,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         .trim();
     }
 
-    function isProveedorAutorizado(nombreEmisor) {
-      const chk = document.getElementById("chk-solo-autorizados");
-      // Si el usuario desactiva la casilla, acepta todos los proveedores
-      if (chk && !chk.checked) return true;
-
+    function isProveedorAutorizado(nombreEmisor, strict = true) {
+      // Regla inmutable: el sistema procesa exclusivamente proveedores autorizados
       const normEmisor = normalizeText(nombreEmisor);
       if (!normEmisor) return false;
       
@@ -9143,7 +9138,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     }
 
     function toggleFilterSoloAutorizados(checked) {
-      showToast(checked ? "Filtro activo: solo los 18 proveedores autorizados" : "Filtro desactivado: se admiten todos los proveedores", "info");
+      const chk = document.getElementById("chk-solo-autorizados");
+      if (chk) chk.checked = true;
+      showToast("El filtro de proveedores autorizados es una regla obligatoria e inmutable", "info");
     }
 
     let gastosList = [];
@@ -9747,9 +9744,79 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
     }
 
+    function extractGastoYearMonth(g) {
+      if (!g) return "";
+      // 1. Intentar con fechaIso (ej. "2026-11-05T08:30:00-06:00" o "2026-11-05")
+      if (g.fechaIso && typeof g.fechaIso === "string") {
+        const clean = g.fechaIso.trim();
+        const m = clean.match(/^(\d{4})[-/](\d{2})/);
+        if (m) return `${m[1]}-${m[2]}`;
+      }
+      // 2. Intentar con fecha formateada (ej. "2026-11-05 08:30" o "05/11/2026")
+      if (g.fecha && typeof g.fecha === "string") {
+        const clean = g.fecha.trim();
+        const mIso = clean.match(/^(\d{4})[-/](\d{2})/);
+        if (mIso) return `${mIso[1]}-${mIso[2]}`;
+        const mDmy = clean.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})/);
+        if (mDmy) return `${mDmy[3]}-${mDmy[2].padStart(2, '0')}`;
+      }
+      // 3. Fallback con objeto Date nativo
+      const raw = g.fechaIso || g.fecha;
+      if (raw) {
+        const d = new Date(raw);
+        if (!isNaN(d.getTime())) {
+          const y = d.getFullYear();
+          const m = String(d.getMonth() + 1).padStart(2, '0');
+          return `${y}-${m}`;
+        }
+      }
+      return "";
+    }
+
+    function updateGastosMonthFilter() {
+      const sel = document.getElementById("filter-gastos-mes");
+      if (!sel) return;
+      const currentVal = sel.value || "";
+      const months = new Set();
+      if (Array.isArray(gastosList)) {
+        gastosList.forEach(g => {
+          const ym = extractGastoYearMonth(g);
+          if (ym) months.add(ym);
+        });
+      }
+      const sortedMonths = Array.from(months).sort().reverse();
+      const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+
+      // Comprobar si las opciones actuales coinciden con la lista de meses para no recrear DOM innecesariamente
+      const optionsList = sel.options ? Array.from(sel.options) : (sel.children || []);
+      const existingValues = optionsList.map(o => o.value).filter(Boolean);
+      const isSame = existingValues.length === sortedMonths.length && existingValues.every((val, idx) => val === sortedMonths[idx]);
+
+      if (!isSame || optionsList.length <= 1) {
+        let html = '<option value="">Todos los Meses</option>';
+        sortedMonths.forEach(ym => {
+          const parts = ym.split("-");
+          const y = parts[0];
+          const m = parseInt(parts[1], 10) - 1;
+          const label = `${monthNames[m] || ym} ${y}`;
+          html += `<option value="${ym}">${label}</option>`;
+        });
+        sel.innerHTML = html;
+        if (currentVal && months.has(currentVal)) {
+          sel.value = currentVal;
+        } else if (!currentVal) {
+          sel.value = "";
+        }
+      }
+    }
+
     function renderGastosTable() {
       const tbody = document.getElementById("gastos-table-body");
       if (!tbody) return;
+
+      if (typeof updateGastosMonthFilter === "function") {
+        updateGastosMonthFilter();
+      }
 
       const qSearch = document.getElementById("filter-gastos-search") ? document.getElementById("filter-gastos-search").value.trim().toLowerCase() : "";
       const qMes = document.getElementById("filter-gastos-mes") ? document.getElementById("filter-gastos-mes").value : "";
@@ -9802,7 +9869,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       // Filtrado
       const filtered = gastosList.filter(g => {
-        if (qMes && (!g.fechaIso || !g.fechaIso.startsWith(qMes))) return false;
+        if (qMes) {
+          const gastoYm = extractGastoYearMonth(g);
+          if (gastoYm !== qMes) return false;
+        }
         if (qEstado === "pendiente" && (g.isNotaCredito || g.estadoPago === "pagada")) return false;
         if (qEstado === "pagada" && (g.isNotaCredito || g.estadoPago !== "pagada")) return false;
         if (qEstado === "nc" && !g.isNotaCredito) return false;
@@ -10004,33 +10074,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       if (conf) {
         gastosList = [];
         saveGastosToStorage();
+        if (typeof updateGastosMonthFilter === "function") updateGastosMonthFilter();
         renderGastosTable();
         showToast("Todos los gastos han sido limpiados", "success");
       }
-    }
-
-    function updateGastosMonthFilter() {
-      const sel = document.getElementById("filter-gastos-mes");
-      if (!sel) return;
-      const currentVal = sel.value;
-      const months = new Set();
-      gastosList.forEach(g => {
-        if (g.fechaIso && g.fechaIso.length >= 7) {
-          months.add(g.fechaIso.substring(0, 7));
-        }
-      });
-      const sortedMonths = Array.from(months).sort().reverse();
-      const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
-      
-      let html = '<option value="">Todos los Meses</option>';
-      sortedMonths.forEach(ym => {
-        const parts = ym.split("-");
-        const y = parts[0];
-        const m = parseInt(parts[1], 10) - 1;
-        const label = `${monthNames[m] || ym} ${y}`;
-        html += `<option value="${ym}" ${ym === currentVal ? "selected" : ""}>${label}</option>`;
-      });
-      sel.innerHTML = html;
     }
 
     function openModalGastoDetalle(gastoId) {
@@ -10220,7 +10267,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           action: "fetchGmailInvoices",
           startDate: fDesde || "",
           endDate: fHasta || "",
-          onlyAuthorized: chkOnly ? String(chkOnly.checked) : "true"
+          onlyAuthorized: "true"
         });
         const fullUrl = cleanUrl + "?" + queryParams.toString();
 
@@ -10313,13 +10360,30 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         return;
       }
       
-      // Filtrar SOLO FACTURAS (excluyendo filas independientes de Notas de Crédito)
-      const facturasOnly = gastosList.filter(g => !g.isNotaCredito);
+      // 1. Filtrar SOLO FACTURAS de PROVEEDORES AUTORIZADOS (excluyendo notas de crédito independientes)
+      let facturasOnly = gastosList.filter(g => !g.isNotaCredito && isProveedorAutorizado(g.emisorNombre, true));
+
+      // Si el usuario tiene seleccionado un mes específico en el filtro de pantalla, respetarlo; de lo contrario exporta todos los meses
+      const qMes = document.getElementById("filter-gastos-mes") ? document.getElementById("filter-gastos-mes").value : "";
+      if (qMes) {
+        facturasOnly = facturasOnly.filter(f => extractGastoYearMonth(f) === qMes);
+      }
 
       if (facturasOnly.length === 0) {
-        showToast("No hay facturas registradas para exportar", "info");
+        showToast("No hay facturas de proveedores autorizados para exportar" + (qMes ? ` en el mes seleccionado` : ""), "info");
         return;
       }
+
+      // 2. Ordenar alfabéticamente por Proveedor (A-Z) y de forma secundaria cronológicamente por fecha
+      facturasOnly.sort((a, b) => {
+        const provA = (a.emisorNombre || "").trim().toLowerCase();
+        const provB = (b.emisorNombre || "").trim().toLowerCase();
+        const cmp = provA.localeCompare(provB, "es", { sensitivity: "base" });
+        if (cmp !== 0) return cmp;
+        const fechaA = a.fechaIso || a.fecha || "";
+        const fechaB = b.fechaIso || b.fecha || "";
+        return fechaA.localeCompare(fechaB);
+      });
 
       const rows = facturasOnly.map((f, idx) => {
         // Buscar Nota(s) de Crédito ligadas a esta factura
@@ -10432,9 +10496,21 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       XLSX.utils.book_append_sheet(wb, ws, "Gestion_Proveedores_HCS");
 
-      // Si existen Notas de Crédito sin ligar a ninguna factura, agregar pestaña informativa
-      const unlinkedNcs = gastosList.filter(nc => nc.isNotaCredito && !nc.facturaAplicadaId && !nc.facturaAplicadaConsecutivo);
+      // Si existen Notas de Crédito sin ligar a ninguna factura, agregar pestaña informativa (solo autorizados ordenados)
+      let unlinkedNcs = gastosList.filter(nc => nc.isNotaCredito && !nc.facturaAplicadaId && !nc.facturaAplicadaConsecutivo && isProveedorAutorizado(nc.emisorNombre, true));
+      if (qMes) {
+        unlinkedNcs = unlinkedNcs.filter(nc => extractGastoYearMonth(nc) === qMes);
+      }
       if (unlinkedNcs.length > 0) {
+        unlinkedNcs.sort((a, b) => {
+          const provA = (a.emisorNombre || "").trim().toLowerCase();
+          const provB = (b.emisorNombre || "").trim().toLowerCase();
+          const cmp = provA.localeCompare(provB, "es", { sensitivity: "base" });
+          if (cmp !== 0) return cmp;
+          const fechaA = a.fechaIso || a.fecha || "";
+          const fechaB = b.fechaIso || b.fecha || "";
+          return fechaA.localeCompare(fechaB);
+        });
         const rowsNc = unlinkedNcs.map((nc, idx) => ({
           "N°": idx + 1,
           "Fecha Emisión": nc.fecha || "",
@@ -10453,9 +10529,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         XLSX.utils.book_append_sheet(wb, wsNc, "NC_Sin_Aplicar");
       }
 
-      const fileName = `Gestion_Proveedores_${new Date().toISOString().split("T")[0]}.xlsx`;
+      const monthSuffix = qMes ? `_${qMes}` : "";
+      const fileName = `Gestion_Proveedores_Autorizados${monthSuffix}_${new Date().toISOString().split("T")[0]}.xlsx`;
       XLSX.writeFile(wb, fileName);
-      showToast("Reporte Excel generado con desglose ordenado de subtotales, IVA y descuentos", "success");
+      showToast(`Excel generado: ${rows.length} facturas de proveedores autorizados ordenadas por proveedor`, "success");
     }
 
     function switchTab(tabId) {
@@ -10932,6 +11009,17 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       window.print();
     }
 
+    // Sanitización contra inyección de código y ataques XSS
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
     // ==================== MÓDULO DE VACACIONES ====================
     function renderVacationsModule() {
       const container = document.getElementById("vacations-requests-container");
@@ -11003,8 +11091,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             <div class="flex flex-col sm:flex-row justify-between sm:items-start gap-2 border-b pb-2 mb-2">
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="font-mono font-bold bg-slate-200 px-2 py-0.5 rounded text-[11px] text-slate-800">${req.codigo || 'SOL'}</span>
-                  <span class="text-slate-500 text-[11px]">${req.fechaSolicitud || '2026-10-23'}</span>
+                  <span class="font-mono font-bold bg-slate-200 px-2 py-0.5 rounded text-[11px] text-slate-800">${escapeHtml(req.codigo || 'SOL')}</span>
+                  <span class="text-slate-500 text-[11px]">${escapeHtml(req.fechaSolicitud || '2026-10-23')}</span>
                   <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
                     Pendiente
                   </span>
@@ -11012,21 +11100,21 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
                 <div class="mt-1.5 text-slate-800">
                   <span class="text-slate-500">Datos digitados por el trabajador:</span>
-                  <strong class="text-slate-900 text-sm block">${req.rawNombre}</strong>
+                  <strong class="text-slate-900 text-sm block">${escapeHtml(req.rawNombre)}</strong>
                   <div class="text-[11px] text-slate-600">
-                    Cédula: <strong>${req.rawCedula}</strong> · Depto indicado: <strong>${req.rawDepto}</strong>
+                    Cédula: <strong>${escapeHtml(req.rawCedula)}</strong> · Depto indicado: <strong>${escapeHtml(req.rawDepto)}</strong>
                   </div>
                 </div>
               </div>
 
               <div class="text-right sm:text-right bg-white p-2 rounded-lg border border-slate-200 self-start">
                 <span class="text-slate-500 text-[11px] block">Fechas Solicitadas:</span>
-                <strong class="text-slate-900">${req.inicio}</strong> al <strong class="text-slate-900">${req.fin}</strong>
-                <div class="text-purple-700 font-black mt-0.5 text-xs">Total: ${req.dias} días</div>
+                <strong class="text-slate-900">${escapeHtml(req.inicio)}</strong> al <strong class="text-slate-900">${escapeHtml(req.fin)}</strong>
+                <div class="text-purple-700 font-black mt-0.5 text-xs">Total: ${Number(req.dias) || 1} días</div>
               </div>
             </div>
 
-            ${req.rawMotivo ? `<p class="text-[11px] text-slate-600 mb-2 italic">"${req.rawMotivo}"</p>` : ''}
+            ${req.rawMotivo ? `<p class="text-[11px] text-slate-600 mb-2 italic">"${escapeHtml(req.rawMotivo)}"</p>` : ''}
 
             <div class="mt-3 pt-2 border-t border-slate-200">
               <div class="flex flex-col md:flex-row items-stretch md:items-center gap-2">
@@ -11198,17 +11286,17 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         card.innerHTML = `
           <div class="flex items-center justify-between border-b border-emerald-100 pb-1.5">
             <div class="flex items-center gap-1.5">
-              <span class="font-mono font-bold bg-white border border-slate-200 px-1.5 py-0.5 rounded text-[10px] text-slate-700">${req.codigo || 'SOL'}</span>
+              <span class="font-mono font-bold bg-white border border-slate-200 px-1.5 py-0.5 rounded text-[10px] text-slate-700">${escapeHtml(req.codigo || 'SOL')}</span>
               <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">✓ Aprobada</span>
             </div>
-            <span class="text-[10px] text-slate-500 font-mono">${req.fechaResolucion || req.fechaSolicitud || ''}</span>
+            <span class="text-[10px] text-slate-500 font-mono">${escapeHtml(req.fechaResolucion || req.fechaSolicitud || '')}</span>
           </div>
 
           <!-- Datos del Vendedor / Colaborador -->
           <div>
-            <strong class="text-slate-900 text-xs block leading-snug">${emp ? emp.nombre : (req.rawNombre || '-')}</strong>
+            <strong class="text-slate-900 text-xs block leading-snug">${escapeHtml(emp ? emp.nombre : (req.rawNombre || '-'))}</strong>
             <div class="text-[11px] text-slate-600">
-              Cédula: <strong>${emp ? emp.cedula : (req.rawCedula || '-')}</strong> · Puesto: <strong>${emp ? emp.puesto : 'Vendedor'}</strong> (${emp ? emp.departamento : (req.rawDepto || 'Ventas')})
+              Cédula: <strong>${escapeHtml(emp ? emp.cedula : (req.rawCedula || '-'))}</strong> · Puesto: <strong>${escapeHtml(emp ? emp.puesto : 'Vendedor')}</strong> (${escapeHtml(emp ? emp.departamento : (req.rawDepto || 'Ventas'))})
             </div>
           </div>
 
@@ -11216,10 +11304,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           <div class="bg-white p-2 rounded-lg border border-slate-200 flex justify-between items-center text-[11px]">
             <div>
               <span class="text-slate-400 block text-[10px]">Fechas Solicitadas:</span>
-              <span class="font-semibold text-slate-800">${req.inicio} al ${req.fin}</span>
+              <span class="font-semibold text-slate-800">${escapeHtml(req.inicio)} al ${escapeHtml(req.fin)}</span>
             </div>
             <div class="text-right">
-              <span class="font-black text-purple-700 text-xs">${req.dias} día${req.dias > 1 ? 's' : ''}</span>
+              <span class="font-black text-purple-700 text-xs">${Number(req.dias) || 1} día${(Number(req.dias) || 1) > 1 ? 's' : ''}</span>
             </div>
           </div>
 
@@ -11227,7 +11315,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           ${(req.rawMotivo || req.motivo) ? `
             <div class="text-[11px] text-slate-600 italic bg-amber-50/70 p-1.5 rounded border border-amber-200/60">
               <span class="font-semibold not-italic text-slate-700 text-[10px] block">Observación:</span>
-              "${req.rawMotivo || req.motivo}"
+              "${escapeHtml(req.rawMotivo || req.motivo)}"
             </div>
           ` : ''}
 
@@ -11270,7 +11358,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           postToAppsScript(vacUrl, {
             action: "assignEmployee",
             id: req.id,
-            assignedEmployeeId: empId
+            assignedEmployeeId: empId,
+            adminKey: "hcs_vac_admin_2026"
           }).catch(err => console.warn("Aviso: No se pudo enviar asignación a Google Sheets:", err));
         }
       }
@@ -11365,7 +11454,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           action: "deleteRequest",
           id: req.id,
           codigo: req.codigo,
-          newStatus: newStatus
+          newStatus: newStatus,
+          adminKey: "hcs_vac_admin_2026"
         }).catch(err => console.warn("Aviso al borrar en script de vacaciones:", err));
       }
 
@@ -14077,7 +14167,16 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
 
       try {
-        const resp = await fetch(url + (url.includes("?") ? "&" : "?") + "action=getAll");
+        let reqUrl = url + (url.includes("?") ? "&" : "?") + "action=getAll";
+        const uStr = sessionStorage.getItem("hc_auth_user") || localStorage.getItem("hc_auth_user");
+        if (uStr) {
+          try {
+            const uObj = JSON.parse(uStr);
+            const tok = uObj.token || uObj.authToken;
+            if (tok) reqUrl += "&authToken=" + encodeURIComponent(tok);
+          } catch(e) {}
+        }
+        const resp = await fetch(reqUrl);
         const json = await resp.json();
         const reqList = Array.isArray(json.data) ? json.data : (json.vacations || (json.data && json.data.vacationRequests) || []);
         if (json.status === "success" && Array.isArray(reqList)) {
@@ -14118,7 +14217,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
               postToAppsScript(url, {
                 action: "deleteRequest",
                 id: inc.id,
-                codigo: inc.codigo
+                codigo: inc.codigo,
+                adminKey: "hcs_vac_admin_2026"
               }).catch(() => {});
               return;
             }
