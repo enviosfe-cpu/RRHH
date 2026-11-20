@@ -306,12 +306,14 @@
       #printable-control-salarios:not(.hidden) {
         position: static !important;
         width: 100% !important;
+        max-width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
         background: #fff !important;
         display: block !important;
         overflow: visible !important;
         max-height: none !important;
+        zoom: 0.68 !important;
       }
 
       #modal-voucher > div, #printable-voucher {
@@ -2116,11 +2118,6 @@
               <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/></svg> Proyección Anual (12m)
             </button>
           </div>
-
-          <!-- Botón de Exportar Control de Salarios y Aguinaldo a PDF -->
-          <button type="button" id="btn-aguinaldo-salarios-pdf" onclick="printControlSalariosPDF()" class="px-3 py-2 bg-rose-700 hover:bg-rose-800 text-white rounded-xl font-bold text-xs transition shadow-xs flex items-center gap-1.5 cursor-pointer" title="Exportar Control de Salarios Líquidos y Devengados 2026 a PDF">
-            <span><svg class="ico" data-i="file" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span> Exportar Salarios en PDF
-          </button>
         </div>
       </div>
 
@@ -2133,10 +2130,7 @@
           </span>
         </div>
         <div class="flex items-center gap-2">
-          <button type="button" id="btn-banner-salarios-pdf" onclick="printControlSalariosPDF()" class="px-2.5 py-1 bg-rose-700 hover:bg-rose-800 text-white rounded font-bold text-[11px] transition shadow-xs flex items-center gap-1 cursor-pointer" title="Descargar reporte de Salarios Líquidos y Aguinaldo en PDF">
-            <span><svg class="ico" data-i="printer" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg></span> Exportar PDF
-          </button>
-          <button type="button" onclick="openModalControlSalarios()" class="px-2.5 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded font-bold text-[11px] transition shadow-xs flex items-center gap-1">
+          <button type="button" onclick="openModalControlSalarios()" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-bold text-xs transition shadow-xs flex items-center gap-1.5">
             <span><svg class="ico" data-i="chart" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></span> Ver Control de Salarios 2026
           </button>
         </div>
@@ -2935,9 +2929,10 @@
           <button type="button" id="btn-export-control-salarios-pdf" onclick="printControlSalariosPDF()" class="px-3 py-1.5 bg-rose-700 hover:bg-rose-800 text-white rounded-lg font-bold flex items-center gap-1.5 shadow transition cursor-pointer" title="Exportar reporte de Control de Salarios Líquidos 2026 a PDF">
             <span><svg class="ico" data-i="file" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span> Exportar PDF
           </button>
-          <button type="button" onclick="openModalExpedientePDF()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-800 text-white rounded-lg font-bold flex items-center gap-1.5 shadow transition" title="Generar expediente de comprobantes en PDF por colaborador">
-            <span><svg class="ico" data-i="file" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span> Expediente PDF
+          <button type="button" id="btn-export-control-salarios-excel" onclick="exportControlSalariosExcel()" class="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg font-bold flex items-center gap-1.5 shadow transition cursor-pointer" title="Exportar reporte de Control de Salarios Líquidos 2026 a Excel (.xlsx)">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg> Exportar Excel
           </button>
+
           <button aria-label="Cerrar" type="button" onclick="closeModalControlSalarios()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-bold">
             <svg class="ico" data-i="x" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg> Cerrar
           </button>
@@ -6041,7 +6036,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           const sCed = s.cedula ? String(s.cedula).replace(/\D/g, "") : "";
           if (cleanEmpCed && sCed && cleanEmpCed === sCed) return true;
           const sNom = s.nombre ? s.nombre.trim().toUpperCase() : "";
-          return sNom === cleanEmpNom || (emp.alias && sNom === emp.alias.trim().toUpperCase());
+          if (sNom === cleanEmpNom || (emp.alias && sNom === emp.alias.trim().toUpperCase())) return true;
+          const sClean = cleanNomHelper(s.nombre);
+          const empClean = cleanNomHelper(emp.nombre);
+          if (sClean && empClean && (empClean.startsWith(sClean + " ") || sClean.startsWith(empClean + " "))) return true;
+          return false;
         });
         if (salRow && salRow[qKey] !== null && salRow[qKey] !== undefined && salRow[qKey] !== "" && !isNaN(salRow[qKey]) && Number(salRow[qKey]) > 0) {
           return true;
@@ -6237,7 +6236,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           const sCed = s.cedula ? String(s.cedula).replace(/\D/g, "") : "";
           if (cleanEmpCed && sCed && cleanEmpCed === sCed) return true;
           const sNom = s.nombre ? s.nombre.trim().toUpperCase() : "";
-          return sNom === cleanEmpNom || (emp.alias && sNom === emp.alias.trim().toUpperCase());
+          if (sNom === cleanEmpNom || (emp.alias && sNom === emp.alias.trim().toUpperCase())) return true;
+          const sClean = cleanNomHelper(s.nombre);
+          const empClean = cleanNomHelper(emp.nombre);
+          if (sClean && empClean && (empClean.startsWith(sClean + " ") || sClean.startsWith(empClean + " "))) return true;
+          return false;
         });
         if (salRow) {
           salRow[qKey] = null;
@@ -6352,7 +6355,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           const sCed = s.cedula ? String(s.cedula).replace(/\D/g, "") : "";
           if (cleanEmpCed && sCed && cleanEmpCed === sCed) return true;
           const sNom = s.nombre ? s.nombre.trim().toUpperCase() : "";
-          return sNom === cleanEmpNom || (emp.alias && sNom === emp.alias.trim().toUpperCase());
+          if (sNom === cleanEmpNom || (emp.alias && sNom === emp.alias.trim().toUpperCase())) return true;
+          const sClean = cleanNomHelper(s.nombre);
+          const empClean = cleanNomHelper(emp.nombre);
+          if (sClean && empClean && (empClean.startsWith(sClean + " ") || sClean.startsWith(empClean + " "))) return true;
+          return false;
         });
         if (!salRow) {
           salRow = {
@@ -7190,30 +7197,90 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       const masterMap = new Map();
       const cedToNameMap = new Map();
 
+      // Resolver información canónica (asociar nombres cortos o alias como "MARIA" a "Maria Mercedes Agüero Morales")
+      const getCanonicalInfo = (rawNom, rawCed, rawPuesto) => {
+        const nomKey = cleanNom(rawNom);
+        const cedKey = cleanCed(rawCed);
+
+        // 1. Por cédula en colaboradores oficiales registrados
+        if (cedKey && typeof employees !== "undefined" && Array.isArray(employees)) {
+          const emp = employees.find(e => cleanCed(e.cedula) === cedKey);
+          if (emp) return { key: cleanNom(emp.nombre), nombre: emp.nombre, cedula: emp.cedula, puesto: emp.puesto };
+        }
+
+        // 2. Por coincidencia exacta de nombre en colaboradores oficiales
+        if (typeof employees !== "undefined" && Array.isArray(employees)) {
+          const emp = employees.find(e => cleanNom(e.nombre) === nomKey);
+          if (emp) return { key: cleanNom(emp.nombre), nombre: emp.nombre, cedula: emp.cedula, puesto: emp.puesto };
+        }
+
+        // 3. Por alias registrado (ej. alias: "M. AGÜERO" o "MARIA")
+        if (typeof employees !== "undefined" && Array.isArray(employees)) {
+          const emp = employees.find(e => {
+            const al = cleanNom(e.alias);
+            const alR = cleanNom(e.aliasReloj);
+            return (al && al === nomKey) || (alR && alR === nomKey);
+          });
+          if (emp) return { key: cleanNom(emp.nombre), nombre: emp.nombre, cedula: emp.cedula, puesto: emp.puesto };
+        }
+
+        // 4. Nombre abreviado o primer nombre único (ej. "MARIA", "DIEGO", "JOSE")
+        if (nomKey && !nomKey.includes(" ") && typeof employees !== "undefined" && Array.isArray(employees)) {
+          const candidates = employees.filter(e => cleanNom(e.nombre).split(" ")[0] === nomKey);
+          if (candidates.length === 1) {
+            return { key: cleanNom(candidates[0].nombre), nombre: candidates[0].nombre, cedula: candidates[0].cedula, puesto: candidates[0].puesto };
+          }
+          if (candidates.length > 1 && rawPuesto) {
+            const cleanP = cleanNom(rawPuesto);
+            const matchP = candidates.find(c => {
+              const cP = cleanNom(c.puesto);
+              return cP && (cP.includes(cleanP) || cleanP.includes(cP));
+            });
+            if (matchP) return { key: cleanNom(matchP.nombre), nombre: matchP.nombre, cedula: matchP.cedula, puesto: matchP.puesto };
+          }
+        }
+
+        return { key: nomKey, nombre: rawNom, cedula: rawCed, puesto: rawPuesto };
+      };
+
       // 1. Cargar DEFAULT_SALARIOS_2026 oficial (14 colaboradores)
       DEFAULT_SALARIOS_2026.forEach(s => {
-        const nomKey = cleanNom(s.nombre);
-        const cedKey = cleanCed(s.cedula);
+        const info = getCanonicalInfo(s.nombre, s.cedula, s.puesto);
+        const nomKey = info.key;
+        const cedKey = cleanCed(info.cedula || s.cedula);
         if (nomKey) {
-          masterMap.set(nomKey, { ...s });
+          masterMap.set(nomKey, { ...s, nombre: info.nombre || s.nombre, cedula: info.cedula || s.cedula, puesto: info.puesto || s.puesto });
           if (cedKey) cedToNameMap.set(cedKey, nomKey);
         }
       });
 
       // 2. Fusionar con storedList (hoja de cálculo o subidas locales) evitando cualquier duplicado
       storedList.forEach(s => {
-        const nomKey = cleanNom(s.nombre);
-        const cedKey = cleanCed(s.cedula);
+        const info = getCanonicalInfo(s.nombre, s.cedula, s.puesto);
+        let targetKey = info.key;
+        const cedKey = cleanCed(info.cedula || s.cedula);
 
-        let targetKey = nomKey;
         if (!masterMap.has(targetKey) && cedKey && cedToNameMap.has(cedKey)) {
           targetKey = cedToNameMap.get(cedKey);
         }
 
+        // Si masterMap ya contenía una versión corta previa (ej. "MARIA") y ahora entra el nombre completo
+        if (!masterMap.has(targetKey) && targetKey.includes(" ")) {
+          const firstWord = targetKey.split(" ")[0];
+          if (masterMap.has(firstWord)) {
+            const prevEntry = masterMap.get(firstWord);
+            masterMap.delete(firstWord);
+            masterMap.set(targetKey, prevEntry);
+          }
+        }
+
         if (targetKey && masterMap.has(targetKey)) {
           const base = masterMap.get(targetKey);
-          if (!base.cedula && s.cedula) base.cedula = s.cedula;
-          if (s.puesto && !base.puesto) base.puesto = s.puesto;
+          if (info.nombre && (info.nombre.length > (base.nombre || "").length || base.nombre === (base.nombre || "").toUpperCase())) {
+            base.nombre = info.nombre;
+          }
+          if (info.cedula && !base.cedula) base.cedula = info.cedula;
+          if (info.puesto && !base.puesto) base.puesto = info.puesto;
           
           Object.keys(s).forEach(field => {
             if (s[field] !== null && s[field] !== undefined && s[field] !== "" && s[field] !== 0 && s[field] !== "0") {
@@ -7221,10 +7288,29 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             }
           });
         } else if (targetKey) {
-          masterMap.set(targetKey, s);
+          const newEntry = { ...s, nombre: info.nombre || s.nombre, puesto: info.puesto || s.puesto, cedula: info.cedula || s.cedula };
+          masterMap.set(targetKey, newEntry);
           if (cedKey) cedToNameMap.set(cedKey, targetKey);
         }
       });
+
+      // 3. Pase de consolidación y deduplicación final para eliminar registros cortos residuales
+      for (const [key, obj] of Array.from(masterMap.entries())) {
+        if (!key.includes(" ")) {
+          const expandedMatch = Array.from(masterMap.keys()).find(k => k !== key && k.startsWith(key + " "));
+          if (expandedMatch) {
+            const fullEntry = masterMap.get(expandedMatch);
+            Object.keys(obj).forEach(field => {
+              if (obj[field] !== null && obj[field] !== undefined && obj[field] !== "" && obj[field] !== 0 && obj[field] !== "0") {
+                if (fullEntry[field] === null || fullEntry[field] === undefined || fullEntry[field] === "" || fullEntry[field] === 0) {
+                  fullEntry[field] = obj[field];
+                }
+              }
+            });
+            masterMap.delete(key);
+          }
+        }
+      }
 
       const finalResult = Array.from(masterMap.values());
       // Asegurar que colaboradores de nuevo ingreso en períodos proporcionales mantengan su neto correcto
@@ -7471,6 +7557,109 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       showToast("Archivo CSV descargado con éxito");
     }
 
+    // ==================== EXPORTACIÓN DE CONTROL DE SALARIOS A EXCEL (.XLSX) ====================
+    function exportControlSalariosExcel() {
+      const data = getControlSalariosData();
+      if (!data || !Array.isArray(data) || data.length === 0) {
+        alert("No hay registros de colaboradores en el Control de Salarios.");
+        return;
+      }
+
+      if (typeof XLSX === "undefined") {
+        console.warn("SheetJS no disponible, recurriendo a exportación CSV");
+        exportControlSalariosCSV();
+        return;
+      }
+
+      const allKeys = [
+        "diciembre_ant_iq", "diciembre_ant_iiq",
+        "enero_iq", "enero_iiq", "febrero_iq", "febrero_iiq", "marzo_iq", "marzo_iiq",
+        "abril_iq", "abril_iiq", "mayo_iq", "mayo_iiq", "junio_iq", "junio_iiq",
+        "julio_iq", "julio_iiq", "agosto_iq", "agosto_iiq", "setiembre_iq", "setiembre_iiq",
+        "octubre_iq", "octubre_iiq", "noviembre_iq", "noviembre_iiq", "diciembre_iq", "diciembre_iiq"
+      ];
+
+      const headers = [
+        "COLABORADOR", "PUESTO",
+        "DIC ANT IQ", "DIC ANT IIQ",
+        "ENE IQ", "ENE IIQ",
+        "FEB IQ", "FEB IIQ",
+        "MAR IQ", "MAR IIQ",
+        "ABR IQ", "ABR IIQ",
+        "MAY IQ *", "MAY IIQ",
+        "JUN IQ", "JUN IIQ",
+        "JUL IQ", "JUL IIQ",
+        "AGO IQ", "AGO IIQ",
+        "SET IQ", "SET IIQ",
+        "OCT IQ", "OCT IIQ",
+        "NOV IQ", "NOV IIQ",
+        "DIC 2026 IQ", "DIC 2026 IIQ",
+        "TOTAL NETO ACUMULADO"
+      ];
+
+      const columnTotals = {};
+      allKeys.forEach(k => columnTotals[k] = 0);
+      let grandTotal = 0;
+
+      const dataRows = data.map(r => {
+        let rowTotal = 0;
+        const rowVals = allKeys.map(k => {
+          const val = Number(r[k]) || 0;
+          if (val > 0) {
+            rowTotal += val;
+            columnTotals[k] = (columnTotals[k] || 0) + val;
+            return val;
+          }
+          return 0;
+        });
+        grandTotal += rowTotal;
+        return [r.nombre, r.puesto || "Agente de ventas", ...rowVals, rowTotal];
+      });
+
+      const totalsRow = [
+        "TOTALES",
+        data.length + " Colaboradores",
+        ...allKeys.map(k => columnTotals[k] || 0),
+        grandTotal
+      ];
+
+      const now = new Date();
+      const fechaEmision = now.toLocaleDateString("es-CR") + " " + now.toLocaleTimeString("es-CR", { hour: "2-digit", minute: "2-digit" });
+
+      const aoa = [
+        ["DISTRIBUIDORA HERMANOS CASTRO DEL SUR S.A.", "", "", "", "", "", "Cédula Jurídica: 3-101-553770"],
+        ["CONTROL OFICIAL DE SALARIOS LÍQUIDOS 2026 / PLANILLA DE AGUINALDO", "", "", "", "", "", "Plan de Planilla: D9N3"],
+        ["Período oficial: 1 de Diciembre 2025 al 30 de Noviembre 2026 (Ley N° 2412) · Moneda: Colones Costarricenses (CRC - ₡)"],
+        [],
+        headers,
+        ...dataRows,
+        totalsRow,
+        [],
+        ["* Diciembre IQ e IIQ: Salarios netos de referencia del año anterior con los que se inicia legalmente el cálculo de Aguinaldo (1 Dic a 30 Nov)."],
+        ["* Mayo IQ: Incluye pago doble del feriado obligatorio del 1° de Mayo (Art. 148 Código de Trabajo)."],
+        ["Base legal: Ley N° 2412 (Ley de Pago de Aguinaldo a Servidores de la Empresa Privada). Emisión: " + fechaEmision]
+      ];
+
+      const ws = XLSX.utils.aoa_to_sheet(aoa);
+
+      ws["!cols"] = [
+        { wch: 34 }, // Colaborador
+        { wch: 22 }, // Puesto
+        ...allKeys.map(() => ({ wch: 15 })), // 26 quincenas
+        { wch: 22 }  // Total Neto Acumulado
+      ];
+
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Salarios_Aguinaldo_2026");
+
+      const nowStr = now.toISOString().split("T")[0];
+      const fileName = `Control_Salarios_Liquidos_2026_${nowStr}.xlsx`;
+      XLSX.writeFile(wb, fileName);
+      if (typeof showToast === "function") {
+        showToast(`Archivo Excel exportado exitosamente (${data.length} colaboradores)`, "success");
+      }
+    }
+
     // ==================== EXPORTACIÓN DE CONTROL DE SALARIOS A PDF (LANDSCAPE) ====================
     function buildControlSalariosPrintHTML(data) {
       const keys = [
@@ -7500,8 +7689,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         let rowTotal = 0;
         const bgRow = (idx % 2 === 0) ? "#ffffff" : "#f8fafc";
         let rowCells = `
-          <td style="padding: 2.5px 4px; border: 1px solid #cbd5e1; font-weight: 700; color: #0f172a; white-space: nowrap; font-size: 6.8pt; background-color: ${bgRow};">${safe(row.nombre)}</td>
-          <td style="padding: 2.5px 3px; border: 1px solid #cbd5e1; color: #475569; white-space: nowrap; font-size: 6.2pt; background-color: ${bgRow};">${safe(row.puesto || 'Agente de ventas')}</td>
+          <td style="padding: 1.5px 3px; border: 1px solid #cbd5e1; font-weight: 700; color: #0f172a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 5.8pt; background-color: ${bgRow};" title="${safe(row.nombre)}">${safe(row.nombre)}</td>
+          <td style="padding: 1.5px 2px; border: 1px solid #cbd5e1; color: #475569; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 5.0pt; background-color: ${bgRow};" title="${safe(row.puesto || '')}">${safe(row.puesto || 'Agente')}</td>
         `;
 
         keys.forEach(k => {
@@ -7509,89 +7698,120 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           if (val > 0) {
             rowTotal += val;
             columnTotals[k] = (columnTotals[k] || 0) + val;
-            rowCells += `<td style="padding: 2px 2.5px; border: 1px solid #cbd5e1; text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 6.1pt; color: #1e293b; white-space: nowrap; background-color: ${bgRow};">${formatCRC(val)}</td>`;
+            rowCells += `<td style="padding: 1.5px 1px; border: 1px solid #cbd5e1; text-align: right; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-variant-numeric: tabular-nums; font-size: 5.2pt; letter-spacing: -0.3px; color: #1e293b; white-space: nowrap; background-color: ${bgRow};">${formatCRC(val)}</td>`;
           } else {
-            rowCells += `<td style="padding: 2px 2.5px; border: 1px solid #cbd5e1; text-align: center; color: #cbd5e1; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 6.1pt; background-color: ${bgRow};">-</td>`;
+            rowCells += `<td style="padding: 1.5px 1px; border: 1px solid #cbd5e1; text-align: center; color: #cbd5e1; font-size: 5.2pt; background-color: ${bgRow};">-</td>`;
           }
         });
 
         grandTotal += rowTotal;
-        rowCells += `<td style="padding: 2.5px 4px; border: 1px solid #94a3b8; text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 800; font-size: 6.8pt; color: #047857; background-color: #ecfdf5; white-space: nowrap;">${formatCRC(rowTotal)}</td>`;
+        rowCells += `<td style="padding: 1.5px 2px; border: 1px solid #94a3b8; text-align: right; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-variant-numeric: tabular-nums; font-weight: 800; font-size: 5.6pt; letter-spacing: -0.3px; color: #047857; background-color: #ecfdf5; white-space: nowrap;">${formatCRC(rowTotal)}</td>`;
         rowsHtml += `<tr>${rowCells}</tr>`;
       });
 
       let footCols = `
-        <td style="padding: 3px 4px; border: 1px solid #94a3b8; font-weight: 900; color: #0f172a; font-size: 6.8pt; text-transform: uppercase; background-color: #f1f5f9;">TOTALES</td>
-        <td style="padding: 3px 3px; border: 1px solid #94a3b8; font-weight: 700; color: #475569; font-size: 6.2pt; background-color: #f1f5f9;">${data.length} colaboradores</td>
+        <td style="padding: 2px 3px; border: 1px solid #94a3b8; font-weight: 900; color: #0f172a; font-size: 6.0pt; text-transform: uppercase; background-color: #f1f5f9;">TOTALES</td>
+        <td style="padding: 2px 2px; border: 1px solid #94a3b8; font-weight: 700; color: #475569; font-size: 5.2pt; background-color: #f1f5f9;">${data.length} col.</td>
       `;
       keys.forEach(k => {
         const colSum = columnTotals[k] || 0;
-        footCols += `<td style="padding: 3px 2.5px; border: 1px solid #94a3b8; text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 800; font-size: 6.1pt; color: #0f172a; white-space: nowrap; background-color: #f1f5f9;">${colSum > 0 ? formatCRC(colSum) : '-'}</td>`;
+        footCols += `<td style="padding: 2px 1px; border: 1px solid #94a3b8; text-align: right; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-variant-numeric: tabular-nums; font-weight: 800; font-size: 5.2pt; letter-spacing: -0.3px; color: #0f172a; white-space: nowrap; background-color: #f1f5f9;">${colSum > 0 ? formatCRC(colSum) : '-'}</td>`;
       });
-      footCols += `<td style="padding: 3px 4px; border: 1px solid #059669; text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-weight: 900; font-size: 7.2pt; color: #064e3b; background-color: #a7f3d0; white-space: nowrap;">${formatCRC(grandTotal)}</td>`;
+      footCols += `<td style="padding: 2px 2px; border: 1px solid #059669; text-align: right; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-variant-numeric: tabular-nums; font-weight: 900; font-size: 6.0pt; letter-spacing: -0.3px; color: #064e3b; background-color: #a7f3d0; white-space: nowrap;">${formatCRC(grandTotal)}</td>`;
 
       const now = new Date();
       const fechaEmision = now.toLocaleDateString("es-CR") + " " + now.toLocaleTimeString("es-CR", { hour: "2-digit", minute: "2-digit" });
 
       return `
-        <div class="control-salarios-print-container" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0f172a; width: 100%; box-sizing: border-box; padding: 2mm 3mm; background: #fff;">
+        <div class="control-salarios-print-container" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0f172a; width: 100%; max-width: 100%; box-sizing: border-box; padding: 2mm 3mm; background: #fff; zoom: 0.68;">
           
           <!-- Encabezado Institucional -->
           <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #0f172a; padding-bottom: 3px; margin-bottom: 3px;">
             <div>
-              <div style="font-size: 12pt; font-weight: 900; letter-spacing: -0.01em; color: #0f172a; text-transform: uppercase;">DISTRIBUIDORA HERMANOS CASTRO DEL SUR S.A.</div>
-              <div style="font-size: 7.5pt; color: #475569; font-weight: 600;">Cédula Jurídica: 3-101-553770 · San Marcos, Tarrazú, Costa Rica · Tel: 2546-6000</div>
-              <div style="font-size: 9pt; font-weight: 800; color: #1e3a8a; margin-top: 1px;">CONTROL OFICIAL DE SALARIOS LÍQUIDOS 2026 · PLANILLA D9N3</div>
+              <div style="font-size: 11pt; font-weight: 900; letter-spacing: -0.01em; color: #0f172a; text-transform: uppercase;">DISTRIBUIDORA HERMANOS CASTRO DEL SUR S.A.</div>
+              <div style="font-size: 7.2pt; color: #475569; font-weight: 600;">Cédula Jurídica: 3-101-553770 · San Marcos, Tarrazú, Costa Rica · Tel: 2546-6000</div>
+              <div style="font-size: 8.8pt; font-weight: 800; color: #1e3a8a; margin-top: 1px;">CONTROL OFICIAL DE SALARIOS LÍQUIDOS 2026 · PLANILLA D9N3</div>
             </div>
             <div style="text-align: right;">
-              <div style="display: inline-block; background-color: #0f172a; color: #fff; font-size: 6.8pt; font-weight: 800; padding: 2px 7px; border-radius: 4px; text-transform: uppercase;">Planilla de Aguinaldo Oficial</div>
-              <div style="font-size: 6.8pt; color: #334155; margin-top: 1px;"><strong>Emisión:</strong> ${fechaEmision}</div>
-              <div style="font-size: 6.8pt; color: #334155;"><strong>Período:</strong> 1 Dic 2025 – 30 Nov 2026</div>
-              <div style="font-size: 6.8pt; color: #334155;"><strong>Moneda:</strong> CRC (₡)</div>
+              <div style="display: inline-block; background-color: #0f172a; color: #fff; font-size: 6.5pt; font-weight: 800; padding: 2px 7px; border-radius: 4px; text-transform: uppercase;">Planilla de Aguinaldo Oficial · Formato Horizontal (Landscape)</div>
+              <div style="font-size: 6.5pt; color: #334155; margin-top: 1px;"><strong>Emisión:</strong> ${fechaEmision}</div>
+              <div style="font-size: 6.5pt; color: #334155;"><strong>Período:</strong> 1 Dic 2025 – 30 Nov 2026</div>
+              <div style="font-size: 6.5pt; color: #334155;"><strong>Moneda:</strong> CRC (₡)</div>
             </div>
           </div>
 
           <!-- Sub-banner Informativo -->
-          <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 4px; padding: 2.5px 6px; margin-bottom: 4px; font-size: 6.5pt; color: #1e3a8a; display: flex; justify-content: space-between; align-items: center;">
+          <div style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 4px; padding: 2px 6px; margin-bottom: 3px; font-size: 6.2pt; color: #1e3a8a; display: flex; justify-content: space-between; align-items: center;">
             <div><strong>Registro Oficial:</strong> Salarios netos quincenales históricos pagados con deducción del 10.83% de CCSS obrero y feriados de ley (Art. 148 C.T. y Ley N° 2412).</div>
             <div>Total colaboradores operativos: <strong>${data.length}</strong></div>
           </div>
 
-          <!-- Tabla de Datos (26 Quincenas + Acumulado) -->
-          <table style="width: 100%; border-collapse: collapse; font-size: 6.2pt; line-height: 1.15; table-layout: auto;">
+          <!-- Tabla de Datos (26 Quincenas + Acumulado con table-layout fixed y colgroup) -->
+          <table style="width: 100%; border-collapse: collapse; font-size: 5.6pt; line-height: 1.15; table-layout: fixed;">
+            <colgroup>
+              <col style="width: 9.5%;">
+              <col style="width: 6.5%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 3.0%;">
+              <col style="width: 6.0%;">
+            </colgroup>
             <thead>
-              <tr style="background-color: #0f172a; color: #ffffff; font-weight: 800; text-transform: uppercase; font-size: 6.2pt;">
-                <th rowspan="2" style="padding: 2.5px 4px; border: 1px solid #334155; text-align: left;">Nombre</th>
-                <th rowspan="2" style="padding: 2.5px 3px; border: 1px solid #334155; text-align: left;">Puesto</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #3b0764; color: #fde047;">DICIEMBRE *</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">ENERO</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">FEBRERO</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">MARZO</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">ABRIL</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #172554; color: #93c5fd;">MAYO *</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">JUNIO</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">JULIO</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">AGOSTO</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">SETIEMBRE</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">OCTUBRE</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">NOVIEMBRE</th>
-                <th colspan="2" style="padding: 2px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">DICIEMBRE 2026</th>
-                <th rowspan="2" style="padding: 2.5px 4px; border: 1px solid #064e3b; text-align: right; background-color: #064e3b; color: #a7f3d0; font-weight: 900;">TOTAL NETO</th>
+              <tr style="background-color: #0f172a; color: #ffffff; font-weight: 800; text-transform: uppercase; font-size: 5.6pt;">
+                <th rowspan="2" style="padding: 2px 3px; border: 1px solid #334155; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Nombre</th>
+                <th rowspan="2" style="padding: 2px 2px; border: 1px solid #334155; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Puesto</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #3b0764; color: #fde047;">DICIEMBRE *</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">ENERO</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">FEBRERO</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">MARZO</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">ABRIL</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #172554; color: #93c5fd;">MAYO *</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">JUNIO</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">JULIO</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">AGOSTO</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">SETIEMBRE</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">OCTUBRE</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #0f172a;">NOVIEMBRE</th>
+                <th colspan="2" style="padding: 1.5px; border: 1px solid #334155; text-align: center; background-color: #1e293b;">DICIEMBRE 2026</th>
+                <th rowspan="2" style="padding: 2px 2px; border: 1px solid #064e3b; text-align: right; background-color: #064e3b; color: #a7f3d0; font-weight: 900; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">TOTAL NETO</th>
               </tr>
-              <tr style="background-color: #1e293b; color: #e2e8f0; font-size: 5.6pt; font-weight: 700; text-align: center;">
-                <th style="padding: 1.5px; border: 1px solid #334155; color: #fde047;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155; color: #fde047;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155; color: #fde047;">IQ *</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
-                <th style="padding: 1.5px; border: 1px solid #334155;">IQ</th><th style="padding: 1.5px; border: 1px solid #334155;">IIQ</th>
+              <tr style="background-color: #1e293b; color: #e2e8f0; font-size: 5.0pt; font-weight: 700; text-align: center;">
+                <th style="padding: 1px; border: 1px solid #334155; color: #fde047;">IQ</th><th style="padding: 1px; border: 1px solid #334155; color: #fde047;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155;">IQ</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155;">IQ</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155;">IQ</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155;">IQ</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155; color: #fde047;">IQ *</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155;">IQ</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155;">IQ</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155;">IQ</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155;">IQ</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155;">IQ</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155;">IQ</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
+                <th style="padding: 1px; border: 1px solid #334155;">IQ</th><th style="padding: 1px; border: 1px solid #334155;">IIQ</th>
               </tr>
             </thead>
             <tbody>
@@ -7605,23 +7825,23 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           </table>
 
           <!-- Notas al pie oficiales -->
-          <div style="margin-top: 3px; font-size: 6pt; color: #475569; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #cbd5e1; padding-top: 2px;">
+          <div style="margin-top: 3px; font-size: 5.6pt; color: #475569; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #cbd5e1; padding-top: 2px;">
             <span>* <strong>Diciembre IQ e IIQ:</strong> Salarios netos de referencia del año anterior con los que se inicia legalmente el cálculo de Aguinaldo (1 Dic a 30 Nov).</span>
             <span>* <strong>Mayo IQ:</strong> Incluye pago doble del feriado obligatorio del 1° de Mayo (Art. 148 C.T.).</span>
             <span>Plan de planilla: <strong>D9N3</strong> · Moneda: <strong>Colones Costarricenses (CRC)</strong> · Base legal: <strong>Ley N° 2412</strong></span>
           </div>
 
           <!-- Bloque de Firmas Institucionales -->
-          <div style="margin-top: 8px; display: flex; justify-content: space-around; font-size: 6.8pt; color: #334155; text-align: center;">
-            <div style="width: 260px;">
-              <div style="border-bottom: 1px solid #475569; height: 26px;"></div>
+          <div style="margin-top: 6px; display: flex; justify-content: space-around; font-size: 6.2pt; color: #334155; text-align: center;">
+            <div style="width: 240px;">
+              <div style="border-bottom: 1px solid #475569; height: 22px;"></div>
               <div style="margin-top: 2px; font-weight: 800; color: #0f172a;">Elaborado por Recursos Humanos</div>
-              <div style="font-size: 5.8pt; color: #64748b;">Distribuidora Hermanos Castro del Sur S.A.</div>
+              <div style="font-size: 5.4pt; color: #64748b;">Distribuidora Hermanos Castro del Sur S.A.</div>
             </div>
-            <div style="width: 260px;">
-              <div style="border-bottom: 1px solid #475569; height: 26px;"></div>
+            <div style="width: 240px;">
+              <div style="border-bottom: 1px solid #475569; height: 22px;"></div>
               <div style="margin-top: 2px; font-weight: 800; color: #0f172a;">Revisado y Aprobado por Gerencia</div>
-              <div style="font-size: 5.8pt; color: #64748b;">Aprobación Oficial de Pago de Aguinaldo</div>
+              <div style="font-size: 5.4pt; color: #64748b;">Aprobación Oficial de Pago de Aguinaldo</div>
             </div>
           </div>
         </div>
@@ -7647,20 +7867,33 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         if (el) el.classList.add("hidden");
       });
 
-      // Añadir regla CSS para forzar orientación horizontal (landscape) y márgenes ajustados
+      // Añadir regla CSS at-rule @page a nivel raíz (fuera de @media print) para forzar orientación horizontal nativa
       let styleEl = document.getElementById("style-print-landscape");
       if (!styleEl) {
         styleEl = document.createElement("style");
         styleEl.id = "style-print-landscape";
         styleEl.innerHTML = `
+          @page {
+            size: landscape;
+            margin: 3mm 4mm 3mm 4mm;
+          }
           @media print {
-            @page {
-              size: landscape;
-              margin: 4mm 5mm 4mm 5mm;
-            }
-            body {
+            html, body {
+              width: 100% !important;
+              height: 100% !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              background: #fff !important;
               -webkit-print-color-adjust: exact !important;
               print-color-adjust: exact !important;
+            }
+            #printable-control-salarios {
+              width: 100% !important;
+              max-width: 100% !important;
+              position: static !important;
+              display: block !important;
+              overflow: visible !important;
+              zoom: 0.68 !important;
             }
           }
         `;
@@ -7668,6 +7901,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
 
       container.classList.remove("hidden");
+
+      if (typeof showToast === "function") {
+        showToast("Generando reporte oficial en formato horizontal (Landscape)...");
+      }
 
       const cleanupPrint = () => {
         container.classList.add("hidden");
