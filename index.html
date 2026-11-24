@@ -332,6 +332,8 @@
         border: none !important;
         box-shadow: none !important;
         padding: 10mm 15mm !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
       .expediente-voucher-page {
@@ -1841,7 +1843,7 @@
 
               <label class="block font-semibold text-slate-700 mb-1">Colaborador (Activo)</label>
 
-              <select id="extra-employee-select" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500" onchange="updateExtraPreview()">
+              <select id="extra-employee-select" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500" onchange="onExtraEmployeeSelectChange()">
 
               </select>
 
@@ -1928,7 +1930,7 @@
 
             <div id="extra-hours-container">
               <label id="lbl-extra-hours" class="block font-semibold text-slate-700 mb-1">Cantidad Total de Horas Extra (Quincena)</label>
-              <input type="number" id="extra-hours" step="0.5" min="0.5" value="28.5" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500 font-mono font-bold text-slate-800" oninput="updateExtraPreview()">
+              <input type="number" id="extra-hours" step="0.5" min="0.5" value="" placeholder="0.0" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-purple-500 font-mono font-bold text-slate-800" oninput="updateExtraPreview()">
               <p id="desc-extra-hours" class="text-[11px] text-slate-500 mt-1">Total de horas extraordinarias a pagar en la quincena.</p>
             </div>
 
@@ -1941,13 +1943,13 @@
               <div class="flex gap-2 items-center">
                 <div class="relative flex-1">
                   <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold">₡</span>
-                  <input type="number" id="extra-custom-rate" step="10" min="0" value="2000" class="w-full pl-7 pr-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 font-mono font-bold text-slate-900" oninput="updateExtraPreview()" placeholder="2000">
+                  <input type="number" id="extra-custom-rate" step="10" min="0" value="" class="w-full pl-7 pr-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 font-mono font-bold text-slate-900" oninput="this.dataset.manualEdited='true'; updateExtraPreview()" placeholder="Tarifa legal calculada">
                 </div>
                 <button type="button" id="btn-use-legal-rate" onclick="setExtraLegalRate()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold whitespace-nowrap transition cursor-pointer border border-slate-300" title="Aplicar la tarifa legal calculada a tiempo y medio">
                   Usar Legal
                 </button>
               </div>
-              <p class="text-[11px] text-slate-500">Monto predefinido: ₡2.000. El administrativo puede personalizar la tarifa por hora extra.</p>
+              <p id="extra-rate-hint" class="text-[11px] text-slate-500">Monto predefinido según cálculo legal oficial (1.5× / 3.0×). El administrativo puede personalizar la tarifa por hora extra.</p>
 
               <!-- Alerta Dinámica si el cálculo legal supera el monto ingresado -->
               <div id="extra-rate-alert" class="hidden p-2.5 rounded-lg border border-amber-300 bg-amber-50 text-amber-900 text-xs flex items-center justify-between gap-2 shadow-xs transition-all">
@@ -2654,150 +2656,250 @@
       </div>
 
       <!-- COMPROBANTE OFICIAL EXACTO (CON SCROLL PROPIO) -->
-      <div id="printable-voucher" class="flex-1 overflow-y-auto p-5 sm:p-8 bg-white font-sans text-slate-900 space-y-4">
+      <div id="printable-voucher" class="flex-1 overflow-y-auto p-5 sm:p-8 bg-white font-sans text-slate-900">
         
-        <!-- Recuadro 1: Encabezado de la Empresa con Logo Oficial -->
-        <div class="voucher-box p-4 flex justify-between items-center">
-          <div class="text-[12px] leading-tight space-y-1">
-            <h2 class="font-bold text-[13px] text-slate-950">Distribuidora Hermanos Castro del Sur S.A.</h2>
-            <p>Cédula Jurídica 3-101-553770</p>
-            <p>Correo: dhcastrosantos@gmail.com</p>
-            <p>San José, Tarrazú, San Marcos, La Sabana</p>
+        <!-- ========================================================================= -->
+        <!-- FORMATO 1: COMPROBANTE DE PAGO QUINCENAL (PLANILLA REGULAR)               -->
+        <!-- ========================================================================= -->
+        <div id="voucher-normal-container" class="space-y-4">
+          <!-- Recuadro 1: Encabezado de la Empresa con Logo Oficial -->
+          <div class="voucher-box p-4 flex justify-between items-center">
+            <div class="text-[12px] leading-tight space-y-1">
+              <h2 class="font-bold text-[13px] text-slate-950">Distribuidora Hermanos Castro del Sur S.A.</h2>
+              <p>Cédula Jurídica 3-101-553770</p>
+              <p>Correo: dhcastrosantos@gmail.com</p>
+              <p>San José, Tarrazú, San Marcos, La Sabana</p>
+            </div>
+
+            <div class="flex items-center pl-4">
+              <img src="logo.jpg" onerror="if(typeof OFFICIAL_LOGO_B64 !== 'undefined') this.src = OFFICIAL_LOGO_B64;" alt="Distribuidora Hermanos Castro del Sur S.A." class="h-20 w-auto object-contain max-w-[130px]">
+            </div>
           </div>
 
-          <div class="flex items-center pl-4">
-            <img src="logo.jpg" onerror="if(typeof OFFICIAL_LOGO_B64 !== 'undefined') this.src = OFFICIAL_LOGO_B64;" alt="Distribuidora Hermanos Castro del Sur S.A." class="h-20 w-auto object-contain max-w-[130px]">
+          <!-- Recuadro 2: Datos del Colaborador -->
+          <div class="voucher-box p-4 text-[12px] leading-relaxed">
+            <div class="grid grid-cols-1 gap-1">
+              <div class="flex">
+                <span class="font-bold w-20">Nombre:</span>
+                <span class="font-bold uppercase" id="cv-nombre">--</span>
+              </div>
+              <div class="flex">
+                <span class="font-bold w-20">Cédula:</span>
+                <span id="cv-cedula">--</span>
+              </div>
+              <div class="flex">
+                <span class="font-bold w-20">Puesto:</span>
+                <span id="cv-puesto">--</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recuadro 3: Cuerpo del Comprobante -->
+          <div class="voucher-box p-5 text-[12px] space-y-4">
+            <div class="text-center font-bold tracking-wide text-[13px]" id="cv-doc-title">
+              COMPROBANTE DE PAGO
+            </div>
+
+            <div class="space-y-1 text-[12px]">
+              <div class="flex justify-between sm:justify-start gap-4">
+                <span class="w-44 text-slate-800" id="cv-label-periodo">Periodo de pago:</span>
+                <span class="font-medium" id="cv-val-periodo">--</span>
+              </div>
+              <div class="hidden justify-between sm:justify-start gap-4" id="cv-row-plan">
+                <span class="w-44 text-slate-800" id="cv-label-plan">Plan de planilla:</span>
+                <span class="font-medium" id="cv-val-plan"></span>
+              </div>
+              <div class="flex justify-between sm:justify-start gap-4">
+                <span class="w-44 text-slate-800" id="cv-label-salario">Salario bruto mensual:</span>
+                <span class="font-medium font-mono" id="cv-val-salario">₡0,00</span>
+              </div>
+            </div>
+
+            <div class="border-t-2 border-b border-slate-900 py-1 text-center font-semibold text-[12px] italic tracking-wide" id="cv-subtitulo-detalle">
+              Detalle del salario líquido
+            </div>
+
+            <!-- SECCIÓN A: COMPROBANTE DE QUINCENA REGULAR -->
+            <div id="cv-section-quincena" class="space-y-4">
+              <div class="space-y-1">
+                <div class="voucher-header-table px-3 py-1 flex justify-between">
+                  <span id="cv-th-componentes">Componentes salariales</span>
+                  <span>Monto</span>
+                </div>
+                <div class="px-2 py-1 flex justify-between text-[12px]" id="cv-row-ordinario">
+                  <span id="cv-label-ingreso-1">Salario ordinario:</span>
+                  <span class="font-mono" id="cv-val-ingreso-1">₡0,00</span>
+                </div>
+                <div class="px-2 py-1 flex justify-between text-[12px] hidden" id="cv-row-extras">
+                  <span id="cv-label-extras">Horas extraordinarias:</span>
+                  <span class="font-mono text-purple-900" id="cv-val-extras">₡0,00</span>
+                </div>
+                <div class="px-2 py-1 flex justify-between text-[12px] hidden" id="cv-row-feriados">
+                  <span id="cv-label-feriados">Feriados obligatorios laborados (Pago doble Art. 148):</span>
+                  <span class="font-mono text-amber-800 font-bold" id="cv-val-feriados">₡0,00</span>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <div class="voucher-header-table px-3 py-1 flex justify-between">
+                  <span id="cv-th-deducciones">Deducciones de marco legal</span>
+                  <span>Monto</span>
+                </div>
+                <div class="px-2 py-1 flex justify-between text-[12px]" id="cv-row-ccss">
+                  <span id="cv-label-deduccion-1">C.C.S.S. (10,83%)</span>
+                  <span class="font-mono" id="cv-val-deduccion-1">₡0,00</span>
+                </div>
+                <div id="cv-container-otros-rebajos"></div>
+                <div class="px-2 py-1 flex justify-between text-[11px] font-bold text-rose-900 bg-rose-50/50 hidden" id="cv-row-total-deducciones">
+                  <span>Total deducciones aplicadas:</span>
+                  <span class="font-mono" id="cv-val-total-deducciones">₡0,00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECCIÓN B: DESGLOSE MENSUAL PARA COMPROBANTE Y PDF DE AGUINALDO (12 MESES: DIC A NOV) -->
+            <div id="cv-section-aguinaldo" class="hidden space-y-3">
+              <div class="voucher-header-table px-3 py-1.5 flex justify-between text-[12px]">
+                <span>Desglose de Salarios Devengados (Diciembre a Noviembre)</span>
+                <span>Salario Bruto Devengado</span>
+              </div>
+              
+              <div class="border border-slate-300 rounded-lg overflow-hidden">
+                <table class="w-full text-[11px] divide-y divide-slate-200">
+                  <thead class="bg-slate-100 text-slate-700 font-bold">
+                    <tr>
+                      <th scope="col" class="px-2.5 py-1 text-left">Mes Computable</th>
+                      <th scope="col" class="px-2.5 py-1 text-center">Quincenas</th>
+                      <th scope="col" class="px-2.5 py-1 text-right">Salario Devengado</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cv-aguin-meses-body" class="divide-y divide-slate-100 font-mono">
+                  </tbody>
+                  <tfoot class="bg-slate-50 font-bold border-t-2 border-slate-900">
+                    <tr>
+                      <td class="px-2.5 py-1.5 text-left font-sans text-slate-900" colspan="2">TOTAL SALARIOS DEVENGADOS ACUMULADOS:</td>
+                      <td class="px-2.5 py-1.5 text-right font-black text-slate-950 font-mono text-[12px]" id="cv-aguin-total-acumulado">₡0,00</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+
+              <!-- Recuadro Legal de Aguinaldo -->
+              <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg space-y-1 text-[11px]">
+                <div class="flex justify-between">
+                  <span class="text-slate-600">Fórmula legal de cálculo (Ley N° 2412):</span>
+                  <span class="font-mono font-bold text-slate-800">Total Devengado ÷ 12 meses</span>
+                </div>
+                <div class="flex justify-between text-emerald-800 font-semibold">
+                  <span>Exención legal de C.C.S.S. y Renta (Ley N° 2412):</span>
+                  <span class="font-mono">₡0,00 (100% Exento)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-2 flex justify-end items-center gap-3 text-[13px] border-t border-slate-300">
+              <span class="font-bold tracking-wider" id="cv-label-total">TOTAL:</span>
+              <span class="font-black font-mono text-[14px]" id="cv-val-total">₡0,00</span>
+            </div>
           </div>
         </div>
 
-        <!-- Recuadro 2: Datos del Colaborador -->
-        <div class="voucher-box p-4 text-[12px] leading-relaxed">
-          <div class="grid grid-cols-1 gap-1">
-            <div class="flex">
-              <span class="font-bold w-20">Nombre:</span>
-              <span class="font-bold uppercase" id="cv-nombre">--</span>
+        <!-- ========================================================================= -->
+        <!-- FORMATO 2: COMPROBANTE OFICIAL DE AGUINALDO (RÉPLICA EXACTA)             -->
+        <!-- ========================================================================= -->
+        <div id="voucher-aguinaldo-container" class="space-y-3 hidden font-sans text-slate-900">
+          
+          <!-- Recuadro 1: Encabezado de la Empresa con Logo Oficial -->
+          <div class="border border-slate-900 bg-white p-4 flex justify-between items-center rounded-none shadow-none">
+            <div class="text-[12px] leading-tight space-y-1">
+              <h2 class="font-bold text-[13px] text-slate-950">Distribuidora Hermanos Castro del Sur S.A.</h2>
+              <p class="text-slate-800">Cédula Jurídica 3-101-553770</p>
+              <p class="text-slate-800">Correo: <a href="mailto:dhcastrosantos@gmail.com" class="text-blue-700 underline">dhcastrosantos@gmail.com</a></p>
+              <p class="text-slate-800">San José, Tarrazú, San Marcos, La Sabana</p>
             </div>
-            <div class="flex">
-              <span class="font-bold w-20">Cédula:</span>
-              <span id="cv-cedula">--</span>
+            <div class="flex items-center pl-4">
+              <img src="logo.jpg" onerror="if(typeof OFFICIAL_LOGO_B64 !== 'undefined') this.src = OFFICIAL_LOGO_B64;" alt="Distribuidora Hermanos Castro del Sur S.A." class="h-16 w-auto object-contain max-w-[130px]">
             </div>
-            <div class="flex">
-              <span class="font-bold w-20">Puesto:</span>
-              <span id="cv-puesto">--</span>
+          </div>
+
+          <!-- Recuadro 2: Datos del Colaborador -->
+          <div class="border border-slate-900 bg-[#e9eef4] p-3.5 text-[12px] leading-relaxed rounded-none shadow-none overflow-hidden">
+            <table class="w-full text-[12px]">
+              <tbody>
+                <tr>
+                  <td class="font-bold text-slate-950 w-24 py-0.5">Nombre:</td>
+                  <td class="font-bold text-slate-950 uppercase py-0.5" id="ag-cv-nombre">--</td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-slate-950 py-0.5">Cédula:</td>
+                  <td class="text-slate-900 py-0.5" id="ag-cv-cedula">--</td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-slate-950 py-0.5">Puesto:</td>
+                  <td class="text-slate-900 py-0.5" id="ag-cv-puesto">--</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Recuadro 3: Cuerpo del Comprobante Oficial -->
+          <div class="border border-slate-900 bg-white p-5 sm:p-6 text-[12px] space-y-5 rounded-none shadow-none">
+            <div class="text-center font-bold tracking-wide text-[14px] text-slate-950">
+              COMPROBANTE OFICIAL DE AGUINALDO
             </div>
+
+            <div class="text-[12px]">
+              <span class="font-bold text-slate-950">Fecha de pago:</span> <span class="text-slate-900" id="ag-cv-fecha-pago">11 de diciembre de 2026</span>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="font-bold text-[12px] text-slate-950 border-b border-slate-400 pb-1">
+                Detalle del cálculo (Período del 1 de dic. 2025 al 30 de nov. 2026):
+              </div>
+
+              <div class="border border-slate-400 overflow-hidden">
+                <table class="w-full text-[11.5px] border-collapse">
+                  <tbody>
+                    <tr class="bg-[#e9eef4] border-b border-slate-300">
+                      <td class="px-3 py-2 text-left text-slate-900 font-medium">Total salarios ordinarios y extraordinarios devengados:</td>
+                      <td class="px-3 py-2 text-right font-bold text-slate-950 font-mono" id="ag-cv-total-devengado">₡0,00</td>
+                    </tr>
+                    <tr class="bg-white border-b border-slate-300">
+                      <td class="px-3 py-2 text-left text-slate-900 font-medium">Cálculo de aguinaldo (Total ÷ 12):</td>
+                      <td class="px-3 py-2 text-right font-bold text-slate-950 font-mono" id="ag-cv-calculo-aguinaldo">₡0,00</td>
+                    </tr>
+                    <tr class="bg-[#e9eef4]">
+                      <td class="px-3 py-2 text-left text-slate-900 font-medium">Deducciones (Pensión alimentaria):</td>
+                      <td class="px-3 py-2 text-right font-bold text-slate-950 font-mono" id="ag-cv-deduccion-pension">₡0,00 (Exento)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Barra destacada: Monto Neto a Recibir -->
+            <div class="mt-6">
+              <div class="bg-[#c8dcf0] border border-slate-400 px-4 py-2.5 flex justify-between items-center text-[13px] font-bold text-slate-950">
+                <span class="tracking-wide">MONTO NETO A RECIBIR:</span>
+                <span class="text-[15px] font-mono font-black" id="ag-cv-neto-recibir">₡0,00</span>
+              </div>
+              <div class="mt-2 text-[11.5px] text-slate-800">
+                Forma de pago: [X] Transferencia bancaria
+              </div>
+            </div>
+
+            <!-- Mensaje Navideño Centrado en Cursiva -->
+            <div class="pt-6 pb-2 text-center italic text-[12px] text-slate-800 space-y-1">
+              <p class="font-semibold">¡Muchas gracias por su esfuerzo, compromiso y dedicación durante este año!</p>
+              <p class="font-semibold">Le deseamos una Feliz Navidad y un próspero Año Nuevo. ✨🎄</p>
+            </div>
+          </div>
+
+          <!-- Pie de página legal exterior -->
+          <div class="text-center text-[10.5px] text-slate-600 pt-1 pb-1">
+            Este comprobante oficial fue emitido conforme a la Ley N° 2412 por Distribuidora Hermanos Castro del Sur S.A.
           </div>
         </div>
-
-        <!-- Recuadro 3: Cuerpo del Comprobante -->
-        <div class="voucher-box p-5 text-[12px] space-y-4">
-          <div class="text-center font-bold tracking-wide text-[13px]" id="cv-doc-title">
-            COMPROBANTE DE PAGO
-          </div>
-
-          <div class="space-y-1 text-[12px]">
-            <div class="flex justify-between sm:justify-start gap-4">
-              <span class="w-44 text-slate-800" id="cv-label-periodo">Periodo de pago:</span>
-              <span class="font-medium" id="cv-val-periodo">--</span>
-            </div>
-            <div class="hidden justify-between sm:justify-start gap-4" id="cv-row-plan">
-              <span class="w-44 text-slate-800" id="cv-label-plan">Plan de planilla:</span>
-              <span class="font-medium" id="cv-val-plan"></span>
-            </div>
-            <div class="flex justify-between sm:justify-start gap-4">
-              <span class="w-44 text-slate-800" id="cv-label-salario">Salario bruto mensual:</span>
-              <span class="font-medium font-mono" id="cv-val-salario">₡0,00</span>
-            </div>
-          </div>
-
-          <div class="border-t-2 border-b border-slate-900 py-1 text-center font-semibold text-[12px] italic tracking-wide" id="cv-subtitulo-detalle">
-            Detalle del salario líquido
-          </div>
-
-          <!-- SECCIÓN A: COMPROBANTE DE QUINCENA REGULAR -->
-          <div id="cv-section-quincena" class="space-y-4">
-            <div class="space-y-1">
-              <div class="voucher-header-table px-3 py-1 flex justify-between">
-                <span id="cv-th-componentes">Componentes salariales</span>
-                <span>Monto</span>
-              </div>
-              <div class="px-2 py-1 flex justify-between text-[12px]" id="cv-row-ordinario">
-                <span id="cv-label-ingreso-1">Salario ordinario:</span>
-                <span class="font-mono" id="cv-val-ingreso-1">₡0,00</span>
-              </div>
-              <div class="px-2 py-1 flex justify-between text-[12px] hidden" id="cv-row-extras">
-                <span id="cv-label-extras">Horas extraordinarias:</span>
-                <span class="font-mono text-purple-900" id="cv-val-extras">₡0,00</span>
-              </div>
-              <div class="px-2 py-1 flex justify-between text-[12px] hidden" id="cv-row-feriados">
-                <span id="cv-label-feriados">Feriados obligatorios laborados (Pago doble Art. 148):</span>
-                <span class="font-mono text-amber-800 font-bold" id="cv-val-feriados">₡0,00</span>
-              </div>
-            </div>
-
-            <div class="space-y-1">
-              <div class="voucher-header-table px-3 py-1 flex justify-between">
-                <span id="cv-th-deducciones">Deducciones de marco legal</span>
-                <span>Monto</span>
-              </div>
-              <div class="px-2 py-1 flex justify-between text-[12px]" id="cv-row-ccss">
-                <span id="cv-label-deduccion-1">C.C.S.S. (10,83%)</span>
-                <span class="font-mono" id="cv-val-deduccion-1">₡0,00</span>
-              </div>
-              <div id="cv-container-otros-rebajos"></div>
-              <div class="px-2 py-1 flex justify-between text-[11px] font-bold text-rose-900 bg-rose-50/50 hidden" id="cv-row-total-deducciones">
-                <span>Total deducciones aplicadas:</span>
-                <span class="font-mono" id="cv-val-total-deducciones">₡0,00</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- SECCIÓN B: DESGLOSE MENSUAL PARA COMPROBANTE Y PDF DE AGUINALDO (12 MESES: DIC A NOV) -->
-          <div id="cv-section-aguinaldo" class="hidden space-y-3">
-            <div class="voucher-header-table px-3 py-1.5 flex justify-between text-[12px]">
-              <span>Desglose de Salarios Devengados (Diciembre a Noviembre)</span>
-              <span>Salario Bruto Devengado</span>
-            </div>
-            
-            <div class="border border-slate-300 rounded-lg overflow-hidden">
-              <table class="w-full text-[11px] divide-y divide-slate-200">
-                <thead class="bg-slate-100 text-slate-700 font-bold">
-                  <tr>
-                    <th scope="col" class="px-2.5 py-1 text-left">Mes Computable</th>
-                    <th scope="col" class="px-2.5 py-1 text-center">Quincenas</th>
-                    <th scope="col" class="px-2.5 py-1 text-right">Salario Devengado</th>
-                  </tr>
-                </thead>
-                <tbody id="cv-aguin-meses-body" class="divide-y divide-slate-100 font-mono">
-                </tbody>
-                <tfoot class="bg-slate-50 font-bold border-t-2 border-slate-900">
-                  <tr>
-                    <td class="px-2.5 py-1.5 text-left font-sans text-slate-900" colspan="2">TOTAL SALARIOS DEVENGADOS ACUMULADOS:</td>
-                    <td class="px-2.5 py-1.5 text-right font-black text-slate-950 font-mono text-[12px]" id="cv-aguin-total-acumulado">₡0,00</td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-
-            <!-- Recuadro Legal de Aguinaldo -->
-            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg space-y-1 text-[11px]">
-              <div class="flex justify-between">
-                <span class="text-slate-600">Fórmula legal de cálculo (Ley N° 2412):</span>
-                <span class="font-mono font-bold text-slate-800">Total Devengado ÷ 12 meses</span>
-              </div>
-              <div class="flex justify-between text-emerald-800 font-semibold">
-                <span>Exención legal de C.C.S.S. y Renta (Ley N° 2412):</span>
-                <span class="font-mono">₡0,00 (100% Exento)</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="pt-2 flex justify-end items-center gap-3 text-[13px] border-t border-slate-300">
-            <span class="font-bold tracking-wider" id="cv-label-total">TOTAL:</span>
-            <span class="font-black font-mono text-[14px]" id="cv-val-total">₡0,00</span>
-          </div>
-
-        </div>
-
       </div>
 
       <!-- Pie Sticky del Comprobante con Botón Cerrar Siempre Visible -->
@@ -3214,7 +3316,7 @@
           <div>
             <div class="flex justify-between items-center mb-1">
               <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider">Detalle Diario de Marcas y Horas Extras</h4>
-              <span class="text-[11px] text-slate-500">Cálculo: Salida - 18:00:00</span>
+              <span class="text-[11px] text-slate-500">Cálculo: Salida - 18:00 (Lun-Jue) / 16:00 (Viernes)</span>
             </div>
             <div class="overflow-x-auto max-h-64 border rounded-lg">
               <table class="min-w-full text-xs">
@@ -3222,7 +3324,7 @@
                   <tr>
                     <th class="p-2">Colaborador Oficial</th>
                     <th class="p-2 text-center">Fecha</th>
-                    <th class="p-2 text-center">Entrada Asumida</th>
+                    <th class="p-2 text-center">Jornada Ordinaria</th>
                     <th class="p-2 text-center">Salida Registrada</th>
                     <th class="p-2 text-right">Horas Extras</th>
                     <th class="p-2 text-right">Tarifa / h</th>
@@ -5790,6 +5892,12 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     function formatCRC(amount) {
       const parts = Number(amount || 0).toFixed(2).split(".");
       const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+      return `₡${integerPart},${parts[1]}`;
+    }
+
+    function formatCRCDot(amount) {
+      const parts = Number(amount || 0).toFixed(2).split(".");
+      const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       return `₡${integerPart},${parts[1]}`;
     }
 
@@ -9084,21 +9192,32 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       }
     }
 
-    // Enviar Comprobante de Aguinaldo por Gmail conforme al Historial de Pagos
+    // Enviar Comprobante de Aguinaldo por Gmail conforme al Formato Oficial
     async function sendAguinaldoByGmail(empId) {
-      const emp = employees.find(e => e.id === empId);
+      const emp = (typeof employees !== "undefined" ? employees.find(e => e.id === empId) : null) ||
+                  (typeof DEFAULT_EMPLOYEES !== "undefined" ? DEFAULT_EMPLOYEES.find(e => e.id === empId) : null);
       if (!emp) return;
 
       const calc = getAguinaldoCalculation(emp, aguinaldoCalculationMode);
+      const totalDevengado = Number(calc.totalBrutoFinal || 0);
+      const calculoAguinaldo = Number(calc.aguinaldoPagar || 0);
+      const pensionAlim = Number(calc.pensionAlimentaria || 0);
+      const netoRecibir = calculoAguinaldo - pensionAlim;
 
       const aguinaldoData = {
         nombre: emp.nombre,
         cedula: emp.cedula,
         puesto: emp.puesto,
         correo: emp.correo,
+        fechaPago: "11 de diciembre de 2026",
+        periodoTexto: "Período del 1 de dic. 2025 al 30 de nov. 2026",
+        totalDevengadoFormatted: formatCRCDot(totalDevengado),
+        calculoAguinaldoFormatted: formatCRCDot(calculoAguinaldo),
+        pensionFormatted: pensionAlim > 0 ? formatCRCDot(pensionAlim) : "₡0,00 (Exento)",
+        netoRecibirFormatted: formatCRCDot(netoRecibir),
         mesesComputados: calc.mesesComputadosTexto,
-        totalAcumuladoFormatted: formatCRC(calc.totalBrutoFinal),
-        aguinaldoFormatted: formatCRC(calc.aguinaldoPagar),
+        totalAcumuladoFormatted: formatCRCDot(totalDevengado),
+        aguinaldoFormatted: formatCRCDot(netoRecibir),
         mesesDetalle: calc.mesesDetalle
       };
 
@@ -11684,6 +11803,11 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       document.getElementById("modal-voucher-title").innerHTML = `<span>📄</span> Comprobante Oficial de Pago · ${emp.nombre}`;
 
+      const normContainer = document.getElementById("voucher-normal-container");
+      const agContainer = document.getElementById("voucher-aguinaldo-container");
+      if (normContainer) normContainer.classList.remove("hidden");
+      if (agContainer) agContainer.classList.add("hidden");
+
       document.getElementById("cv-nombre").textContent = emp.nombre.toUpperCase();
       document.getElementById("cv-cedula").textContent = emp.cedula;
       document.getElementById("cv-puesto").textContent = emp.puesto;
@@ -11789,64 +11913,60 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
     }
 
     function previewAguinaldoVoucher(empId) {
-      const emp = employees.find(e => e.id === empId);
+      const emp = (typeof employees !== "undefined" ? employees.find(e => e.id === empId) : null) ||
+                  (typeof DEFAULT_EMPLOYEES !== "undefined" ? DEFAULT_EMPLOYEES.find(e => e.id === empId) : null);
       if (!emp) return;
 
       const calc = getAguinaldoCalculation(emp, aguinaldoCalculationMode);
 
+      // Conmutar vistas: ocultar regular y mostrar aguinaldo oficial
+      const normContainer = document.getElementById("voucher-normal-container");
+      const agContainer = document.getElementById("voucher-aguinaldo-container");
+      if (normContainer) normContainer.classList.add("hidden");
+      if (agContainer) agContainer.classList.remove("hidden");
+
       document.getElementById("modal-voucher-title").innerHTML = `<span>🎁</span> Comprobante Oficial de Aguinaldo · ${emp.nombre}`;
 
-      document.getElementById("cv-nombre").textContent = emp.nombre.toUpperCase();
-      document.getElementById("cv-cedula").textContent = emp.cedula;
-      document.getElementById("cv-puesto").textContent = emp.puesto;
+      // 1. Datos del colaborador en el comprobante oficial de aguinaldo
+      const agNombre = document.getElementById("ag-cv-nombre");
+      const agCedula = document.getElementById("ag-cv-cedula");
+      const agPuesto = document.getElementById("ag-cv-puesto");
+      if (agNombre) agNombre.textContent = (emp.nombre || "").toUpperCase();
+      if (agCedula) agCedula.textContent = emp.cedula || "--";
+      if (agPuesto) agPuesto.textContent = emp.puesto || "--";
 
-      document.getElementById("cv-doc-title").textContent = "COMPROBANTE OFICIAL DE AGUINALDO";
-      document.getElementById("cv-label-periodo").textContent = "Periodo computable:";
-      document.getElementById("cv-val-periodo").textContent = "1 de Diciembre 2025 al 30 de Noviembre 2026";
-      document.getElementById("cv-row-plan").classList.add("hidden");
-      document.getElementById("cv-label-salario").textContent = "Meses computados:";
-      document.getElementById("cv-val-salario").textContent = calc.mesesComputadosTexto;
+      // 2. Cifras oficiales según formato solicitado
+      const totalDevengado = Number(calc.totalBrutoFinal || 0);
+      const calculoAguinaldo = Number(calc.aguinaldoPagar || 0);
+      const pensionAlim = Number(calc.pensionAlimentaria || 0);
+      const netoRecibir = calculoAguinaldo - pensionAlim;
 
-      document.getElementById("cv-subtitulo-detalle").textContent = "Detalle del cálculo legal de aguinaldo según historial de pagos (Ley N° 2412)";
+      const elDevengado = document.getElementById("ag-cv-total-devengado");
+      const elAguinaldo = document.getElementById("ag-cv-calculo-aguinaldo");
+      const elPension = document.getElementById("ag-cv-deduccion-pension");
+      const elNeto = document.getElementById("ag-cv-neto-recibir");
 
-      document.getElementById("cv-th-componentes").textContent = "Salarios devengados en el período";
-      document.getElementById("cv-label-ingreso-1").textContent = "Total salarios brutos devengados según historial:";
-      document.getElementById("cv-val-ingreso-1").textContent = formatCRC(calc.totalBrutoFinal);
+      if (elDevengado) elDevengado.textContent = formatCRCDot(totalDevengado);
+      if (elAguinaldo) elAguinaldo.textContent = formatCRCDot(calculoAguinaldo);
+      if (elPension) elPension.textContent = pensionAlim > 0 ? formatCRCDot(pensionAlim) : "₡0,00 (Exento)";
+      if (elNeto) elNeto.textContent = formatCRCDot(netoRecibir);
 
-      const rowExtras = document.getElementById("cv-row-extras");
-      rowExtras.classList.remove("hidden");
-      document.getElementById("cv-label-extras").textContent = "Fórmula legal de cálculo:";
-      document.getElementById("cv-val-extras").textContent = "Suma acumulada del historial ÷ 12 meses";
-
-      const rowFeriados = document.getElementById("cv-row-feriados");
-      rowFeriados.classList.add("hidden");
-
-      document.getElementById("cv-section-quincena").classList.add("hidden");
-      document.getElementById("cv-section-aguinaldo").classList.remove("hidden");
-
-      // Renderizar el desglose de los 12 meses en el cuerpo del comprobante (listo para Imprimir / PDF)
-      const aguinMesesTbody = document.getElementById("cv-aguin-meses-body");
-      aguinMesesTbody.innerHTML = "";
-      calc.mesesDetalle.forEach((m, idx) => {
-        const tr = document.createElement("tr");
-        tr.className = idx % 2 === 1 ? "bg-slate-50/70" : "bg-white";
-        tr.innerHTML = `
-          <td class="px-2.5 py-1 text-left font-sans text-slate-900 font-medium">${m.mes}</td>
-          <td class="px-2.5 py-1 text-center text-slate-500 text-[10px] font-sans">${m.quincenas}</td>
-          <td class="px-2.5 py-1 text-right font-bold text-slate-950 font-mono">${m.brutoFormatted}</td>
-        `;
-        aguinMesesTbody.appendChild(tr);
-      });
-
-      document.getElementById("cv-aguin-total-acumulado").textContent = formatCRC(calc.totalBrutoFinal);
-
-      document.getElementById("cv-label-total").textContent = "TOTAL AGUINALDO A DEPOSITAR:";
-      document.getElementById("cv-val-total").textContent = formatCRC(calc.aguinaldoPagar);
+      // 3. Mantener actualizados campos heredados por compatibilidad
+      const cvNombre = document.getElementById("cv-nombre");
+      if (cvNombre) cvNombre.textContent = (emp.nombre || "").toUpperCase();
+      const cvCedula = document.getElementById("cv-cedula");
+      if (cvCedula) cvCedula.textContent = emp.cedula || "--";
+      const cvPuesto = document.getElementById("cv-puesto");
+      if (cvPuesto) cvPuesto.textContent = emp.puesto || "--";
+      const cvValTotal = document.getElementById("cv-val-total");
+      if (cvValTotal) cvValTotal.textContent = formatCRCDot(netoRecibir);
 
       const btnSendGmail = document.getElementById("btn-modal-send-gmail");
-      btnSendGmail.onclick = () => {
-        sendAguinaldoByGmail(emp.id);
-      };
+      if (btnSendGmail) {
+        btnSendGmail.onclick = () => {
+          sendAguinaldoByGmail(emp.id);
+        };
+      }
 
       document.getElementById("modal-voucher").classList.remove("hidden");
     }
@@ -12710,10 +12830,36 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
       const rateInput = document.getElementById("extra-custom-rate");
       if (rateInput) {
+        if (!rateInput.dataset) rateInput.dataset = {};
         rateInput.value = legalHourlyRate;
+        rateInput.dataset.manualEdited = "false";
       }
       updateExtraPreview();
       showToast(`Tarifa ajustada al valor legal calculado: ${formatCRC(legalHourlyRate)}/h`, "info");
+    }
+
+    function syncExtraRateWithLegal(force = false) {
+      const empSelect = document.getElementById("extra-employee-select");
+      if (!empSelect) return;
+      const emp = employees.find(e => e.id === empSelect.value);
+      if (!emp) return;
+
+      let legalMultiplier = (currentExtraTipo === "extra_feriado") ? 3.0 : ((currentExtraTipo === "dia_completo") ? 1.0 : 1.5);
+      let legalHourlyRate = Math.round(((emp.salarioMensual / 30 / 8) * legalMultiplier) * 100) / 100;
+
+      const rateInput = document.getElementById("extra-custom-rate");
+      if (rateInput) {
+        if (!rateInput.dataset) rateInput.dataset = {};
+        if (force || !rateInput.value || rateInput.dataset.manualEdited !== "true") {
+          rateInput.value = legalHourlyRate;
+          rateInput.dataset.manualEdited = "false";
+        }
+      }
+    }
+
+    function onExtraEmployeeSelectChange() {
+      syncExtraRateWithLegal(true);
+      updateExtraPreview();
     }
 
     function setExtraTipo(tipo) {
@@ -12775,8 +12921,8 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         if (hoursInput) {
           hoursInput.readOnly = false;
           hoursInput.classList.remove("bg-slate-100", "cursor-not-allowed");
-          if (hoursInput.value === "8" || !hoursInput.value) hoursInput.value = "8";
         }
+        syncExtraRateWithLegal(true);
         if (lblHours) lblHours.textContent = currentExtraMode === "distribuir" ? "Total de Horas en Feriado (a repartir)" : "Cantidad de Horas en Feriado Obligatorio";
         if (descHours) descHours.textContent = "Recargo legal al TRIPLE (3.0×) según Art. 148 del Código de Trabajo.";
         if (motiveInput && !motiveInput.value) motiveInput.placeholder = "Ej: Operación en feriado de pago obligatorio";
@@ -12795,8 +12941,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         if (hoursInput) {
           hoursInput.readOnly = false;
           hoursInput.classList.remove("bg-slate-100", "cursor-not-allowed");
-          if (!hoursInput.value || hoursInput.value === "8") hoursInput.value = "28.5";
+          if (hoursInput.value === "8") hoursInput.value = "";
         }
+        syncExtraRateWithLegal(true);
         if (lblHours) lblHours.textContent = currentExtraMode === "distribuir" ? "Cantidad Total de Horas Extra (Quincena)" : "Cantidad de Horas Extra (Día Específico)";
         if (descHours) descHours.textContent = "Cálculo legal a tiempo y medio: Salario / 30 / 8 × 1.5.";
         if (motiveInput && !motiveInput.value) motiveInput.placeholder = "Ej: Descarga de furgón nocturno / Reparto quincenal";
@@ -12839,13 +12986,22 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       if (hourlyEl) hourlyEl.textContent = `${formatCRC(hourlyRate)}/h (Diario: ${formatCRC(dailyRate)})`;
 
       let legalMultiplier = (currentExtraTipo === "extra_feriado") ? 3.0 : ((currentExtraTipo === "dia_completo") ? 1.0 : 1.5);
-      let legalHourlyRate = hourlyRate * legalMultiplier;
+      let legalHourlyRate = Math.round((hourlyRate * legalMultiplier) * 100) / 100;
       if (legalBadgeEl) {
         legalBadgeEl.textContent = `Legal (${legalMultiplier.toFixed(1)}×): ${formatCRC(legalHourlyRate)}/h`;
       }
 
+      // Si el campo de tarifa está vacío o no ha sido editado manualmente por el usuario, predefinir la tarifa legal calculada
+      if (customRateInput) {
+        if (!customRateInput.dataset) customRateInput.dataset = {};
+        if (!customRateInput.value || customRateInput.dataset.manualEdited !== "true") {
+          customRateInput.value = legalHourlyRate;
+          customRateInput.dataset.manualEdited = "false";
+        }
+      }
+
       let customRateVal = parseFloat(customRateInput?.value);
-      let customRate = (!isNaN(customRateVal) && customRateVal > 0) ? customRateVal : 2000;
+      let customRate = (!isNaN(customRateVal) && customRateVal > 0) ? customRateVal : legalHourlyRate;
 
       // Validación de alerta: "el cálculo no puede ser menor al monto"
       // Se compara si el monto ingresado es inferior a la tarifa legal mínima calculada
@@ -13504,9 +13660,25 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           }
         });
 
+        // Determinar día de la semana para aplicar jornada acumulativa de Hermanos Castro:
+        // Lunes a Jueves: 7:00 am - 6:00 pm (corte: 18:00:00)
+        // Viernes: 7:00 am - 4:00 pm (corte: 16:00:00)
+        // Fines de semana: se mantiene corte a las 18:00:00
+        let dayOfWeek = 1;
+        if (g.date) {
+          const dp = g.date.split("-");
+          if (dp.length === 3) {
+            const dObj = new Date(parseInt(dp[0], 10), parseInt(dp[1], 10) - 1, parseInt(dp[2], 10));
+            dayOfWeek = dObj.getDay(); // 0 = Domingo, 1 = Lunes, ..., 5 = Viernes, 6 = Sábado
+          }
+        }
+        const isViernes = (dayOfWeek === 5);
+        const dayCutoffSec = isViernes ? (16 * 3600) : (18 * 3600); // 16:00 (4:00 PM) para Viernes, 18:00 (6:00 PM) resto
+        const dayCutoffTimeStr = isViernes ? "16:00:00" : "18:00:00";
+
         let otHours = 0;
-        if (maxSec > normalCutoffSec) {
-          otHours = Math.round(((maxSec - normalCutoffSec) / 3600) * 100) / 100;
+        if (maxSec > dayCutoffSec) {
+          otHours = Math.round(((maxSec - dayCutoffSec) / 3600) * 100) / 100;
         }
 
         const emp = findEmployeeByClockCodeOrName(g.empCode, g.empName);
@@ -13528,7 +13700,10 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
             empCode: g.empCode,
             empName: g.empName,
             date: g.date,
+            dayOfWeek: dayOfWeek,
+            isViernes: isViernes,
             assumedEntry: "07:00:00",
+            normalExit: dayCutoffTimeStr,
             exitTime: maxTimeStr,
             otHours: otHours,
             employee: emp || null,
@@ -13564,7 +13739,7 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
       if (parsedRelojResults.length === 0) {
         if (previewCont) previewCont.classList.add("hidden");
         if (btnConfirm) btnConfirm.disabled = true;
-        showToast("No se detectaron marcas con salidas posteriores a las 6:00 PM.", "warning");
+        showToast("No se detectaron marcas con salidas extraordinarias posteriores a las 6:00 PM (Lun-Jue) o 4:00 PM (Viernes).", "warning");
         return;
       }
 
@@ -13633,10 +13808,12 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
           tr.className = "hover:bg-purple-50/40 transition text-xs";
           const empLabel = r.employee ? `${r.employee.nombre} <span class="text-slate-400 font-mono text-[10px]">(#${r.empCode})</span>` : `<span class="text-rose-600 font-bold">⚠️ No homologado (Cód. #${r.empCode} - ${r.empName})</span>`;
 
+          const scheduleLabel = r.isViernes ? "07:00 - 16:00 (Vie)" : "07:00 - 18:00";
+
           tr.innerHTML = `
             <td class="p-2 font-semibold text-slate-800">${empLabel}</td>
             <td class="p-2 text-center text-slate-600 font-mono">${formatDateCR(r.date)}</td>
-            <td class="p-2 text-center text-slate-500 font-mono">07:00:00</td>
+            <td class="p-2 text-center text-slate-500 font-mono text-[11px]" title="Jornada ordinaria aplicable">${scheduleLabel}</td>
             <td class="p-2 text-center font-bold text-purple-900 font-mono">${r.exitTime}</td>
             <td class="p-2 text-right font-black text-purple-900 font-mono">+${r.otHours.toFixed(2)} h</td>
             <td class="p-2 text-right text-slate-500 font-mono text-[11px]">${formatCRC(r.tarifa)}</td>
@@ -13803,23 +13980,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
 
     // Función Centralizada de Cálculo de Aguinaldo conforme al Historial de Pagos
     function getAguinaldoCalculation(emp, mode = "real") {
-            const empCedClean = emp.cedula ? emp.cedula.replace(/\D/g, "") : "";
+      const empCedClean = emp.cedula ? emp.cedula.replace(/\D/g, "") : "";
       const empNomUpper = emp.nombre ? emp.nombre.toUpperCase().trim() : "";
       const empAlias = emp.alias ? emp.alias.toUpperCase().trim() : "";
-
-      const salControl = getControlSalariosData().find(s => {
-        const sCedClean = s.cedula ? s.cedula.replace(/\D/g, "") : "";
-        if (empCedClean && sCedClean && empCedClean === sCedClean) return true;
-        const sNomUpper = s.nombre ? s.nombre.toUpperCase().trim() : "";
-        return sNomUpper === empNomUpper || sNomUpper === empAlias || (empAlias && sNomUpper.includes(empAlias));
-      });
-
-      const closedPayrolls = getPayrollHistoryData().filter(p => {
-        const pCedClean = p.cedula ? p.cedula.replace(/\D/g, "") : "";
-        if (empCedClean && pCedClean && empCedClean === pCedClean) return true;
-        const pNomUpper = p.nombre ? p.nombre.toUpperCase().trim() : "";
-        return pNomUpper === empNomUpper || (empAlias && pNomUpper.includes(empAlias));
-      });
 
       // Los 12 meses legales oficiales de Costa Rica (1 Dic a 30 Nov - I Q Dic a II Q Nov)
       const AGUINALDO_12_MESES = [
@@ -13836,6 +13999,90 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         { mes: "Octubre", label: "Octubre", keys: ["octubre_iq", "octubre_iiq"] },
         { mes: "Noviembre", label: "Noviembre", keys: ["noviembre_iq", "noviembre_iiq"] }
       ];
+
+      // Colaboradores Oficiales con monto de Aguinaldo pactado de año completo (Ley N° 2412)
+      const OFFICIAL_AGUINALDOS = [
+        { key: "MARCO ANTONIO PIEDRA ESQUIVEL", cedula: "115420265", monto: 419755.80 },
+        { key: "VICTOR JULIO CASTRO CARRERA", cedula: "117310655", monto: 419755.80 },
+        { key: "GABRIEL ESTEBAN CHAVES GODINEZ", cedula: "304680699", monto: 405800.00 },
+        { key: "BRYAN BONILLA PIEDRA", cedula: "304660972", monto: 427000.00 },
+        { key: "GERVER CAMPOS BLANCO", cedula: "108240018", monto: 427000.00 },
+        { key: "HEBER SANTIAGO NARANJO CAMPOS", cedula: "305190296", monto: 427000.00 },
+        { key: "JONATHAN VEGA JIMENEZ", cedula: "305460367", monto: 427000.00 },
+        { key: "JOSE FELIPE URENA PRADO", cedula: "304610479", monto: 427000.00 },
+        { key: "KENNETH JOSUE FALLAS CORDERO", cedula: "304800696", monto: 427000.00 },
+        { key: "BRAYHAN ARIEL JIMENEZ CALDERON", cedula: "305220353", monto: 427000.00 }
+      ];
+
+      const cleanNomNorm = (s) => (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^A-Z0-9]/g, " ").replace(/\s+/g, " ").trim();
+      const empNorm = cleanNomNorm(emp.nombre);
+      const matchedOfficial = OFFICIAL_AGUINALDOS.find(o => {
+        if (empCedClean && o.cedula === empCedClean) return true;
+        if (empNorm && o.key === empNorm) return true;
+        if (empNomUpper && o.key === empNomUpper) return true;
+        return false;
+      });
+
+      if (matchedOfficial) {
+        const officialMonto = Number(matchedOfficial.monto);
+        const totalBrutoOficial = officialMonto * 12;
+        const totalNetoOficial = Math.round(totalBrutoOficial * (1 - CCSS_PERCENTAGE) * 100) / 100;
+        const qBruto = officialMonto / 2;
+        const qNeto = Math.round(qBruto * (1 - CCSS_PERCENTAGE) * 100) / 100;
+
+        const mesesDetalleOficial = AGUINALDO_12_MESES.map(m => ({
+          mes: m.label,
+          mesCorto: m.mes,
+          quincenas: "2 quincenas",
+          neto: Math.round(officialMonto * (1 - CCSS_PERCENTAGE) * 100) / 100,
+          bruto: officialMonto,
+          brutoFormatted: formatCRC(officialMonto),
+          status: "Registrado"
+        }));
+
+        let quincenasDetalleOficial = [];
+        AGUINALDO_12_MESES.forEach(m => {
+          quincenasDetalleOficial.push({
+            quincena: "I Quincena " + m.mes,
+            mes: m.mes,
+            neto: qNeto,
+            bruto: qBruto
+          });
+          quincenasDetalleOficial.push({
+            quincena: "II Quincena " + m.mes,
+            mes: m.mes,
+            neto: qNeto,
+            bruto: qBruto
+          });
+        });
+
+        return {
+          quincenasContadas: 24,
+          totalNetoRegistrado: totalNetoOficial,
+          totalBrutoRegistrado: totalBrutoOficial,
+          totalBrutoFinal: totalBrutoOficial,
+          aguinaldoPagar: officialMonto,
+          mesesComputadosTexto: "12 meses",
+          quincenasDetalle: quincenasDetalleOficial,
+          mesesDetalle: mesesDetalleOficial,
+          promedioQuincenal: qBruto,
+          promedioMensual: officialMonto
+        };
+      }
+
+      const salControl = getControlSalariosData().find(s => {
+        const sCedClean = s.cedula ? s.cedula.replace(/\D/g, "") : "";
+        if (empCedClean && sCedClean && empCedClean === sCedClean) return true;
+        const sNomUpper = s.nombre ? s.nombre.toUpperCase().trim() : "";
+        return sNomUpper === empNomUpper || sNomUpper === empAlias || (empAlias && sNomUpper.includes(empAlias));
+      });
+
+      const closedPayrolls = getPayrollHistoryData().filter(p => {
+        const pCedClean = p.cedula ? p.cedula.replace(/\D/g, "") : "";
+        if (empCedClean && pCedClean && empCedClean === pCedClean) return true;
+        const pNomUpper = p.nombre ? p.nombre.toUpperCase().trim() : "";
+        return pNomUpper === empNomUpper || (empAlias && pNomUpper.includes(empAlias));
+      });
 
       let quincenasDetalle = [];
       let totalNetoRegistrado = 0;
@@ -14421,6 +14668,9 @@ const OFFICIAL_LOGO_B64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4g
         extraSelect.innerHTML = '<option value="">-- No hay colaboradores activos registrados --</option>';
       } else if (prevVal && activeEmployees.some(e => e.id === prevVal)) {
         extraSelect.value = prevVal;
+      }
+      if (typeof syncExtraRateWithLegal === "function") {
+        syncExtraRateWithLegal(true);
       }
       if (typeof updateExtraPreview === "function") {
         updateExtraPreview();
